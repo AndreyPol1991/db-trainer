@@ -736,6 +736,162 @@
   .ac-d-i{font:500 11.5px var(--mono); padding:5px 9px; border-radius:7px; background:var(--surface-2); border:1px solid var(--line); margin-bottom:5px}
   .ac-d-i.ok{border-color:var(--ok); color:var(--ok)} .ac-d-i.hot{border-color:var(--doc); color:var(--doc)}
   .pr-empty{font:500 11px var(--mono); color:var(--faint)}
+
+  /* ===== ИНДЕКСЫ И ОГРАНИЧЕНИЯ ===== */
+  /* ===== индексы: EXPLAIN ===== */
+  .ex-wrap{display:grid; grid-template-columns:1fr 1.15fr; gap:16px; margin-top:12px}
+  .ex-h{font:700 11px/1.4 var(--sans); letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:8px}
+  .ex-idx{display:flex; flex-direction:column; gap:6px}
+  .ex-i{display:flex; align-items:flex-start; gap:9px; padding:9px 11px; border:1px solid var(--line); border-radius:9px; background:var(--surface-2); cursor:pointer; transition:.15s}
+  .ex-i:hover{border-color:var(--rel)}
+  .ex-i.on{border-color:var(--rel); background:color-mix(in srgb, var(--rel) 9%, var(--surface-2))}
+  .ex-i input{margin-top:2px; accent-color:var(--rel); flex:none}
+  .ex-i span{display:flex; flex-direction:column; gap:2px; min-width:0}
+  .ex-i b{font:700 12px/1.3 var(--mono); color:var(--ink)}
+  .ex-i small{font:500 11px/1.4 var(--mono); color:var(--muted); word-break:break-all}
+  .ex-q{display:flex; flex-wrap:wrap; gap:5px}
+  .ex-q .step{cursor:pointer}
+  .ex-sql{flex-basis:100%; margin:8px 0 0; font:500 12px/1.6 var(--mono); background:var(--surface-2); border:1px solid var(--line); border-radius:9px; padding:10px 12px; white-space:pre; overflow-x:auto; color:var(--ink)}
+  .ex-plan{margin:0; font:500 11.5px/1.65 var(--mono); background:var(--surface-3); border:1px solid var(--line); border-left:3px solid var(--muted); border-radius:9px; padding:12px 13px; white-space:pre; overflow-x:auto; color:var(--ink)}
+  .ex-plan.ok{border-left-color:var(--ok)}
+  .ex-plan.bad{border-left-color:var(--danger)}
+  .ex-stats{display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:10px}
+  .ex-s{border:1px solid var(--line); border-radius:9px; padding:9px 11px; background:var(--surface-2); text-align:center}
+  .ex-s b{display:block; font:800 15px/1.2 var(--sans); color:var(--ink)}
+  .ex-s small{display:block; margin-top:3px; font:500 10.5px/1.3 var(--sans); color:var(--muted)}
+  .ex-s.ok b{color:var(--ok)} .ex-s.bad b{color:var(--danger)}
+  @media(max-width:900px){.ex-wrap{grid-template-columns:1fr}}
+
+  /* ===== селективность ===== */
+  .sel-range{width:100%; accent-color:var(--rel); margin-top:6px}
+  .sel-bars{margin-top:14px; display:flex; flex-direction:column; gap:10px}
+  .sel-row{display:grid; grid-template-columns:190px 1fr 80px; gap:12px; align-items:center}
+  .sel-n{font:700 12px/1.3 var(--sans); color:var(--ink)}
+  .sel-n small{display:block; margin-top:2px; font:500 10.5px/1.35 var(--sans); color:var(--muted)}
+  .sel-bar{height:22px; background:var(--surface-3); border-radius:6px; overflow:hidden}
+  .sel-bar i{display:block; height:100%; background:var(--muted); opacity:.45; transition:width .2s}
+  .sel-bar i.ok{background:var(--rel); opacity:1}
+  .sel-c{font:700 12px/1.2 var(--mono); color:var(--muted); text-align:right}
+  .sel-pick{margin-top:4px; font:600 13px/1.4 var(--sans); color:var(--ink)}
+  .sel-pick b.ok{color:var(--ok)} .sel-pick b.bad{color:var(--danger)}
+  @media(max-width:700px){.sel-row{grid-template-columns:1fr; gap:4px} .sel-c{text-align:left}}
+
+  /* ===== левый префикс ===== */
+  .lp-book{margin-top:12px; border:1px solid var(--line); border-radius:11px; overflow:hidden; background:var(--surface-2)}
+  .lp-h{padding:9px 13px; background:var(--surface-3); border-bottom:1px solid var(--line); font:600 12px/1.4 var(--sans); color:var(--muted)}
+  .lp-h code{font:700 12px var(--mono); color:var(--rel)}
+  .lp-rows{padding:8px 13px}
+  .lp-r{display:flex; align-items:center; gap:8px; padding:4px 0; font:600 13px/1.5 var(--mono)}
+  .lp-c{padding:2px 8px; border-radius:6px; background:transparent; color:var(--muted); transition:.15s}
+  .lp-c.c1{min-width:74px}
+  .lp-c.hl{background:color-mix(in srgb, var(--rel) 16%, transparent); color:var(--ink); font-weight:800}
+  .lp-sep{color:var(--faint)}
+  .lp-qs{display:flex; flex-direction:column; gap:6px; margin-top:12px}
+  .lp-q{display:flex; justify-content:space-between; align-items:center; gap:12px; text-align:left; padding:9px 12px; border:1px solid var(--line); border-radius:9px; background:var(--surface-2); cursor:pointer; transition:.15s}
+  .lp-q code{font:600 12px/1.4 var(--mono); color:var(--ink)}
+  .lp-q span{flex:none; font:700 11px/1 var(--sans); padding:4px 8px; border-radius:20px}
+  .lp-q.y span{background:color-mix(in srgb, var(--ok) 15%, transparent); color:var(--ok)}
+  .lp-q.n span{background:color-mix(in srgb, var(--danger) 15%, transparent); color:var(--danger)}
+  .lp-q.p span{background:color-mix(in srgb, var(--doc) 15%, transparent); color:var(--doc)}
+  .lp-q:hover{border-color:var(--rel)}
+  .lp-q.on{border-color:var(--rel); background:color-mix(in srgb, var(--rel) 8%, var(--surface-2))}
+
+  /* ===== bad/good колонки ===== */
+  .nw-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px}
+  .nw-l{font:700 11px/1.4 var(--sans); letter-spacing:.05em; text-transform:uppercase; margin-bottom:6px}
+  .nw-l.bad{color:var(--danger)} .nw-l.ok{color:var(--ok)}
+  .nw-grid .ty-code{margin-top:0}
+  @media(max-width:820px){.nw-grid{grid-template-columns:1fr}}
+
+  /* ===== цена индексов ===== */
+  .pr-wrap{display:grid; grid-template-columns:1.1fr 1fr; gap:16px; margin-top:12px; align-items:start}
+  .pr-idx{border:1px solid var(--line); border-radius:11px; padding:10px; background:var(--surface-2)}
+  .pr-t{font:700 12px/1.4 var(--sans); color:var(--ink); padding:4px 6px 8px}
+  .pr-i{display:flex; justify-content:space-between; align-items:center; padding:7px 10px; margin-top:5px; border-radius:7px; background:var(--surface-3); font:600 12px/1.3 var(--mono); color:var(--ink)}
+  .pr-i small{font:500 11px var(--sans); color:var(--muted)}
+  .pr-empty{padding:10px; text-align:center; font:500 12px var(--sans); color:var(--faint)}
+  .pr-meters{display:grid; grid-template-columns:repeat(2,1fr); gap:9px}
+  .pr-m{border:1px solid var(--line); border-radius:10px; padding:11px; background:var(--surface-2); text-align:center}
+  .pr-m b{display:block; font:800 17px/1.2 var(--sans); color:var(--ink)}
+  .pr-m small{display:block; margin-top:3px; font:500 10.5px/1.3 var(--sans); color:var(--muted)}
+  .pr-m.bad b{color:var(--danger)}
+  @media(max-width:820px){.pr-wrap{grid-template-columns:1fr}}
+
+  /* ===== вывод psql ===== */
+  .pi-out{margin-top:10px; border:1px solid var(--line); border-radius:10px; overflow:hidden}
+  .pi-l{padding:6px 12px; background:var(--surface-3); border-bottom:1px solid var(--line); font:700 10.5px/1.3 var(--sans); letter-spacing:.05em; text-transform:uppercase; color:var(--muted)}
+  .pi-out pre{margin:0; padding:11px 13px; font:500 11.5px/1.65 var(--mono); background:var(--surface-2); white-space:pre; overflow-x:auto; color:var(--ink)}
+
+  /* ===== ограничения: код против базы ===== */
+  .cn-vs{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px}
+  .cn-side{border:1px solid var(--line); border-radius:11px; overflow:hidden; background:var(--surface-2)}
+  .cn-h{padding:9px 13px; font:700 12px/1.4 var(--sans); border-bottom:1px solid var(--line)}
+  .cn-h.ok{background:color-mix(in srgb, var(--ok) 11%, var(--surface-3)); color:var(--ok)}
+  .cn-h.bad{background:color-mix(in srgb, var(--danger) 10%, var(--surface-3)); color:var(--danger)}
+  .cn-ddl{margin:0; padding:11px 13px; font:500 11.5px/1.6 var(--mono); white-space:pre; overflow-x:auto; color:var(--muted); border-bottom:1px solid var(--line)}
+  .cn-rows{padding:9px 13px; min-height:56px}
+  .cn-r{padding:7px 10px; margin-bottom:5px; border-radius:7px; font:600 12px/1.3 var(--mono); background:var(--surface-3); color:var(--ink)}
+  .cn-r.bad{background:color-mix(in srgb, var(--danger) 13%, transparent); color:var(--danger)}
+  .cn-empty{font:500 12px/1.4 var(--sans); color:var(--faint); text-align:center; padding:8px}
+  @media(max-width:820px){.cn-vs{grid-template-columns:1fr}}
+
+  /* ===== восемь видов ===== */
+  .cn-layout{display:grid; grid-template-columns:210px 1fr; gap:16px; margin-top:12px; align-items:start}
+  .cn-nav{display:flex; flex-direction:column; gap:5px}
+  .cn-b{display:flex; align-items:center; gap:9px; text-align:left; padding:9px 11px; border:1px solid var(--line); border-radius:9px; background:var(--surface-2); cursor:pointer; transition:.15s}
+  .cn-b:hover{border-color:var(--rel)}
+  .cn-b.on{border-color:var(--rel); background:color-mix(in srgb, var(--rel) 10%, var(--surface-2))}
+  .cn-ico{font-size:16px; flex:none}
+  .cn-bt{display:flex; flex-direction:column; gap:1px; min-width:0}
+  .cn-bt b{font:700 12px/1.3 var(--mono); color:var(--ink)}
+  .cn-bt small{font:500 10.5px/1.3 var(--sans); color:var(--muted)}
+  .cn-title{font:800 17px/1.3 var(--sans); color:var(--ink); margin-bottom:8px}
+  .cn-title b{font:800 17px var(--mono); color:var(--rel)}
+  .cn-ru{font:500 13px var(--sans); color:var(--muted)}
+  .cn-what{font:500 13.5px/1.65 var(--sans); color:var(--ink)}
+  .cn-lab{margin-top:14px; font:700 11px/1.4 var(--sans); letter-spacing:.05em; text-transform:uppercase; color:var(--muted)}
+  .cn-lab.err{color:var(--danger)}
+  .cn-lab + .ty-code{margin-top:6px}
+  .ty-code.cn-err{border-left:3px solid var(--danger)}
+  @media(max-width:820px){.cn-layout{grid-template-columns:1fr} .cn-nav{flex-direction:row; flex-wrap:wrap} .cn-b{flex:1 1 150px}}
+
+  /* ===== конструктор ===== */
+  .cb-wrap{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:12px; align-items:start}
+  .cb-t{display:flex; align-items:flex-start; gap:9px; padding:8px 11px; margin-bottom:5px; border:1px solid var(--line); border-radius:9px; background:var(--surface-2); cursor:pointer; transition:.15s}
+  .cb-t:hover{border-color:var(--rel)}
+  .cb-t.on{border-color:var(--rel); background:color-mix(in srgb, var(--rel) 9%, var(--surface-2))}
+  .cb-t input{margin-top:2px; accent-color:var(--rel); flex:none}
+  .cb-t code{font:600 11.5px/1.45 var(--mono); color:var(--ink)}
+  .cb-r{display:block; width:100%; text-align:left; padding:9px 12px; margin-bottom:5px; border:1px solid var(--line); border-radius:9px; background:var(--surface-2); font:600 12.5px/1.4 var(--sans); color:var(--ink); cursor:pointer; transition:.15s}
+  .cb-r:hover{border-color:var(--rel); background:color-mix(in srgb, var(--rel) 7%, var(--surface-2))}
+  .cb-table{width:100%; border-collapse:collapse; font:500 12px/1.5 var(--mono)}
+  .cb-table th{padding:7px 9px; text-align:left; background:var(--surface-3); border-bottom:1px solid var(--line); font:700 11px var(--sans); color:var(--muted); white-space:nowrap}
+  .cb-table td{padding:6px 9px; border-bottom:1px solid var(--line); color:var(--ink)}
+  .cb-table tr.cb-bad td{background:color-mix(in srgb, var(--danger) 11%, transparent); color:var(--danger)}
+  .cb-table td.cb-empty{text-align:center; color:var(--faint); font:500 12px var(--sans); padding:12px}
+  @media(max-width:820px){.cb-wrap{grid-template-columns:1fr}}
+
+  /* ===== ON DELETE ===== */
+  .od-stage{display:grid; grid-template-columns:1fr 90px 1fr; gap:10px; align-items:center; margin-top:14px}
+  .od-box{border:1px solid var(--line); border-radius:11px; padding:10px; background:var(--surface-2)}
+  .od-h{font:700 11px/1.4 var(--sans); letter-spacing:.05em; text-transform:uppercase; color:var(--muted); padding:2px 4px 8px}
+  .od-row{padding:8px 10px; margin-bottom:5px; border-radius:7px; background:var(--surface-3); font:600 12px/1.4 var(--mono); color:var(--ink); transition:.2s}
+  .od-row.gone{background:color-mix(in srgb, var(--danger) 12%, transparent); color:var(--danger); text-decoration:line-through; opacity:.75}
+  .od-row.blocked{background:color-mix(in srgb, var(--ok) 13%, transparent); color:var(--ok)}
+  .od-row.warn{background:color-mix(in srgb, var(--doc) 13%, transparent); color:var(--doc)}
+  .od-arrow{text-align:center; font:700 11px/1.3 var(--sans); color:var(--muted)}
+  .od-arrow b{display:block; color:var(--rel)}
+  .od-arrow small{display:block; margin-top:2px; font:500 10px var(--mono)}
+  .od-arrow::after{content:'──▶'; display:block; margin-top:4px; color:var(--faint); letter-spacing:-1px}
+  @media(max-width:760px){.od-stage{grid-template-columns:1fr} .od-arrow::after{content:'▼'}}
+
+  /* ===== шаги ===== */
+  .step-c{margin-bottom:8px; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--surface-2)}
+  .step-c .ty-code{display:none; margin:0; border:0; border-top:1px solid var(--line); border-radius:0}
+  .step-c.on{border-color:var(--rel)}
+  .step-c.on .ty-code{display:block}
+  .step-b{display:block; width:100%; text-align:left; padding:11px 14px; border:0; background:transparent; font:700 13px/1.4 var(--sans); color:var(--ink); cursor:pointer}
+  .step-c.on .step-b{background:color-mix(in srgb, var(--rel) 9%, transparent); color:var(--rel)}
 </style>
 </head>
 <body>
@@ -756,6 +912,7 @@
       <button class="tab" role="tab" aria-selected="false" data-tab="queries" style="--tabcol:var(--rel)"><span class="dot"></span>Запросы</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="join" style="--tabcol:var(--rel)"><span class="dot"></span>JOIN</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="idx" style="--tabcol:var(--rel)"><span class="dot"></span>Индексы</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="cons" style="--tabcol:var(--rel)"><span class="dot"></span>Ограничения 🔒</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="tx" style="--tabcol:var(--rel)"><span class="dot"></span>Транзакции</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="pg" style="--tabcol:var(--rel)"><span class="dot"></span>PostgreSQL</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="nosql" style="--tabcol:var(--doc)"><span class="dot"></span>Нереляционные</button>
@@ -1433,7 +1590,169 @@ CREATE INDEX idx_lower_email ON users (LOWER(email));</pre>
       </div>
       <div id="lix-body"></div>
     </div>
+
+    <div class="card">
+      <h2><span class="tag">EXPLAIN 🔬</span> живой планировщик: выбери запрос и индексы — увидишь план</h2>
+      <p>Главный инструмент работы с индексами — команда <code class="inl">EXPLAIN</code>. Она показывает, <b>что база собирается делать</b>. Ниже — таблица <code class="inl">orders</code> на 2 000 000 строк. Включайте индексы и меняйте запрос: план, стоимость и время пересчитываются как в настоящем PostgreSQL.</p>
+
+      <div class="ex-wrap">
+        <div class="ex-col">
+          <div class="ex-h">1 · Какие индексы созданы</div>
+          <div id="ex-idx" class="ex-idx"></div>
+          <div class="ex-h" style="margin-top:14px">2 · Запрос</div>
+          <div id="ex-q" class="ex-q"></div>
+        </div>
+        <div class="ex-col">
+          <div class="ex-h">3 · Что ответит EXPLAIN ANALYZE</div>
+          <pre class="ex-plan" id="ex-plan"></pre>
+          <div class="ex-stats" id="ex-stats"></div>
+        </div>
+      </div>
+      <div class="console" id="ex-msg" aria-live="polite"></div>
+      <div class="note" id="ex-note"></div>
+      <div class="hintbox"><b>Как читать план.</b> Читают <b>снизу вверх</b> и <b>изнутри наружу</b>: нижние узлы достают строки, верхние обрабатывают. <code class="inl">cost=0.29..8.31</code> — оценка «сколько стоит начать» и «сколько стоит закончить» в условных единицах. <code class="inl">rows</code> — сколько строк планировщик <b>ожидал</b>, <code class="inl">actual … rows</code> — сколько получилось <b>на самом деле</b>. Разошлись в разы — статистика врёт, нужен <code class="inl">ANALYZE</code>.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">СЕЛЕКТИВНОСТЬ</span> почему база иногда игнорирует индекс — и правильно делает</h2>
+      <p>Частая жалоба: «индекс есть, а он не используется». Обычно база права. Двигайте ползунок — доля строк, которые вернёт запрос, — и смотрите, что она выберет.</p>
+      <div class="sel-wrap">
+        <div class="field" style="flex:1"><label>какая доля строк подходит под условие: <b id="sel-val">0.1 %</b></label>
+          <input type="range" id="sel-range" min="1" max="1000" value="1" class="sel-range"></div>
+      </div>
+      <div class="sel-bars" id="sel-bars"></div>
+      <div class="console" id="sel-msg" aria-live="polite"></div>
+      <div class="note"><b>Почему так.</b> Чтение по индексу — это <b>случайные</b> обращения к диску: нашли адрес строки в дереве, прыгнули за ней, вернулись, прыгнули за следующей. Полное сканирование — <b>последовательное</b> чтение подряд, и оно на порядок дешевле в пересчёте на строку. Пока строк мало, прыжки окупаются. Когда подходит половина таблицы, дешевле прочитать всё подряд и отфильтровать.<br><br><b>Практический вывод:</b> индексировать поле с двумя-тремя значениями (пол, «активен/нет») почти всегда бесполезно — кроме случая, когда одно из значений редкое: тогда помогает <b>частичный</b> индекс.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ЛЕВЫЙ ПРЕФИКС</span> составной индекс: почему порядок колонок решает всё</h2>
+      <p>Индекс <code class="inl">(city, age, name)</code> — это не три индекса. Это один, отсортированный сначала по городу, внутри города по возрасту, внутри возраста по имени. Как телефонный справочник: фамилия, имя, отчество.</p>
+      <div class="lp-book" id="lp-book"></div>
+      <div class="lp-qs" id="lp-qs"></div>
+      <div class="console" id="lp-msg" aria-live="polite">Выберите запрос — посмотрим, сработает ли индекс.</div>
+      <div class="note ok"><b>Правило левого префикса.</b> Индекс работает, если запрос использует колонки <b>слева направо без пропусков</b>. Есть условие на первую — работает. На первую и вторую — работает лучше. Только на вторую — <b>не работает вовсе</b>: в справочнике нельзя найти всех Иванов, не зная фамилии.<br><br><b>Отсюда правило порядка:</b> сначала колонки, по которым идёт <b>точное сравнение</b> (=), потом — по которым <b>диапазон</b> (&gt;, &lt;, BETWEEN). После первого же диапазона следующие колонки для поиска уже не используются — только для сортировки.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">НЕ СРАБОТАЛ</span> шесть причин, по которым индекс молча игнорируется</h2>
+      <p>Индекс создан, а запрос всё равно медленный. Кликайте по причине — увидите, как ломается и как лечится.</p>
+      <div class="graph-tools" id="nw-tabs"></div>
+      <div id="nw-body"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ЦЕНА</span> что индексы стоят на самом деле — потрогайте</h2>
+      <p>За ускорение чтения платят записью, местом и обслуживанием. Добавляйте индексы и смотрите на счётчики.</p>
+      <div class="pr-wrap">
+        <div class="pr-idx" id="pc-list"></div>
+        <div class="pr-meters" id="pc-meters"></div>
+      </div>
+      <div class="form-row" style="margin-top:12px">
+        <button class="act" id="pc-add">+ Добавить индекс</button>
+        <button class="ghost" id="pc-del">− Убрать</button>
+        <button class="ghost" id="pc-ins">✍️ Вставить 10 000 строк</button>
+        <button class="ghost" id="pc-reset">↻ Сброс</button>
+      </div>
+      <div class="console" id="pc-msg" aria-live="polite">Добавьте пару индексов и попробуйте вставку.</div>
+      <div class="note"><b>Правило.</b> Индекс создаётся <b>под конкретный медленный запрос</b>, а не «на всякий случай». Каждый лишний — это место на диске, замедление каждой вставки и обновления, лишняя работа планировщику и ещё один объект, который надо перестраивать при обслуживании.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">В ПРОДЕ</span> как найти лишние и недостающие индексы</h2>
+      <p>PostgreSQL сам ведёт статистику использования. Три запроса, которые стоит знать.</p>
+      <div class="graph-tools" id="pi-tabs"></div>
+      <div id="pi-body"></div>
+    </div>
+
+
   </section>
+
+  <!-- ============ ОГРАНИЧЕНИЯ ============ -->
+  <section class="panel" id="cons" data-accent="rel" role="tabpanel">
+    <p class="lead">Ограничение (constraint) — это <b>правило, которое база не даст нарушить</b>. Не «мы договорились не писать отрицательную цену», а «отрицательная цена физически не запишется — база откажет». Разница огромная: договорённость нарушит первый же баг, кривой импорт или скрипт из соседней команды. Ограничение не нарушит никто.</p>
+
+    <div class="card">
+      <h2><span class="tag">ЗАЧЕМ 🛡</span> код против ограничения — попробуйте пробить</h2>
+      <p>Две одинаковые таблицы. В левой проверка живёт в приложении, в правой — в базе. Пускайте по ним запросы разными путями.</p>
+      <div class="cn-vs">
+        <div class="cn-side" id="cn-app"></div>
+        <div class="cn-side" id="cn-db"></div>
+      </div>
+      <div class="form-row" style="margin-top:12px">
+        <button class="act" data-cnw="app">🖥 Через приложение (форма на сайте)</button>
+        <button class="ghost" data-cnw="admin">🧑‍💻 Через админку (другой код)</button>
+        <button class="ghost" data-cnw="import">📥 Скриптом импорта из Excel</button>
+        <button class="ghost" data-cnw="hand">✍️ Вручную из psql</button>
+        <button class="ghost" id="cn-vs-reset">↻ Сброс</button>
+      </div>
+      <div class="console" id="cn-vs-msg" aria-live="polite">Попробуйте записать цену <b>−500</b> четырьмя разными путями.</div>
+      <div class="note ok"><b>Вывод.</b> Проверка в коде работает ровно до тех пор, пока данные идут <b>через этот код</b>. А они идут не только через него: админка, миграции, импорт, отладочный скрипт, другой сервис, DBA руками. Ограничение в базе — единственная точка, которую не обойти.<br><br>Это не значит, что в коде проверять не надо. Надо: пользователю нужно понятное сообщение <b>до</b> отправки формы. Но код проверяет <b>для удобства</b>, а база — <b>для гарантии</b>.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ВОСЕМЬ</span> все виды ограничений — по одному</h2>
+      <p>Выбирайте вид слева. Для каждого: что делает, как пишется, что произойдёт при нарушении и где на этом спотыкаются.</p>
+      <div class="cn-layout">
+        <div class="cn-nav" id="cn-nav"></div>
+        <div class="cn-main" id="cn-main"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">КОНСТРУКТОР 🔧</span> навесьте ограничения и попробуйте сломать таблицу</h2>
+      <p>Слева — переключатели ограничений на таблице <code class="inl">orders</code>. Справа — попытки вставить данные. Включайте и выключайте, отправляйте строки, смотрите, что база пропустит.</p>
+      <div class="cb-wrap">
+        <div class="cb-col">
+          <div class="ex-h">Ограничения на таблице</div>
+          <div id="cb-toggles"></div>
+          <div class="ex-h" style="margin-top:14px">Итоговый DDL</div>
+          <pre class="ty-code" id="cb-ddl"></pre>
+        </div>
+        <div class="cb-col">
+          <div class="ex-h">Попробовать вставить</div>
+          <div id="cb-rows"></div>
+          <div class="ex-h" style="margin-top:14px">Что сейчас в таблице</div>
+          <div class="table-wrap"><table class="cb-table" id="cb-table"></table></div>
+        </div>
+      </div>
+      <div class="console" id="cb-msg" aria-live="polite">Включите ограничения слева и жмите на строки справа.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ON DELETE</span> удаляем клиента — что станет с его заказами</h2>
+      <p>Самый частый вопрос про внешние ключи. У клиента три заказа. Выбирайте поведение и удаляйте — увидите результат.</p>
+      <div class="graph-tools" id="od-tabs"></div>
+      <div class="od-stage" id="od-stage"></div>
+      <div class="form-row" style="margin-top:10px">
+        <button class="act" id="od-del">🗑 DELETE FROM customers WHERE id = 1;</button>
+        <button class="ghost" id="od-reset">↻ Вернуть как было</button>
+      </div>
+      <div class="console" id="od-msg" aria-live="polite"></div>
+      <div class="note" id="od-note"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ЛОВУШКИ 🪤</span> пять мест, где ограничения ведут себя неожиданно</h2>
+      <p>Всё это встречается в реальной работе и всё это удивляет в первый раз.</p>
+      <div class="graph-tools" id="cg-tabs"></div>
+      <div id="cg-body"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">НА ЖИВОЙ БАЗЕ</span> как добавить ограничение, не уронив прод</h2>
+      <p>Добавить <code class="inl">CHECK</code> в пустую таблицу — одна строка. Добавить его же в таблицу на 50 миллионов строк, куда пишут прямо сейчас, — процедура на три шага.</p>
+      <div class="steps" id="cl-steps"></div>
+      <div class="console" id="cl-msg" aria-live="polite">Нажимайте шаги по порядку.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ПРОВЕРЬ СЕБЯ 🎯</span> какое ограничение здесь нужно</h2>
+      <p>Требование от бизнеса — выберите, чем его закрыть в базе.</p>
+      <div id="cq-list"></div>
+    </div>
+  </section>
+
 
   <!-- ============ POSTGRESQL ============ -->
   <section class="panel" id="pg" data-accent="rel" role="tabpanel">
@@ -1789,19 +2108,9 @@ ALTER TABLE users ADD CONSTRAINT uq_email UNIQUE (email);</pre>
     </div>
 
     <div class="card">
-      <h2><span class="tag">FK · ON DELETE</span> что будет с заказами при удалении</h2>
-      <p>Удаляем пользователя, у которого есть заказы. Поведение задаёт внешний ключ. Выбери вариант и удали Аню (id=1).</p>
-      <div class="graph-tools" id="od-tabs">
-        <button class="ghost on" data-od="restrict">RESTRICT</button>
-        <button class="ghost" data-od="cascade">CASCADE</button>
-        <button class="ghost" data-od="setnull">SET NULL</button>
-      </div>
-      <div id="od-body"></div>
-      <div class="form-row" style="margin-top:12px">
-        <button class="act" id="od-del">🗑 Удалить Аню (id=1)</button>
-        <button class="ghost" id="od-reset">Сброс</button>
-      </div>
-      <div class="console" id="od-msg" style="margin-top:12px">Выбери поведение FK и удали пользователя.</div>
+      <h2><span class="tag">FK · ON DELETE</span> что будет с заказами при удалении клиента</h2>
+      <p>Внешний ключ умеет не только запрещать «висячие» ссылки, но и задавать, что делать с дочерними строками при удалении родителя: запретить, удалить каскадом, обнулить ссылку или подставить значение по умолчанию. Все четыре варианта — с живым удалением и разбором, когда какой брать — разобраны на отдельной вкладке.</p>
+      <div class="form-row" style="margin-top:12px"><button class="ghost go" data-goto="cons">Разобрать ON DELETE →</button></div>
     </div>
 
     <div class="card">
@@ -3659,30 +3968,6 @@ CREATE INDEX idx_orders_customer ON orders(customer_id);`;
   });
 })();
 
-/* ================= ОСНОВЫ: ON DELETE ================= */
-(function(){
-  const bodyEl=document.getElementById('od-body'); if(!bodyEl) return;
-  const initU=[{id:1,name:'Аня'},{id:2,name:'Борис'}];
-  const initO=[{id:101,uid:1,p:'Наушники'},{id:102,uid:1,p:'Чехол'},{id:103,uid:2,p:'Клавиатура'}];
-  let U=initU.map(x=>({...x})), O=initO.map(x=>({...x})), mode='restrict';
-  function render(){
-    const utab=`<div><div style="font:600 12px var(--mono);color:var(--rel);margin-bottom:6px">users</div><div class="table-wrap"><table class="db"><thead><tr><th>id</th><th>name</th></tr></thead><tbody>${U.length?U.map(u=>`<tr><td class="val num">${u.id}</td><td class="val">${esc(u.name)}</td></tr>`).join(''):'<tr><td class="val" colspan="2">— пусто —</td></tr>'}</tbody></table></div></div>`;
-    const otab=`<div><div style="font:600 12px var(--mono);color:var(--rel);margin-bottom:6px">orders</div><div class="table-wrap"><table class="db"><thead><tr><th>id</th><th>user_id</th><th>product</th></tr></thead><tbody>${O.length?O.map(o=>`<tr><td class="val num">${o.id}</td><td class="val">${o.uid===null?'<span style="color:var(--danger)">NULL</span>':o.uid}</td><td class="val">${esc(o.p)}</td></tr>`).join(''):'<tr><td class="val" colspan="3">— пусто —</td></tr>'}</tbody></table></div></div>`;
-    bodyEl.innerHTML=`<div class="dtables">${utab}${otab}</div>`;
-  }
-  function m(kind,t){ const mm=document.getElementById('od-msg'); mm.className='console '+(kind||''); const ic=kind==='err'?'✕':kind==='ok'?'✓':'ℹ'; mm.innerHTML=`<span class="ic">${ic}</span><span>${t}</span>`; }
-  document.getElementById('od-tabs').addEventListener('click',e=>{const b=e.target.closest('[data-od]'); if(!b)return; mode=b.dataset.od; document.querySelectorAll('#od-tabs [data-od]').forEach(x=>x.classList.toggle('on',x===b));});
-  document.getElementById('od-del').addEventListener('click',()=>{
-    if(!U.some(u=>u.id===1)){ m('','Аня уже удалена. Нажми «Сброс», чтобы попробовать другой вариант.'); return; }
-    const deps=O.filter(o=>o.uid===1).length;
-    if(mode==='restrict') m('err',`RESTRICT: нельзя удалить Аню — на неё ссылаются ${deps} заказа. База отклонит DELETE. Сначала разберись с заказами.`);
-    else if(mode==='cascade'){ U=U.filter(u=>u.id!==1); O=O.filter(o=>o.uid!==1); render(); m('ok','CASCADE: удалена Аня и вместе с ней её заказы 101, 102. Удаление «протекло» по ссылкам.'); }
-    else { U=U.filter(u=>u.id!==1); O=O.map(o=>o.uid===1?{...o,uid:null}:o); render(); m('ok','SET NULL: Аня удалена, её заказы 101, 102 остались, но user_id стал NULL — заказы «осиротели».'); }
-  });
-  document.getElementById('od-reset').addEventListener('click',()=>{ U=initU.map(x=>({...x})); O=initO.map(x=>({...x})); render(); m('','Восстановлено. Выбери поведение и удали Аню.'); });
-  render();
-})();
-
 /* ================= МАСШТАБ: репликация ================= */
 (function(){
   const box=document.getElementById('repl-nodes'); if(!box) return;
@@ -4840,6 +5125,560 @@ CREATE INDEX idx_orders_customer ON orders(customer_id);`;
   tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(b.dataset.a); });
   btns.addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; V[cur].btns[+b.dataset.i].f(); render(); });
   show('a');
+})();
+
+
+/* ================= ИНДЕКСЫ: живой EXPLAIN ================= */
+(function(){
+  const idxEl = document.getElementById('ex-idx'); if(!idxEl) return;
+  const IDX = [
+    {k:'city', n:'idx_city', d:'orders(city)', on:false},
+    {k:'city_date', n:'idx_city_date', d:'orders(city, created_at)', on:false},
+    {k:'cover', n:'idx_cover', d:'orders(city) INCLUDE (total)', on:false},
+    {k:'part', n:'idx_new', d:"orders(created_at) WHERE status = 'new'", on:false},
+    {k:'lower', n:'idx_lower_email', d:'orders(lower(email))', on:false},
+  ];
+  const Q = [
+    {k:'eq', s:"SELECT * FROM orders\nWHERE city = 'Москва';", rows:2000, best:['city','city_date','cover']},
+    {k:'range', s:"SELECT * FROM orders\nWHERE city = 'Москва'\n  AND created_at > '2026-01-01';", rows:300, best:['city_date','city','cover']},
+    {k:'only', s:"SELECT city, total FROM orders\nWHERE city = 'Москва';", rows:2000, best:['cover','city','city_date']},
+    {k:'date', s:"SELECT * FROM orders\nWHERE created_at > '2026-01-01';", rows:50000, best:[]},
+    {k:'status', s:"SELECT * FROM orders\nWHERE status = 'new'\n  AND created_at > '2026-01-01';", rows:400, best:['part']},
+    {k:'fn', s:"SELECT * FROM orders\nWHERE lower(email) = 'anna@mail.ru';", rows:1, best:['lower']},
+    {k:'fn2', s:"SELECT * FROM orders\nWHERE upper(city) = 'МОСКВА';", rows:2000, best:[]},
+  ];
+  let qi = 0;
+  const TOTAL = 2000000;
+  function render(){
+    idxEl.innerHTML = IDX.map((x, i) => '<label class="ex-i' + (x.on ? ' on' : '') + '"><input type="checkbox" data-i="' + i + '"' + (x.on ? ' checked' : '') + '><span><b>' + esc(x.n) + '</b><small>ON ' + esc(x.d) + '</small></span></label>').join('');
+    document.getElementById('ex-q').innerHTML = Q.map((x, i) => '<button class="step' + (i === qi ? ' on' : '') + '" data-q="' + i + '">' + (i + 1) + '</button>').join('') +
+      '<pre class="ex-sql">' + esc(Q[qi].s) + '</pre>';
+    plan();
+  }
+  function plan(){
+    const q = Q[qi];
+    const used = q.best.find(b => IDX.find(x => x.k === b && x.on));
+    const p = document.getElementById('ex-plan'), st = document.getElementById('ex-stats');
+    let txt, read, time, note, kind;
+    if(!used){
+      read = TOTAL; time = 380; kind = 'Seq Scan';
+      txt = 'Seq Scan on orders  (cost=0.00..44248.00 rows=' + q.rows + ' width=96)\n' +
+            '  (actual time=0.312..' + time + '.104 rows=' + q.rows + ' loops=1)\n' +
+            '  Filter: ' + filterOf(q) + '\n  Rows Removed by Filter: ' + (TOTAL - q.rows).toLocaleString('ru') + '\n' +
+            'Planning Time: 0.09 ms\nExecution Time: ' + time + '.4 ms';
+      note = q.k === 'fn2' ? '<b>Индекса нет — и обычный тут не поможет.</b> В условии функция <code class="inl">upper(city)</code>, а индекс хранит исходные значения. Нужен индекс <b>по выражению</b>: <code class="inl">CREATE INDEX ON orders (upper(city));</code>'
+        : q.k === 'date' ? '<b>Индекса по одной дате нет.</b> Индекс <code class="inl">(city, created_at)</code> здесь не поможет: условия на первую колонку (city) нет, а без неё в составной индекс не войти — правило левого префикса.'
+        : '<b>Подходящего индекса нет</b> — база честно читает всю таблицу и выбрасывает лишнее. Обратите внимание на строку «Rows Removed by Filter»: два миллиона строк прочитано ради нескольких.';
+    } else {
+      const ix = IDX.find(x => x.k === used);
+      const only = used === 'cover' && q.k === 'only';
+      kind = only ? 'Index Only Scan' : 'Index Scan';
+      read = q.rows; time = only ? 0.6 : Math.max(0.4, q.rows / 2500);
+      txt = kind + ' using ' + ix.n + ' on orders  (cost=0.43..' + (8 + q.rows / 50).toFixed(2) + ' rows=' + q.rows + ' width=96)\n' +
+            '  (actual time=0.021..' + time.toFixed(3) + ' rows=' + q.rows + ' loops=1)\n' +
+            '  Index Cond: ' + filterOf(q) + (only ? '\n  Heap Fetches: 0' : '') + '\n' +
+            'Planning Time: 0.14 ms\nExecution Time: ' + (time + 0.1).toFixed(2) + ' ms';
+      note = only ? '<b>Index Only Scan — лучший случай.</b> Запрос просит только <code class="inl">city</code> и <code class="inl">total</code>, а оба лежат в индексе (второй добавлен через <code class="inl">INCLUDE</code>). База берёт данные <b>прямо из индекса</b> и в таблицу вообще не заходит — строка <code class="inl">Heap Fetches: 0</code>. Такой индекс называют <b>покрывающим</b>.'
+        : used === 'part' ? '<b>Частичный индекс.</b> Он построен только по строкам со статусом «new» — их сотые доли процента. Индекс получается крошечный, а запрос мгновенный. Работает только тогда, когда условие запроса совпадает с условием индекса.'
+        : used === 'lower' ? '<b>Индекс по выражению.</b> В нём хранятся не исходные значения, а результат <code class="inl">lower(email)</code>. Поэтому условие с функцией теперь попадает в индекс.'
+        : used === 'city_date' && q.k === 'range' ? '<b>Составной индекс отработал полностью.</b> Первая колонка — точное сравнение, вторая — диапазон: именно тот порядок, для которого он и создан. Прочитано 300 строк вместо двух миллионов.'
+        : '<b>Index Scan.</b> База нашла нужные строки в дереве индекса и сходила за ними в таблицу. Прочитано ' + q.rows.toLocaleString('ru') + ' строк вместо ' + TOTAL.toLocaleString('ru') + '.';
+    }
+    p.textContent = txt;
+    p.className = 'ex-plan ' + (used ? 'ok' : 'bad');
+    const speed = used ? Math.round(380 / (time + 0.1)) : 1;
+    st.innerHTML = '<div class="ex-s ' + (used ? 'ok' : 'bad') + '"><b>' + kind + '</b><small>способ доступа</small></div>' +
+      '<div class="ex-s"><b>' + read.toLocaleString('ru') + '</b><small>строк прочитано</small></div>' +
+      '<div class="ex-s"><b>' + (used ? (time + 0.1).toFixed(2) : '380.4') + ' мс</b><small>время</small></div>' +
+      (used ? '<div class="ex-s ok"><b>×' + speed + '</b><small>быстрее полного перебора</small></div>' : '');
+    msg(document.getElementById('ex-msg'), used ? 'ok' : 'err', used ? 'Используется индекс <b>' + IDX.find(x => x.k === used).n + '</b>.' : 'Индекс не используется — полный перебор таблицы.');
+    document.getElementById('ex-note').innerHTML = note;
+  }
+  function filterOf(q){
+    return {eq:"(city = 'Москва'::text)", range:"(city = 'Москва'::text) AND (created_at > '2026-01-01')", only:"(city = 'Москва'::text)",
+      date:"(created_at > '2026-01-01')", status:"(status = 'new'::text) AND (created_at > '2026-01-01')",
+      fn:"(lower(email) = 'anna@mail.ru'::text)", fn2:"(upper(city) = 'МОСКВА'::text)"}[q.k];
+  }
+  idxEl.addEventListener('change', e => { const c = e.target.closest('input'); if(!c) return; IDX[+c.dataset.i].on = c.checked; render(); });
+  document.getElementById('ex-q').addEventListener('click', e => { const b = e.target.closest('button'); if(b){ qi = +b.dataset.q; render(); } });
+  render();
+})();
+
+/* ================= СЕЛЕКТИВНОСТЬ ================= */
+(function(){
+  const r = document.getElementById('sel-range'); if(!r) return;
+  function upd(){
+    const pct = +r.value / 10;
+    document.getElementById('sel-val').textContent = pct < 1 ? pct.toFixed(1) + ' %' : pct.toFixed(0) + ' %';
+    const rows = Math.round(2000000 * pct / 100);
+    const idxCost = 4 + rows * 0.006, seqCost = 2400;
+    const useIdx = idxCost < seqCost;
+    const max = Math.max(idxCost, seqCost);
+    document.getElementById('sel-bars').innerHTML =
+      '<div class="sel-row"><div class="sel-n">Index Scan<small>прыжки по диску, ' + rows.toLocaleString('ru') + ' строк</small></div>' +
+        '<div class="sel-bar"><i style="width:' + Math.min(100, idxCost / max * 100) + '%" class="' + (useIdx ? 'ok' : '') + '"></i></div><div class="sel-c">' + Math.round(idxCost).toLocaleString('ru') + '</div></div>' +
+      '<div class="sel-row"><div class="sel-n">Seq Scan<small>последовательное чтение всей таблицы</small></div>' +
+        '<div class="sel-bar"><i style="width:' + Math.min(100, seqCost / max * 100) + '%" class="' + (!useIdx ? 'ok' : '') + '"></i></div><div class="sel-c">' + seqCost.toLocaleString('ru') + '</div></div>' +
+      '<div class="sel-pick">Планировщик выберет: <b class="' + (useIdx ? 'ok' : 'bad') + '">' + (useIdx ? 'Index Scan' : 'Seq Scan') + '</b></div>';
+    msg(document.getElementById('sel-msg'), useIdx ? 'ok' : 'err', useIdx
+      ? 'Подходит <b>' + (pct < 1 ? pct.toFixed(1) : pct.toFixed(0)) + ' %</b> строк — прыгать по индексу дешевле, чем читать всё. Индекс используется.'
+      : 'Подходит <b>' + pct.toFixed(0) + ' %</b> строк — слишком много. Прыжков будет столько, что дешевле прочитать таблицу подряд. <b>Индекс не используется, и это правильное решение.</b> Порог обычно в районе 5–10 %.');
+  }
+  r.addEventListener('input', upd); upd();
+})();
+
+/* ================= ЛЕВЫЙ ПРЕФИКС ================= */
+(function(){
+  const book = document.getElementById('lp-book'); if(!book) return;
+  const ROWS = [['Казань','24','Анна'],['Казань','31','Борис'],['Москва','19','Вера'],['Москва','25','Анна'],['Москва','25','Глеб'],['Москва','40','Дина'],['Пермь','19','Егор']];
+  const QS = [
+    {q:"WHERE city = 'Москва'", ok:true, hl:[0], w:'<b>Работает.</b> Первая колонка индекса — база сразу находит нужный кусок дерева и читает его подряд.'},
+    {q:"WHERE city = 'Москва' AND age = 25", ok:true, hl:[0,1], w:'<b>Работает отлично.</b> Использованы две колонки слева направо без пропусков — база сужает поиск дважды.'},
+    {q:"WHERE city = 'Москва' AND age = 25 AND name = 'Анна'", ok:true, hl:[0,1,2], w:'<b>Идеальный случай.</b> Все три колонки, точное попадание в одну запись индекса.'},
+    {q:"WHERE age = 25", ok:false, hl:[1], w:'<b>Не работает.</b> Пропущена первая колонка. Записи с age = 25 разбросаны по всему индексу — он отсортирован сначала по городу. Это как искать в телефонном справочнике всех Анн, не зная фамилии: придётся листать целиком.'},
+    {q:"WHERE name = 'Анна'", ok:false, hl:[2], w:'<b>Не работает.</b> Третья колонка без первых двух — бесполезна. Нужен отдельный индекс по name, если такой поиск действительно нужен.'},
+    {q:"WHERE city = 'Москва' AND name = 'Анна'", ok:'part', hl:[0,2], w:'<b>Работает частично.</b> База найдёт кусок по городу (первая колонка), а внутри него отфильтрует по имени <b>перебором</b> — age пропущен, значит дальше по индексу двигаться нельзя. Быстрее полного перебора, но медленнее, чем могло бы быть.'},
+    {q:"WHERE city > 'К' AND age = 25", ok:'part', hl:[0,1], w:'<b>Работает частично.</b> По первой колонке — <b>диапазон</b>, а после первого же диапазона индекс дальше не сужает: age будет проверяться перебором. Отсюда правило: колонки с точным сравнением ставят в индексе <b>раньше</b> колонок с диапазоном.'},
+  ];
+  let sel = 0;
+  function draw(){
+    const q = QS[sel];
+    book.innerHTML = '<div class="lp-h">Индекс <code>(city, age, name)</code> — записи хранятся в этом порядке:</div>' +
+      '<div class="lp-rows">' + ROWS.map(r => '<div class="lp-r">' + r.map((v, i) => '<span class="lp-c' + (q.hl.includes(i) ? ' hl' : '') + (i === 0 ? ' c1' : '') + '">' + esc(v) + '</span>').join('<span class="lp-sep">·</span>') + '</div>').join('') + '</div>';
+    document.getElementById('lp-qs').innerHTML = QS.map((x, i) => '<button class="lp-q' + (i === sel ? ' on' : '') + ' ' + (x.ok === true ? 'y' : x.ok === false ? 'n' : 'p') + '" data-i="' + i + '"><code>' + esc(x.q) + '</code><span>' + (x.ok === true ? '✓ индекс' : x.ok === false ? '✗ перебор' : '≈ частично') + '</span></button>').join('');
+    msg(document.getElementById('lp-msg'), q.ok === true ? 'ok' : q.ok === false ? 'err' : '', q.w);
+  }
+  document.getElementById('lp-qs').addEventListener('click', e => { const b = e.target.closest('button'); if(b){ sel = +b.dataset.i; draw(); } });
+  draw();
+})();
+
+/* ================= ПОЧЕМУ НЕ СРАБОТАЛ ================= */
+(function(){
+  const tabs = document.getElementById('nw-tabs'); if(!tabs) return;
+  const body = document.getElementById('nw-body');
+  const W = [
+    {n:'Функция над колонкой', bad:"CREATE INDEX ON users (email);\n\nSELECT * FROM users\nWHERE lower(email) = 'anna@mail.ru';   -- Seq Scan",
+     why:'В индексе лежат <b>исходные</b> значения: «Anna@Mail.ru». Запрос спрашивает про <code class="inl">lower(email)</code> — база не может сопоставить одно с другим, не применив функцию к каждой строке. А это и есть полный перебор.',
+     fix:"-- индекс по выражению\nCREATE INDEX ON users (lower(email));\n\n-- или хранить сразу приведённое значение\nALTER TABLE users ADD COLUMN email_lc TEXT\n  GENERATED ALWAYS AS (lower(email)) STORED;\nCREATE INDEX ON users (email_lc);",
+     r:'То же самое с <code class="inl">date(created_at)</code>, <code class="inl">age + 1</code>, конкатенацией. Правило: колонка в условии должна стоять «чистой», слева от знака сравнения.'},
+    {n:'LIKE с % в начале', bad:"CREATE INDEX ON users (name);\n\nSELECT * FROM users WHERE name LIKE 'Иван%';   -- ✓ индекс\nSELECT * FROM users WHERE name LIKE '%нов';    -- ✗ перебор\nSELECT * FROM users WHERE name LIKE '%ван%';   -- ✗ перебор",
+     why:'B-дерево отсортировано по значению с начала строки. Поиск по <b>префиксу</b> — это непрерывный диапазон, его база находит мгновенно. Поиск по середине или концу — значение может оказаться где угодно, диапазона нет.',
+     fix:"-- триграммный индекс для поиска по подстроке\nCREATE EXTENSION pg_trgm;\nCREATE INDEX ON users USING GIN (name gin_trgm_ops);\n\n-- или полнотекстовый поиск, если ищут по словам\nCREATE INDEX ON articles USING GIN (to_tsvector('russian', body));",
+     r:'Ещё вариант — хранить перевёрнутую строку и искать по префиксу в ней, если нужен только поиск по окончанию.'},
+    {n:'Разные типы', bad:"-- колонка BIGINT, а сравниваем со строкой\nSELECT * FROM orders WHERE id = '12345';\n\n-- колонка VARCHAR, а сравниваем с числом\nSELECT * FROM orders WHERE code = 12345;   -- ✗",
+     why:'База вынуждена <b>приводить типы</b>. Если приведение применяется к колонке (а не к константе), индекс перестаёт подходить — это тот же случай, что и функция над колонкой. Иногда приведение проходит незаметно, и запрос просто работает медленно.',
+     fix:"-- привести константу, а не колонку\nSELECT * FROM orders WHERE code = '12345';\n\n-- и проверить типы в параметрах приложения:\n-- строка из формы, отправленная в BIGINT-колонку,\n-- даст ровно эту проблему",
+     r:'Частый источник — параметры из ORM и веб-форм: всё приходит строкой. Смотрите в <code class="inl">EXPLAIN</code> на <code class="inl">::text</code> и <code class="inl">::numeric</code> вокруг имени колонки.'},
+    {n:'OR вместо IN', bad:"SELECT * FROM orders\nWHERE city = 'Москва' OR status = 'new';   -- часто Seq Scan",
+     why:'Условия по <b>разным</b> колонкам через OR: строка подходит, если выполнено хотя бы одно. Один индекс тут не поможет — придётся объединять результаты двух. Иногда база делает это через <b>BitmapOr</b>, но часто решает, что дешевле прочитать всё.',
+     fix:"-- один и тот же столбец: заменить на IN\nWHERE city IN ('Москва', 'Казань')          -- ✓ индекс работает\n\n-- разные столбцы: разбить на UNION\nSELECT * FROM orders WHERE city = 'Москва'\nUNION\nSELECT * FROM orders WHERE status = 'new';",
+     r:'<code class="inl">IN</code> по одной колонке индексом пользуется прекрасно. Проблема именно в OR по разным колонкам.'},
+    {n:'Устаревшая статистика', bad:"-- вчера летало, сегодня висит,\n-- хотя запрос и индексы не менялись\n\nEXPLAIN ANALYZE ...\n  rows=12         ← планировщик ОЖИДАЛ 12 строк\n  actual rows=840000   ← а их 840 тысяч",
+     why:'Планировщик выбирает план не по данным, а по <b>статистике</b>: сколько строк, как распределены значения. После массовой загрузки статистика устаревает, планировщик думает, что строк мало, выбирает вложенный цикл вместо хеш-соединения — и запрос виснет.',
+     fix:"ANALYZE orders;              -- пересобрать статистику\n\n-- увеличить детальность для перекошенной колонки\nALTER TABLE orders ALTER COLUMN city SET STATISTICS 1000;\nANALYZE orders;\n\n-- проверить, когда собирали в последний раз\nSELECT relname, last_analyze, last_autoanalyze\nFROM pg_stat_user_tables;",
+     r:'Главный признак — расхождение <code class="inl">rows</code> и <code class="inl">actual rows</code> в разы. Это первое, что смотрят при внезапном замедлении.'},
+    {n:'Индекс есть, но не тот', bad:"CREATE INDEX ON orders (created_at, city);\n\nSELECT * FROM orders\nWHERE city = 'Москва';   -- ✗ перебор",
+     why:'Колонки в составном индексе стоят в неудачном порядке. Условия на <code class="inl">created_at</code> нет, а без первой колонки в индекс не войти — правило левого префикса.',
+     fix:"-- порядок: сначала точное сравнение, потом диапазон\nCREATE INDEX ON orders (city, created_at);\n\n-- этот же индекс покроет и запрос только по city",
+     r:'Перед созданием индекса посмотрите на реальные запросы: какие колонки в условии и с каким сравнением. Один правильно упорядоченный составной индекс часто заменяет два обычных.'},
+  ];
+  tabs.innerHTML = W.map((w, i) => '<button class="ghost' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' + esc(w.n) + '</button>').join('');
+  function show(i){
+    const w = W[i];
+    tabs.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
+    body.innerHTML = '<div class="nw-grid"><div><div class="nw-l bad">❌ Так индекс не работает</div><pre class="ty-code">' + esc(w.bad) + '</pre></div>' +
+      '<div><div class="nw-l ok">✅ Как лечится</div><pre class="ty-code">' + esc(w.fix) + '</pre></div></div>' +
+      '<div class="note"><b>Почему:</b> ' + w.why + '</div><div class="hintbox">' + w.r + '</div>';
+  }
+  tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(+b.dataset.i); });
+  show(0);
+})();
+
+/* ================= ЦЕНА ИНДЕКСОВ ================= */
+(function(){
+  const list = document.getElementById('pc-list'); if(!list) return;
+  const NAMES = ['idx_city','idx_created_at','idx_status','idx_email','idx_user_id','idx_total','idx_city_date','idx_updated'];
+  let n = 1, inserted = 0;
+  function draw(){
+    list.innerHTML = '<div class="pr-t">🗄 orders — 2 000 000 строк, 380 МБ</div>' +
+      Array.from({length: n}, (_, i) => '<div class="pr-i">🔑 ' + NAMES[i] + '<small>~42 МБ</small></div>').join('') +
+      (n === 0 ? '<div class="pr-empty">индексов нет</div>' : '');
+    const insTime = 100 + n * 55, size = 380 + n * 42;
+    document.getElementById('pc-meters').innerHTML =
+      '<div class="pr-m"><b>' + n + '</b><small>индексов</small></div>' +
+      '<div class="pr-m"><b>' + size + ' МБ</b><small>таблица + индексы</small></div>' +
+      '<div class="pr-m ' + (n > 4 ? 'bad' : '') + '"><b>' + insTime + ' мс</b><small>вставка 10 000 строк</small></div>' +
+      '<div class="pr-m ' + (n > 4 ? 'bad' : '') + '"><b>+' + Math.round((insTime / 100 - 1) * 100) + ' %</b><small>к времени записи</small></div>';
+  }
+  draw();
+  const m = () => document.getElementById('pc-msg');
+  document.getElementById('pc-add').addEventListener('click', () => { if(n >= 8){ msg(m(), 'err', 'Восемь индексов на одну таблицу — это уже диагноз. Дальше некуда.'); return; }
+    n++; draw();
+    msg(m(), n > 4 ? 'err' : '', n <= 2 ? 'Индекс добавлен. Пока всё разумно: чтение ускорилось, запись почти не пострадала.'
+      : n <= 4 ? 'Четыре индекса — уже заметно. Каждая вставка теперь обновляет четыре дерева вдобавок к таблице, и объём на диске вырос вдвое.'
+      : '<b>Перебор.</b> Вставка замедлилась более чем вдвое, индексы занимают больше места, чем сами данные. На таблице, куда пишут постоянно, это прямая потеря пропускной способности. Спросите себя: под какой конкретный медленный запрос создан каждый из них?'); });
+  document.getElementById('pc-del').addEventListener('click', () => { if(n > 0) n--; draw(); msg(m(), 'ok', 'Индекс удалён. Запись стала быстрее, место освободилось. Проверьте по <code class="inl">pg_stat_user_indexes</code>, что он действительно никем не использовался.'); });
+  document.getElementById('pc-ins').addEventListener('click', () => { inserted += 10000; const t = 100 + n * 55;
+    msg(m(), n > 4 ? 'err' : 'ok', 'Вставлено 10 000 строк за <b>' + t + ' мс</b>. Без индексов это заняло бы 100 мс. Каждая строка записана в таблицу <b>и в ' + n + ' ' + (n === 1 ? 'индекс' : n < 5 ? 'индекса' : 'индексов') + '</b> — деревья приходится перестраивать.'); });
+  document.getElementById('pc-reset').addEventListener('click', () => { n = 1; inserted = 0; draw(); msg(m(), '', 'Сброшено.'); });
+})();
+
+/* ================= ИНДЕКСЫ В ПРОДЕ ================= */
+(function(){
+  const tabs = document.getElementById('pi-tabs'); if(!tabs) return;
+  const body = document.getElementById('pi-body');
+  const P = [
+    {n:'Найти неиспользуемые', code:"SELECT s.relname AS table, s.indexrelname AS index,\n       pg_size_pretty(pg_relation_size(s.indexrelid)) AS size,\n       s.idx_scan AS scans\nFROM pg_stat_user_indexes s\nJOIN pg_index i ON i.indexrelid = s.indexrelid\nWHERE s.idx_scan = 0          -- ни разу не использован\n  AND NOT i.indisunique       -- кроме уникальных\nORDER BY pg_relation_size(s.indexrelid) DESC;",
+     out:"  table   |      index       | size  | scans\n----------+------------------+-------+-------\n orders   | idx_orders_total | 68 MB |     0\n orders   | idx_orders_note  | 41 MB |     0",
+     d:'Столбец <code class="inl">idx_scan</code> — сколько раз индекс использовался с момента последнего сброса статистики. Ноль означает, что он не пригодился ни одному запросу, а место и время на вставках тратит.<br><br><b>Осторожно:</b> перед удалением проверьте, что статистика собирается достаточно давно (месяц и больше) — иначе можно снести индекс, который нужен для квартального отчёта. И не трогайте уникальные: они не только ускоряют, но и обеспечивают ограничение.'},
+    {n:'Найти раздутые', code:"SELECT relname, pg_size_pretty(pg_relation_size(oid)) AS size\nFROM pg_class\nWHERE relkind = 'i'\nORDER BY pg_relation_size(oid) DESC\nLIMIT 10;\n\n-- перестроить без блокировки записи:\nREINDEX INDEX CONCURRENTLY idx_orders_city;",
+     out:"        relname        |  size\n-----------------------+---------\n idx_orders_city       | 210 MB   ← был 42 МБ\n idx_orders_created_at | 88 MB",
+     d:'Индексы <b>раздуваются</b> со временем: после множества обновлений и удалений в страницах остаются дыры. Индекс на 210 МБ, который «должен» весить 42, читается в пять раз дольше нужного.<br><br><code class="inl">REINDEX CONCURRENTLY</code> перестраивает индекс, не блокируя запись в таблицу. Делают в окно пониженной нагрузки: операция требует места под вторую копию.'},
+    {n:'Найти недостающие', code:"-- расширение, которое собирает статистику по запросам\nCREATE EXTENSION pg_stat_statements;\n\nSELECT calls, mean_exec_time::int AS avg_ms,\n       total_exec_time::int AS total_ms, query\nFROM pg_stat_statements\nORDER BY total_exec_time DESC\nLIMIT 10;",
+     out:" calls  | avg_ms | total_ms |            query\n--------+--------+----------+------------------------------\n 148230 |    412 | 61070760 | SELECT * FROM orders WHERE...\n   1204 |   2890 |  3478560 | SELECT ... JOIN ... GROUP BY",
+     d:'Сортировка по <b>суммарному</b> времени, а не по среднему: запрос на 400 мс, выполняемый 150 тысяч раз в день, съедает больше, чем отчёт на 3 секунды раз в час.<br><br>Дальше берёте верхние запросы и смотрите на них <code class="inl">EXPLAIN ANALYZE</code>: если там <code class="inl">Seq Scan</code> по большой таблице с фильтром — вот вам кандидат на индекс. Это стандартный цикл работы с производительностью: измерить, найти худшее, исправить, измерить снова.'},
+    {n:'Создать без простоя', code:"-- обычный CREATE INDEX блокирует запись в таблицу\nCREATE INDEX idx_orders_city ON orders(city);        -- ⛔ на проде\n\n-- CONCURRENTLY не блокирует, но:\nCREATE INDEX CONCURRENTLY idx_orders_city ON orders(city);\n--   • работает дольше (два прохода по таблице)\n--   • нельзя внутри транзакции\n--   • при сбое остаётся «невалидный» индекс\n\n-- проверить, не остался ли битый:\nSELECT indexrelid::regclass FROM pg_index WHERE NOT indisvalid;",
+     out:"-- после неудачной попытки:\n   indexrelid\n------------------\n idx_orders_city    ← INVALID, удалить и создать заново",
+     d:'На боевой базе индексы создают <b>только</b> с <code class="inl">CONCURRENTLY</code>. Обычный <code class="inl">CREATE INDEX</code> берёт блокировку, при которой запись в таблицу останавливается — на большой таблице это минуты простоя.<br><br>Плата: создание идёт дольше и может завершиться неудачей, оставив невалидный индекс. Его надо найти запросом выше, удалить и попробовать снова.'},
+  ];
+  tabs.innerHTML = P.map((p, i) => '<button class="ghost' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' + esc(p.n) + '</button>').join('');
+  function show(i){
+    const p = P[i];
+    tabs.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
+    body.innerHTML = '<pre class="ty-code">' + esc(p.code) + '</pre><div class="pi-out"><div class="pi-l">результат</div><pre>' + esc(p.out) + '</pre></div><div class="note">' + p.d + '</div>';
+  }
+  tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(+b.dataset.i); });
+  show(0);
+})();
+
+
+/* ================= ОГРАНИЧЕНИЯ: код против базы ================= */
+(function(){
+  const appEl = document.getElementById('cn-app'); if(!appEl) return;
+  const dbEl = document.getElementById('cn-db');
+  let app = [];
+  const WAYS = {
+    app:  {n:'форма на сайте', pass:false, w:'Форма отправила цену −500. Код приложения проверил <code class="inl">if (price &lt; 0)</code> и показал пользователю ошибку. <b>Обе таблицы чисты.</b> Пока данные идут этим путём, разницы между подходами не видно — и именно поэтому проблему замечают поздно.'},
+    admin:{n:'админка', pass:true, w:'Админку писала другая команда полгода назад. Проверки на цену там нет — про неё просто не знали. <b>В левую таблицу записалось −500.</b> База справа отказала.'},
+    import:{n:'импорт из Excel', pass:true, w:'Скрипт импорта дёргает <code class="inl">INSERT</code> напрямую, минуя бизнес-логику — так быстрее на миллионе строк. Проверки приложения он не видит. <b>Слева мусор, справа отказ.</b>'},
+    hand: {n:'psql вручную', pass:true, w:'Инженер чинил инцидент в три часа ночи и поправил цену запросом. Опечатался в знаке. <b>Слева −500, справа база не дала ошибиться.</b> Именно за это ограничения и любят.'}
+  };
+  function draw(){
+    const box = (t, arr, prot) => '<div class="cn-h ' + (prot ? 'ok' : 'bad') + '">' + t + '</div>' +
+      '<pre class="cn-ddl">' + (prot
+        ? 'CREATE TABLE goods (\n  id    BIGSERIAL PRIMARY KEY,\n  name  TEXT NOT NULL,\n  price NUMERIC(10,2) NOT NULL\n    CHECK (price >= 0)\n);'
+        : 'CREATE TABLE goods (\n  id    BIGSERIAL PRIMARY KEY,\n  name  TEXT,\n  price NUMERIC(10,2)\n);\n\n// проверка живёт в коде:\nif (price < 0) throw new Error(...)') + '</pre>' +
+      '<div class="cn-rows">' + (arr.length ? arr.map(r => '<div class="cn-r' + (r.bad ? ' bad' : '') + '">' + esc(r.t) + '</div>').join('') : '<div class="cn-empty">таблица чиста</div>') + '</div>';
+    appEl.innerHTML = box('🖥 Проверка только в коде', app, false);
+    dbEl.innerHTML = box('🛡 Проверка в базе (CHECK)', [], true);
+  }
+  draw();
+  document.querySelectorAll('[data-cnw]').forEach(b => b.addEventListener('click', () => {
+    const w = WAYS[b.dataset.cnw];
+    if(w.pass) app.push({t:'«Ноутбук», price = −500.00', bad:true});
+    msg(document.getElementById('cn-vs-msg'), w.pass ? 'err' : 'ok', '<b>' + w.n + ':</b> ' + w.w);
+    draw();
+  }));
+  document.getElementById('cn-vs-reset').addEventListener('click', () => { app = []; draw(); msg(document.getElementById('cn-vs-msg'), '', 'Сброшено. Попробуйте записать цену <b>−500</b> четырьмя разными путями.'); });
+})();
+
+/* ================= ВОСЕМЬ ВИДОВ ОГРАНИЧЕНИЙ ================= */
+(function(){
+  const nav = document.getElementById('cn-nav'); if(!nav) return;
+  const main = document.getElementById('cn-main');
+  const C = [
+    {k:'pk', n:'PRIMARY KEY', ru:'первичный ключ', ico:'🔑',
+     what:'Колонка (или набор колонок), которая <b>однозначно определяет строку</b>. Двух строк с одинаковым значением быть не может, и пустым оно быть не может.',
+     how:"-- обычный вариант: суррогатный ключ\nCREATE TABLE customers (\n  id    BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n  email TEXT NOT NULL\n);\n\n-- составной ключ: пара колонок уникальна вместе\nCREATE TABLE order_items (\n  order_id   BIGINT,\n  product_id BIGINT,\n  qty        INT NOT NULL,\n  PRIMARY KEY (order_id, product_id)\n);\n\n-- добавить к существующей таблице\nALTER TABLE customers ADD PRIMARY KEY (id);",
+     err:"INSERT INTO customers (id, email) VALUES (1, 'a@b.ru');\nINSERT INTO customers (id, email) VALUES (1, 'c@d.ru');\n\nERROR:  duplicate key value violates unique constraint\n        \"customers_pkey\"\nDETAIL:  Key (id)=(1) already exists.",
+     inside:'PRIMARY KEY = <b>UNIQUE + NOT NULL</b> плюс пометка «это главный ключ». PostgreSQL автоматически создаёт под него уникальный B-tree индекс — отдельно индексировать первичный ключ не нужно.',
+     trap:'Таблица может иметь <b>только один</b> PRIMARY KEY. Если уникальных полей несколько (например id и email), главным делают одно, остальные закрывают через UNIQUE.<br><br><b>Что брать ключом.</b> В 2026 стандарт — <code class="inl">GENERATED ALWAYS AS IDENTITY</code> (это SQL-стандарт, пришёл на смену <code class="inl">SERIAL</code>) или <code class="inl">UUID v7</code>, если id генерируется на клиенте. Естественные ключи вроде email или номера паспорта — плохая идея: они меняются, а менять первичный ключ означает переписывать все ссылки на него.'},
+
+    {k:'fk', n:'FOREIGN KEY', ru:'внешний ключ', ico:'🔗',
+     what:'Гарантия, что значение в колонке <b>ссылается на реально существующую строку</b> другой таблицы. Заказа без клиента не будет.',
+     how:"CREATE TABLE orders (\n  id          BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n  customer_id BIGINT NOT NULL\n    REFERENCES customers(id)\n    ON DELETE RESTRICT\n    ON UPDATE CASCADE,\n  total NUMERIC(12,2) NOT NULL\n);\n\n-- добавить потом, с именем (имя видно в тексте ошибки)\nALTER TABLE orders\n  ADD CONSTRAINT orders_customer_fk\n  FOREIGN KEY (customer_id) REFERENCES customers(id);\n\n-- ОБЯЗАТЕЛЬНО: индекс на дочерней стороне\nCREATE INDEX ON orders (customer_id);",
+     err:"INSERT INTO orders (customer_id, total) VALUES (999, 100);\n\nERROR:  insert or update on table \"orders\" violates\n        foreign key constraint \"orders_customer_fk\"\nDETAIL:  Key (customer_id)=(999) is not present\n         in table \"customers\".",
+     inside:'Ссылаться можно только на колонку с PRIMARY KEY или UNIQUE — иначе база не сможет быстро проверить существование. Проверка выполняется при каждой вставке и обновлении дочерней строки, а также при удалении и изменении родительской.',
+     trap:'<b>PostgreSQL не создаёт индекс на дочерней стороне автоматически.</b> Индекс есть только у родителя — там первичный ключ. Из-за этого <code class="inl">DELETE FROM customers</code> заставляет базу перебирать всю таблицу заказов, проверяя, нет ли ссылок. На большой таблице это секунды блокировки на каждое удаление. Правило: <b>под каждый внешний ключ создавайте индекс вручную</b>.<br><br>Второе: <code class="inl">NULL</code> в колонке внешнего ключа <b>разрешён</b> и проверку проходит — это означает «ссылки нет». Нужна обязательная ссылка — добавьте <code class="inl">NOT NULL</code> отдельно.'},
+
+    {k:'uq', n:'UNIQUE', ru:'уникальность', ico:'☝️',
+     what:'Значение не повторяется в колонке. В отличие от PRIMARY KEY, таких ограничений может быть <b>сколько угодно</b> и они <b>допускают NULL</b>.',
+     how:"CREATE TABLE users (\n  id    BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n  email TEXT NOT NULL UNIQUE,\n  phone TEXT UNIQUE               -- может быть NULL\n);\n\n-- уникальна ПАРА, по отдельности значения повторяются\nALTER TABLE memberships\n  ADD CONSTRAINT one_per_team UNIQUE (user_id, team_id);\n\n-- регистронезависимая уникальность — через индекс\nCREATE UNIQUE INDEX ON users (lower(email));",
+     err:"INSERT INTO users (email) VALUES ('anna@mail.ru');\nINSERT INTO users (email) VALUES ('anna@mail.ru');\n\nERROR:  duplicate key value violates unique constraint\n        \"users_email_key\"\nDETAIL:  Key (email)=(anna@mail.ru) already exists.",
+     inside:'Под ограничением лежит уникальный индекс — поэтому UNIQUE не только запрещает дубли, но и ускоряет поиск по этой колонке. Отдельный индекс создавать не надо.',
+     trap:'<b>Главная ловушка: NULL не равен NULL.</b> В стандарте SQL два NULL считаются «неизвестными и, возможно, разными», поэтому UNIQUE пропустит <b>сколько угодно</b> строк с NULL в этой колонке. Ждали одну — получили сотни.<br><br>С PostgreSQL 15 этим можно управлять: <code class="inl">UNIQUE NULLS NOT DISTINCT</code> — тогда NULL считается одним значением и пройдёт только первая такая строка.<br><br>Вторая ловушка: <code class="inl">UNIQUE (a, b)</code> — это уникальность <b>пары</b>, а не каждой колонки по отдельности. Строки <code class="inl">(1, 2)</code> и <code class="inl">(1, 3)</code> прекрасно сосуществуют.'},
+
+    {k:'ck', n:'CHECK', ru:'проверка условия', ico:'✅',
+     what:'Произвольное логическое условие, которому обязана удовлетворять строка. Самое гибкое ограничение: пишете почти любое выражение.',
+     how:"CREATE TABLE orders (\n  id     BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n  total  NUMERIC(12,2) NOT NULL CHECK (total >= 0),\n  qty    INT NOT NULL CHECK (qty BETWEEN 1 AND 1000),\n  status TEXT NOT NULL\n    CHECK (status IN ('new','paid','shipped','done')),\n\n  starts_at DATE,\n  ends_at   DATE,\n  -- проверка по НЕСКОЛЬКИМ колонкам пишется\n  -- на уровне таблицы, после всех полей\n  CONSTRAINT valid_period CHECK (ends_at > starts_at)\n);",
+     err:"INSERT INTO orders (total, qty, status)\nVALUES (-100, 5, 'new');\n\nERROR:  new row for relation \"orders\" violates check\n        constraint \"orders_total_check\"\nDETAIL:  Failing row contains (1, -100.00, 5, new).",
+     inside:'Условие вычисляется при каждой вставке и обновлении строки. Выражение обязано быть <b>детерминированным</b> и зависеть только от этой строки: обращаться к другим таблицам или к <code class="inl">now()</code> внутри CHECK нельзя — иначе база не сможет гарантировать, что вчерашние строки всё ещё валидны.',
+     trap:'<b>CHECK, вернувший NULL, считается пройденным.</b> Условие <code class="inl">CHECK (discount &lt; total)</code> при <code class="inl">discount IS NULL</code> даёт NULL — «неизвестно» — и строка проходит. База отклоняет строку, только когда условие явно ложно.<br><br><b>Про статусы.</b> В 2026 <code class="inl">CHECK … IN (...)</code> предпочитают типу <code class="inl">ENUM</code>: добавить значение в CHECK — обычная миграция, а менять ENUM сложнее. Третий вариант — отдельная таблица-справочник со ссылкой по внешнему ключу: тогда новое значение это просто INSERT, вообще без миграции.'},
+
+    {k:'nn', n:'NOT NULL', ru:'обязательное поле', ico:'❗',
+     what:'Значение обязано быть. Самое простое и самое недооценённое ограничение.',
+     how:"CREATE TABLE customers (\n  id         BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n  email      TEXT NOT NULL,\n  name       TEXT NOT NULL,\n  phone      TEXT,                 -- необязательный\n  created_at TIMESTAMPTZ NOT NULL DEFAULT now()\n);\n\n-- сделать существующую колонку обязательной\nUPDATE customers SET name = 'не указано' WHERE name IS NULL;\nALTER TABLE customers ALTER COLUMN name SET NOT NULL;",
+     err:"INSERT INTO customers (email) VALUES ('a@b.ru');\n\nERROR:  null value in column \"name\" of relation\n        \"customers\" violates not-null constraint\nDETAIL:  Failing row contains (1, a@b.ru, null, null, ...).",
+     inside:'Хранится не как отдельный объект-ограничение, а как флаг у колонки — поэтому у него нет собственного имени и он не виден в списке constraint\'ов наравне с остальными.',
+     trap:'NULL — это не пустая строка и не ноль. Это <b>«значения нет»</b>. <code class="inl">NOT NULL</code> не запрещает пустую строку: <code class="inl">\'\'</code> пройдёт спокойно. Недопустима и она — нужен ещё <code class="inl">CHECK (name &lt;&gt; \'\')</code>.<br><br>И главное: NULL ломает арифметику и сравнения. <code class="inl">NULL + 100</code> даёт NULL, <code class="inl">NULL = NULL</code> — «неизвестно», а <code class="inl">WHERE status &lt;&gt; \'done\'</code> <b>не вернёт</b> строки с NULL в статусе — их молча потеряет отчёт. Поэтому опытный подход: ставить NOT NULL везде, где значение действительно всегда есть, и снимать осознанно.'},
+
+    {k:'df', n:'DEFAULT', ru:'значение по умолчанию', ico:'📝',
+     what:'Что подставить, если колонку не указали при вставке. Формально не ограничение, но работает в паре с NOT NULL и решает те же задачи.',
+     how:"CREATE TABLE orders (\n  id         BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n  status     TEXT NOT NULL DEFAULT 'new',\n  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),\n  uuid       UUID NOT NULL DEFAULT gen_random_uuid(),\n  meta       JSONB NOT NULL DEFAULT '{}'::jsonb,\n  tags       TEXT[] NOT NULL DEFAULT '{}'\n);\n\nINSERT INTO orders DEFAULT VALUES;   -- заполнится всё",
+     err:"-- DEFAULT НЕ срабатывает, если явно передали NULL:\nINSERT INTO orders (status) VALUES (NULL);\n\nERROR:  null value in column \"status\" violates\n        not-null constraint\n\n-- срабатывает, только если колонку вообще не указали:\nINSERT INTO orders (total) VALUES (100);   -- status = 'new'",
+     inside:'Вычисляется в момент вставки. <code class="inl">DEFAULT now()</code> подставит время именно этой вставки, а не время создания таблицы — функция вызывается каждый раз заново.',
+     trap:'<b>Явный NULL и отсутствие колонки — разные вещи.</b> ORM часто отправляет все поля объекта, включая незаполненные, как NULL — и DEFAULT не применяется. Отсюда вечное «почему у меня created_at пустой, там же стоит default».<br><br>Полезный приём: <code class="inl">DEFAULT \'{}\'::jsonb</code> вместе с <code class="inl">NOT NULL</code> для JSON-полей и массивов. Без него придётся везде в запросах писать <code class="inl">COALESCE(meta, \'{}\')</code>.'},
+
+    {k:'gen', n:'GENERATED', ru:'вычисляемая колонка', ico:'🧮',
+     what:'Колонка, значение которой <b>считает сама база</b> по формуле из других колонок этой же строки. Записать в неё вручную нельзя.',
+     how:"CREATE TABLE order_items (\n  id    BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n  price NUMERIC(12,2) NOT NULL,\n  qty   INT NOT NULL,\n\n  -- считается автоматически и хранится на диске\n  amount NUMERIC(12,2)\n    GENERATED ALWAYS AS (price * qty) STORED,\n\n  email    TEXT,\n  email_lc TEXT GENERATED ALWAYS AS (lower(email)) STORED\n);\n\n-- по вычисляемой колонке можно строить индекс\nCREATE INDEX ON order_items (email_lc);",
+     err:"INSERT INTO order_items (price, qty, amount)\nVALUES (100, 3, 999);\n\nERROR:  cannot insert a non-DEFAULT value into column\n        \"amount\"\nDETAIL:  Column \"amount\" is a generated column.",
+     inside:'В PostgreSQL до 17-й версии доступен только вариант <code class="inl">STORED</code>: значение считается при записи и физически лежит на диске. Виртуальные колонки, вычисляемые на лету при чтении, появились в PostgreSQL 18.',
+     trap:'Формула может использовать <b>только колонки этой же строки</b> и только неизменяемые функции. Обратиться к другой таблице, к <code class="inl">now()</code> или к случайному числу нельзя.<br><br><b>Зачем это нужно.</b> Избавляет от рассинхрона. Классическая беда — поле «сумма», которое приложение забыло пересчитать после изменения количества, и в отчёте разъезжаются цифры. Здесь забыть невозможно: база пересчитывает сама при каждом изменении строки.'},
+
+    {k:'ex', n:'EXCLUDE', ru:'запрет пересечений', ico:'🚫',
+     what:'Обобщение UNIQUE: запрещает не только равные значения, но <b>любое заданное отношение</b> между строками. Главное применение — запрет пересечения интервалов.',
+     how:"CREATE EXTENSION IF NOT EXISTS btree_gist;\n\nCREATE TABLE bookings (\n  id      BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n  room_id BIGINT NOT NULL,\n  period  TSTZRANGE NOT NULL,\n\n  -- один и тот же номер (=) не может иметь\n  -- пересекающиеся (&&) периоды\n  EXCLUDE USING GIST (\n    room_id WITH =,\n    period  WITH &&\n  )\n);",
+     err:"INSERT INTO bookings (room_id, period)\n  VALUES (7, '[2026-03-01, 2026-03-05)');\nINSERT INTO bookings (room_id, period)\n  VALUES (7, '[2026-03-04, 2026-03-08)');\n\nERROR:  conflicting key value violates exclusion\n        constraint \"bookings_room_id_period_excl\"\nDETAIL:  Key (room_id, period)=(7, [2026-03-04,...))\n         conflicts with existing key.",
+     inside:'Опирается на GiST-индекс, который умеет сравнивать не только на равенство, но и на «пересекается», «содержит», «находится рядом». Оператор <code class="inl">&amp;&amp;</code> означает «интервалы пересекаются». Расширение <code class="inl">btree_gist</code> нужно, чтобы в том же индексе участвовало обычное поле <code class="inl">room_id</code>.',
+     trap:'Это ровно та задача, которую в приложении почти всегда решают неправильно. Классический код: «выбрать существующие брони, проверить пересечение, вставить». Между проверкой и вставкой успевает вклиниться параллельный запрос — и переговорка забронирована дважды. Никакой <code class="inl">SELECT</code> перед <code class="inl">INSERT</code> от этого не спасает без явной блокировки.<br><br><code class="inl">EXCLUDE</code> решает это на уровне базы, атомарно. Бронирование помещений, смены сотрудников, тарифы с периодами действия, аренда — везде, где есть интервалы.'},
+  ];
+  nav.innerHTML = C.map((c, i) => '<button class="cn-b' + (i === 0 ? ' on' : '') + '" data-i="' + i + '"><span class="cn-ico">' + c.ico + '</span><span class="cn-bt"><b>' + esc(c.n) + '</b><small>' + esc(c.ru) + '</small></span></button>').join('');
+  function show(i){
+    const c = C[i];
+    nav.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
+    main.innerHTML = '<div class="cn-title">' + c.ico + ' <b>' + esc(c.n) + '</b> <span class="cn-ru">' + esc(c.ru) + '</span></div>' +
+      '<div class="cn-what">' + c.what + '</div>' +
+      '<div class="cn-lab">Как пишется</div><pre class="ty-code">' + esc(c.how) + '</pre>' +
+      '<div class="cn-lab err">Что будет при нарушении</div><pre class="ty-code cn-err">' + esc(c.err) + '</pre>' +
+      '<div class="note"><b>Как устроено внутри.</b> ' + c.inside + '</div>' +
+      '<div class="hintbox"><b>Где спотыкаются.</b> ' + c.trap + '</div>';
+  }
+  nav.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(+b.dataset.i); });
+  show(0);
+})();
+
+/* ================= КОНСТРУКТОР ОГРАНИЧЕНИЙ ================= */
+(function(){
+  const tg = document.getElementById('cb-toggles'); if(!tg) return;
+  const CS = [
+    {k:'pk',  l:'PRIMARY KEY (id)', on:true},
+    {k:'nn',  l:'customer_id NOT NULL', on:false},
+    {k:'fk',  l:'customer_id REFERENCES customers(id)', on:false},
+    {k:'uq',  l:'UNIQUE (order_no)', on:false},
+    {k:'ck',  l:'CHECK (total >= 0)', on:false},
+    {k:'ck2', l:"CHECK (status IN ('new','paid','done'))", on:false},
+  ];
+  const NAMES = {pk:'PRIMARY KEY', nn:'NOT NULL', fk:'FOREIGN KEY', uq:'UNIQUE (order_no)', ck:'CHECK (total >= 0)', ck2:"CHECK (status IN ...)"};
+  const TRY = [
+    {k:'good', l:'✅ Нормальный заказ', r:{id:1, order_no:'A-100', customer_id:5, total:1200, status:'new'}, hits:[]},
+    {k:'iddup', l:'Повтор id = 1', r:{id:1, order_no:'A-105', customer_id:5, total:100, status:'new'}, hits:['pk'],
+     w:'Два заказа с одним id. Все ссылки на этот заказ становятся неоднозначными: платёж привязан к заказу 1 — к какому из двух?'},
+    {k:'dup', l:'Тот же order_no ещё раз', r:{id:2, order_no:'A-100', customer_id:5, total:900, status:'new'}, hits:['uq'],
+     w:'Дубль номера заказа. Без UNIQUE в базе окажется два заказа с номером A-100 — и в отчётах начнутся расхождения, которые будут искать неделю.'},
+    {k:'neg', l:'Отрицательная сумма', r:{id:3, order_no:'A-101', customer_id:5, total:-500, status:'new'}, hits:['ck'],
+     w:'Минус в сумме. Обычно приходит из бага при возврате или из кривого импорта. Без CHECK попадёт в выручку и испортит отчётность за месяц.'},
+    {k:'ghost', l:'Ссылка на несуществующего клиента', r:{id:4, order_no:'A-102', customer_id:999, total:300, status:'new'}, hits:['fk'],
+     w:'Клиента 999 в базе нет. Такая строка называется <b>висячей ссылкой</b>: заказ есть, а чей — неизвестно. Отчёт по клиентам его просто потеряет.'},
+    {k:'null', l:'Заказ без клиента (NULL)', r:{id:5, order_no:'A-103', customer_id:null, total:400, status:'new'}, hits:['nn'],
+     w:'Клиент не указан вовсе. Обратите внимание: <b>внешний ключ такую строку пропустит</b> — NULL означает «ссылки нет» и проверку внешнего ключа проходит. Запретить может только NOT NULL.'},
+    {k:'st', l:'Статус с опечаткой', r:{id:6, order_no:'A-104', customer_id:5, total:700, status:'pending'}, hits:['ck2'],
+     w:'Статус «pending» — такого в системе нет, кто-то написал по памяти. Через полгода в таблице живут new, New, NEW, pending и «ожидает». Фильтры перестают работать, а починить это уже нельзя без разбора каждой строки.'},
+  ];
+  let rows = [];
+  const on = k => CS.find(c => c.k === k).on;
+  function draw(){
+    tg.innerHTML = CS.map((c, i) => '<label class="cb-t' + (c.on ? ' on' : '') + '"><input type="checkbox" data-i="' + i + '"' + (c.on ? ' checked' : '') + '><code>' + esc(c.l) + '</code></label>').join('');
+    const parts = [
+      '  id          BIGINT' + (on('pk') ? ' PRIMARY KEY' : ''),
+      '  order_no    TEXT' + (on('uq') ? ' UNIQUE' : ''),
+      '  customer_id BIGINT' + (on('nn') ? ' NOT NULL' : '') + (on('fk') ? '\n                REFERENCES customers(id)' : ''),
+      '  total       NUMERIC(12,2)' + (on('ck') ? ' CHECK (total >= 0)' : ''),
+      '  status      TEXT' + (on('ck2') ? "\n                CHECK (status IN ('new','paid','done'))" : '')
+    ];
+    document.getElementById('cb-ddl').textContent = 'CREATE TABLE orders (\n' + parts.join(',\n') + '\n);';
+    document.getElementById('cb-rows').innerHTML = TRY.map((t, i) => '<button class="cb-r" data-t="' + i + '">' + esc(t.l) + '</button>').join('');
+    document.getElementById('cb-table').innerHTML =
+      '<thead><tr><th>id</th><th>order_no</th><th>customer_id</th><th>total</th><th>status</th></tr></thead><tbody>' +
+      (rows.length ? rows.map(r => '<tr class="' + (r.bad ? 'cb-bad' : '') + '"><td>' + r.id + '</td><td>' + esc(r.order_no) + '</td><td>' + (r.customer_id === null ? '<i>NULL</i>' : r.customer_id) + '</td><td>' + r.total + '</td><td>' + esc(r.status) + '</td></tr>').join('')
+        : '<tr><td colspan="5" class="cb-empty">таблица пуста</td></tr>') + '</tbody>';
+  }
+  draw();
+  tg.addEventListener('change', e => {
+    const c = e.target.closest('input'); if(!c) return;
+    CS[+c.dataset.i].on = c.checked; draw();
+    msg(document.getElementById('cb-msg'), '', 'DDL пересобран. Проверьте, какие строки теперь пройдут, а какие база отобьёт.');
+  });
+  document.getElementById('cb-rows').addEventListener('click', e => {
+    const b = e.target.closest('button'); if(!b) return;
+    const t = TRY[+b.dataset.t], M = document.getElementById('cb-msg');
+    // PK ловит дубль только если такая строка уже есть
+    const blocked = t.hits.filter(h => on(h) && (h !== 'pk' || rows.some(r => r.id === t.r.id)));
+    if(!t.hits.length){
+      if(on('pk') && rows.some(r => r.id === t.r.id)){ msg(M, 'ok', '🛡 <b>База отказала:</b> строка с id = 1 уже есть, сработал PRIMARY KEY.'); return; }
+      rows.push(Object.assign({}, t.r)); draw();
+      msg(M, 'ok', '✅ Строка вставлена. Все включённые ограничения соблюдены.'); return;
+    }
+    if(blocked.length){
+      msg(M, 'ok', '🛡 <b>База отказала.</b> Сработало ограничение <code class="inl">' + NAMES[blocked[0]] + '</code>.<br><br>' + t.w + '<br><br><b>Мусор в таблицу не попал.</b>');
+    } else {
+      rows.push(Object.assign({}, t.r, {bad:true})); draw();
+      msg(M, 'err', '⚠️ <b>Строка записалась.</b> Нужного ограничения нет.<br><br>' + t.w + '<br><br>Включите слева <code class="inl">' + t.hits.map(h => NAMES[h]).join('</code> и <code class="inl">') + '</code> и попробуйте снова.');
+    }
+  });
+})();
+
+/* ================= ON DELETE ================= */
+(function(){
+  const tabs = document.getElementById('od-tabs'); if(!tabs) return;
+  const OD = [
+    {k:'restrict', n:'RESTRICT', res:'block',
+     note:'<b>Поведение по умолчанию</b> (точнее, по умолчанию стоит NO ACTION — оно почти то же самое). База просто не даёт удалить клиента, пока у него есть заказы. Разработчик обязан сначала решить, что делать с заказами.<br><br><b>Когда выбирать:</b> почти всегда. Это самый безопасный вариант — он превращает потенциальную потерю данных в понятную ошибку, которую видно сразу, а не через квартал в отчёте.<br><br><i>Разница RESTRICT и NO ACTION:</i> NO ACTION проверяет в конце транзакции, поэтому его можно отложить через DEFERRABLE — например, чтобы внутри транзакции временно нарушить ссылку и тут же починить. RESTRICT проверяет немедленно и откладыванию не поддаётся.'},
+    {k:'cascade', n:'CASCADE', res:'cascade',
+     note:'<b>Удаляет вместе с клиентом все его заказы.</b> Одна команда — и трёх заказов нет. Без подтверждения и без предупреждения.<br><br><b>Когда выбирать:</b> когда дочерние строки <b>не имеют смысла без родителя</b> и никому не нужны как самостоятельная сущность. Позиции внутри заказа, теги поста, настройки профиля.<br><br><b>Опасность:</b> каскад идёт дальше по цепочке. Удалили клиента → удалились заказы → удалились позиции заказов → удалились платежи. Одна строка утаскивает за собой миллионы. Заказы, платежи и любые финансовые документы каскадом не удаляют <b>никогда</b>: их надо хранить для отчётности, даже когда клиент ушёл.'},
+    {k:'setnull', n:'SET NULL', res:'null',
+     note:'<b>Заказы остаются, но клиент в них становится NULL.</b> Данные сохранены, связь потеряна.<br><br><b>Когда выбирать:</b> когда дочерняя запись самоценна, а ссылка необязательна. Удалили категорию — товары остались без категории. Уволился менеджер — его сделки остались, но без ответственного.<br><br><b>Требование:</b> колонка обязана допускать NULL. Если на ней стоит <code class="inl">NOT NULL</code>, этот вариант просто не сработает — получите ошибку при попытке удаления.'},
+    {k:'setdefault', n:'SET DEFAULT', res:'default',
+     note:'<b>Ссылка меняется на DEFAULT колонки.</b> Здесь это клиент с id = 0 — специально заведённая строка «Удалённый клиент».<br><br><b>Когда выбирать:</b> редко. Нужна заранее созданная строка-заглушка, и она сама обязана существовать — иначе при удалении получите нарушение внешнего ключа.<br><br>Чаще ту же задачу решают иначе — <b>мягким удалением</b>. Клиента не удаляют физически, а ставят ему <code class="inl">deleted_at = now()</code> и прячут из интерфейса. Все ссылки целы, история сохранена, восстановить можно одной командой. В 2026 это подход по умолчанию для всего, что связано с людьми и деньгами.'},
+  ];
+  let sel = 0, fired = false;
+  tabs.innerHTML = OD.map((o, i) => '<button class="ghost' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">ON DELETE <b>' + o.n + '</b></button>').join('');
+  function draw(){
+    const o = OD[sel];
+    tabs.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === sel));
+    const ORD = [['101','1 200 ₽'],['102','450 ₽'],['103','3 100 ₽']];
+    let cust, ords;
+    if(!fired){
+      cust = '<div class="od-row">1 · Анна Петрова</div>';
+      ords = ORD.map(r => '<div class="od-row">' + r[0] + ' · клиент 1 · ' + r[1] + '</div>').join('');
+    } else if(o.res === 'block'){
+      cust = '<div class="od-row blocked">1 · Анна Петрова 🔒 не удалена</div>';
+      ords = ORD.map(r => '<div class="od-row">' + r[0] + ' · клиент 1 · ' + r[1] + '</div>').join('');
+    } else if(o.res === 'cascade'){
+      cust = '<div class="od-row gone">1 · Анна Петрова ✗ удалена</div>';
+      ords = ORD.map(r => '<div class="od-row gone">' + r[0] + ' ✗ удалён каскадом</div>').join('');
+    } else if(o.res === 'null'){
+      cust = '<div class="od-row gone">1 · Анна Петрова ✗ удалена</div>';
+      ords = ORD.map(r => '<div class="od-row warn">' + r[0] + ' · клиент <i>NULL</i> · ' + r[1] + '</div>').join('');
+    } else {
+      cust = '<div class="od-row gone">1 · Анна Петрова ✗ удалена</div><div class="od-row">0 · «Удалённый клиент»</div>';
+      ords = ORD.map(r => '<div class="od-row warn">' + r[0] + ' · клиент 0 · ' + r[1] + '</div>').join('');
+    }
+    document.getElementById('od-stage').innerHTML =
+      '<div class="od-box"><div class="od-h">customers</div>' + cust + '</div>' +
+      '<div class="od-arrow"><b>FK</b><small>customer_id</small></div>' +
+      '<div class="od-box"><div class="od-h">orders</div>' + ords + '</div>';
+    document.getElementById('od-note').innerHTML = o.note;
+    if(!fired) msg(document.getElementById('od-msg'), '', 'У клиента 1 три заказа. Нажмите DELETE и посмотрите, что произойдёт при <b>ON DELETE ' + o.n + '</b>.');
+  }
+  tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b){ sel = +b.dataset.i; fired = false; draw(); } });
+  document.getElementById('od-del').addEventListener('click', () => {
+    const o = OD[sel]; fired = true; draw();
+    const M = document.getElementById('od-msg');
+    if(o.res === 'block') msg(M, 'err', 'ERROR: update or delete on table "customers" violates foreign key constraint "orders_customer_fk" on table "orders"<br>DETAIL: Key (id)=(1) is still referenced from table "orders".<br><br><b>Клиент на месте, заказы на месте.</b> База требует сначала разобраться с заказами.');
+    else if(o.res === 'cascade') msg(M, 'err', 'DELETE 1 — и вместе с клиентом <b>исчезли все три заказа</b> на 4 750 ₽. База не спросила подтверждения и не написала предупреждения. Выручка за эти заказы пропала из всех отчётов.');
+    else if(o.res === 'null') msg(M, 'ok', 'DELETE 1. Клиент удалён, <b>три заказа остались</b>, но customer_id в них теперь NULL. Суммы в отчётах сохранились, а «чьи это заказы» уже не узнать.');
+    else msg(M, 'ok', 'DELETE 1. Клиент удалён, заказы переписаны на клиента 0 — заглушку «Удалённый клиент». Данные целы, связь формально не разорвана.');
+  });
+  document.getElementById('od-reset').addEventListener('click', () => { fired = false; draw(); });
+  draw();
+})();
+
+/* ================= ЛОВУШКИ ОГРАНИЧЕНИЙ ================= */
+(function(){
+  const tabs = document.getElementById('cg-tabs'); if(!tabs) return;
+  const body = document.getElementById('cg-body');
+  const G = [
+    {n:'UNIQUE и много NULL',
+     code:"CREATE TABLE users (\n  id    BIGINT PRIMARY KEY,\n  phone TEXT UNIQUE\n);\n\nINSERT INTO users VALUES (1, NULL);\nINSERT INTO users VALUES (2, NULL);\nINSERT INTO users VALUES (3, NULL);   -- всё прошло!\n\nSELECT count(*) FROM users WHERE phone IS NULL;\n-- 3",
+     w:'В стандарте SQL <code class="inl">NULL</code> означает «значение неизвестно». Два неизвестных значения нельзя объявить одинаковыми — вдруг они разные. Поэтому UNIQUE их не сравнивает и пропускает сколько угодно.',
+     fix:"-- PostgreSQL 15+: считать NULL одним значением\nCREATE TABLE users (\n  id    BIGINT PRIMARY KEY,\n  phone TEXT UNIQUE NULLS NOT DISTINCT\n);\n\n-- любая версия: сделать поле обязательным\nphone TEXT NOT NULL UNIQUE",
+     r:'Проявляется обычно так: «у нас же UNIQUE на телефоне — откуда 4000 пользователей без телефона и почему база считает их всех разными».'},
+    {n:'Уникальность только среди активных',
+     code:"-- задача: email уникален, но пользователя\n-- после удаления можно завести заново\n\nemail TEXT UNIQUE   -- ❌ навсегда блокирует email\n\n-- при мягком удалении строка физически остаётся\nUPDATE users SET deleted_at = now() WHERE id = 7;\nINSERT INTO users (email) VALUES ('anna@mail.ru');\n-- ERROR: duplicate key value",
+     w:'Мягкое удаление (<code class="inl">deleted_at</code>) конфликтует с обычным UNIQUE: удалённая строка никуда не делась и продолжает держать email занятым.',
+     fix:"-- частичный уникальный индекс\nCREATE UNIQUE INDEX users_email_active\n  ON users (email)\n  WHERE deleted_at IS NULL;\n\n-- удалённых с этим email — сколько угодно,\n-- активный — ровно один",
+     r:'Тот же приём для «ровно один основной адрес у клиента»: <code class="inl">CREATE UNIQUE INDEX ON addresses(customer_id) WHERE is_primary;</code> Это одно из самых полезных применений частичного индекса вообще.'},
+    {n:'CHECK и NULL',
+     code:"CREATE TABLE orders (\n  total    NUMERIC,\n  discount NUMERIC,\n  CHECK (discount < total)\n);\n\nINSERT INTO orders VALUES (100, NULL);  -- прошло ✓\nINSERT INTO orders VALUES (NULL, 50);   -- прошло ✓\nINSERT INTO orders VALUES (100, 500);   -- отказ ✗",
+     w:'<code class="inl">NULL &lt; 100</code> даёт не «ложь», а <b>NULL</b> — «неизвестно». CHECK отклоняет строку, только когда условие <b>явно ложно</b>. Неизвестность он трактует в пользу строки.',
+     fix:"-- вариант 1: запретить NULL\ntotal    NUMERIC NOT NULL,\ndiscount NUMERIC NOT NULL DEFAULT 0,\nCHECK (discount < total)\n\n-- вариант 2: явно описать случай с NULL\nCHECK (discount IS NULL OR discount < total)",
+     r:'Правило: увидели CHECK по колонкам, допускающим NULL — сразу спросите себя, что должно происходить при NULL. Молчаливое «пропустить» устраивает редко.'},
+    {n:'Отложенные проверки',
+     code:"-- две строки ссылаются друг на друга.\n-- Как вставить первую, если второй ещё нет?\n\nALTER TABLE employees\n  ADD CONSTRAINT emp_manager_fk\n  FOREIGN KEY (manager_id) REFERENCES employees(id)\n  DEFERRABLE INITIALLY DEFERRED;\n\nBEGIN;\n  INSERT INTO employees VALUES (1, 'Анна', 2);  -- 2 ещё нет\n  INSERT INTO employees VALUES (2, 'Борис', 1);\nCOMMIT;   -- проверка здесь: обе строки есть → ОК",
+     w:'Обычно ограничение проверяется <b>немедленно</b>, при выполнении команды. <code class="inl">DEFERRABLE INITIALLY DEFERRED</code> переносит проверку на момент <code class="inl">COMMIT</code>: внутри транзакции правило можно временно нарушить, лишь бы к концу всё сошлось.',
+     fix:"-- отложить только на время одной транзакции\nBEGIN;\n  SET CONSTRAINTS emp_manager_fk DEFERRED;\n  -- перестановка порядковых номеров при UNIQUE:\n  UPDATE items SET pos = 2 WHERE id = 10;\n  UPDATE items SET pos = 1 WHERE id = 11;\nCOMMIT;",
+     r:'Применяют для циклических ссылок, перестановки значений при UNIQUE, сложных миграций. <b>Цена:</b> ошибка всплывёт только на COMMIT, когда транзакция уже большая — искать причину труднее. Без нужды не включайте.'},
+    {n:'Ограничение или бизнес-логика?',
+     code:"-- ✅ Годится для CHECK: правило зависит только\n--    от этой строки и не меняется со временем\nCHECK (total >= 0)\nCHECK (ends_at > starts_at)\nCHECK (status IN ('new','paid','done'))\nCHECK (email ~ '^[^@]+@[^@]+$')\n\n-- ❌ Не годится: нужны другие строки,\n--    другие таблицы или текущее время\n-- «сумма заказа = сумме позиций»\n-- «не больше 3 активных заказов на клиента»\n-- «скидка не выше уровня клиента»\n-- «дата доставки не в прошлом»  ← зависит от now()",
+     w:'CHECK видит <b>только текущую строку</b> и обязан давать один и тот же ответ всегда. Правило, зависящее от других строк или от времени, в него не помещается: база не сможет гарантировать, что вчерашние строки всё ещё валидны.',
+     fix:"-- правило по нескольким строкам таблицы:\n--   триггер или EXCLUDE\n-- правило по нескольким таблицам:\n--   вычисляемая колонка + FK, либо проверка в коде\n-- правило, зависящее от времени:\n--   только приложение\n\n-- частый компромисс — денормализация:\namount NUMERIC\n  GENERATED ALWAYS AS (price * qty) STORED",
+     r:'Разделение простое. <b>Инвариант</b> — то, что верно для строки всегда и везде — идёт в базу. <b>Политика</b> — то, что зависит от бизнес-правил, тарифа, времени, роли — идёт в код. Инварианты, оставленные в коде, рано или поздно нарушат. Политику, зашитую в базу, рано или поздно замучаетесь менять.'},
+  ];
+  tabs.innerHTML = G.map((g, i) => '<button class="ghost' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' + esc(g.n) + '</button>').join('');
+  function show(i){
+    const g = G[i];
+    tabs.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
+    body.innerHTML = '<div class="nw-grid"><div><div class="nw-l bad">Что происходит</div><pre class="ty-code">' + esc(g.code) + '</pre></div>' +
+      '<div><div class="nw-l ok">Как делать правильно</div><pre class="ty-code">' + esc(g.fix) + '</pre></div></div>' +
+      '<div class="note"><b>Почему:</b> ' + g.w + '</div><div class="hintbox">' + g.r + '</div>';
+  }
+  tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(+b.dataset.i); });
+  show(0);
+})();
+
+/* ================= ОГРАНИЧЕНИЕ НА ЖИВОЙ БАЗЕ ================= */
+(function(){
+  const st = document.getElementById('cl-steps'); if(!st) return;
+  const S = [
+    {t:'Шаг 0 · Наивный способ — так на проде нельзя', code:"ALTER TABLE orders ADD CONSTRAINT total_positive\n  CHECK (total >= 0);", m:'err',
+     w:'База берёт <b>ACCESS EXCLUSIVE</b> — самую тяжёлую блокировку — и проверяет все 50 миллионов строк. Пока идёт проверка, таблица недоступна <b>полностью</b>: ни чтения, ни записи. Это минуты простоя всего сервиса.<br><br>Хуже того: если найдётся хоть одна нарушающая строка, команда упадёт в самом конце — простояв всё это время зря.'},
+    {t:'Шаг 1 · Добавить как NOT VALID', code:"ALTER TABLE orders ADD CONSTRAINT total_positive\n  CHECK (total >= 0) NOT VALID;", m:'ok',
+     w:'<code class="inl">NOT VALID</code> означает: «правило действует для <b>новых</b> строк, старые не проверяем». Команда выполняется <b>мгновенно</b> — база лишь записывает ограничение в системный каталог, сканировать ничего не нужно.<br><br>С этой секунды новый мусор в таблицу не поступает. Блокировка берётся, но держится доли секунды.'},
+    {t:'Шаг 2 · Найти и починить старые нарушения', code:"SELECT id, total FROM orders WHERE NOT (total >= 0);\n\n-- посмотрели, разобрались, исправили пачками:\nUPDATE orders SET total = 0\n WHERE id IN (SELECT id FROM orders\n              WHERE total < 0 LIMIT 5000);", m:'ok',
+     w:'Теперь можно спокойно, без спешки и без блокировок, найти нарушающие строки и решить, что с ними делать. Обычно их немного, и каждая — отдельная история о том, как в базу попал мусор.<br><br>Правьте <b>пачками</b> по несколько тысяч строк, а не одним UPDATE на всю таблицу: длинная транзакция раздувает таблицу мёртвыми версиями строк и мешает работать VACUUM.'},
+    {t:'Шаг 3 · Валидировать', code:"ALTER TABLE orders VALIDATE CONSTRAINT total_positive;", m:'ok',
+     w:'Проверяет все существующие строки и снимает пометку NOT VALID. Берёт <b>SHARE UPDATE EXCLUSIVE</b> — заметно более лёгкую блокировку: <b>чтение и запись продолжают работать</b>, блокируются только другие изменения схемы.<br><br>Сканирование займёт время, но сервис при этом жив. После него ограничение полноценное, и планировщик запросов может на него опираться при построении планов.'},
+  ];
+  st.innerHTML = S.map((s, i) => '<div class="step-c" data-i="' + i + '"><button class="step-b">' + esc(s.t) + '</button><pre class="ty-code">' + esc(s.code) + '</pre></div>').join('');
+  st.addEventListener('click', e => {
+    const b = e.target.closest('.step-b'); if(!b) return;
+    const i = +b.closest('.step-c').dataset.i;
+    st.querySelectorAll('.step-c').forEach((c, k) => c.classList.toggle('on', k === i));
+    msg(document.getElementById('cl-msg'), S[i].m, S[i].w);
+  });
+})();
+
+/* ================= КВИЗ ПО ОГРАНИЧЕНИЯМ ================= */
+(function(){
+  const list = document.getElementById('cq-list'); if(!list) return;
+  const Q = [
+    {q:'«Email каждого пользователя должен быть уникален»', o:['UNIQUE (email)','PRIMARY KEY (email)','CHECK (email IS NOT NULL)','Проверка в коде перед INSERT'], a:0,
+     w:'<code class="inl">UNIQUE</code> — ровно эта задача. PRIMARY KEY тоже даст уникальность, но делать email первичным ключом плохо: он меняется, а менять первичный ключ означает переписывать все ссылки на него. Проверка в коде не спасёт от конкурентных вставок: две одновременные регистрации обе увидят «свободно» и обе запишутся.'},
+    {q:'«Заказ обязан принадлежать существующему клиенту»', o:['FOREIGN KEY (customer_id) REFERENCES customers(id) + NOT NULL','Только FOREIGN KEY','CHECK (customer_id > 0)','UNIQUE (customer_id)'], a:0,
+     w:'Нужны оба. Внешний ключ гарантирует, что указанный клиент существует, но <b>NULL он пропускает</b> — это «клиент не указан». Слово «обязан» закрывается только через NOT NULL. И не забудьте индекс на <code class="inl">customer_id</code>: PostgreSQL его не создаёт сам, а без него каждое удаление клиента сканирует всю таблицу заказов.'},
+    {q:'«Дата окончания подписки не раньше даты начала»', o:['CHECK (ends_at >= starts_at) на уровне таблицы','CHECK (ends_at >= starts_at) на уровне колонки','Триггер BEFORE INSERT','Проверка в приложении'], a:0,
+     w:'Условие затрагивает <b>две колонки</b>, поэтому CHECK пишется на уровне таблицы — после перечисления всех полей. На уровне колонки видна только она сама. Триггер здесь избыточен: правило зависит лишь от текущей строки и неизменно, а это идеальный случай для CHECK.'},
+    {q:'«Одну переговорку нельзя забронировать на пересекающееся время»', o:['EXCLUDE USING GIST (room_id WITH =, period WITH &&)','UNIQUE (room_id, starts_at)','CHECK (starts_at < ends_at)','SELECT перед INSERT в коде приложения'], a:0,
+     w:'Задача про <b>пересечение интервалов</b>, а не про равенство — обычный UNIQUE здесь бессилен, он поймает только полное совпадение времени начала. CHECK проверяет одну строку и о соседях ничего не знает. А «проверить SELECT-ом, потом вставить» — классическая гонка: два запроса одновременно видят «свободно» и оба бронируют.'},
+    {q:'«У клиента не больше трёх активных заказов одновременно»', o:['Проверка в приложении или триггер','CHECK (count(*) <= 3)','UNIQUE (customer_id)','EXCLUDE'], a:0,
+     w:'CHECK видит только <b>текущую строку</b> и агрегаты использовать не может — <code class="inl">count(*)</code> внутри него просто не разрешён. Правило про количество строк требует смотреть на другие строки таблицы, а это уже триггер или логика приложения. Плюс это скорее <b>политика</b>, чем инвариант: завтра лимит станет пятью, и менять его в базе будет неудобно.'},
+    {q:'«Сумма позиции = цена × количество, всегда»', o:['GENERATED ALWAYS AS (price * qty) STORED','CHECK (amount = price * qty)','Пересчитывать в приложении','Триггер BEFORE UPDATE'], a:0,
+     w:'Вычисляемая колонка не оставляет <b>ни малейшего шанса</b> на рассинхрон: значение считает база при каждом изменении строки, а записать туда своё нельзя в принципе. CHECK тоже сработал бы, но правильное значение всё равно кто-то должен посчитать и передать. Триггер решает задачу, но это лишний код, который придётся поддерживать.'},
+    {q:'«Статус заказа — одно из: new, paid, shipped, done»', o:['CHECK (status IN (...)) или таблица-справочник + FK','Тип ENUM','VARCHAR(10)','Проверка в приложении'], a:0,
+     w:'Оба варианта хороши, выбор зависит от того, как часто меняется список. <b>CHECK … IN</b> — просто, меняется обычной миграцией. <b>Справочник + внешний ключ</b> — если значения добавляют бизнес-пользователи: тогда новое значение это просто INSERT, вообще без миграции. <b>ENUM</b> в 2026 применяют реже — менять его сложнее, чем CHECK, а выигрыш небольшой. <code class="inl">VARCHAR(10)</code> не ограничивает ничего, кроме длины: «Newww» пройдёт спокойно.'},
+    {q:'«Email уникален, но удалённого пользователя можно зарегистрировать заново»', o:['CREATE UNIQUE INDEX ON users(email) WHERE deleted_at IS NULL','UNIQUE (email)','UNIQUE (email, deleted_at)','Удалять строки физически'], a:0,
+     w:'<b>Частичный уникальный индекс</b> — правильный инструмент: уникальность действует только среди активных строк, а удалённых с тем же email может накопиться сколько угодно. Обычный UNIQUE заблокирует email навсегда. Пара <code class="inl">(email, deleted_at)</code> не поможет: у всех активных deleted_at равен NULL, а NULL в UNIQUE не сравнивается — дубли пройдут.'},
+  ];
+  list.innerHTML = Q.map((x, i) => '<div class="qcard"><div class="qq">' + (i + 1) + '. ' + esc(x.q) + '</div><div class="qopts">' +
+    x.o.map((o, k) => '<button class="qopt" data-q="' + i + '" data-o="' + k + '"><span class="mk">' + String.fromCharCode(65 + k) + '</span>' + esc(o) + '</button>').join('') +
+    '</div><div class="qwhy"></div></div>').join('');
+  list.addEventListener('click', e => {
+    const b = e.target.closest('.qopt'); if(!b) return;
+    const i = +b.dataset.q, card = b.closest('.qcard');
+    card.querySelectorAll('.qopt').forEach((o, k) => { o.classList.toggle('correct', k === Q[i].a); if(o === b && +b.dataset.o !== Q[i].a) o.classList.add('wrong'); });
+    card.querySelector('.qwhy').innerHTML = (+b.dataset.o === Q[i].a ? '✅ ' : '❌ ') + Q[i].w;
+  });
 })();
 
 </script>
