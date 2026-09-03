@@ -1206,6 +1206,30 @@
   .lec-go{margin-top:10px}
   .nx-card{border-left:4px solid var(--graph)}
   .nx-card .nx-t{font:600 12.5px/1.6 var(--sans); color:var(--muted); margin-top:4px}
+
+  /* ===== признаки: живые демо ===== */
+  .pfd{margin-top:12px; border:1px solid var(--rel); border-radius:11px; padding:12px; background:color-mix(in srgb, var(--rel) 4%, var(--surface-2))}
+  .pfd-t{font:800 11px/1.4 var(--sans); letter-spacing:.05em; text-transform:uppercase; color:var(--rel); margin-bottom:8px}
+  .pfd-qs{display:flex; flex-direction:column; gap:4px; margin-bottom:10px}
+  .pfd-q{text-align:left; padding:7px 11px; border:1px solid var(--line); border-radius:8px; background:var(--surface-2); cursor:pointer; transition:.15s}
+  .pfd-q code{font:600 11.5px/1.4 var(--mono); color:var(--ink)}
+  .pfd-q:hover{border-color:var(--rel)} .pfd-q.on{border-color:var(--rel); background:color-mix(in srgb, var(--rel) 12%, var(--surface-2))}
+  .pfd-stage{border:1px solid var(--line); border-radius:9px; padding:10px; background:var(--surface-2); margin-bottom:10px}
+  .pfd-h{font:700 11px/1.4 var(--sans); color:var(--muted); margin:4px 0 6px}
+  .pfd-h code{font:700 11px var(--mono); color:var(--rel)} .pfd-h small{font-weight:600; color:var(--faint)}
+  .pfd-list{display:flex; flex-direction:column; gap:3px}
+  .pfd-r{display:flex; align-items:center; gap:6px; padding:5px 9px; border-radius:6px; background:var(--surface-3); font:600 11.5px/1.4 var(--mono); color:var(--muted); transition:.2s}
+  .pfd-r i{color:var(--faint); font-style:normal} .pfd-r b{color:var(--ink)}
+  .pfd-r.hit{background:color-mix(in srgb, var(--ok) 20%, transparent); color:var(--ink)}
+  .pfd-r.scat{background:color-mix(in srgb, var(--danger) 16%, transparent); color:var(--danger)}
+  .pfd-r.fetch{background:color-mix(in srgb, var(--doc) 18%, transparent); color:var(--ink)}
+  .pfd-ptr{margin-left:auto; font:600 10px var(--sans); color:var(--muted)}
+  .pfd-none{padding:6px 9px; font:600 11px var(--sans); color:var(--danger)}
+  .pfd-two{display:grid; grid-template-columns:1fr 90px 1fr; gap:8px; align-items:start}
+  .pfd-two > div:not(.pfd-arr){display:flex; flex-direction:column; gap:3px}
+  .pfd-arr{text-align:center; padding-top:28px; font:700 10.5px/1.4 var(--sans); color:var(--muted)}
+  .pfd-arr.go{color:var(--doc)} .pfd-arr.skip{color:var(--ok)}
+  @media(max-width:700px){.pfd-two{grid-template-columns:1fr} .pfd-arr{padding-top:0}}
 </style>
 </head>
 <body>
@@ -7715,6 +7739,128 @@ const CN_NOTES = {
   show(0);
 })();
 
+/* ================= МЕХАНИКА: признаки — живые демо ================= */
+(function(){
+  const body = document.getElementById('pf-body'); if(!body) return;
+  const IDX = [['Казань','02.01'],['Казань','15.03'],['Москва','05.01'],['Москва','20.02'],['Москва','11.03'],['Пермь','08.01'],['Пермь','27.03']];
+  const ROWS = [
+    {id:1, city:'Москва', email:'Anna@Mail.ru', total:1200, status:'new'},
+    {id:2, city:'Казань', email:'boris@mail.ru', total:450, status:'paid'},
+    {id:3, city:'Москва', email:'vera@mail.ru', total:3100, status:'new'},
+    {id:4, city:'Пермь', email:'gleb@mail.ru', total:780, status:'done'},
+    {id:5, city:'Москва', email:'dina@mail.ru', total:900, status:'done'},
+  ];
+  const D = {
+    // ---- 1. составной ----
+    0: {
+      qs:[
+        {l:"WHERE city = 'Москва'", hl:i => IDX[i][0] === 'Москва', ok:true, w:'Первая колонка — база спускается по дереву к «Москва» и читает <b>подряд</b> три записи. Непрерывный блок — индекс работает.'},
+        {l:"WHERE city = 'Москва' AND created_at > '01.03'", hl:i => IDX[i][0] === 'Москва' && IDX[i][1] >= '01.03', ok:true, w:'Обе колонки слева направо: спуск к «Москва», внутри блока — к дате. Ещё уже — <b>одна запись</b>. Лучший случай.'},
+        {l:"WHERE created_at > '01.03'", hl:i => IDX[i][1] >= '01.03', ok:false, w:'<b>Пропущена первая колонка.</b> Подходящие даты разбросаны по всему индексу — они внутри разных городов. Непрерывного блока нет, база не может им воспользоваться. <b>Перебор.</b>'},
+      ],
+      render(st){
+        const q = this.qs[st.q];
+        return '<div class="pfd-h">Индекс <code>(city, created_at)</code> — записи лежат в таком порядке:</div>' +
+          '<div class="pfd-list">' + IDX.map((r, i) => '<div class="pfd-r' + (q.hl(i) ? (q.ok ? ' hit' : ' scat') : '') + '"><b>' + r[0] + '</b><i>·</i>' + r[1] + '</div>').join('') + '</div>';
+      }
+    },
+    // ---- 2. покрывающий ----
+    1: {
+      qs:[
+        {l:"индекс (city) — SELECT city, total WHERE city='Москва'", inc:false, ok:false, w:'В индексе только <code class="inl">city</code>. Нашли три записи — но запросу нужен ещё <code class="inl">total</code>, а его в индексе нет. <b>За каждой строкой идём в таблицу</b>: три прыжка. В плане: <code class="inl">Index Scan</code>, <code class="inl">Heap Fetches: 3</code>.'},
+        {l:"индекс (city) INCLUDE (total) — тот же запрос", inc:true, ok:true, w:'<code class="inl">total</code> лежит прямо в индексе. Всё, что просил запрос, найдено — <b>в таблицу не заходим вообще</b>. В плане: <code class="inl">Index Only Scan</code>, <code class="inl">Heap Fetches: 0</code>.'},
+      ],
+      render(st){
+        const q = this.qs[st.q];
+        const m = ROWS.filter(r => r.city === 'Москва');
+        return '<div class="pfd-two"><div><div class="pfd-h">🔑 индекс ' + (q.inc ? '(city) INCLUDE (total)' : '(city)') + '</div>' +
+          m.map(r => '<div class="pfd-r hit"><b>' + r.city + '</b>' + (q.inc ? '<i>·</i>' + r.total : '') + '<span class="pfd-ptr">→ стр. ' + r.id + '</span></div>').join('') + '</div>' +
+          '<div class="pfd-arr ' + (q.inc ? 'skip' : 'go') + '">' + (q.inc ? 'в таблицу<br>не идём' : '→ 3 прыжка<br>в таблицу') + '</div>' +
+          '<div><div class="pfd-h">📋 таблица</div>' + ROWS.map(r => '<div class="pfd-r' + (!q.inc && r.city === 'Москва' ? ' fetch' : '') + '">' + r.id + '<i>·</i>' + r.city + '<i>·</i>' + r.total + '</div>').join('') + '</div></div>';
+      }
+    },
+    // ---- 3. частичный ----
+    2: {
+      qs:[
+        {l:"обычный индекс (created_at)", part:false, q:null, ok:true, w:'В индексе <b>все пять</b> строк — включая done и paid, по которым никто никогда не ищет. На проде это миллионы лишних записей, которые приходится обновлять и хранить.'},
+        {l:"частичный WHERE status = 'new' — запрос WHERE status='new' AND created_at > …", part:true, q:'new', ok:true, w:'В индексе только <b>две</b> строки со статусом new. Условие запроса совпало с условием индекса — база его использует. Индекс в разы меньше и почти не обновляется: заказы выходят из new и покидают индекс.'},
+        {l:"частичный WHERE status = 'new' — запрос WHERE status='done'", part:true, q:'done', ok:false, w:'<b>Индекс не подходит.</b> В нём нет строк со статусом done — база это знает и его не откроет. Частичный индекс работает <b>только</b> для запросов с тем же условием.'},
+      ],
+      render(st){
+        const q = this.qs[st.q];
+        const inIdx = r => !q.part || r.status === 'new';
+        return '<div class="pfd-two"><div><div class="pfd-h">📋 таблица</div>' + ROWS.map(r => '<div class="pfd-r' + (q.q && r.status === q.q ? ' hit' : '') + '">' + r.id + '<i>·</i>' + r.status + '</div>').join('') + '</div>' +
+          '<div class="pfd-arr"></div>' +
+          '<div><div class="pfd-h">🔑 индекс ' + (q.part ? "(created_at) WHERE status = 'new'" : '(created_at)') + ' <small>' + ROWS.filter(inIdx).length + ' записей</small></div>' +
+          ROWS.filter(inIdx).map(r => '<div class="pfd-r' + (q.q === 'new' && r.status === 'new' ? ' hit' : q.q === 'done' ? ' scat' : '') + '">' + r.id + '<i>·</i>' + r.status + '</div>').join('') +
+          (q.q === 'done' ? '<div class="pfd-none">строк done здесь нет</div>' : '') + '</div></div>';
+      }
+    },
+    // ---- 4. по выражению ----
+    3: {
+      qs:[
+        {l:"индекс (email) — WHERE lower(email) = 'anna@mail.ru'", expr:false, ok:false, w:'В индексе лежит <b>исходное</b> значение <code class="inl">Anna@Mail.ru</code>. Запрос спрашивает про <code class="inl">lower(email)</code> — база не может сопоставить одно с другим, не применив функцию к каждой записи. Индекс не используется, <b>перебор</b>.'},
+        {l:"индекс (lower(email)) — тот же запрос", expr:true, ok:true, w:'В индексе хранится <b>результат функции</b>: <code class="inl">anna@mail.ru</code>. Условие запроса совпадает буквально — прямое попадание.'},
+        {l:"индекс (lower(email)) — WHERE email = 'Anna@Mail.ru'", expr:true, ok:false, w:'А теперь наоборот: запрос про исходное значение, а в индексе — приведённое. <b>Не совпало.</b> Выражение в запросе и в индексе должно быть одним и тем же буквально.'},
+      ],
+      render(st){
+        const q = this.qs[st.q];
+        const target = st.q === 2 ? 'Anna@Mail.ru' : 'anna@mail.ru';
+        return '<div class="pfd-h">ищем: <code>' + (st.q === 2 ? "email = 'Anna@Mail.ru'" : "lower(email) = 'anna@mail.ru'") + '</code></div><div class="pfd-h">🔑 индекс ' + (q.expr ? '(lower(email))' : '(email)') + ' хранит:</div>' +
+          '<div class="pfd-list">' + ROWS.map(r => { const v = q.expr ? r.email.toLowerCase() : r.email; const m = v === target; return '<div class="pfd-r' + (m ? ' hit' : (r.id === 1 ? ' scat' : '')) + '">' + v + (m ? '<span class="pfd-ptr">✓ совпало</span>' : r.id === 1 ? '<span class="pfd-ptr">✗ не то же самое</span>' : '') + '</div>'; }).join('') + '</div>';
+      }
+    },
+    // ---- 5. уникальный ----
+    4: {
+      qs:[
+        {l:"INSERT email = 'new@mail.ru'", act:'ok', ok:true, w:'Такого значения в индексе нет — вставка проходит, запись добавляется в дерево.'},
+        {l:"INSERT email = 'vera@mail.ru' (уже есть)", act:'dup', ok:false, w:'<b>База отказала.</b> Перед вставкой она заглянула в уникальный индекс, нашла такое значение — и не дала. Это и ускорение поиска, и ограничение в одном объекте. <code class="inl">ERROR: duplicate key value violates unique constraint</code>'},
+        {l:"INSERT email = NULL, потом ещё раз NULL", act:'null', ok:true, w:'<b>Обе прошли.</b> NULL с NULL не сравнивается — «неизвестно, равны ли», и уникальность их не ловит. Хотите ровно один NULL — <code class="inl">UNIQUE NULLS NOT DISTINCT</code> (PostgreSQL 15+) или <code class="inl">NOT NULL</code>.'},
+      ],
+      render(st){
+        const q = this.qs[st.q];
+        const base = ROWS.map(r => r.email.toLowerCase()).sort();
+        let list = base.map(v => ({v, k:''}));
+        if(q.act === 'ok') list.push({v:'new@mail.ru', k:'hit'});
+        if(q.act === 'dup') list = list.map(x => x.v === 'vera@mail.ru' ? {v:x.v, k:'scat'} : x);
+        if(q.act === 'null') list.push({v:'NULL', k:'hit'}, {v:'NULL', k:'hit'});
+        list.sort((a, b) => a.v.localeCompare(b.v));
+        return '<div class="pfd-h">🔑 UNIQUE-индекс (email):</div><div class="pfd-list">' + list.map(x => '<div class="pfd-r ' + x.k + '">' + x.v + (x.k === 'scat' ? '<span class="pfd-ptr">✗ уже есть — отказ</span>' : x.k === 'hit' ? '<span class="pfd-ptr">+ добавлено</span>' : '') + '</div>').join('') + '</div>';
+      }
+    },
+    // ---- 6. класс операторов ----
+    5: {
+      qs:[
+        {l:"индекс hnsw (emb vector_l2_ops) — ORDER BY emb <-> $1", ops:'l2', op:'<->', ok:true, w:'<code class="inl">vector_l2_ops</code> — это евклидово расстояние, оператор <code class="inl">&lt;-&gt;</code>. Запрос использует его же. <b>Совпало</b>, индекс работает.'},
+        {l:"индекс hnsw (emb vector_l2_ops) — ORDER BY emb <=> $1", ops:'l2', op:'<=>', ok:false, w:'<b>Не совпало — и никто не скажет.</b> Индекс построен для евклидова расстояния, а запрос считает косинусное. Ни ошибки, ни предупреждения: база просто перебирает все векторы. Заметить можно только в <code class="inl">EXPLAIN</code> по <code class="inl">Seq Scan</code>.'},
+        {l:"индекс hnsw (emb vector_cosine_ops) — ORDER BY emb <=> $1", ops:'cosine', op:'<=>', ok:true, w:'Класс операторов и оператор из одной пары. Работает.'},
+      ],
+      render(st){
+        const q = this.qs[st.q];
+        const pair = {l2:'<->', cosine:'<=>'};
+        return '<div class="pfd-two"><div><div class="pfd-h">🔑 индекс построен для</div><div class="pfd-r ' + (q.ok ? 'hit' : 'scat') + '"><b>vector_' + q.ops + '_ops</b><i>·</i>оператор ' + esc(pair[q.ops]) + '</div></div>' +
+          '<div class="pfd-arr ' + (q.ok ? 'skip' : 'go') + '">' + (q.ok ? '= совпало' : '≠ не совпало') + '</div>' +
+          '<div><div class="pfd-h">❓ запрос использует</div><div class="pfd-r ' + (q.ok ? 'hit' : 'scat') + '">оператор <b>' + esc(q.op) + '</b><i>·</i>' + (q.op === '<->' ? 'евклидово' : 'косинусное') + '</div></div></div>';
+      }
+    },
+  };
+  const st = {};
+  window.__pfDemo = function(i){
+    const d = D[i]; if(!d) return '';
+    st[i] = st[i] || {q:0};
+    const q = d.qs[st[i].q];
+    return '<div class="pfd"><div class="pfd-t">▶ Посмотрите, как это работает</div>' +
+      '<div class="pfd-qs">' + d.qs.map((x, k) => '<button class="pfd-q' + (k === st[i].q ? ' on' : '') + '" data-pf="' + i + '" data-q="' + k + '"><code>' + esc(x.l) + '</code></button>').join('') + '</div>' +
+      '<div class="pfd-stage">' + d.render(st[i]) + '</div>' +
+      '<div class="console ' + (q.ok ? 'ok' : 'err') + '"><span class="ic">' + (q.ok ? '✓' : '✕') + '</span><span>' + q.w + '</span></div></div>';
+  };
+  body.addEventListener('click', e => {
+    const b = e.target.closest('.pfd-q'); if(!b) return;
+    const i = +b.dataset.pf; st[i].q = +b.dataset.q;
+    b.closest('.pfd').outerHTML = window.__pfDemo(i);
+  });
+})();
+
 /* ================= МЕХАНИКА: признаки, а не типы ================= */
 (function(){
   const tabs = document.getElementById('pf-tabs'); if(!tabs) return;
@@ -7743,7 +7889,7 @@ const CN_NOTES = {
   function show(i){
     const p = P[i];
     tabs.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
-    body.innerHTML = '<pre class="ty-code">' + esc(p.code) + '</pre><div class="note"><b>Что это.</b> ' + p.w + '</div><div class="hintbox">' + p.r + '</div>';
+    body.innerHTML = '<pre class="ty-code">' + esc(p.code) + '</pre><div class="note"><b>Что это.</b> ' + p.w + '</div>' + (window.__pfDemo ? window.__pfDemo(i) : '') + '<div class="hintbox">' + p.r + '</div>';
   }
   tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(+b.dataset.i); });
   show(0);
