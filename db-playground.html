@@ -612,6 +612,130 @@
 
   .themebtn{position:fixed; right:16px; bottom:16px; z-index:30; width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; box-shadow:var(--shadow); font-size:18px}
   .footer{color:var(--faint); font-size:12.5px; text-align:center; margin-top:34px}
+
+  /* ---------- зависимости ---------- */
+  .fd-pick{display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap; margin-top:12px}
+  .fd-pick select{font:500 13px var(--sans); border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink); padding:8px 10px; min-width:170px}
+  .fd-arrow{font:700 20px var(--mono); color:var(--accent); padding-bottom:6px}
+  table.db{border-collapse:collapse; width:100%; font:500 12.5px var(--mono)}
+  table.db th, table.db td{padding:7px 10px; text-align:left; border-bottom:1px solid var(--line); white-space:nowrap}
+  table.db th{background:var(--surface-2); font-weight:700; font-size:11.5px; color:var(--muted)}
+  table.db tr:last-child td{border-bottom:0}
+  table.db td.k, table.db th.k{background:color-mix(in srgb,var(--kv) 12%,transparent)}
+  table.db th.k{color:var(--kv)}
+  table.db th.k::after{content:' 🔑'}
+  table.db .fdl{background:color-mix(in srgb,var(--rel) 16%,transparent) !important; color:var(--rel)}
+  table.db .fdr{background:color-mix(in srgb,var(--graph) 16%,transparent) !important; color:var(--graph)}
+  table.db tr.fdbad td{background:color-mix(in srgb,var(--danger) 14%,transparent)}
+  table.db th.clk{cursor:pointer} table.db th.clk:hover{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+  .fd-why{display:flex; gap:12px; margin-top:12px; align-items:flex-start; font-size:14px; line-height:1.65}
+  .fd-why-l{flex:none; width:26px; height:26px; border-radius:50%; background:var(--accent); color:#fff; display:grid; place-items:center; font:700 13px var(--mono)}
+  .fd-arrows{margin-top:12px}
+  .fd-key{font:600 12.5px var(--mono); color:var(--muted); margin-bottom:8px}
+  .fd-key .kb{border:1px solid var(--line); border-radius:7px; padding:3px 8px; background:var(--surface-2); color:var(--faint)}
+  .fd-key .kb.on{border-color:var(--rel); color:var(--rel); background:color-mix(in srgb,var(--rel) 12%,transparent)}
+  .fd-eq{font:600 13px var(--mono); display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+  .fd-eq code{background:var(--surface-2); border:1px solid var(--line); border-radius:6px; padding:3px 8px}
+  .fdt{font-size:11px; padding:3px 9px; border-radius:20px; border:1px solid}
+  .fdt.bad{color:var(--danger); border-color:var(--danger); background:var(--danger-bg)}
+  .fdt.ok{color:var(--ok); border-color:var(--ok); background:var(--ok-bg)}
+  .fdt.warn{color:var(--doc); border-color:var(--doc)}
+  .fd-transit{margin-top:12px; display:grid; gap:14px}
+  .tr-row{display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding:12px; border:1px solid var(--line); border-radius:11px; background:var(--surface-2); transition:all .3s}
+  .tr-row.cut{border-color:var(--ok); background:var(--ok-bg)}
+  .tr-label{flex:none; width:120px; font:700 11px var(--mono); color:var(--muted)}
+  .tr-node{border:1.5px solid var(--line); border-radius:10px; padding:7px 12px; background:var(--surface); font:600 12.5px var(--sans); text-align:center; transition:all .3s}
+  .tr-node small{display:block; font:500 9.5px var(--mono); color:var(--faint); margin-top:2px}
+  .tr-node.key{border-color:var(--kv); color:var(--kv)}
+  .tr-node.mid{border-style:dashed; border-color:var(--doc)}
+  .tr-node.hot{border-color:var(--rel); box-shadow:0 0 0 3px color-mix(in srgb,var(--rel) 20%,transparent)}
+  .tr-node.gone{opacity:.35; text-decoration:line-through}
+  .tr-arr{font:700 18px var(--mono); color:var(--line); transition:color .3s}
+  .tr-arr.on{color:var(--rel)}
+  .tr-cap{flex-basis:100%; font-size:12.5px; color:var(--muted); margin-top:6px; padding-left:128px}
+  .tr-derived{padding:10px 14px; border-radius:10px; background:var(--danger-bg); border:1px solid color-mix(in srgb,var(--danger) 40%,var(--line)); font-size:13px; color:var(--ink)}
+  .nf-formal{margin-top:12px; padding:12px 15px; border:1px solid var(--line); border-radius:11px; background:var(--surface-2); font-size:13.5px; line-height:1.7}
+  .nf-l{font:700 10.5px var(--mono); color:var(--faint); margin-bottom:5px; letter-spacing:.04em}
+  .qwhy{display:none; margin-top:10px; font-size:13px; line-height:1.65; color:var(--muted); border-left:3px solid var(--line); padding-left:11px}
+  .qwhy.show{display:block}
+  .note.ok{border-left-color:var(--ok); background:var(--ok-bg)}
+  .note.bad{border-left-color:var(--danger); background:var(--danger-bg)}
+  code.inl{font:500 12.5px var(--mono); background:var(--surface-3); padding:1px 5px; border-radius:5px; color:var(--ink)}
+  /* ---------- типы ---------- */
+  .ty-g{font:600 10.5px var(--mono); color:var(--faint); border:1px solid var(--line); border-radius:20px; padding:2px 9px; margin-left:8px; vertical-align:middle}
+  .ty-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px} @media(max-width:760px){.ty-grid{grid-template-columns:1fr}}
+  .ty-cell{border:1px solid var(--line); border-radius:11px; background:var(--surface-2); padding:11px 14px; font-size:13.5px; line-height:1.65}
+  .ty-l{font:700 10.5px var(--mono); color:var(--accent); margin-bottom:5px; letter-spacing:.04em}
+  .ty-code{margin-top:12px; font:500 12px/1.7 var(--mono); background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto; white-space:pre; color:var(--ink)}
+  /* ---------- семьи SQL ---------- */
+  .fam-head{margin-top:12px; padding:12px 15px; border:1px solid var(--line); border-radius:11px; background:var(--surface-2)}
+  .fam-t{font:700 14px var(--sans); color:var(--ink)} .fam-t b{color:var(--accent)}
+  .fam-w{font-size:13.5px; line-height:1.65; color:var(--muted); margin-top:6px}
+  .fam-a{font-size:13px; color:var(--faint); margin-top:6px; font-style:italic}
+  .fam-cmds{display:flex; gap:6px; flex-wrap:wrap; margin:12px 0}
+  .fam-opts{flex-direction:row !important; flex-wrap:wrap}
+  .fam-opts .qopt{flex:1; min-width:70px; justify-content:center; font:700 12px var(--mono)}
+  /* ---------- движок ---------- */
+  .eng-toc{display:flex; gap:6px; flex-wrap:wrap; margin-top:12px}
+  .eng-stage{margin-top:14px; min-height:90px; display:flex; align-items:center; justify-content:center; padding:14px; border:1px solid var(--line); border-radius:12px; background:var(--surface-2); overflow-x:auto}
+  .eng-flow{display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:center}
+  .eng-n{border:1.5px solid var(--line); border-radius:10px; padding:8px 13px; background:var(--surface); text-align:center; font:600 12.5px var(--sans); min-width:110px}
+  .eng-n small{display:block; font:500 10px var(--mono); color:var(--faint); margin-top:3px; white-space:normal}
+  .eng-n.hot{border-color:var(--rel); box-shadow:0 0 0 3px color-mix(in srgb,var(--rel) 18%,transparent); color:var(--rel)}
+  .eng-n.ok{border-color:var(--ok); color:var(--ok)} .eng-n.db{border-color:var(--kv); color:var(--kv)}
+  .eng-n.ui{border-color:var(--graph); color:var(--graph)}
+  .eng-n.dead{border-color:var(--danger); color:var(--danger); background:var(--danger-bg)}
+  .eng-a{font:700 17px var(--mono); color:var(--line)} .eng-a.hot{color:var(--rel)} .eng-a.up{transform:rotate(-90deg)}
+  .pg-page{width:100%; max-width:520px; border:2px solid var(--line); border-radius:10px; overflow:hidden; font:500 11.5px var(--mono)}
+  .pg-hdr{background:color-mix(in srgb,var(--kv) 14%,transparent); padding:8px 11px; color:var(--kv); font-weight:700}
+  .pg-hdr small{display:block; font-weight:500; color:var(--faint); font-size:10px; margin-top:2px}
+  .pg-ptrs{display:flex; gap:6px; padding:8px 11px; border-top:1px solid var(--line); background:var(--surface)}
+  .pg-ptrs span{border:1px solid var(--line); border-radius:5px; padding:2px 8px; color:var(--muted)}
+  .pg-ptrs .free{border:0; color:var(--faint)}
+  .pg-free{padding:16px 11px; text-align:center; color:var(--faint); background:repeating-linear-gradient(45deg,transparent,transparent 6px,var(--surface-2) 6px,var(--surface-2) 12px)}
+  .pg-tuples{border-top:1px solid var(--line)}
+  .pg-t{padding:7px 11px; border-bottom:1px solid var(--line); background:var(--surface)}
+  .pg-t:last-child{border-bottom:0}
+  .pg-t small{color:var(--faint); margin-left:8px; font-size:10px}
+  .pg-cap{padding:8px 11px; background:var(--surface-2); color:var(--faint); font-size:10.5px; border-top:1px solid var(--line)}
+  /* ---------- MVCC ---------- */
+  .mv-wrap{display:grid; grid-template-columns:1.4fr 1fr; gap:12px; margin-top:12px} @media(max-width:820px){.mv-wrap{grid-template-columns:1fr}}
+  .mv-h{font:700 11px var(--mono); color:var(--muted); margin-bottom:6px}
+  .mv-badge{font-size:10px; padding:2px 8px; border-radius:20px; border:1px solid}
+  .mv-badge.live{color:var(--ok); border-color:var(--ok)} .mv-badge.dead{color:var(--danger); border-color:var(--danger)}
+  .mv-badge.new{color:var(--doc); border-color:var(--doc)}
+  table.db tr.mv-dead td{opacity:.5; text-decoration:line-through}
+  table.db tr.mv-new td{background:color-mix(in srgb,var(--doc) 10%,transparent)}
+  .mv-view{border:1px solid var(--line); border-radius:10px; padding:9px 12px; margin-bottom:8px; background:var(--surface-2)}
+  .mv-view.ok{border-color:var(--ok)} .mv-view.warn{border-color:var(--doc)}
+  .mv-vn{font:700 12px var(--mono); color:var(--ink)} .mv-vn small{display:block; font-weight:500; font-size:10px; color:var(--faint)}
+  .mv-val{font:500 13px var(--mono); color:var(--muted); margin-top:5px}
+  /* ---------- ACID ---------- */
+  .ac-head{margin-top:12px; font-size:14px; line-height:1.7; color:var(--ink)}
+  .ac-stage{margin-top:14px; padding:14px; border:1px solid var(--line); border-radius:12px; background:var(--surface-2)}
+  .ac-accs{display:flex; gap:10px; flex-wrap:wrap}
+  .ac-acc{flex:1; min-width:130px; border:1.5px solid var(--line); border-radius:10px; padding:10px 13px; background:var(--surface); text-align:center}
+  .ac-acc b{display:block; font-size:12.5px; color:var(--muted)}
+  .ac-acc span{font:700 19px var(--mono); color:var(--ink)}
+  .ac-acc.hot{border-color:var(--doc)}
+  .ac-acc.total{border-color:var(--ok)} .ac-acc.total span{color:var(--ok)}
+  .ac-acc.total.bad{border-color:var(--danger)} .ac-acc.total.bad span{color:var(--danger)}
+  .ac-warn{margin-top:10px; padding:9px 13px; border-radius:9px; background:var(--danger-bg); border:1px solid color-mix(in srgb,var(--danger) 40%,var(--line)); color:var(--danger); font-size:13px; font-weight:600}
+  .ac-sql{font:500 11.5px/1.65 var(--mono); background:var(--surface); border:1px solid var(--line); border-radius:9px; padding:11px 13px; overflow-x:auto; white-space:pre; margin:0}
+  .ac-log{margin-top:10px; display:grid; gap:5px}
+  .ac-lrow{display:flex; gap:10px; align-items:center; justify-content:space-between; padding:7px 11px; border-radius:8px; border:1px solid var(--line); background:var(--surface); font-size:12px; flex-wrap:wrap}
+  .ac-lrow code{font:500 11px var(--mono); color:var(--muted)}
+  .ac-lrow.err{border-color:color-mix(in srgb,var(--danger) 40%,var(--line))} .ac-lrow.err span{color:var(--danger); font-weight:600}
+  .ac-lrow.ok{border-color:color-mix(in srgb,var(--ok) 40%,var(--line))} .ac-lrow.ok span{color:var(--ok); font-weight:600}
+  .ac-seat-n{font:600 14px var(--sans); color:var(--muted)} .ac-seat-n b{font:700 22px var(--mono); color:var(--ok)} .ac-seat-n b.bad{color:var(--danger)}
+  .ac-booked{margin-top:9px; display:flex; gap:6px; flex-wrap:wrap}
+  .ac-b{border:1px solid var(--line); border-radius:20px; padding:4px 12px; background:var(--surface); font-size:12.5px}
+  .ac-dur{display:grid; grid-template-columns:repeat(3,1fr); gap:10px} @media(max-width:700px){.ac-dur{grid-template-columns:1fr}}
+  .ac-d-col{border:1px solid var(--line); border-radius:10px; padding:9px 11px; background:var(--surface); min-height:80px}
+  .ac-d-h{font:700 11px var(--mono); color:var(--muted); margin-bottom:7px}
+  .ac-d-i{font:500 11.5px var(--mono); padding:5px 9px; border-radius:7px; background:var(--surface-2); border:1px solid var(--line); margin-bottom:5px}
+  .ac-d-i.ok{border-color:var(--ok); color:var(--ok)} .ac-d-i.hot{border-color:var(--doc); color:var(--doc)}
+  .pr-empty{font:500 11px var(--mono); color:var(--faint)}
 </style>
 </head>
 <body>
@@ -990,6 +1114,116 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
     <p class="lead">Представь, что весь магазин свалили в <b>одну большую таблицу</b>. Работать можно, но данные повторяются, и появляются <b>аномалии</b>: сменил один email — забыл в другой строке — и в базе два разных email у одного человека. <b>Нормализация</b> — это раскладка данных так, чтобы каждый факт хранился ровно один раз. Пройди шаги и смотри, как дубли (подсвечены <span style="color:var(--doc); font-weight:600">янтарным</span>) исчезают.</p>
 
     <div class="card">
+      <h2><span class="tag">ФУНДАМЕНТ</span> функциональная зависимость — без неё дальше никак</h2>
+      <p>Все нормальные формы формулируются через одно понятие. Разберём его до конца, иначе «частичная» и «транзитивная» останутся заклинаниями.</p>
+
+      <div class="note"><b>Функциональная зависимость</b> — это когда, <b>зная одно, вы однозначно знаете другое</b>. Записывают стрелкой: <code class="inl">артикул → наименование</code>. Читают так: «артикул <b>определяет</b> наименование». Проверка в одну фразу: <b>«если я знаю только это — могу ли назвать то?»</b> Если да, и ответ всегда один и тот же, — зависимость есть.</p>
+
+      <h3 style="margin-top:16px">Проверьте руками: выберите «что знаю» и «что хочу узнать»</h3>
+      <p>Ниже настоящие данные. Выберите поле слева и поле справа — программа сгруппирует строки и проверит, всегда ли ответ однозначен. Если нет — покажет две строки-контрпримера.</p>
+      <div class="fd-pick">
+        <div class="field"><label>знаю</label><select id="fd-from"></select></div>
+        <span class="fd-arrow">→</span>
+        <div class="field"><label>могу узнать?</label><select id="fd-to"></select></div>
+        <button class="act" id="fd-go">Проверить</button>
+      </div>
+      <div class="table-wrap" style="margin-top:12px"><table class="db" id="fd-table"></table></div>
+      <div class="console" id="fd-msg" aria-live="polite">Выберите пару полей и нажмите «Проверить».</div>
+      <div class="hintbox"><b>Попробуйте эти пары:</b> <code class="inl">артикул → наименование</code> (есть), <code class="inl">наименование → артикул</code> (тоже есть, зависимость бывает взаимной), <code class="inl">номер_заказа → кол-во</code> (нет: в одном заказе разное количество разных товаров), <code class="inl">категория → ставка_НДС</code> (есть — и именно она станет транзитивной).</div>
+
+      <div class="note" style="margin-top:14px"><b>Важная оговорка.</b> Зависимость определяется <b>правилами предметной области</b>, а не текущими данными. Если в таблице три строки и в них у каждого клиента свой город — это ещё не значит, что <code class="inl">клиент → город</code>. Данные могут случайно не противоречить. Поэтому проверка выше — только подсказка: окончательный ответ даёт <b>заказчик</b>. Зато <b>опровергнуть</b> зависимость данные могут железно: нашлись две строки с одинаковым слева и разным справа — зависимости нет точно.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ЧАСТИЧНАЯ</span> почему она называется «частичной» — буквально от слова «часть»</h2>
+      <p>Название не метафора. Оно описывает ровно то, что происходит.</p>
+
+      <div class="fd-why">
+        <div class="fd-why-l">1</div>
+        <div><b>Ключ бывает составным</b> — то есть <b>состоит из частей</b>. В таблице позиций заказа одной строки не хватает ни номера заказа (в заказе много позиций), ни артикула (товар в разных заказах). Строку определяет <b>пара</b>: <code class="inl">номер_заказа + артикул</code>. Это две части одного ключа.</div>
+      </div>
+      <div class="fd-why">
+        <div class="fd-why-l">2</div>
+        <div><b>Зависимость может идти не от всего ключа, а от одной его части.</b> Наименование товара определяется <b>только артикулом</b> — номер заказа для этого не нужен. То есть поле зависит от <b>части</b> ключа.</div>
+      </div>
+      <div class="fd-why">
+        <div class="fd-why-l">3</div>
+        <div><b>Вот эта зависимость «от части» и называется частичной.</b> Не «неполная», не «слабая» — именно <b>от части составного ключа</b>. А зависимость от ключа целиком называют <b>полной</b>.</div>
+      </div>
+
+      <h3 style="margin-top:18px">Посмотрите: кликните по столбцу — увидите, от чего он зависит</h3>
+      <p>Ключевые столбцы подсвечены. Кликайте по остальным — стрелки покажут, что именно определяет это поле.</p>
+      <div class="table-wrap"><table class="db" id="pd-table"></table></div>
+      <div class="fd-arrows" id="pd-arrows"></div>
+      <div class="console" id="pd-msg" aria-live="polite">Кликните по любому неключевому столбцу.</div>
+
+      <div class="note bad" style="margin-top:14px"><b>Чем это плохо.</b> Раз наименование определяется только артикулом, оно будет <b>повторяться в каждой строке, где встречается этот артикул</b>. Продали ноутбук в двухстах заказах — двести раз записали «Ноутбук Lenovo» и его цену. Поменялась цена — двести строк на правку, и однажды поправят не все.</div>
+      <div class="note ok"><b>Как лечится.</b> Атрибуты, зависящие от <b>части</b> ключа, выносят в отдельную таблицу, где эта часть становится <b>полным</b> ключом. Артикул, наименование и цена уезжают в «Товары» — там артикул уже полноценный первичный ключ, и наименование хранится в одном экземпляре.</div>
+
+      <div class="note" style="margin-top:14px"><b>Следствие, которое экономит время.</b> Частичная зависимость возможна <b>только при составном ключе</b> — потому что только у него есть части. Если ключ простой (один столбец), делить нечего, и <b>2НФ выполняется автоматически</b>. Увидели простой ключ — смело пропускайте проверку 2НФ и идите к 3НФ.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ТРАНЗИТИВНАЯ</span> почему «транзитивная» — как транзитный рейс</h2>
+      <p>Здесь название пришло из математики, но объясняется через аэропорт.</p>
+
+      <div class="note"><b>Транзит</b> — это когда добираются <b>не напрямую, а через промежуточный пункт</b>. Рейс Москва → Мале с пересадкой в Стамбуле: вы попадаете на Мальдивы через Стамбул. Связь Москва—Мальдивы существует, но она <b>транзитная</b>.<br><br>С зависимостями то же самое: <code class="inl">артикул → категория → ставка_НДС</code>. Ставка НДС зависит от артикула — но <b>не напрямую</b>, а через категорию. Знать артикул достаточно, чтобы назвать ставку, но «работает» эта связь через посредника. Такая зависимость называется <b>транзитивной</b>.</div>
+
+      <h3 style="margin-top:16px">Прямая связь и транзитная — сравните</h3>
+      <div class="fd-transit" id="tr-vis"></div>
+      <div class="form-row" style="margin-top:12px">
+        <button class="act" id="tr-play">▶ Показать, как идёт связь</button>
+        <button class="ghost" id="tr-cut">✂ Убрать посредника</button>
+        <button class="ghost" id="tr-reset">↻ Сброс</button>
+      </div>
+      <div class="console" id="tr-msg" aria-live="polite">Нажмите «Показать» — увидите разницу между прямой и транзитной связью.</div>
+
+      <div class="note" style="margin-top:14px"><b>Откуда термин.</b> В математике отношение <b>транзитивно</b>, если из «a связано с b» и «b связано с c» следует «a связано с c». Пример из школы: если <b>a &gt; b</b> и <b>b &gt; c</b>, то <b>a &gt; c</b> — знак «больше» транзитивен. Функциональная зависимость ведёт себя так же: из <code class="inl">A → B</code> и <code class="inl">B → C</code> следует <code class="inl">A → C</code>. Вот эту выведенную «через посредника» зависимость и называют транзитивной.</div>
+
+      <div class="note bad"><b>Чем это плохо.</b> Ставка НДС относится к <b>категории</b>, а лежит в строке товара. Значит, у всех товаров одной категории она продублирована. Поменялась ставка для электроники — править тысячи строк. И наоборот: нельзя завести категорию, пока в ней нет ни одного товара, — негде хранить её ставку.</div>
+      <div class="note ok"><b>Как лечится.</b> «Хвост» цепочки выносят в отдельную таблицу, а на её место ставят ссылку. Категория со ставкой уезжает в справочник «Категории», в товаре остаётся <code class="inl">категория_id</code>. Теперь ставка хранится один раз на категорию.</div>
+
+      <div class="note" style="margin-top:14px"><b>Проверочный вопрос, который решает всё.</b> Для каждого неключевого столбца спросите: <b>«Он описывает мою сущность — или соседнюю?»</b> Ставка НДС описывает <b>категорию</b>, а не товар. Название отдела описывает <b>отдел</b>, а не сотрудника. Транзитивная зависимость почти всегда означает, что в таблицу затесались атрибуты <b>другой сущности</b>, — и их надо выселить.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">РЯДОМ</span> частичная против транзитивной — одной таблицей</h2>
+      <div class="table-wrap"><table class="db">
+        <thead><tr><th></th><th>Частичная</th><th>Транзитивная</th></tr></thead>
+        <tbody>
+          <tr><td><b>Откуда название</b></td><td>Зависимость от <b>части</b> составного ключа</td><td>Связь идёт <b>транзитом</b>, через промежуточный столбец</td></tr>
+          <tr><td><b>Схема</b></td><td><code class="inl">(A + B) — ключ, но C зависит только от A</code></td><td><code class="inl">A → B → C</code>, где A — ключ, B и C — нет</td></tr>
+          <tr><td><b>Пример</b></td><td>Ключ (заказ + артикул), а <b>наименование</b> зависит только от артикула</td><td>Артикул → <b>категория</b> → <b>ставка НДС</b></td></tr>
+          <tr><td><b>Какую форму нарушает</b></td><td><b>2НФ</b></td><td><b>3НФ</b></td></tr>
+          <tr><td><b>Когда вообще возможна</b></td><td>Только при <b>составном</b> ключе</td><td>При любом ключе, в том числе простом</td></tr>
+          <tr><td><b>Как лечится</b></td><td>Вынести в таблицу, где эта <b>часть станет полным ключом</b></td><td>Вынести <b>хвост цепочки</b> в справочник, оставить ссылку</td></tr>
+          <tr><td><b>Вопрос-детектор</b></td><td>«Нужен ли мне <b>весь</b> ключ, чтобы назвать это поле?»</td><td>«Это поле описывает <b>мою</b> сущность — или соседнюю?»</td></tr>
+        </tbody>
+      </table></div>
+      <div class="hintbox"><b>Порядок проверки — всегда один:</b> найти ключ → 1НФ (атомарность) → 2НФ, <b>только если ключ составной</b> → 3НФ → повторить для новых таблиц, которые появились по дороге.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ТРЕНАЖЁР 🎯</span> определи вид зависимости</h2>
+      <p>Восемь ситуаций. Для каждой указан ключ таблицы и найденная зависимость — определите, какая она и что нарушает.</p>
+      <div id="fdq-list"></div>
+      <div class="meters"><div class="meter clean">Верно: <b id="fdq-score">0</b> из <b id="fdq-total">8</b></div></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ФОРМЫ</span> точные формулировки — и что они значат по-русски</h2>
+      <p>Теперь, когда зависимости понятны, определения читаются осмысленно. Кликайте по форме.</p>
+      <div class="graph-tools" id="nf-tabs">
+        <button class="ghost on" data-nf="1">1НФ</button>
+        <button class="ghost" data-nf="2">2НФ</button>
+        <button class="ghost" data-nf="3">3НФ</button>
+        <button class="ghost" data-nf="bc">НФБК</button>
+        <button class="ghost" data-nf="45">4НФ и 5НФ</button>
+      </div>
+      <div id="nf-body"></div>
+    </div>
+
+    <div class="card">
       <h2><span class="tag">DIY 🔧</span> нормализуй сам</h2>
       <p>Перед тобой всё свалено в одну таблицу (1НФ). <b>Твоя задача — довести её до 3НФ</b>, выбирая правильное действие на каждом шаге. Ошибёшься — объясню почему. Следи за плашками: дубли должны исчезнуть, «email Анны» и «цена наушников» — дойти до 1 места.</p>
       <div class="meters" id="nz-meters"></div>
@@ -1203,7 +1437,7 @@ CREATE INDEX idx_lower_email ON users (LOWER(email));</pre>
 
   <!-- ============ POSTGRESQL ============ -->
   <section class="panel" id="pg" data-accent="rel" role="tabpanel">
-    <p class="lead">Разберём на примере <b>PostgreSQL</b>, что происходит «под капотом» реляционной базы — простым языком и со схемами. Четыре вещи: как выполняется запрос, как данные организованы логически, как лежат физически и что бережёт их от потери.</p>
+    <p class="lead">Разберём на примере <b>PostgreSQL</b>, что происходит «под капотом». Сначала — <b>карта</b>: как база организована логически (кластер → база → схема) и физически (страницы 8 КБ, буферный кеш). Потом — <b>сквозной рассказ из восьми глав</b>: проследим один запрос от текста до диска и обратно, разберём, почему UPDATE не перезаписывает строку, откуда берутся «мёртвые» версии и кто их убирает. Всё интерактивно: карточки можно листать и трогать.</p>
 
     <div class="card">
       <h2><span class="tag">1 · ЗАПРОС</span> путь SQL-запроса внутри сервера</h2>
@@ -1264,7 +1498,45 @@ CREATE INDEX idx_lower_email ON users (LOWER(email));</pre>
       <div class="note">Строка лежит в странице как <b>кортеж (tuple)</b>; очень большие значения выносятся в отдельное хранилище (<b>TOAST</b>). «Горячий путь» записи — только WAL (диск) + буфер (RAM), поэтому COMMIT быстрый; тяжёлый сброс в файл таблицы откладывается на checkpoint.</div>
     </div>
 
+        <div class="card">
+      <h2><span class="tag">РАССКАЗ 🔧</span> движок изнутри: проследим один INSERT и один SELECT до конца</h2>
+      <p>Дальше — сквозная история. Мы выполним <b>две команды</b> и проследим каждую до самого диска: что происходит в памяти, что пишется на диск и в каком порядке, почему <code class="inl">COMMIT</code> быстрый, откуда берутся «мёртвые» строки и кто их убирает. Восемь глав, каждая — шаг предыдущей.</p>
+      <div class="eng-toc" id="eng-toc"></div>
+      <div class="eng-stage" id="eng-stage"></div>
+      <div class="form-row" style="margin-top:12px">
+        <button class="ghost" id="eng-prev">← Назад</button>
+        <button class="act" id="eng-next">Дальше →</button>
+        <button class="ghost" id="eng-reset">↻ Сначала</button>
+      </div>
+      <div class="console" id="eng-msg" aria-live="polite"></div>
+      <div id="eng-body"></div>
+    </div>
+
     <div class="card">
+      <h2><span class="tag">MVCC</span> почему читатели не ждут писателей — потрогайте</h2>
+      <p>Главная идея, на которой держится вся параллельная работа в PostgreSQL. У каждой версии строки есть два служебных поля: <code class="inl">xmin</code> — номер транзакции, которая её создала, и <code class="inl">xmax</code> — номер той, которая её удалила (0, если жива). Транзакция видит строку, если она уже создана и ещё не удалена <b>с её точки зрения</b>.</p>
+      <div class="mv-wrap">
+        <div class="mv-col">
+          <div class="mv-h">🗄 Страница таблицы — все версии строк</div>
+          <div class="table-wrap"><table class="db" id="mv-heap"></table></div>
+        </div>
+        <div class="mv-col">
+          <div class="mv-h">👁 Что видит каждая транзакция</div>
+          <div id="mv-views"></div>
+        </div>
+      </div>
+      <div class="form-row" style="margin-top:12px">
+        <button class="act" id="mv-t1">T1: BEGIN (читатель)</button>
+        <button class="act" id="mv-upd">T2: UPDATE цены на 990</button>
+        <button class="act" id="mv-commit">T2: COMMIT</button>
+        <button class="ghost" id="mv-read">T1: SELECT ещё раз</button>
+        <button class="ghost" id="mv-reset">↻ Сброс</button>
+      </div>
+      <div class="console" id="mv-msg" aria-live="polite">Нажимайте по порядку слева направо.</div>
+      <div class="note"><b>Что отсюда следует.</b> UPDATE в PostgreSQL <b>не меняет строку на месте</b> — он создаёт новую версию и помечает старую. Поэтому читатели никогда не блокируют писателей, а писатели — читателей: каждый работает со своим снимком. Расплата — старые версии остаются лежать в файле и место не освобождают. Их убирает <b>VACUUM</b> (глава 8 выше).</div>
+    </div>
+
+<div class="card">
       <h2><span class="tag">4 · НАДЁЖНОСТЬ</span> почему данные не теряются и не мешают друг другу</h2>
       <div class="anoms">
         <div class="anom"><div class="t">WAL — журнал предзаписи</div><p>Прежде чем менять данные, Postgres пишет намерение в журнал. Выключился свет — после перезапуска база доигрывает журнал и ничего не теряет.</p></div>
@@ -1288,7 +1560,38 @@ CREATE INDEX idx_lower_email ON users (LOWER(email));</pre>
       </div>
     </div>
 
+        <div class="card">
+      <h2><span class="tag">ACID 🔬</span> четыре буквы — четыре опыта</h2>
+      <p>Про ACID обычно рассказывают списком из четырёх строк, и он забывается через день. Здесь каждая буква — <b>отдельный опыт</b>: сначала ломаем без гарантии, потом смотрим, как гарантия спасает. Выберите букву.</p>
+      <div class="graph-tools" id="ac-tabs">
+        <button class="ghost on" data-a="a"><b>A</b> · Атомарность</button>
+        <button class="ghost" data-a="c"><b>C</b> · Согласованность</button>
+        <button class="ghost" data-a="i"><b>I</b> · Изоляция</button>
+        <button class="ghost" data-a="d"><b>D</b> · Устойчивость</button>
+      </div>
+      <div class="ac-head" id="ac-head"></div>
+      <div class="ac-stage" id="ac-stage"></div>
+      <div class="form-row" id="ac-btns" style="margin-top:12px"></div>
+      <div class="console" id="ac-msg" aria-live="polite"></div>
+      <div class="note" id="ac-note"></div>
+    </div>
+
     <div class="card">
+      <h2><span class="tag">ГДЕ ЖИВЁТ</span> что обеспечивает каждую букву внутри базы</h2>
+      <p>Гарантии не берутся из воздуха — за каждой стоит конкретный механизм движка. Все они разобраны на вкладке «PostgreSQL».</p>
+      <div class="table-wrap"><table class="db">
+        <thead><tr><th>Буква</th><th>Что обещает</th><th>Чем обеспечивается</th><th>Что сломается без неё</th></tr></thead>
+        <tbody>
+          <tr><td><b>A</b> — Atomicity</td><td>Все шаги или ни одного</td><td><b>WAL</b> и отметка о фиксации: до COMMIT изменения не считаются состоявшимися, при сбое просто не применяются</td><td>Деньги списались, но не зачислились. Половина заказа</td></tr>
+          <tr><td><b>C</b> — Consistency</td><td>База остаётся корректной по своим правилам</td><td><b>Ограничения</b>: PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK, NOT NULL — проверяются на каждой команде</td><td>Заказ на несуществующего клиента, отрицательная цена, два человека на одно место</td></tr>
+          <tr><td><b>I</b> — Isolation</td><td>Параллельные транзакции не мешают друг другу</td><td><b>MVCC</b> и снимки данных, блокировки строк при записи, уровни изоляции</td><td>Отчёт «плывёт» посреди выполнения; двое бронируют последнее место</td></tr>
+          <tr><td><b>D</b> — Durability</td><td>Зафиксировано — значит, не пропадёт</td><td><b>WAL</b>, сброшенный на диск при COMMIT, плюс восстановление после сбоя по журналу</td><td>Свет мигнул — и подтверждённый заказ исчез</td></tr>
+        </tbody>
+      </table></div>
+      <div class="hintbox"><b>Обратите внимание:</b> две буквы из четырёх обеспечивает один и тот же механизм — <b>журнал упреждающей записи</b>. Атомарность и устойчивость — это две стороны одной записи в WAL: она делает изменение неделимым и одновременно переживающим сбой.</div>
+    </div>
+
+<div class="card">
       <h2><span class="tag">A · АТОМАРНОСТЬ</span> перевод денег — потрогай</h2>
       <p>Переводим 300 ₽ от Ани к Боре. Это два шага: списать у Ани, зачислить Боре. Смотри, что будет при сбое посередине — с транзакцией и без. «Всего» всегда должно быть 1500 ₽.</p>
       <div class="tx-accounts" id="tx-acc"></div>
@@ -1346,7 +1649,29 @@ CREATE INDEX idx_lower_email ON users (LOWER(email));</pre>
       <div class="note"><b>Аналогия:</b> DDL строит и перестраивает комнаты в доме (стены, двери), а DML расставляет и двигает мебель внутри. Сначала «скелет» (DDL) — потом данные (DML).</div>
     </div>
 
+        <div class="card">
+      <h2><span class="tag">РАЗБЕРЁМ</span> DDL, DML, DQL, DCL, TCL — на живых командах</h2>
+      <p>Пять сокращений, за которыми стоит простая мысль: <b>команды делятся по тому, что именно они трогают</b>. Одни строят дом, другие двигают мебель, третьи раздают ключи. Выберите семью — увидите команды, что каждая делает и что произойдёт с базой.</p>
+      <div class="graph-tools" id="fam-tabs"></div>
+      <div class="fam-head" id="fam-head"></div>
+      <div class="fam-cmds" id="fam-cmds"></div>
+      <div class="dtables">
+        <div><div class="tname" id="fam-before-t">до команды</div><div class="table-wrap"><table class="db" id="fam-before"></table></div></div>
+        <div><div class="tname" id="fam-after-t">после команды</div><div class="table-wrap"><table class="db" id="fam-after"></table></div></div>
+      </div>
+      <pre class="ty-code" id="fam-sql"></pre>
+      <div class="console" id="fam-msg" aria-live="polite">Выберите семью и команду.</div>
+      <div class="note" id="fam-note"></div>
+    </div>
+
     <div class="card">
+      <h2><span class="tag">ТРЕНАЖЁР 🎯</span> к какой семье относится команда</h2>
+      <p>Двенадцать команд. Для каждой выберите семью — сразу увидите разбор.</p>
+      <div id="famq-list"></div>
+      <div class="meters"><div class="meter clean">Верно: <b id="famq-score">0</b> из <b id="famq-total">12</b></div></div>
+    </div>
+
+<div class="card">
       <h2><span class="tag">DDL</span> подробно, с примерами</h2>
       <p><b>DDL (Data Definition Language)</b> — команды, которые <b>определяют и меняют структуру</b> базы. Три главные:</p>
       <div class="ddl-ex">
@@ -1439,6 +1764,21 @@ ALTER TABLE users ADD CONSTRAINT uq_email UNIQUE (email);</pre>
       <p>Для каждого поля выбери подходящий тип. После ответа объясню, почему именно он — и чем плохи остальные.</p>
       <div class="quiz" id="dt-list"></div>
     </div>
+
+    <div class="card">
+      <h2><span class="tag">СПРАВОЧНИК</span> каждый тип подробно: что внутри, чем платите, где ошибаются</h2>
+      <p>Тип — это не «как назвать колонку». Это <b>сколько байт занимает</b>, <b>что можно делать со значением</b> и <b>что база не даст записать</b>. Кликайте по типу.</p>
+      <div class="graph-tools" id="ty-tabs" style="flex-wrap:wrap"></div>
+      <div id="ty-body"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">РЯДОМ</span> пары, которые путают чаще всего</h2>
+      <p>Кликайте — сравнение по пунктам и правило выбора.</p>
+      <div class="graph-tools" id="tv-tabs" style="flex-wrap:wrap"></div>
+      <div id="tv-body"></div>
+    </div>
+
 
     <div class="card">
       <h2><span class="tag">NULL</span> «неизвестно» и трёхзначная логика</h2>
@@ -3803,6 +4143,705 @@ CREATE INDEX idx_orders_customer ON orders(customer_id);`;
   document.getElementById('lix-tabs').addEventListener('click',e=>{const b=e.target.closest('[data-lix]'); if(b){cur=b.dataset.lix; render();}});
   render();
 })();
+
+/* ================= ЗАВИСИМОСТИ: детектор, частичная, транзитивная ================= */
+(function(){
+  if(!document.getElementById('fd-from')) return;
+  const COLS = ['номер_заказа','артикул','наименование','цена_за_шт','кол-во','категория','ставка_НДС'];
+  const ROWS = [
+    ['101','A-500','Ноутбук Lenovo','54990','1','Электроника','20%'],
+    ['101','B-777','Мышь Logitech','1490','2','Электроника','20%'],
+    ['102','A-500','Ноутбук Lenovo','54990','3','Электроника','20%'],
+    ['102','C-100','Стол письменный','8900','1','Мебель','20%'],
+    ['103','B-777','Мышь Logitech','1490','1','Электроника','20%'],
+  ];
+  const KEYS = [0,1];
+  const sel = (id, extra) => { const s = document.getElementById(id); s.innerHTML = (extra || []).concat(COLS).map((c, i) => '<option value="' + (i - (extra||[]).length) + '">' + esc(c) + '</option>').join(''); };
+  document.getElementById('fd-from').innerHTML = COLS.map((c, i) => '<option value="' + i + '">' + esc(c) + '</option>').join('') + '<option value="k">номер_заказа + артикул (весь ключ)</option>';
+  document.getElementById('fd-to').innerHTML = COLS.map((c, i) => '<option value="' + i + '">' + esc(c) + '</option>').join('');
+  document.getElementById('fd-from').value = '1'; document.getElementById('fd-to').value = '2';
+
+  function drawFd(hlFrom, hlTo, bad){
+    bad = bad || [];
+    const t = document.getElementById('fd-table');
+    const th = COLS.map((c, i) => '<th class="' + (KEYS.includes(i) ? 'k' : '') + (hlFrom && hlFrom.includes(i) ? ' fdl' : '') + (i === hlTo ? ' fdr' : '') + '">' + esc(c) + '</th>').join('');
+    const tr = ROWS.map((r, ri) => '<tr class="' + (bad.includes(ri) ? 'fdbad' : '') + '">' + r.map((v, ci) =>
+      '<td class="' + (KEYS.includes(ci) ? 'k' : '') + (hlFrom && hlFrom.includes(ci) ? ' fdl' : '') + (ci === hlTo ? ' fdr' : '') + '">' + esc(v) + '</td>').join('') + '</tr>').join('');
+    t.innerHTML = '<thead><tr>' + th + '</tr></thead><tbody>' + tr + '</tbody>';
+  }
+  drawFd([1], 2);
+  document.getElementById('fd-go').addEventListener('click', () => {
+    const fv = document.getElementById('fd-from').value, to = +document.getElementById('fd-to').value;
+    const from = fv === 'k' ? KEYS : [+fv];
+    const fname = fv === 'k' ? 'номер_заказа + артикул' : COLS[+fv], tname = COLS[to];
+    const m = document.getElementById('fd-msg');
+    if(from.includes(to)){ drawFd(from, to); msg(m, '', 'Поле само от себя зависит всегда — выберите разные столбцы.'); return; }
+    const map = {}; let conflict = null;
+    ROWS.forEach((r, ri) => { const k = from.map(i => r[i]).join(' | ');
+      if(map[k] === undefined) map[k] = {v: r[to], ri};
+      else if(map[k].v !== r[to] && !conflict) conflict = [map[k].ri, ri, k]; });
+    if(conflict){
+      drawFd(from, to, [conflict[0], conflict[1]]);
+      msg(m, 'err', '<b>Зависимости нет.</b> Смотрите на подсвеченные строки: слева одно и то же — «' + esc(conflict[2]) + '», а справа разное («' + esc(ROWS[conflict[0]][to]) + '» и «' + esc(ROWS[conflict[1]][to]) + '»). Значит, зная только <b>' + esc(fname) + '</b>, назвать <b>' + esc(tname) + '</b> невозможно.');
+    } else {
+      drawFd(from, to);
+      const partial = fv !== 'k' && KEYS.includes(+fv) && !KEYS.includes(to);
+      const trans = fv !== 'k' && !KEYS.includes(+fv) && !KEYS.includes(to);
+      let extra = '';
+      if(partial) extra = ' <b>И это частичная зависимость:</b> ' + esc(fname) + ' — лишь <b>часть</b> составного ключа. Нарушение 2НФ.';
+      else if(trans) extra = ' <b>И это транзитивная зависимость:</b> ' + esc(fname) + ' — не ключ, значит ' + esc(tname) + ' зависит от ключа не напрямую, а через посредника. Нарушение 3НФ.';
+      else if(fv === 'k') extra = ' Зависимость от <b>полного</b> ключа — так и должно быть, столбец лежит правильно.';
+      msg(m, 'ok', '<b>Зависимость есть:</b> <code class="inl">' + esc(fname) + ' → ' + esc(tname) + '</code>. В каждой строке, где слева одно и то же, справа тоже одно и то же.' + extra);
+    }
+  });
+
+  /* --- частичная: клик по столбцу --- */
+  const PD = {
+    2:{from:[1], t:'Наименование зависит только от <b>артикула</b>. Номер заказа не нужен: «A-500» — это «Ноутбук Lenovo» в любом заказе.', k:'partial'},
+    3:{from:[1], t:'Цена тоже определяется одним артикулом. Смотрите на строки 1 и 3: один артикул — одна цена, хотя заказы разные.', k:'partial'},
+    4:{from:[0,1], t:'А вот количество требует <b>обоих</b> частей ключа: в заказе 101 ноутбук — 1 штука, в заказе 102 — 3. Ни номер заказа, ни артикул по отдельности ответа не дают.', k:'full'},
+    5:{from:[1], t:'Категория определяется артикулом — снова только частью ключа.', k:'partial'},
+    6:{from:[5], t:'Ставка НДС определяется <b>категорией</b>, а категория — вообще не ключ. Это уже другая беда: транзитивная зависимость, о ней ниже.', k:'trans'},
+  };
+  function drawPd(hot){
+    const t = document.getElementById('pd-table');
+    const info = hot != null ? PD[hot] : null;
+    const from = info ? info.from : [];
+    const th = COLS.map((c, i) => '<th class="' + (KEYS.includes(i) ? 'k' : 'clk') + (from.includes(i) ? ' fdl' : '') + (i === hot ? ' fdr' : '') + '" data-c="' + i + '">' + esc(c) + '</th>').join('');
+    const tr = ROWS.map(r => '<tr>' + r.map((v, ci) => '<td class="' + (KEYS.includes(ci) ? 'k' : '') + (from.includes(ci) ? ' fdl' : '') + (ci === hot ? ' fdr' : '') + '" data-c="' + ci + '">' + esc(v) + '</td>').join('') + '</tr>').join('');
+    t.innerHTML = '<thead><tr>' + th + '</tr></thead><tbody>' + tr + '</tbody>';
+    const a = document.getElementById('pd-arrows');
+    if(!info){ a.innerHTML = '<div class="fd-key"><b>Ключ:</b> <span class="kb">номер_заказа</span> + <span class="kb">артикул</span> — две части. Кликните по неключевому столбцу.</div>'; return; }
+    const label = info.k === 'partial' ? '<span class="fdt bad">частичная — от ЧАСТИ ключа</span>' : info.k === 'full' ? '<span class="fdt ok">полная — от ВСЕГО ключа</span>' : '<span class="fdt warn">транзитивная — через посредника</span>';
+    a.innerHTML = '<div class="fd-key"><b>Ключ:</b> <span class="kb' + (from.includes(0) ? ' on' : '') + '">номер_заказа</span> + <span class="kb' + (from.includes(1) ? ' on' : '') + '">артикул</span></div>' +
+      '<div class="fd-eq"><code>' + from.map(i => esc(COLS[i])).join(' + ') + '</code> → <code>' + esc(COLS[hot]) + '</code> ' + label + '</div>';
+    msg(document.getElementById('pd-msg'), info.k === 'full' ? 'ok' : info.k === 'partial' ? 'err' : '', info.t);
+  }
+  drawPd(null);
+  document.getElementById('pd-table').addEventListener('click', e => { const c = e.target.closest('[data-c]'); if(!c) return; const i = +c.dataset.c; if(PD[i]) drawPd(i); });
+
+  /* --- транзитивная: визуализация --- */
+  let trState = 0;
+  function drawTr(){
+    const v = document.getElementById('tr-vis');
+    const cut = trState === 3;
+    v.innerHTML =
+      '<div class="tr-row"><div class="tr-label">Прямая связь</div>' +
+        '<div class="tr-node key">артикул<small>ключ</small></div>' +
+        '<div class="tr-arr' + (trState >= 1 ? ' on' : '') + '">→</div>' +
+        '<div class="tr-node' + (trState >= 1 ? ' hot' : '') + '">наименование<small>атрибут товара</small></div>' +
+        '<div class="tr-cap">Знаю артикул — знаю наименование. Напрямую, без пересадок. Так и должно быть.</div></div>' +
+      '<div class="tr-row' + (cut ? ' cut' : '') + '"><div class="tr-label">Транзитная связь</div>' +
+        '<div class="tr-node key">артикул<small>ключ</small></div>' +
+        '<div class="tr-arr' + (trState >= 1 ? ' on' : '') + '">→</div>' +
+        '<div class="tr-node mid' + (trState >= 1 ? ' hot' : '') + (cut ? ' gone' : '') + '">категория<small>' + (cut ? 'вынесена в справочник' : 'ПОСРЕДНИК — не ключ') + '</small></div>' +
+        '<div class="tr-arr' + (trState >= 2 ? ' on' : '') + '">→</div>' +
+        '<div class="tr-node' + (trState >= 2 ? ' hot' : '') + (cut ? ' gone' : '') + '">ставка_НДС<small>атрибут категории</small></div>' +
+        '<div class="tr-cap">' + (cut ? 'Категория со ставкой уехала в справочник — в товаре осталась только ссылка. Цепочка разорвана, транзитивной зависимости нет.' : 'Знаю артикул → знаю категорию → знаю ставку. Ставка зависит от ключа, но <b>через пересадку</b> в категории.') + '</div></div>' +
+      (trState >= 2 && !cut ? '<div class="tr-derived">Отсюда выводится: <code>артикул → ставка_НДС</code> — та самая <b>транзитивная</b> зависимость. Она реальна, но «работает» через посредника.</div>' : '');
+  }
+  drawTr();
+  document.getElementById('tr-play').addEventListener('click', () => {
+    trState = trState >= 2 ? 0 : trState + 1; drawTr();
+    const m = document.getElementById('tr-msg');
+    if(trState === 1) msg(m, '', 'Первый шаг: артикул определяет категорию. Пока всё честно — это прямая зависимость от ключа.');
+    else if(trState === 2) msg(m, 'err', 'Второй шаг: категория определяет ставку НДС. А категория — <b>не ключ</b>. Значит, ставка зависит от ключа не напрямую, а <b>транзитом</b>. Это нарушение 3НФ. Нажмите «Убрать посредника».');
+    else msg(m, '', 'Сброшено. Нажмите ещё раз, чтобы пройти цепочку заново.');
+  });
+  document.getElementById('tr-cut').addEventListener('click', () => { trState = 3; drawTr(); msg(document.getElementById('tr-msg'), 'ok', 'Категорию со ставкой вынесли в справочник, в товаре осталась ссылка <code class="inl">категория_id</code>. Теперь ставка хранится <b>один раз на категорию</b>, а не в каждой строке товара. 3НФ достигнута.'); });
+  document.getElementById('tr-reset').addEventListener('click', () => { trState = 0; drawTr(); msg(document.getElementById('tr-msg'), '', 'Сброшено.'); });
+
+  /* --- тренажёр: определи вид зависимости --- */
+  const Q = [
+    {t:'Таблица <b>Позиции_заказа</b>, ключ <code class="inl">номер_заказа + артикул</code>. Найдено: <code class="inl">артикул → наименование</code>.',
+     o:['Полная — так и надо','Частичная, нарушает 2НФ','Транзитивная, нарушает 3НФ'], a:1,
+     w:'Артикул — <b>часть</b> составного ключа, значит зависимость частичная. Наименование продублируется в каждой строке с этим артикулом. Лечится выносом в «Товары».'},
+    {t:'Та же таблица. Найдено: <code class="inl">номер_заказа + артикул → кол-во</code>.',
+     o:['Полная — так и надо','Частичная, нарушает 2НФ','Транзитивная, нарушает 3НФ'], a:0,
+     w:'Нужны <b>обе</b> части ключа: количество — свойство пары «заказ + товар». Это полная зависимость, столбец лежит правильно.'},
+    {t:'Таблица <b>Сотрудники</b>, ключ <code class="inl">табельный_номер</code> (простой). Найдено: <code class="inl">код_отдела → название_отдела</code>.',
+     o:['Частичная, нарушает 2НФ','Транзитивная, нарушает 3НФ','Нарушения нет'], a:1,
+     w:'Ключ <b>простой</b> — частей нет, частичной зависимости быть не может в принципе. А вот код отдела — неключевой столбец, через который название зависит от ключа. Транзитивная, 3НФ.'},
+    {t:'Таблица <b>Товары</b>, ключ <code class="inl">артикул</code>. Найдено: <code class="inl">категория → ставка_НДС</code>.',
+     o:['Полная','Частичная, нарушает 2НФ','Транзитивная, нарушает 3НФ'], a:2,
+     w:'Цепочка <code class="inl">артикул → категория → ставка</code>. Ставка описывает <b>категорию</b>, а не товар, — чужая сущность в таблице. Выносим в справочник категорий.'},
+    {t:'Таблица <b>Записи_на_приём</b>, ключ <code class="inl">id_записи</code>. Найдено: <code class="inl">врач → специальность</code>.',
+     o:['Частичная, нарушает 2НФ','Транзитивная, нарушает 3НФ','Нарушения нет'], a:1,
+     w:'Ключ простой, значит частичной быть не может. Специальность описывает врача, а врач — неключевой столбец. Транзитивная зависимость: <code class="inl">id_записи → врач → специальность</code>.'},
+    {t:'Таблица <b>Специализации</b>, ключ <code class="inl">тренер_id + вид_занятия_id</code>. Других столбцов нет.',
+     o:['Частичная','Транзитивная','Нарушений нет — чистая связка'], a:2,
+     w:'Нет неключевых столбцов — нечему зависеть ни от части ключа, ни через посредника. Таблица-связка сразу в 3НФ.'},
+    {t:'Таблица <b>Позиции_заказа</b>, ключ <code class="inl">номер_заказа + артикул</code>. Найдено: <code class="inl">номер_заказа → дата_заказа</code>.',
+     o:['Полная','Частичная, нарушает 2НФ','Транзитивная, нарушает 3НФ'], a:1,
+     w:'Дата определяется одним номером заказа — <b>частью</b> ключа. Частичная. Дата уедет в шапку заказа, где номер станет полным ключом.'},
+    {t:'Таблица <b>Клубы</b>, ключ <code class="inl">id_клуба</code>. Найдено: <code class="inl">город → часовой_пояс</code>.',
+     o:['Частичная, нарушает 2НФ','Транзитивная, нарушает 3НФ','Нарушения нет'], a:1,
+     w:'Цепочка <code class="inl">id_клуба → город → часовой_пояс</code>, причём город — неключевой. Три клуба в одном городе трижды хранят один пояс. Город с поясом — в справочник.'},
+  ];
+  (function(){
+    const root = document.getElementById('fdq-list'); if(!root) return;
+    let score = 0; const done = new Set();
+    root.className = 'quiz';
+    root.innerHTML = Q.map((q, i) => '<div class="qcard" data-i="' + i + '"><div class="qtag">ситуация ' + (i + 1) + '</div><div class="q">' + q.t + '</div>' +
+      '<div class="qopts">' + q.o.map((o, j) => '<button class="qopt" data-j="' + j + '"><span class="mk">' + 'ABC'[j] + '</span><span>' + o + '</span></button>').join('') + '</div><div class="qwhy"></div></div>').join('');
+    document.getElementById('fdq-total').textContent = Q.length;
+    root.addEventListener('click', e => {
+      const b = e.target.closest('.qopt'); if(!b || b.disabled) return;
+      const card = b.closest('.qcard'), i = +card.dataset.i, j = +b.dataset.j, q = Q[i];
+      card.querySelectorAll('.qopt').forEach((x, k) => { x.disabled = true; if(k === q.a) x.classList.add('correct'); });
+      if(j !== q.a) b.classList.add('wrong');
+      const why = card.querySelector('.qwhy'); why.classList.add('show');
+      why.innerHTML = (j === q.a ? '<b style="color:var(--ok)">Верно. </b>' : '<b style="color:var(--danger)">Не то. </b>') + q.w;
+      if(j === q.a && !done.has(i)){ done.add(i); document.getElementById('fdq-score').textContent = ++score; }
+    });
+  })();
+
+  /* --- формы: точные формулировки --- */
+  const NF = {
+    '1':{t:'Первая нормальная форма (1НФ)', f:'Отношение находится в 1НФ, если <b>все его атрибуты атомарны</b> — то есть значение каждого атрибута неделимо с точки зрения предметной области, — и у отношения есть <b>первичный ключ</b>.',
+      r:'В каждой ячейке — <b>одно</b> значение. Никаких списков через запятую («йога, бокс»), никаких склеенных фактов («Петрова / терапевт»), никаких повторяющихся столбцов (тел_1, тел_2, тел_3). И обязательно ключ, иначе строки неотличимы друг от друга.',
+      ex:'❌ <code class="inl">телефоны: "+7999111, +7999222"</code> — два значения в одной ячейке. Поиск по номеру превращается в поиск по подстроке, индекс не работает, тип номера не указать.<br>✅ Отдельная таблица <b>Телефоны</b> со связью 1:N и полем «тип».',
+      why:'Нарушается чаще всего при переносе из Excel: человеку так удобнее читать, а базе — неудобно искать.'},
+    '2':{t:'Вторая нормальная форма (2НФ)', f:'Отношение находится в 2НФ, если оно находится в 1НФ и <b>каждый неключевой атрибут функционально полно зависит от первичного ключа</b> — то есть не зависит от какой-либо его части.',
+      r:'Проверяется <b>только при составном ключе</b>. Каждый неключевой столбец должен требовать <b>весь</b> ключ целиком. Если для него хватает половины — это <b>частичная</b> зависимость, и её надо убрать.',
+      ex:'❌ Ключ (номер_заказа + артикул), а <code class="inl">наименование</code> зависит только от артикула.<br>✅ Наименование и цена уезжают в «Товары», где артикул — полный ключ.',
+      why:'При простом ключе 2НФ выполняется <b>автоматически</b>: у ключа из одного столбца нет частей, делить нечего.'},
+    '3':{t:'Третья нормальная форма (3НФ)', f:'Отношение находится в 3НФ, если оно находится в 2НФ и <b>ни один неключевой атрибут не находится в транзитивной зависимости от первичного ключа</b> — то есть не зависит от другого неключевого атрибута.',
+      r:'Ни один неключевой столбец не должен определяться другим неключевым. Если <code class="inl">A → B → C</code>, где A — ключ, а B и C — нет, то C зависит от ключа <b>транзитом</b>, через B. Это надо убрать.',
+      ex:'❌ <code class="inl">артикул → категория → ставка_НДС</code>: ставка описывает категорию, а лежит в товаре.<br>✅ Категория со ставкой — в справочник, в товаре ссылка.',
+      why:'Транзитивная зависимость почти всегда означает, что в таблицу затесались атрибуты <b>другой сущности</b>. Вопрос-детектор: «этот столбец описывает мою сущность или соседнюю?»'},
+    'bc':{t:'Нормальная форма Бойса — Кодда (НФБК)', f:'Отношение находится в НФБК, если <b>любая функциональная зависимость в нём имеет своей левой частью потенциальный ключ</b>. То есть всё, что что-то определяет, само является ключом.',
+      r:'Усиленная 3НФ. В 3НФ есть лазейка: она запрещает зависимость неключевого от неключевого, но <b>разрешает</b> зависимость <b>части ключа</b> от неключевого атрибута. НФБК закрывает и это.',
+      ex:'Таблица <b>Занятия</b>: (студент, курс) → преподаватель, и при этом <code class="inl">преподаватель → курс</code> (каждый ведёт ровно один курс). 3НФ выполнена: преподаватель — не ключ, но и курс входит в ключ. А НФБК нарушена: слева от стрелки стоит преподаватель, а он не потенциальный ключ. Результат — нельзя записать преподавателя, пока к нему не записался хотя бы один студент.',
+      why:'На практике 3НФ и НФБК совпадают почти всегда. Расхождение возможно только когда в таблице <b>несколько пересекающихся составных ключей</b> — это редкость. Знать полезно для собеседования и для честности формулировок.'},
+    '45':{t:'Четвёртая и пятая нормальные формы', f:'<b>4НФ:</b> в отношении нет нетривиальных <b>многозначных</b> зависимостей, кроме тех, что определяются потенциальным ключом. <b>5НФ:</b> отношение нельзя разложить на несколько меньших без потери информации.',
+      r:'<b>4НФ</b> про случай, когда в одной таблице живут <b>два независимых списка</b>. Пример: у преподавателя есть список курсов и список языков, которыми он владеет. Курсы и языки друг с другом никак не связаны. Если запихнуть их в одну таблицу, придётся создавать все комбинации: 3 курса × 2 языка = 6 строк вместо 3 + 2 = 5.<br><br><b>5НФ</b> про совсем экзотические случаи разложения на три и более таблиц.',
+      ex:'❌ Таблица (преподаватель, курс, язык) со всеми комбинациями.<br>✅ Две таблицы: (преподаватель, курс) и (преподаватель, язык).',
+      why:'На реальных проектах 4НФ и 5НФ почти не встречаются: если вы честно довели схему до 3НФ и разложили сущности по смыслу, они выполняются сами собой. Достаточно знать, что они существуют и о чём.'},
+  };
+  const nfTabs = document.getElementById('nf-tabs'), nfBody = document.getElementById('nf-body');
+  function showNf(k){
+    const n = NF[k];
+    nfTabs.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.nf === k));
+    nfBody.innerHTML = '<h3 style="margin-top:14px">' + esc(n.t) + '</h3>' +
+      '<div class="nf-formal"><div class="nf-l">Формально</div>' + n.f + '</div>' +
+      '<div class="note"><b>По-русски:</b> ' + n.r + '</div>' +
+      '<div class="note ok"><b>Пример:</b> ' + n.ex + '</div>' +
+      '<div class="hintbox">' + n.why + '</div>';
+  }
+  nfTabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b) showNf(b.dataset.nf); });
+  showNf('1');
+})();
+
+/* ================= ТИПЫ ДАННЫХ: подробный справочник ================= */
+(function(){
+  const tabs = document.getElementById('ty-tabs'); if(!tabs) return;
+  const body = document.getElementById('ty-body');
+  const T = [
+    {n:'INTEGER', g:'числа',
+     what:'Целое число со знаком. В PostgreSQL три размера: <code class="inl">SMALLINT</code> (2 байта, ±32 тыс.), <code class="inl">INTEGER</code> (4 байта, ±2,1 млрд), <code class="inl">BIGINT</code> (8 байт, ±9 квинтиллионов).',
+     how:'Хранится точно, в двоичном виде. Арифметика быстрая, сравнение быстрое, индексируется идеально. Целочисленное деление отбрасывает дробь: <code class="inl">7 / 2 = 3</code>.',
+     use:'Счётчики, количества, идентификаторы, ссылки на другие таблицы. И <b>деньги в минимальных единицах</b> (копейки) — если решили хранить так.',
+     err:'<b>Взять INTEGER под id растущей таблицы.</b> 2,1 млрд кажется бесконечностью, пока таблица посещений или логов не упирается в потолок — а это авария в проде: вставки останавливаются, а переделка типа первичного ключа на большой таблице означает часы простоя. Для растущих — сразу <code class="inl">BIGINT</code>, разница в 4 байта на строку.<br><b>Хранить в INTEGER то, что не число:</b> телефон (потеряется «+» и ведущий ноль), номер паспорта, индекс, артикул.',
+     rule:'Число — только если над ним делают арифметику. Складываете? Умножаете? Значит число. Иначе строка.',
+     code:'quantity   INTEGER  NOT NULL CHECK (quantity > 0),\nviews      BIGINT   NOT NULL DEFAULT 0,\ncity_id    SMALLINT REFERENCES cities(id)   -- справочник на 100 строк'},
+    {n:'NUMERIC / DECIMAL', g:'числа',
+     what:'Число с фиксированной точностью: <code class="inl">NUMERIC(10, 2)</code> — всего 10 значащих цифр, из них 2 после запятой. Хранится как последовательность десятичных цифр, а не как двоичная дробь.',
+     how:'Считается <b>точно</b>: 0.1 + 0.2 даёт ровно 0.3. Расплата — скорость: арифметика в разы медленнее целых чисел и float, потому что выполняется программно, а не процессором.',
+     use:'<b>Деньги. Всегда.</b> Проценты, ставки, любые величины, где расхождение в копейку недопустимо.',
+     err:'<b>Взять FLOAT для денег.</b> Классика, которая живёт до первого отчёта: на одной строке незаметно, на миллионе итог разойдётся с бухгалтерским на рубли, и неделю будут искать, откуда взялась разница.<br><b>Не указать точность:</b> <code class="inl">NUMERIC</code> без скобок разрешает любое число знаков — база не поймает опечатку в сумме.',
+     rule:'Деньги — NUMERIC(нужное, 2). Ни при каких обстоятельствах не float.',
+     code:'price       NUMERIC(10,2) NOT NULL CHECK (price >= 0),\nvat_rate    NUMERIC(5,4)  NOT NULL DEFAULT 0.2000,\ntotal       NUMERIC(12,2) NOT NULL'},
+    {n:'REAL / FLOAT', g:'числа',
+     what:'Число с плавающей точкой: <code class="inl">REAL</code> (4 байта), <code class="inl">DOUBLE PRECISION</code> (8 байт). Хранится приближённо — как двоичная дробь.',
+     how:'Быстро (считает процессор), компактно, огромный диапазон. Но <b>приблизительно</b>: 0.1 в двоичной системе — бесконечная дробь, как 1/3 в десятичной. Отсюда <code class="inl">0.1 + 0.2 = 0.30000000000000004</code>.',
+     use:'Измерения, где приближение естественно: координаты, температура, вес, физические величины, вероятности, результаты моделирования.',
+     err:'<b>Деньги.</b> Уже сказано, но повторим: никогда.<br><b>Сравнение на равенство:</b> <code class="inl">WHERE x = 0.3</code> может не найти строку, где лежит результат сложения 0.1 и 0.2. Сравнивают через допуск: <code class="inl">abs(x - 0.3) &lt; 1e-9</code>.',
+     rule:'Float — там, где приближение и так заложено в природу величины. Деньги и счётчики к таким не относятся.',
+     code:'latitude   DOUBLE PRECISION,\nweight_kg  REAL,\n-- сравнение с допуском, а не на равенство'},
+    {n:'VARCHAR / TEXT', g:'строки',
+     what:'Строка символов. <code class="inl">VARCHAR(n)</code> — с ограничением длины, <code class="inl">TEXT</code> — без. В PostgreSQL это <b>один и тот же тип внутри</b>: производительность одинаковая, VARCHAR(n) просто добавляет проверку длины.',
+     how:'Хранится переменной длины: короткая строка занимает мало. Длинные значения автоматически сжимаются и выносятся во внешнее хранилище — механизм называется TOAST, и он прозрачен для вас. Сортировка и сравнение зависят от <b>правил сравнения</b> (collation): в одной локали «ё» рядом с «е», в другой — в конце.',
+     use:'Имена, адреса, описания, коды, идентификаторы, всё текстовое. И то, что «состоит из цифр», но числом не является: телефон, ИНН, артикул, индекс.',
+     err:'<b>VARCHAR(255) по привычке.</b> Число 255 пришло из старых версий MySQL и никакого смысла в PostgreSQL не имеет. Ставьте ограничение <b>осмысленно</b> (телефон — 20, email — 254 по стандарту) или берите TEXT.<br><b>Слишком узкий лимит:</b> VARCHAR(50) под ФИО — и однажды придёт человек с длинной фамилией.',
+     rule:'Не знаете предел — TEXT. Знаете и он часть бизнес-правила — VARCHAR(n) или TEXT с CHECK.',
+     code:'email      TEXT NOT NULL UNIQUE CHECK (email ~ \'^[^@]+@[^@]+$\'),\nphone      VARCHAR(20),\nfull_name  TEXT NOT NULL,\ncomment    TEXT'},
+    {n:'CHAR(n)', g:'строки',
+     what:'Строка <b>фиксированной</b> длины: всегда ровно n символов, короткие дополняются пробелами справа.',
+     how:'Пробелы дополняются при записи и отбрасываются при сравнении — из-за этого случаются сюрпризы: записали «AB», прочитали «AB   », сравнение с «AB» проходит, а конкатенация даёт лишние пробелы.',
+     use:'Практически нигде. Оправдан для строго фиксированных кодов: <code class="inl">CHAR(2)</code> под код страны, <code class="inl">CHAR(1)</code> под пол.',
+     err:'<b>Использовать вместо VARCHAR «для скорости».</b> В PostgreSQL CHAR не быстрее, а места занимает больше из-за пробелов.',
+     rule:'Сомневаетесь — не берите CHAR. Возьмите TEXT с CHECK на длину.',
+     code:'country_code CHAR(2) NOT NULL,      -- RU, KZ, BY\ngender       CHAR(1) CHECK (gender IN (\'М\',\'Ж\'))'},
+    {n:'BOOLEAN', g:'прочее',
+     what:'Логическое значение: <code class="inl">TRUE</code>, <code class="inl">FALSE</code> — и, если колонка это допускает, <code class="inl">NULL</code>. Один байт.',
+     how:'Три состояния вместо двух, если разрешён NULL. Из-за этого <code class="inl">WHERE is_active = TRUE</code> <b>не вернёт</b> строки с NULL, а <code class="inl">WHERE is_active != TRUE</code> — тоже не вернёт. Их находит только <code class="inl">IS NULL</code>.',
+     use:'Настоящие флаги: «подтверждён», «активен», «архивный». Там, где третьего состояния не бывает в принципе.',
+     err:'<b>Взять BOOLEAN под то, у чего может быть третье состояние.</b> Пол — не boolean: бывает «не указан». Статус — не boolean: сегодня «оплачен / нет», завтра появится «частично оплачен», и придётся менять тип.<br><b>Флаги вместо статуса:</b> три колонки <code class="inl">is_new</code>, <code class="inl">is_paid</code>, <code class="inl">is_cancelled</code> вместо одного поля статуса — и рано или поздно в базе окажется строка, где две из них TRUE одновременно.',
+     rule:'Два значения навсегда и оба обязательны — BOOLEAN. Иначе справочник статусов или CHECK со списком.',
+     code:'is_active   BOOLEAN NOT NULL DEFAULT TRUE,\nstatus      TEXT NOT NULL DEFAULT \'new\'\n            CHECK (status IN (\'new\',\'paid\',\'shipped\',\'cancelled\'))'},
+    {n:'DATE · TIME · TIMESTAMP', g:'время',
+     what:'<code class="inl">DATE</code> — только дата (4 байта). <code class="inl">TIME</code> — только время суток. <code class="inl">TIMESTAMP</code> — дата и время <b>без</b> часового пояса. <code class="inl">TIMESTAMPTZ</code> — момент времени <b>с</b> поясом (8 байт).',
+     how:'<code class="inl">TIMESTAMPTZ</code> хранит момент в UTC и показывает в поясе того, кто смотрит. <code class="inl">TIMESTAMP</code> хранит «19:00» без ответа на вопрос «где». С датами можно делать арифметику: <code class="inl">now() - created_at</code> даёт интервал, <code class="inl">date + INTERVAL \'30 days\'</code> — новую дату.',
+     use:'<b>TIMESTAMPTZ</b> — для всего, что «произошло»: создан, оплачен, вошёл. <b>DATE</b> — для дат без времени: день рождения, дата договора. <b>TIME</b> — для расписания: «занятие в 19:00 по местному».',
+     err:'<b>Хранить дату строкой.</b> Сортировка пойдёт по алфавиту («10.01» окажется раньше «02.09»), вычесть одну дату из другой нельзя, и ничто не помешает записать «31 февраля».<br><b>TIMESTAMP вместо TIMESTAMPTZ.</b> Пока всё в одном городе — незаметно. Появился филиал в другом поясе — и отчёт «что происходит сейчас» сломался.<br><b>Хранить возраст вместо даты рождения.</b> Возраст протухает: записали 25, через год человеку 26, а поле никто не обновил.',
+     rule:'Момент времени — TIMESTAMPTZ. Календарная дата — DATE. Не храните то, что вычисляется из даты.',
+     code:'created_at   TIMESTAMPTZ NOT NULL DEFAULT now(),\nbirth_date   DATE NOT NULL CHECK (birth_date < CURRENT_DATE),\nstarts_at    TIMESTAMPTZ NOT NULL,\nCHECK (ends_at > starts_at)'},
+    {n:'INTERVAL', g:'время',
+     what:'Промежуток времени: «3 дня», «2 часа 30 минут», «1 год». Отдельный тип, а не число.',
+     how:'Складывается с датами и вычитается из них. Результат вычитания двух TIMESTAMPTZ — тоже INTERVAL.',
+     use:'Длительность занятия, срок действия, отсрочка, период гарантии.',
+     err:'<b>Хранить длительность числом без единиц:</b> колонка <code class="inl">duration = 90</code> — это минуты, секунды или дни? Либо INTERVAL, либо число с единицей прямо в имени: <code class="inl">duration_minutes</code>.',
+     rule:'Если храните числом — единица измерения в названии колонки. Иначе INTERVAL.',
+     code:'duration        INTERVAL NOT NULL DEFAULT \'1 hour\',\nduration_minutes SMALLINT NOT NULL,   -- альтернатива с единицей в имени\nvalid_until     TIMESTAMPTZ GENERATED ALWAYS AS (created_at + INTERVAL \'30 days\') STORED'},
+    {n:'UUID', g:'ключи',
+     what:'128-битный идентификатор, 16 байт: <code class="inl">2f1c9e6a-3b7d-4c1e-9a0f-5d8e7b6a4c21</code>. Генерируется так, что совпадение практически невозможно.',
+     how:'Не требует обращения к базе: клиент может создать id сам, до вставки. Занимает вчетверо больше BIGINT и, в классической версии v4, полностью случаен — а это плохо для индекса: каждая вставка попадает в случайное место B-дерева, страницы фрагментируются. Версия <b>UUIDv7</b> (стандарт 2024 года) содержит метку времени в начале и потому растёт по порядку — она снимает эту проблему.',
+     use:'Когда записи создаются в нескольких местах независимо: мобильное приложение офлайн, слияние баз двух систем, распределённые сервисы. И когда id не должен быть угадываемым: по <code class="inl">/orders/128</code> видно, что заказов около ста тридцати.',
+     err:'<b>Брать UUIDv4 под первичный ключ большой таблицы «на всякий случай».</b> Получите более толстый индекс и случайные вставки без всякой пользы. Если записи создаёт только ваша база — BIGINT лучше.',
+     rule:'Одна база создаёт записи — BIGINT. Несколько источников или нужна неугадываемость — UUID, желательно v7.',
+     code:'id  UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n-- или, если id создаёт только база:\nid  BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY'},
+    {n:'SERIAL / IDENTITY', g:'ключи',
+     what:'Автонумерация. <code class="inl">SERIAL</code> — старый способ (целое + последовательность), <code class="inl">GENERATED ALWAYS AS IDENTITY</code> — современный стандарт SQL.',
+     how:'Значение берётся из последовательности (sequence) — отдельного объекта-счётчика. Последовательность <b>не откатывается</b> при отмене транзакции, поэтому в нумерации бывают дыры: 1, 2, 5, 6. Это нормально и ничего не сломано.',
+     use:'Первичные ключи, когда записи создаёт только эта база.',
+     err:'<b>Использовать id как «номер документа» для бизнеса.</b> Дыры в нумерации, невозможность начать с нужного числа, привязка к внутреннему счётчику. Номер договора — отдельное поле со своими правилами.<br><b>SERIAL вместо IDENTITY:</b> в SERIAL можно случайно вставить своё значение мимо последовательности, и потом она выдаст занятый номер — конфликт ключа.',
+     rule:'Новые таблицы — GENERATED ALWAYS AS IDENTITY. Всегда BIGINT, если таблица растёт.',
+     code:'id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n-- ALWAYS = вставить своё значение нельзя, только через OVERRIDING'},
+    {n:'JSONB', g:'прочее',
+     what:'Произвольная структура JSON в одной колонке. <code class="inl">JSONB</code> хранит разобранное двоичное представление, <code class="inl">JSON</code> — исходный текст.',
+     how:'JSONB разбирает документ при записи: чуть дольше вставка, зато быстрый доступ к полям и возможность индексировать через <b>GIN</b>. Порядок ключей не сохраняется, дубликаты ключей схлопываются. Доступ к полю: <code class="inl">data->>\'city\'</code>.',
+     use:'Действительно неструктурированное: характеристики товаров, где у каждой категории свой набор; настройки пользователя; сырой ответ внешнего сервиса; поля, которых бизнес ещё не знает.',
+     err:'<b>Складывать в JSONB то, что имеет чёткую структуру.</b> Соблазн велик: не надо продумывать схему, не надо миграций. Расплата: база не проверит ни типа, ни обязательности, опечатка в имени ключа не всплывёт никогда, запросы становятся громоздкими, а нормализация невозможна.<br><b>Класть туда то, по чему часто ищут и джойнят</b> — обычная колонка справится лучше.',
+     rule:'JSONB — для того, что <b>не поддаётся</b> нормальному описанию. Всё остальное — колонками. Это не замена проектированию.',
+     code:'attributes JSONB NOT NULL DEFAULT \'{}\'::jsonb,\nCREATE INDEX ON products USING GIN (attributes);\n-- SELECT * FROM products WHERE attributes @> \'{"color":"red"}\''},
+    {n:'ARRAY', g:'прочее',
+     what:'Массив значений одного типа прямо в колонке: <code class="inl">TEXT[]</code>, <code class="inl">INTEGER[]</code>.',
+     how:'Индексируется через GIN, есть операторы «содержит», «пересекается». Но это <b>нарушение 1НФ</b> в чистом виде: в ячейке несколько значений.',
+     use:'Оправдан для простых меток, где не нужны ни справочник, ни атрибуты элемента: теги статьи, список ролей.',
+     err:'<b>Заменять массивом связь «многие ко многим».</b> Список id товаров в колонке заказа — и вы теряете внешние ключи (база не проверит существование товара), количество и цену позиции хранить негде, а запрос «в каких заказах был товар X» становится неудобным.',
+     rule:'Больше одного факта про элемент — таблица-связка, а не массив.',
+     code:'tags TEXT[] NOT NULL DEFAULT \'{}\',\nCREATE INDEX ON articles USING GIN (tags);\n-- WHERE tags @> ARRAY[\'sql\']'},
+    {n:'ENUM и справочник', g:'прочее',
+     what:'Фиксированный набор значений. Два способа: тип <code class="inl">ENUM</code> в базе или отдельная таблица-справочник с внешним ключом.',
+     how:'ENUM компактен (4 байта) и быстр, но добавление значения — изменение типа, а удаление и переупорядочивание почти невозможны. Справочник гибче: значения добавляет администратор, у значения могут быть свои атрибуты (название для интерфейса, порядок сортировки, цвет).',
+     use:'ENUM — для наборов, которые не меняются годами. Справочник — если значения могут добавляться или у них есть свойства. Третий вариант, самый частый: <code class="inl">TEXT</code> + <code class="inl">CHECK (col IN (...))</code> — просто и меняется одной командой.',
+     err:'<b>Свободный текст вместо ограничения.</b> В базе заведутся «отменен», «отменён», «Отменен», «cancelled» — потому что писали разные разработчики в разное время. Отчёт «сколько отмен» покажет неправду, и заметят это нескоро.',
+     rule:'Любое поле с конечным набором значений должно быть ограничено. Чем — вопрос второй.',
+     code:'status TEXT NOT NULL CHECK (status IN (\'new\',\'paid\',\'shipped\')),\n-- или справочником:\nstatus_id SMALLINT NOT NULL REFERENCES order_statuses(id)'},
+    {n:'BYTEA', g:'прочее',
+     what:'Двоичные данные: картинка, PDF, что угодно в байтах.',
+     how:'Хранится в самой таблице (с выносом больших значений через TOAST). Раздувает базу и резервные копии: файлы не сжимаются и попадают в каждый бэкап.',
+     use:'Мелкие двоичные данные, которые обязаны жить в транзакции вместе со строкой: подпись, хеш, маленькая иконка.',
+     err:'<b>Хранить в базе пользовательские файлы.</b> База растёт до сотен гигабайт, резервное копирование идёт часами, восстановление — сутки. При этом искать и фильтровать по содержимому картинки всё равно нельзя, то есть преимущества базы не используются.',
+     rule:'Файл — в объектное хранилище, в базе — ссылка, размер, тип и кто загрузил.',
+     code:'-- правильно:\nfile_url   TEXT NOT NULL,\nfile_size  INTEGER NOT NULL,\nmime_type  TEXT NOT NULL,\n-- BYTEA — только для мелочи:\navatar_thumb BYTEA'},
+    {n:'Специальные типы', g:'прочее',
+     what:'То, что есть в PostgreSQL и часто заменяется костылями: <code class="inl">INET</code>/<code class="inl">CIDR</code> (IP-адреса и сети), <code class="inl">MACADDR</code>, <code class="inl">tsvector</code> (полнотекстовый поиск), <code class="inl">tsrange</code>/<code class="inl">daterange</code> (диапазоны), <code class="inl">POINT</code> и PostGIS (география), <code class="inl">MONEY</code> (не использовать).',
+     how:'Каждый умеет то, чего не умеет строка. Диапазоны сравниваются на пересечение: <code class="inl">&amp;&amp;</code>. Есть ограничение <code class="inl">EXCLUDE</code>, которое запрещает пересечение диапазонов — так одной строкой запрещают два занятия в одном зале одновременно.',
+     use:'IP-адрес — INET (умеет «входит ли в подсеть»). Период действия — daterange. Координаты — PostGIS. Полнотекстовый поиск — tsvector с GIN.',
+     err:'<b>Хранить IP строкой</b> — не отсортировать и не проверить принадлежность подсети.<br><b>Два поля «с» и «по» вместо диапазона</b> — теряете возможность запретить пересечения одним ограничением.<br><b>Тип MONEY</b> — зависит от локали сервера, точность фиксирована. Берите NUMERIC.',
+     rule:'Прежде чем городить логику на строках — посмотрите, нет ли готового типа. Обычно есть.',
+     code:'ip        INET,\nvalid     DATERANGE NOT NULL,\nEXCLUDE USING gist (room_id WITH =, valid WITH &&)\n-- запрет пересечения периодов в одной комнате'},
+  ];
+  tabs.innerHTML = T.map((t, i) => '<button class="ghost' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' + esc(t.n) + '</button>').join('');
+  function show(i){
+    const t = T[i];
+    tabs.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
+    body.innerHTML = '<h3 style="margin-top:14px">' + esc(t.n) + ' <span class="ty-g">' + esc(t.g) + '</span></h3>' +
+      '<div class="ty-grid">' +
+      '<div class="ty-cell"><div class="ty-l">Что это</div>' + t.what + '</div>' +
+      '<div class="ty-cell"><div class="ty-l">Как устроено и чем платите</div>' + t.how + '</div>' +
+      '</div>' +
+      '<div class="note ok" style="margin-top:10px"><b>Где применять:</b> ' + t.use + '</div>' +
+      '<div class="note bad"><b>Где ошибаются:</b> ' + t.err + '</div>' +
+      '<div class="hintbox"><b>Правило:</b> ' + t.rule + '</div>' +
+      '<pre class="ty-code">' + esc(t.code) + '</pre>';
+  }
+  tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(+b.dataset.i); });
+  show(0);
+
+  /* --- пары, которые путают --- */
+  const V = [
+    {n:'NUMERIC vs FLOAT', rows:[['Точность','Точная, десятичная','Приблизительная, двоичная'],['0.1 + 0.2','ровно 0.3','0.30000000000000004'],['Скорость','Медленнее (программно)','Быстро (процессор)'],['Размер','Переменный','4 или 8 байт'],['Сравнение =','Работает','Ненадёжно, нужен допуск']],
+     a:'NUMERIC', b:'FLOAT', rule:'Деньги, проценты, всё, где важна копейка → <b>NUMERIC</b>. Координаты, вес, температура, измерения → <b>FLOAT</b>.'},
+    {n:'VARCHAR(n) vs TEXT', rows:[['Скорость в PostgreSQL','Одинаковая','Одинаковая'],['Место','Одинаковое','Одинаковое'],['Проверка длины','Есть, отвергает длинное','Нет'],['Изменить лимит','ALTER TABLE','Не требуется'],['В других СУБД','Может быть быстрее','—']],
+     a:'VARCHAR(n)', b:'TEXT', rule:'Лимит — <b>бизнес-правило</b>, а не оптимизация. Есть настоящее ограничение (код страны — 2 символа) → VARCHAR(n). Нет → TEXT. «VARCHAR(255) на всякий случай» — карго-культ из MySQL.'},
+    {n:'TIMESTAMP vs TIMESTAMPTZ', rows:[['Часовой пояс','Не хранит','Хранит момент в UTC'],['«19:00» — это где?','Неизвестно','Однозначно определено'],['Показ пользователю','Как записано','В его поясе'],['Один город','Работает','Работает'],['Несколько поясов','Ломается','Работает']],
+     a:'TIMESTAMP', b:'TIMESTAMPTZ', rule:'Момент, когда что-то произошло → <b>TIMESTAMPTZ</b>, всегда. TIMESTAMP оправдан редко: например, «время работы клуба с 07:00» — это локальное правило, а не момент.'},
+    {n:'BIGINT vs UUID для ключа', rows:[['Размер','8 байт','16 байт'],['Кто создаёт','База','Кто угодно, заранее'],['Порядок вставки','По возрастанию','Случайный (v4) / по времени (v7)'],['Индекс','Компактный, плотный','Толще, v4 фрагментирует'],['Угадываемость','/orders/128 — видно объём','Не угадать'],['Слияние баз','Конфликты id','Без конфликтов']],
+     a:'BIGINT', b:'UUID', rule:'Записи создаёт одна база → <b>BIGINT IDENTITY</b>. Несколько независимых источников, офлайн-клиенты, слияние систем или важна неугадываемость → <b>UUID</b> (лучше v7).'},
+    {n:'JSONB vs отдельные колонки', rows:[['Проверка типов','Нет','Есть'],['Обязательность','Нет','NOT NULL'],['Внешние ключи','Нет','Есть'],['Опечатка в имени поля','Не заметит никто','Ошибка сразу'],['Изменение структуры','Без миграции','Миграция'],['Запросы','Громоздкие','Простые'],['Индексы','GIN, общий','Точный на колонку']],
+     a:'JSONB', b:'Колонки', rule:'Структура известна и одинакова для всех строк → <b>колонки</b>. Структура у каждой строки своя и заранее неизвестна → <b>JSONB</b>. JSONB — не способ не проектировать схему.'},
+    {n:'Массив vs таблица-связка', rows:[['Атомарность (1НФ)','Нарушена','Соблюдена'],['Внешние ключи','Нет','Есть'],['Атрибуты у связи','Негде хранить','Свои колонки'],['«Где встречается X»','Через оператор','Обычный JOIN'],['Простота','Проще','Ещё одна таблица']],
+     a:'ARRAY', b:'Связка', rule:'Нужны только сами значения и они без свойств (теги) → допустим <b>массив</b>. Нужны количество, цена, дата, статус связи или ссылочная целостность → <b>таблица-связка</b>.'},
+  ];
+  const vt = document.getElementById('tv-tabs'), vb = document.getElementById('tv-body');
+  vt.innerHTML = V.map((v, i) => '<button class="ghost' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' + esc(v.n) + '</button>').join('');
+  function showV(i){
+    const v = V[i];
+    vt.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
+    vb.innerHTML = '<div class="table-wrap" style="margin-top:12px"><table class="db"><thead><tr><th></th><th>' + esc(v.a) + '</th><th>' + esc(v.b) + '</th></tr></thead><tbody>' +
+      v.rows.map(r => '<tr><td><b>' + esc(r[0]) + '</b></td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>').join('') + '</tbody></table></div>' +
+      '<div class="note ok"><b>Как выбирать:</b> ' + v.rule + '</div>';
+  }
+  vt.addEventListener('click', e => { const b = e.target.closest('button'); if(b) showV(+b.dataset.i); });
+  showV(0);
+})();
+
+/* ================= СЕМЬИ SQL: живые команды ================= */
+(function(){
+  const tabs = document.getElementById('fam-tabs'); if(!tabs) return;
+  const T = (cols, rows) => ({cols, rows});
+  const USERS = T(['id','name','email','city'], [['1','Анна','anna@mail.ru','Москва'],['2','Борис','boris@mail.ru','Казань'],['3','Вера','vera@mail.ru','Москва']]);
+  const USERS_NEW = T(['id','name','email','city','phone'], [['1','Анна','anna@mail.ru','Москва','—'],['2','Борис','boris@mail.ru','Казань','—'],['3','Вера','vera@mail.ru','Москва','—']]);
+  const F = {
+    ddl:{n:'DDL', full:'Data Definition Language — язык определения данных', color:'rel',
+      what:'Команды, которые описывают и меняют <b>структуру</b> базы: какие есть таблицы, какие в них колонки, какие ограничения и индексы. Данные при этом обычно не трогаются.',
+      an:'Строитель: возводит стены, прорезает двери, сносит перегородки. Мебель не расставляет.',
+      note:'DDL в PostgreSQL <b>транзакционный</b>: <code class="inl">CREATE TABLE</code> внутри транзакции можно откатить. Это редкая приятная особенность — во многих СУБД (например, в Oracle и MySQL) DDL завершает транзакцию сам и откату не подлежит.',
+      cmds:[
+        {c:'CREATE', s:'CREATE TABLE users (\n  id    BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n  name  TEXT NOT NULL,\n  email TEXT NOT NULL UNIQUE,\n  city  TEXT\n);', before:null, after:T(USERS.cols, []), bt:'таблицы не существует', at:'таблица создана, строк нет',
+         m:'Создали <b>пустую таблицу</b> с колонками, типами и ограничениями. Данных нет — есть форма, в которую их можно класть.'},
+        {c:'ALTER', s:'ALTER TABLE users ADD COLUMN phone VARCHAR(20);', before:USERS, after:USERS_NEW, bt:'4 колонки', at:'5 колонок, значения пустые',
+         m:'Добавили колонку. У всех существующих строк в ней <b>NULL</b> — база не придумывает значения. Поэтому добавить колонку сразу с <code class="inl">NOT NULL</code> без <code class="inl">DEFAULT</code> нельзя: существующим строкам нечего туда положить.'},
+        {c:'DROP', s:'DROP TABLE users;', before:USERS, after:null, bt:'таблица с 3 строками', at:'таблицы нет',
+         m:'Удалили таблицу <b>вместе со всеми данными</b>. Необратимо (вне транзакции). Отличие от <code class="inl">DELETE</code>: тот убирает строки, а таблица остаётся.'},
+        {c:'TRUNCATE', s:'TRUNCATE TABLE users;', before:USERS, after:T(USERS.cols, []), bt:'3 строки', at:'0 строк, таблица на месте',
+         m:'Быстро очистили таблицу: база не удаляет строки по одной, а сбрасывает файл целиком. Формально относят к DDL именно поэтому. В отличие от <code class="inl">DELETE</code> не запускает триггеры на каждую строку.'},
+        {c:'CREATE INDEX', s:'CREATE INDEX idx_users_city ON users(city);', before:USERS, after:USERS, bt:'поиск по городу — перебор всех строк', at:'поиск по городу — по индексу',
+         m:'Данные не изменились, но появилась <b>вторая структура</b> — отсортированный «указатель» по городу. Чтение по этому полю ускорится, вставка немного замедлится.'},
+      ]},
+    dml:{n:'DML', full:'Data Manipulation Language — язык управления данными', color:'doc',
+      what:'Команды, которые меняют <b>содержимое</b> таблиц: добавляют, изменяют и удаляют строки. Структуру не трогают.',
+      an:'Грузчик: расставляет и двигает мебель внутри уже построенных комнат.',
+      note:'Каждая команда DML работает <b>внутри транзакции</b> — явной или неявной. Если не открыли транзакцию сами, база откроет её на одну команду и сразу закроет. Поэтому <code class="inl">UPDATE</code> без <code class="inl">WHERE</code> — необратимая беда: он уже зафиксирован.',
+      cmds:[
+        {c:'INSERT', s:"INSERT INTO users (name, email, city)\nVALUES ('Глеб', 'gleb@mail.ru', 'Пермь');", before:USERS, after:T(USERS.cols, USERS.rows.concat([['4','Глеб','gleb@mail.ru','Пермь']])), bt:'3 строки', at:'4 строки', hl:3,
+         m:'Добавили строку. Значение <code class="inl">id</code> подставила база сама — колонка объявлена как IDENTITY.'},
+        {c:'UPDATE', s:"UPDATE users\nSET city = 'Санкт-Петербург'\nWHERE id = 2;", before:USERS, after:T(USERS.cols, [USERS.rows[0], ['2','Борис','boris@mail.ru','Санкт-Петербург'], USERS.rows[2]]), bt:'Борис в Казани', at:'Борис в Петербурге', hl:1,
+         m:'Изменили одну строку. <b>Без <code class="inl">WHERE</code> обновились бы все три</b> — самая дорогая опечатка в SQL. Привычка: сначала написать <code class="inl">SELECT</code> с этим же условием и посмотреть, что попадёт под удар.'},
+        {c:'DELETE', s:'DELETE FROM users WHERE city = \'Казань\';', before:USERS, after:T(USERS.cols, [USERS.rows[0], USERS.rows[2]]), bt:'3 строки', at:'2 строки',
+         m:'Удалили строки по условию. Таблица осталась. Если на строку ссылается другая таблица, внешний ключ не даст удалить — или каскадно удалит связанное, смотря как настроено <code class="inl">ON DELETE</code>.'},
+        {c:'UPSERT', s:"INSERT INTO users (id, name, email, city)\nVALUES (2, 'Борис', 'boris@new.ru', 'Казань')\nON CONFLICT (id) DO UPDATE\n  SET email = EXCLUDED.email;", before:USERS, after:T(USERS.cols, [USERS.rows[0], ['2','Борис','boris@new.ru','Казань'], USERS.rows[2]]), bt:'строка с id=2 уже есть', at:'email обновлён, дубля нет', hl:1,
+         m:'«Вставь или обнови». Одна команда вместо связки «проверил — вставил», и <b>без гонки</b>: между проверкой и вставкой никто не успеет вклиниться. Основной инструмент идемпотентной загрузки данных.'},
+      ]},
+    dql:{n:'DQL', full:'Data Query Language — язык запросов', color:'graph',
+      what:'Чтение данных. Формально это одна команда — <code class="inl">SELECT</code>. Ничего не меняет, только возвращает результат.',
+      an:'Посетитель с блокнотом: ходит по комнатам и переписывает, что где стоит. Ничего не двигает.',
+      note:'Часто DQL <b>не выделяют отдельно</b> и относят <code class="inl">SELECT</code> к DML — так в стандарте SQL. Но на собеседованиях спрашивают именно про пять семей, поэтому знать стоит оба варианта ответа: «SELECT — это DQL, а в классической классификации часть DML».',
+      cmds:[
+        {c:'SELECT', s:'SELECT name, city\nFROM users\nWHERE city = \'Москва\'\nORDER BY name;', before:USERS, after:T(['name','city'], [['Анна','Москва'],['Вера','Москва']]), bt:'вся таблица', at:'результат запроса',
+         m:'Прочитали <b>две колонки из двух строк</b>. Таблица не изменилась: справа — не новая таблица, а временный результат.'},
+        {c:'JOIN', s:'SELECT u.name, o.total\nFROM users u\nJOIN orders o ON o.user_id = u.id;', before:USERS, after:T(['name','total'], [['Анна','5400'],['Анна','1200'],['Борис','8900']]), bt:'две таблицы отдельно', at:'строки соединены по ключу',
+         m:'Соединили две таблицы по совпадению ключа. У Анны два заказа — она попала в результат дважды. Вера заказов не делала и не попала совсем: это <code class="inl">INNER JOIN</code>.'},
+        {c:'GROUP BY', s:'SELECT city, COUNT(*) AS cnt\nFROM users\nGROUP BY city;', before:USERS, after:T(['city','cnt'], [['Москва','2'],['Казань','1']]), bt:'3 строки',  at:'2 группы',
+         m:'Схлопнули строки в группы и посчитали. После <code class="inl">GROUP BY</code> в <code class="inl">SELECT</code> можно только поля группировки и агрегаты — иначе база не знает, какое из значений показать.'},
+        {c:'Порядок выполнения', s:'-- пишем так:\nSELECT city, COUNT(*)\nFROM users\nWHERE city <> \'Пермь\'\nGROUP BY city\nHAVING COUNT(*) > 1\nORDER BY city;\n\n-- база выполняет так:\n-- FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT', before:null, after:null, bt:'', at:'',
+         m:'<b>Ключ к пониманию SQL.</b> Отсюда следует: в <code class="inl">WHERE</code> нельзя использовать агрегаты (группировки ещё не было) — для этого есть <code class="inl">HAVING</code>. И нельзя использовать псевдоним из <code class="inl">SELECT</code> — он ещё не вычислен. А вот в <code class="inl">ORDER BY</code> можно: он выполняется после.'},
+      ]},
+    dcl:{n:'DCL', full:'Data Control Language — язык управления доступом', color:'kv',
+      what:'Права: кому что можно делать с объектами базы. Выдать доступ, отобрать, объединить пользователей в роли.',
+      an:'Комендант: раздаёт ключи от комнат и забирает их обратно.',
+      note:'В боевых системах права выдают <b>ролям</b>, а не людям: роль «аналитик» получает право на чтение, а конкретные сотрудники включаются в роль. Уволился человек — исключили из роли, а не разбирали два десятка отдельных прав.',
+      cmds:[
+        {c:'GRANT', s:'GRANT SELECT ON users TO analyst;', before:null, after:null, bt:'', at:'',
+         m:'Роль <b>analyst</b> теперь может читать таблицу users — и только читать. Изменить или удалить строку не сможет: попытка вернёт ошибку прав доступа.'},
+        {c:'REVOKE', s:'REVOKE SELECT ON users FROM analyst;', before:null, after:null, bt:'', at:'',
+         m:'Право отобрано. Права выдаются и отбираются <b>по объектам и действиям</b>: можно разрешить SELECT, но запретить DELETE; разрешить на одну таблицу и запретить на другую.'},
+        {c:'Роли', s:'CREATE ROLE analyst;\nGRANT SELECT ON ALL TABLES IN SCHEMA public TO analyst;\nGRANT analyst TO ivanov;   -- сотрудник получает роль', before:null, after:null, bt:'', at:'',
+         m:'Так это выглядит в жизни: сначала роль с набором прав, потом люди в роль. Плюс <b>ограничение по столбцам</b> (<code class="inl">GRANT SELECT (name, city)</code>) и построчная безопасность (Row Level Security) — когда сотрудник видит только свои строки.'},
+      ]},
+    tcl:{n:'TCL', full:'Transaction Control Language — управление транзакциями', color:'ok',
+      what:'Границы транзакции: где она начинается, где фиксируется и как откатывается. Не меняет ни структуру, ни данные напрямую — управляет тем, <b>как</b> изменения применяются.',
+      an:'Кнопка «Сохранить» и «Отменить» в редакторе: пока не нажали «Сохранить», правки видите только вы.',
+      note:'Всё, что между <code class="inl">BEGIN</code> и <code class="inl">COMMIT</code>, применяется <b>целиком или никак</b>. Это и есть атомарность — первая буква ACID. Подробный разбор с симулятором — на вкладке «Транзакции».',
+      cmds:[
+        {c:'BEGIN', s:'BEGIN;\nUPDATE accounts SET balance = balance - 1000 WHERE id = 1;\nUPDATE accounts SET balance = balance + 1000 WHERE id = 2;', before:null, after:null, bt:'', at:'',
+         m:'Открыли транзакцию. Оба изменения сделаны, но <b>снаружи их пока не видно</b> — другие сессии видят старые значения. Это черновик.'},
+        {c:'COMMIT', s:'COMMIT;', before:null, after:null, bt:'', at:'',
+         m:'Зафиксировали. <b>Оба</b> изменения стали видны всем одновременно. Если бы между ними случился сбой, не применилось бы ни одно — деньги не исчезли бы в воздухе.'},
+        {c:'ROLLBACK', s:'ROLLBACK;', before:null, after:null, bt:'', at:'',
+         m:'Откатили. База вернулась в состояние до <code class="inl">BEGIN</code>, как будто ничего не было. Автоматический откат происходит и при обрыве соединения.'},
+        {c:'SAVEPOINT', s:'BEGIN;\n  INSERT INTO orders ...;\n  SAVEPOINT after_order;\n  INSERT INTO items ...;   -- упало\n  ROLLBACK TO after_order; -- откатили только это\n  INSERT INTO items ...;   -- вторая попытка\nCOMMIT;', before:null, after:null, bt:'', at:'',
+         m:'Точка сохранения <b>внутри</b> транзакции: можно откатить часть работы, не теряя всю. Полезно в длинных загрузках данных, где отдельная строка может не пройти.'},
+      ]},
+  };
+  const K = Object.keys(F);
+  let cur = 'ddl', ci = 0;
+  tabs.innerHTML = K.map((k, i) => '<button class="ghost' + (i === 0 ? ' on' : '') + '" data-k="' + k + '">' + F[k].n + '</button>').join('');
+  function tbl(el, t, hl){
+    if(!t){ el.innerHTML = '<tbody><tr><td style="padding:14px; color:var(--faint)">—</td></tr></tbody>'; return; }
+    el.innerHTML = '<thead><tr>' + t.cols.map(c => '<th>' + esc(c) + '</th>').join('') + '</tr></thead><tbody>' +
+      (t.rows.length ? t.rows.map((r, ri) => '<tr class="' + (hl === ri ? 'fdbad' : '') + '">' + r.map(v => '<td>' + esc(v) + '</td>').join('') + '</tr>').join('')
+        : '<tr><td colspan="' + t.cols.length + '" style="color:var(--faint)">строк нет</td></tr>') + '</tbody>';
+  }
+  function show(k, i){
+    cur = k; ci = i;
+    const f = F[k], c = f.cmds[i];
+    tabs.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.k === k));
+    document.getElementById('fam-head').innerHTML = '<div class="fam-t"><b>' + esc(f.n) + '</b> — ' + esc(f.full) + '</div><div class="fam-w">' + f.what + '</div><div class="fam-a">🏠 ' + esc(f.an) + '</div>';
+    document.getElementById('fam-cmds').innerHTML = f.cmds.map((x, j) => '<button class="step' + (j === i ? ' on' : '') + '" data-i="' + j + '">' + esc(x.c) + '</button>').join('');
+    document.getElementById('fam-sql').textContent = c.s;
+    document.getElementById('fam-before-t').textContent = c.bt || 'до команды';
+    document.getElementById('fam-after-t').textContent = c.at || 'после команды';
+    tbl(document.getElementById('fam-before'), c.before);
+    tbl(document.getElementById('fam-after'), c.after, c.hl);
+    msg(document.getElementById('fam-msg'), '', c.m);
+    document.getElementById('fam-note').innerHTML = '<b>Что важно знать про ' + esc(f.n) + ':</b> ' + f.note;
+  }
+  tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(b.dataset.k, 0); });
+  document.getElementById('fam-cmds').addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(cur, +b.dataset.i); });
+  show('ddl', 0);
+
+  /* --- тренажёр --- */
+  const Q = [
+    ['<code class="inl">CREATE INDEX idx ON orders(user_id);</code>', 0, 'Создаёт объект базы — индекс. Структура, а не данные. <b>DDL.</b>'],
+    ['<code class="inl">UPDATE users SET city = \'Пермь\' WHERE id = 5;</code>', 1, 'Меняет содержимое строк. <b>DML.</b>'],
+    ['<code class="inl">SELECT COUNT(*) FROM orders;</code>', 2, 'Только читает. <b>DQL</b> (в классической классификации — часть DML).'],
+    ['<code class="inl">GRANT SELECT ON orders TO analyst;</code>', 3, 'Выдаёт права. <b>DCL.</b>'],
+    ['<code class="inl">ROLLBACK;</code>', 4, 'Управляет границей транзакции. <b>TCL.</b>'],
+    ['<code class="inl">ALTER TABLE users ADD COLUMN phone TEXT;</code>', 0, 'Меняет структуру таблицы. <b>DDL.</b>'],
+    ['<code class="inl">DELETE FROM orders WHERE id = 7;</code>', 1, 'Удаляет <b>строки</b>, таблица остаётся. <b>DML.</b> Не путать с DROP.'],
+    ['<code class="inl">DROP TABLE orders;</code>', 0, 'Удаляет <b>объект</b> целиком. <b>DDL.</b> Вот и вся разница с DELETE.'],
+    ['<code class="inl">TRUNCATE TABLE logs;</code>', 0, 'Очищает таблицу, сбрасывая файл, а не удаляя строки по одной. Относят к <b>DDL.</b>'],
+    ['<code class="inl">SAVEPOINT before_items;</code>', 4, 'Точка внутри транзакции. <b>TCL.</b>'],
+    ['<code class="inl">INSERT ... ON CONFLICT DO UPDATE</code>', 1, 'Вставка или обновление строк. <b>DML.</b>'],
+    ['<code class="inl">REVOKE ALL ON users FROM guest;</code>', 3, 'Отбирает права. <b>DCL.</b>'],
+  ];
+  const OPTS = ['DDL','DML','DQL','DCL','TCL'];
+  (function(){
+    const root = document.getElementById('famq-list'); if(!root) return;
+    let score = 0; const done = new Set();
+    root.className = 'quiz';
+    root.innerHTML = Q.map((q, i) => '<div class="qcard" data-i="' + i + '"><div class="qtag">команда ' + (i + 1) + '</div><div class="q">' + q[0] + '</div>' +
+      '<div class="qopts fam-opts">' + OPTS.map((o, j) => '<button class="qopt" data-j="' + j + '"><span>' + o + '</span></button>').join('') + '</div><div class="qwhy"></div></div>').join('');
+    document.getElementById('famq-total').textContent = Q.length;
+    root.addEventListener('click', e => {
+      const b = e.target.closest('.qopt'); if(!b || b.disabled) return;
+      const card = b.closest('.qcard'), i = +card.dataset.i, j = +b.dataset.j, q = Q[i];
+      card.querySelectorAll('.qopt').forEach((x, k) => { x.disabled = true; if(k === q[1]) x.classList.add('correct'); });
+      if(j !== q[1]) b.classList.add('wrong');
+      const why = card.querySelector('.qwhy'); why.classList.add('show'); why.innerHTML = (j === q[1] ? '<b style="color:var(--ok)">Верно. </b>' : '<b style="color:var(--danger)">Не то. </b>') + q[2];
+      if(j === q[1] && !done.has(i)){ done.add(i); document.getElementById('famq-score').textContent = ++score; }
+    });
+  })();
+})();
+
+/* ================= ДВИЖОК: сквозной рассказ ================= */
+(function(){
+  const toc = document.getElementById('eng-toc'); if(!toc) return;
+  const stage = document.getElementById('eng-stage'), body = document.getElementById('eng-body');
+  const N = (l, s, k) => '<div class="eng-n ' + (k || '') + '"><b>' + l + '</b><small>' + s + '</small></div>';
+  const A = (k) => '<div class="eng-a ' + (k || '') + '">→</div>';
+  const CH = [
+    {n:'1 · Запрос пришёл', t:'Соединение и разбор: что база делает до того, как что-то прочитать',
+     stage: N('Клиент','psql, приложение','ui') + A() + N('Backend-процесс','отдельный процесс на соединение','hot') + A() + N('Парсер','SQL → дерево','') + A() + N('Анализатор','имена → объекты','') + A() + N('Переписыватель','правила, VIEW',''),
+     d:'Вы отправили <code class="inl">SELECT * FROM users WHERE city = \'Москва\'</code>. Первое, что важно понять: PostgreSQL на <b>каждое соединение</b> запускает отдельный процесс операционной системы. Это надёжно (упал один — остальные живы), но недёшево: тысяча соединений — тысяча процессов. Поэтому перед базой почти всегда ставят <b>пул соединений</b> (PgBouncer), который держит десяток настоящих соединений и раздаёт их всем желающим по очереди.<br><br>Дальше текст запроса проходит три стадии, и ни одна ещё не читает данные:<br><b>Парсер</b> — проверяет синтаксис и строит дерево. Опечались в слове SELECT — ошибка тут.<br><b>Анализатор</b> — сверяет имена с каталогом: есть ли такая таблица, есть ли колонка <code class="inl">city</code>, какой у неё тип. Ошиблись в имени колонки — ошибка тут.<br><b>Переписыватель</b> — раскрывает представления (VIEW) и применяет правила: запрос к представлению превращается в запрос к настоящим таблицам.',
+     m:'До сих пор база не прочитала ни одной строки данных — только свой собственный каталог.'},
+    {n:'2 · План', t:'Планировщик: самая интересная часть, и та, что чаще всего виновата в тормозах',
+     stage: N('Дерево запроса','после разбора','') + A() + N('Планировщик','перебирает варианты','hot') + A('hot') + N('Статистика','pg_statistic','db') + A() + N('План','дерево узлов','ok'),
+     d:'Планировщик решает <b>как</b> выполнять запрос. Один и тот же SELECT можно выполнить десятком способов, и разница между лучшим и худшим — тысячи раз.<br><br>Он перебирает варианты и считает <b>стоимость</b> каждого в условных единицах: прочитать таблицу целиком (Seq Scan) или пойти по индексу (Index Scan); соединить таблицы вложенным циклом, хешем или слиянием; в каком порядке соединять три таблицы. Выбирает самый дешёвый.<br><br>Считает он не по данным, а по <b>статистике</b>: сколько строк в таблице, сколько различных значений в колонке, как они распределены. Статистику собирает команда <code class="inl">ANALYZE</code> (обычно автоматически). <b>Отсюда главная причина внезапных тормозов:</b> статистика устарела — планировщик думает, что в таблице тысяча строк, а их миллион, выбирает неверный план, и запрос, который вчера летал, сегодня висит.<br><br>Посмотреть план можно командой <code class="inl">EXPLAIN</code>, а с реальным временем — <code class="inl">EXPLAIN ANALYZE</code>. Это первое, что делают, когда запрос медленный.',
+     code:'EXPLAIN ANALYZE SELECT * FROM users WHERE city = \'Москва\';\n\n Index Scan using idx_users_city on users\n   (cost=0.29..8.31 rows=2 width=64)\n   (actual time=0.021..0.024 rows=2 loops=1)\n   Index Cond: (city = \'Москва\'::text)\n Planning Time: 0.15 ms\n Execution Time: 0.04 ms\n\n-- cost   — оценка планировщика (условные единицы)\n-- rows   — сколько строк он ОЖИДАЛ\n-- actual — сколько получилось на самом деле\n-- Если rows и actual расходятся в разы — статистика врёт, зовите ANALYZE',
+     m:'Планировщик — не «выполняет запрос», а выбирает способ. Именно он решает, пригодится ли ваш индекс.'},
+    {n:'3 · Исполнение', t:'Исполнитель: план — это дерево, данные поднимаются снизу вверх',
+     stage: N('Sort','упорядочить','') + A('up') + N('HashAggregate','сгруппировать','') + A('up') + N('Hash Join','соединить','') + A('up') + N('Index Scan','прочитать','hot'),
+     d:'План — это <b>дерево узлов</b>, и читать его надо снизу вверх: нижние узлы достают строки, верхние их обрабатывают. В примере: индексное чтение поднимает строки в соединение, соединение — в группировку, та — в сортировку.<br><br>Работает это <b>потоком</b>: узлы не ждут, пока нижний закончит целиком, а забирают строки по одной («дай следующую»). Поэтому <code class="inl">LIMIT 10</code> может отработать мгновенно даже на огромной таблице — как только набралось десять строк, всё дерево останавливается.<br><br>Но не все узлы так умеют. <b>Сортировка</b> и <b>хеш-соединение</b> вынуждены собрать всё сразу, прежде чем выдать первую строку. Если результат не влезает в память (параметр <code class="inl">work_mem</code>), они сбрасывают промежуточные данные на диск — и запрос резко замедляется. В <code class="inl">EXPLAIN ANALYZE</code> это видно как <code class="inl">Sort Method: external merge Disk: 24MB</code>.',
+     m:'Отсюда правило: не тащите из базы то, что не нужно. SELECT * по широкой таблице — это лишние байты на каждом уровне дерева.'},
+    {n:'4 · Страница 8 КБ', t:'Как строка лежит на диске: заголовок, указатели, кортежи',
+     stage:'',
+     page:true,
+     d:'Файл таблицы разбит на <b>страницы по 8 КБ</b> — это минимальная порция, которой база обменивается с диском. Никогда не читается «одна строка»: читается целая страница.<br><br>Внутри страницы: <b>заголовок</b> (24 байта), затем <b>указатели на строки</b> (растут сверху вниз), а сами <b>строки</b> лежат с конца страницы и растут вверх. Свободное место — посередине. Такое устройство позволяет двигать строки внутри страницы, не меняя внешние ссылки на них: ссылка указывает на номер указателя, а не на смещение.<br><br>Строка называется <b>кортежем</b> (tuple). У неё есть свой заголовок (23 байта) со служебными полями — про них следующая глава. Если значение слишком велико и строка не влезает в страницу, срабатывает <b>TOAST</b>: длинное значение сжимается, а если и это не помогает — выносится в отдельную служебную таблицу по кускам. Работает прозрачно, но объясняет, почему широкая колонка с текстом замедляет даже те запросы, которые её не читают.',
+     m:'Ключевая мысль: единица работы с диском — страница 8 КБ, а не строка. Поэтому «узкие» таблицы быстрее: в одну страницу влезает больше строк.'},
+    {n:'5 · MVCC', t:'Многоверсионность: почему UPDATE не перезаписывает строку',
+     stage: N('UPDATE','цена 1200 → 990','hot') + A() + N('старая версия','xmax = 502, ещё видна старым','dead') + N('новая версия','xmin = 502','ok'),
+     d:'Вот главное отличие PostgreSQL от «интуитивной» картины. Когда вы делаете <code class="inl">UPDATE</code>, база <b>не меняет строку на месте</b>. Она:<br>1. создаёт <b>новую версию</b> строки рядом,<br>2. в старой проставляет <code class="inl">xmax</code> — номер транзакции, которая её «удалила».<br><br>У каждого кортежа есть два служебных поля: <code class="inl">xmin</code> (кто создал) и <code class="inl">xmax</code> (кто удалил, 0 — если жива). Каждая транзакция при старте получает <b>снимок</b>: список того, что уже зафиксировано. И видит только те версии, которые с её точки зрения уже созданы и ещё не удалены.<br><br><b>Зачем такая сложность.</b> Читатели никогда не блокируют писателей, а писатели — читателей. Длинный отчёт на пять минут не мешает продажам, и наоборот. В базах, которые меняют строку на месте, для этого нужны блокировки или отдельный журнал отмены.<br><br><b>Чем платим.</b> Старые версии остаются в файле. Таблица, которую активно обновляют, растёт, даже если строк в ней столько же. Это называется <b>раздуванием</b> (bloat), и с ним борется VACUUM.',
+     m:'Потрогать MVCC руками можно в карточке сразу под этой историей.'},
+    {n:'6 · WAL', t:'Журнал упреждающей записи: почему COMMIT быстрый и данные не теряются',
+     stage: N('Изменение','в буфере, в памяти','hot') + A() + N('WAL-запись','последовательно на диск','ok') + A() + N('COMMIT','подтверждение клиенту','ok') + N('Файл таблицы','позже, при checkpoint','') ,
+     d:'Логичный вопрос: если изменения сначала происходят в памяти, что будет при отключении питания?<br><br>Ответ — <b>WAL</b> (write-ahead log, журнал упреждающей записи). Правило: <b>сначала запиши намерение в журнал, потом меняй данные</b>. При <code class="inl">COMMIT</code> база гарантированно сбрасывает на диск <b>только запись журнала</b> — а сами страницы таблицы могут ещё долго оставаться в памяти изменёнными («грязными»).<br><br>Почему это быстро: запись в журнал <b>последовательная</b> — данные дописываются в конец файла. Даже на обычном диске это в разы быстрее, чем менять страницы в разных местах файла таблицы вразнобой.<br><br>Что при сбое: база при старте читает журнал и <b>повторяет</b> все зафиксированные изменения, которых не хватает в файлах данных. Это называется восстановлением после сбоя, и происходит оно автоматически.<br><br>WAL — ещё и основа <b>репликации</b>: реплика просто получает поток журнала и применяет его у себя. И основа <b>восстановления на момент времени</b>: имея вчерашнюю копию и журнал, можно доиграть базу до любой секунды.',
+     m:'D в ACID — это именно WAL. Зафиксировали — значит, записано в журнал на диск, и потеря невозможна.'},
+    {n:'7 · Checkpoint', t:'Контрольная точка: когда изменения доезжают до файлов таблиц',
+     stage: N('Грязные страницы','изменены в памяти','hot') + A() + N('CHECKPOINT','сброс на диск','ok') + A() + N('Файлы таблиц','актуальны','db') + A() + N('Старый WAL','можно удалять',''),
+     d:'Грязные страницы не могут копиться в памяти вечно. Периодически (по времени или по объёму журнала) запускается <b>контрольная точка</b>: все изменённые страницы записываются в файлы таблиц, и в журнале ставится отметка «до этого места всё на диске».<br><br>Зачем: во-первых, освобождается место — старые части журнала можно удалять. Во-вторых, ускоряется восстановление: после сбоя нужно доиграть журнал только с последней контрольной точки, а не с начала времён.<br><br><b>Практическая тонкость.</b> Контрольная точка — это всплеск записи на диск, и в этот момент база заметно притормаживает. Поэтому её растягивают во времени настройками (<code class="inl">checkpoint_completion_target</code>) и делают реже, но крупнее. Если в логах видно <code class="inl">checkpoints are occurring too frequently</code> — это прямое указание увеличить <code class="inl">max_wal_size</code>.',
+     m:'Итого: COMMIT пишет только в журнал (быстро), а тяжёлый сброс в файлы откладывается на контрольную точку.'},
+    {n:'8 · VACUUM', t:'Уборщик: кто убирает мёртвые версии и почему без него база встанет',
+     stage: N('Мёртвые версии','после UPDATE / DELETE','dead') + A() + N('VACUUM','помечает место свободным','hot') + A() + N('Место переиспользуется','','ok') + N('ANALYZE','обновляет статистику','db'),
+     d:'MVCC оставляет за собой мусор: старые версии строк, которые уже никому не видны. Их убирает <b>VACUUM</b> — он помечает занятое ими место как свободное, чтобы туда можно было записать новые строки. Обычный VACUUM файл не укорачивает, он делает место переиспользуемым; укорачивает только <code class="inl">VACUUM FULL</code>, но он блокирует таблицу целиком и в проде почти не применяется.<br><br>Запускается автоматически (<b>автовакуум</b>), когда доля мёртвых версий превышает порог. Заодно выполняется <b>ANALYZE</b> — обновление статистики, той самой, по которой планировщик выбирает план (глава 2).<br><br>У VACUUM есть вторая, критическая работа: <b>заморозка</b> очень старых строк. Номера транзакций конечны (4 миллиарда) и по кругу переиспользуются. Если не заморозить старые строки вовремя, база рискует «потерять» их видимость — поэтому при приближении к пределу PostgreSQL <b>останавливает запись</b> и требует вакуум. Это самая известная авария на нагруженных базах, и предотвращается она банально: не мешать автовакууму работать.<br><br><b>Что мешает вакууму:</b> долгие открытые транзакции. Пока транзакция жива, версии, которые она может увидеть, удалять нельзя. Забытый <code class="inl">BEGIN</code> в консоли на сутки — и таблица раздувается на десятки гигабайт.',
+     m:'Правило: следите за долгими транзакциями и не отключайте автовакуум. Это две самые частые причины раздувания.'},
+  ];
+  let idx = 0;
+  toc.innerHTML = CH.map((c, i) => '<button class="step' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' + esc(c.n) + '</button>').join('');
+  const PAGE = '<div class="pg-page"><div class="pg-hdr">Заголовок страницы · 24 байта <small>указатель на свободное место, контрольная сумма, LSN последней записи в журнале</small></div>' +
+    '<div class="pg-ptrs"><span>ptr 1</span><span>ptr 2</span><span>ptr 3</span><span class="free">→ растут вниз</span></div>' +
+    '<div class="pg-free">свободное место</div>' +
+    '<div class="pg-tuples"><div class="pg-t"><b>кортеж 3</b><small>заголовок 23 б + данные</small></div><div class="pg-t"><b>кортеж 2</b><small>xmin / xmax / данные</small></div><div class="pg-t"><b>кортеж 1</b><small>← строки растут вверх</small></div></div>' +
+    '<div class="pg-cap">Страница 8 КБ. Указатели растут сверху вниз, строки — снизу вверх, между ними свободное место.</div></div>';
+  function show(i){
+    idx = i; const c = CH[i];
+    toc.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
+    stage.innerHTML = c.page ? PAGE : '<div class="eng-flow">' + c.stage + '</div>';
+    body.innerHTML = '<h3 style="margin-top:14px">' + esc(c.t) + '</h3><div class="note">' + c.d + '</div>' + (c.code ? '<pre class="ty-code">' + esc(c.code) + '</pre>' : '');
+    msg(document.getElementById('eng-msg'), 'ok', c.m);
+    document.getElementById('eng-prev').disabled = i === 0;
+    document.getElementById('eng-next').disabled = i === CH.length - 1;
+  }
+  toc.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(+b.dataset.i); });
+  document.getElementById('eng-next').addEventListener('click', () => { if(idx < CH.length - 1) show(idx + 1); });
+  document.getElementById('eng-prev').addEventListener('click', () => { if(idx > 0) show(idx - 1); });
+  document.getElementById('eng-reset').addEventListener('click', () => show(0));
+  show(0);
+})();
+
+/* ================= MVCC: интерактив ================= */
+(function(){
+  const heap = document.getElementById('mv-heap'); if(!heap) return;
+  let st;
+  function fresh(){ return {rows:[{id:1, name:'Ноутбук', price:'1200', xmin:498, xmax:0, committed:true}], t1:null, t2:null, xid:500, t1seen:'1200'}; }
+  st = fresh();
+  function draw(){
+    heap.innerHTML = '<thead><tr><th>id</th><th>наименование</th><th>цена</th><th>xmin</th><th>xmax</th><th>состояние</th></tr></thead><tbody>' +
+      st.rows.map(r => '<tr class="' + (r.xmax && r.xmaxCommitted ? 'mv-dead' : r.committed ? '' : 'mv-new') + '"><td>' + r.id + '</td><td>' + esc(r.name) + '</td><td>' + esc(r.price) + '</td><td>' + r.xmin + '</td><td>' + (r.xmax || '0') + '</td><td>' +
+        (r.xmax && r.xmaxCommitted ? '<span class="mv-badge dead">мёртвая версия</span>' : !r.committed ? '<span class="mv-badge new">не зафиксирована</span>' : '<span class="mv-badge live">актуальная</span>') + '</td></tr>').join('') + '</tbody>';
+    const v = document.getElementById('mv-views');
+    const list = [];
+    if(st.t1) list.push({n:'T1 (xid ' + st.t1 + ')', s:'читатель, снимок сделан при BEGIN', val:st.t1seen, cls:'ok'});
+    if(st.t2) list.push({n:'T2 (xid ' + st.t2 + ')', s:st.t2committed ? 'зафиксирована' : 'выполняется', val:st.rows.filter(r => !r.xmax || !r.xmaxCommitted).slice(-1)[0].price, cls:st.t2committed ? 'ok' : 'warn'});
+    list.push({n:'Новая транзакция', s:'если начнётся прямо сейчас', val:st.rows.filter(r => r.committed && (!r.xmax || !r.xmaxCommitted)).slice(-1)[0].price, cls:''});
+    v.innerHTML = list.map(x => '<div class="mv-view ' + x.cls + '"><div class="mv-vn">' + esc(x.n) + '<small>' + esc(x.s) + '</small></div><div class="mv-val">цена = <b>' + esc(x.val) + '</b></div></div>').join('');
+  }
+  draw();
+  const m = () => document.getElementById('mv-msg');
+  document.getElementById('mv-t1').addEventListener('click', () => {
+    if(st.t1) { msg(m(), '', 'T1 уже открыта.'); return; }
+    st.t1 = ++st.xid; st.t1seen = st.rows.filter(r => r.committed && !r.xmaxCommitted).slice(-1)[0].price; draw();
+    msg(m(), 'ok', 'T1 началась и получила <b>снимок</b>: она запомнила, какие транзакции на этот момент зафиксированы. Прочитала цену — <b>' + st.t1seen + '</b>. Теперь что бы ни делали другие, T1 до конца своей жизни будет видеть эту версию.');
+  });
+  document.getElementById('mv-upd').addEventListener('click', () => {
+    if(st.t2){ msg(m(), '', 'T2 уже сделала UPDATE. Зафиксируйте её.'); return; }
+    st.t2 = ++st.xid;
+    const live = st.rows.filter(r => !r.xmax)[0];
+    live.xmax = st.t2; live.xmaxCommitted = false;
+    st.rows.push({id:1, name:'Ноутбук', price:'990', xmin:st.t2, xmax:0, committed:false});
+    draw();
+    msg(m(), 'err', 'T2 выполнила UPDATE. Смотрите на таблицу: строка <b>не изменилась</b> — появилась <b>вторая версия</b> с ценой 990 и xmin = ' + st.t2 + ', а у старой проставился xmax = ' + st.t2 + '. Обе версии физически лежат в странице. T1 по-прежнему видит 1200.');
+  });
+  document.getElementById('mv-commit').addEventListener('click', () => {
+    if(!st.t2){ msg(m(), '', 'Сначала сделайте UPDATE.'); return; }
+    if(st.t2committed){ msg(m(), '', 'T2 уже зафиксирована.'); return; }
+    st.t2committed = true;
+    st.rows.forEach(r => { if(r.xmin === st.t2) r.committed = true; if(r.xmax === st.t2) r.xmaxCommitted = true; });
+    draw();
+    msg(m(), 'ok', 'T2 зафиксирована. Новые транзакции теперь видят <b>990</b>. Старая версия стала <b>мёртвой</b> — но всё ещё лежит в файле, потому что её видит T1. Место освободится только после того, как T1 закончится и придёт VACUUM.');
+  });
+  document.getElementById('mv-read').addEventListener('click', () => {
+    if(!st.t1){ msg(m(), '', 'Сначала откройте T1.'); return; }
+    msg(m(), 'ok', 'T1 читает второй раз и снова видит <b>' + st.t1seen + '</b> — хотя T2 уже зафиксировала 990. Это и есть <b>повторяемое чтение внутри транзакции</b>: снимок сделан при старте и не меняется. Именно так длинный отчёт не «плывёт» посреди выполнения.');
+  });
+  document.getElementById('mv-reset').addEventListener('click', () => { st = fresh(); draw(); msg(m(), '', 'Сброшено.'); });
+})();
+
+/* ================= ACID: четыре опыта ================= */
+(function(){
+  const tabs = document.getElementById('ac-tabs'); if(!tabs) return;
+  const stage = document.getElementById('ac-stage'), btns = document.getElementById('ac-btns'), note = document.getElementById('ac-note');
+  const m = () => document.getElementById('ac-msg');
+  let cur = 'a', st = {};
+
+  const acc = (a, b, hl) => '<div class="ac-accs"><div class="ac-acc' + (hl === 0 ? ' hot' : '') + '"><b>Анна</b><span>' + a + ' ₽</span></div>' +
+    '<div class="ac-acc' + (hl === 1 ? ' hot' : '') + '"><b>Борис</b><span>' + b + ' ₽</span></div>' +
+    '<div class="ac-acc total' + (a + b !== 1500 ? ' bad' : '') + '"><b>Всего в системе</b><span>' + (a + b) + ' ₽</span></div></div>';
+
+  const V = {
+    a:{ head:'<b>A — Atomicity, атомарность.</b> Транзакция выполняется <b>целиком или никак</b>. Промежуточного состояния не существует ни для кого снаружи.<br><br>Опыт: переводим 300 ₽ от Анны Борису. Это <b>два</b> шага: списать и зачислить. Сбой происходит ровно между ними.',
+      note:'<b>Как это устроено.</b> Пока транзакция открыта, изменения помечены её номером и снаружи не видны. При <code class="inl">COMMIT</code> база записывает в журнал отметку «транзакция зафиксирована» — и все изменения становятся видны <b>одновременно</b>. Нет отметки — при перезапуске изменения просто не применятся. Отсюда и «всё или ничего»: видимость переключается одной записью.',
+      init:()=>({a:1000, b:500, step:0}),
+      draw:()=>acc(st.a, st.b, st.step === 1 ? 0 : null) + (st.step === 1 ? '<div class="ac-warn">💥 Сбой произошёл здесь: у Анны списали, Борису ещё не зачислили</div>' : ''),
+      btns:[
+        {t:'💥 Сбой БЕЗ транзакции', k:'act danger', f:()=>{ st.a = 700; st.b = 500; st.step = 1;
+          msg(m(), 'err', '<b>Деньги исчезли.</b> Первый UPDATE зафиксировался сам по себе, второй не выполнился. В системе стало 1200 ₽ вместо 1500 — и никакой ошибки в логах: обе команды отработали как задумано, просто вторая не успела. Разбираться будут по жалобе клиента.'); }},
+        {t:'💥 Тот же сбой В транзакции', k:'act', f:()=>{ st.a = 1000; st.b = 500; st.step = 0;
+          msg(m(), 'ok', '<b>ROLLBACK — как будто ничего не было.</b> Списание было сделано внутри транзакции и снаружи никогда не было видно. Сбой до COMMIT означает, что отметки о фиксации нет, — при восстановлении база просто не применит эти изменения. 1500 ₽ на месте.'); }},
+        {t:'✅ Успешный перевод', k:'ghost', f:()=>{ st.a = 700; st.b = 800; st.step = 0;
+          msg(m(), 'ok', 'Оба шага прошли, COMMIT записан. Изменения стали видны <b>одновременно</b>: никто снаружи не мог увидеть момент, когда у Анны уже списали, а Борису ещё не зачислили.'); }},
+        {t:'↻ Сброс', k:'ghost', f:()=>{ st = V.a.init(); msg(m(), '', 'Счета восстановлены.'); }},
+      ]},
+    c:{ head:'<b>C — Consistency, согласованность.</b> База не переходит в состояние, нарушающее её собственные правила. Правила задаёте вы — ограничениями.<br><br>Опыт: попробуйте записать в таблицу заведомо неверные данные. База должна не дать.',
+      note:'<b>Важное уточнение.</b> Согласованность в ACID — не «данные правильные по смыслу», а «<b>все объявленные ограничения соблюдены</b>». База не знает, что цена 1 ₽ за ноутбук — ошибка оператора; она знает только то, что вы ей объявили через CHECK, FOREIGN KEY и UNIQUE. <b>Чем больше правил записано в схеме, тем больше берёт на себя база</b> — и тем меньше остаётся на совести кода. Всё, что не объявлено, придётся проверять руками в каждом месте, где пишут данные.',
+      init:()=>({log:[]}),
+      draw:()=>'<pre class="ac-sql">CREATE TABLE orders (\n  id        BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n  user_id   BIGINT  NOT NULL REFERENCES users(id),\n  total     NUMERIC(10,2) NOT NULL CHECK (total > 0),\n  email     TEXT    NOT NULL UNIQUE,\n  status    TEXT    NOT NULL CHECK (status IN (\'new\',\'paid\'))\n);</pre>' +
+        (st.log.length ? '<div class="ac-log">' + st.log.map(l => '<div class="ac-lrow ' + l.k + '"><code>' + esc(l.q) + '</code><span>' + l.r + '</span></div>').join('') + '</div>' : ''),
+      btns:[
+        {t:'Заказ на несуществующего клиента', k:'act danger', f:()=>{ st.log.push({q:"INSERT INTO orders (user_id, total, ...) VALUES (999, 100, ...)", r:'❌ FOREIGN KEY: клиента 999 не существует', k:'err'});
+          msg(m(), 'err', '<b>FOREIGN KEY</b> не дал создать заказ на несуществующего клиента. Без этого ограничения строка бы записалась, а через месяц отчёт по клиентам её потерял бы — заказ есть, клиента нет.'); }},
+        {t:'Отрицательная сумма', k:'act danger', f:()=>{ st.log.push({q:"INSERT ... total = -500", r:'❌ CHECK (total > 0)', k:'err'});
+          msg(m(), 'err', '<b>CHECK</b> отверг отрицательную сумму. Одна строка в схеме заменяет проверку в каждом месте кода, где создают заказ, — включая скрипт импорта и ручной запрос администратора ночью.'); }},
+        {t:'Дубль email', k:'act danger', f:()=>{ st.log.push({q:"INSERT ... email = 'anna@mail.ru'  (уже есть)", r:'❌ UNIQUE: значение уже занято', k:'err'});
+          msg(m(), 'err', '<b>UNIQUE</b> не дал завести второго клиента с тем же email — даже если два запроса пришли <b>одновременно</b>. Проверка «а нет ли уже такого?» в коде тут не спасает: между проверкой и вставкой другой запрос успеет вклиниться.'); }},
+        {t:'Неизвестный статус', k:'act danger', f:()=>{ st.log.push({q:"INSERT ... status = 'отменён'", r:'❌ CHECK: допустимы только new, paid', k:'err'});
+          msg(m(), 'err', 'Без этого ограничения в базе завелись бы «отменен», «отменён», «cancelled» — от разных разработчиков в разное время. Отчёт «сколько отмен» показал бы неправду, и заметили бы это нескоро.'); }},
+        {t:'✅ Корректный заказ', k:'act', f:()=>{ st.log.push({q:"INSERT INTO orders (user_id, total, email, status) VALUES (1, 5400, 'new@mail.ru', 'new')", r:'✅ строка добавлена', k:'ok'});
+          msg(m(), 'ok', 'Все ограничения пройдены — строка записана. База осталась в согласованном состоянии: заказ ссылается на существующего клиента, сумма положительная, email уникален, статус из списка.'); }},
+        {t:'↻ Очистить', k:'ghost', f:()=>{ st.log = []; msg(m(), '', 'Журнал очищен.'); }},
+      ]},
+    i:{ head:'<b>I — Isolation, изоляция.</b> Параллельные транзакции работают так, будто выполняются по очереди.<br><br>Опыт: последнее место на занятии, двое бронируют одновременно. Классическая гонка.',
+      note:'<b>Полная изоляция стоит дорого.</b> Если заставить все транзакции честно выполняться по очереди, база перестанет держать нагрузку. Поэтому есть <b>уровни изоляции</b>: чем строже, тем меньше аномалий и меньше параллелизма. Разбор всех аномалий с таймлайном — в карточке ниже.<br><br>Практический вывод: изоляция по умолчанию (<code class="inl">READ COMMITTED</code>) <b>не спасает от гонки за последнее место</b>. Нужна либо блокировка строки (<code class="inl">SELECT … FOR UPDATE</code>), либо ограничение в схеме, либо уровень <code class="inl">SERIALIZABLE</code> с повтором при отказе.',
+      init:()=>({seats:1, booked:[], mode:null}),
+      draw:()=>'<div class="ac-seats"><div class="ac-seat-n">Свободных мест: <b class="' + (st.seats < 0 ? 'bad' : '') + '">' + st.seats + '</b></div>' +
+        (st.booked.length ? '<div class="ac-booked">' + st.booked.map(b => '<span class="ac-b">' + esc(b) + '</span>').join('') + '</div>' : '<div class="pr-empty">пока никто не записан</div>') +
+        (st.seats < 0 ? '<div class="ac-warn">💥 Мест меньше нуля — записали двоих на одно место</div>' : '') + '</div>',
+      btns:[
+        {t:'💥 Двое бронируют без блокировки', k:'act danger', f:()=>{ st.seats = -1; st.booked = ['Анна','Борис'];
+          msg(m(), 'err', '<b>Гонка.</b> Обе транзакции прочитали «свободно: 1», обе решили, что место есть, обе записали. Проверка была верной в момент чтения — и устарела к моменту записи. Ни одна база не поймает это <b>сама</b>: с её точки зрения обе транзакции сделали законные вставки.'); }},
+        {t:'✅ С блокировкой строки', k:'act', f:()=>{ st.seats = 0; st.booked = ['Анна'];
+          msg(m(), 'ok', '<code class="inl">SELECT … FOR UPDATE</code> запер строку занятия. Первая транзакция читает и держит замок; вторая <b>ждёт у двери</b>. Дождалась — перечитала — увидела «свободно: 0» — отказала. Борис получил честное «мест нет» вместо места, которого не существует.'); }},
+        {t:'✅ Через ограничение в схеме', k:'act', f:()=>{ st.seats = 0; st.booked = ['Анна'];
+          msg(m(), 'ok', 'Второй способ, часто лучше: <code class="inl">UNIQUE (занятие_id, место)</code> или проверка вместимости. База отвергнет вторую вставку сама, даже если запросы придут в одну миллисекунду. Приложению остаётся поймать ошибку и показать «место занято».'); }},
+        {t:'↻ Сброс', k:'ghost', f:()=>{ st = V.i.init(); msg(m(), '', 'Место снова свободно.'); }},
+      ]},
+    d:{ head:'<b>D — Durability, устойчивость.</b> После <code class="inl">COMMIT</code> данные не пропадут, даже если через миллисекунду выключат питание.<br><br>Опыт: отключаем сервер в разные моменты и смотрим, что останется.',
+      note:'<b>Как это работает.</b> При <code class="inl">COMMIT</code> база гарантированно сбрасывает на диск <b>запись журнала</b> (WAL), а не сами страницы таблицы — они могут ещё долго жить изменёнными в памяти. Запись в журнал последовательная и потому быстрая. После сбоя база при старте читает журнал и <b>доигрывает</b> зафиксированные изменения, которых не хватает в файлах.<br><br><b>Чем это можно испортить:</b> настройка <code class="inl">synchronous_commit = off</code> делает COMMIT ещё быстрее, но разрешает потерять последние доли секунды при аварии. Иногда это осознанный размен для логов и метрик; для денег — никогда.',
+      init:()=>({wal:[], table:[], done:[], phase:0}),
+      draw:()=>'<div class="ac-dur"><div class="ac-d-col"><div class="ac-d-h">📝 WAL на диске</div>' + (st.wal.length ? st.wal.map(x => '<div class="ac-d-i ok">' + esc(x) + '</div>').join('') : '<div class="pr-empty">пусто</div>') + '</div>' +
+        '<div class="ac-d-col"><div class="ac-d-h">🧠 Страницы в памяти</div>' + (st.table.length ? st.table.map(x => '<div class="ac-d-i hot">' + esc(x) + '</div>').join('') : '<div class="pr-empty">пусто</div>') + '</div>' +
+        '<div class="ac-d-col"><div class="ac-d-h">💾 Файл таблицы на диске</div>' + (st.done.length ? st.done.map(x => '<div class="ac-d-i">' + esc(x) + '</div>').join('') : '<div class="pr-empty">пусто</div>') + '</div></div>',
+      btns:[
+        {t:'1 · INSERT заказа', k:'act', f:()=>{ st.wal = ['запись: вставлен заказ #501']; st.table = ['страница изменена (грязная)']; st.done = [];
+          msg(m(), '', 'Изменение сделано <b>в памяти</b>, а намерение записано в журнал. В файле таблицы пока ничего нет. Транзакция ещё не зафиксирована.'); }},
+        {t:'2 · COMMIT', k:'act', f:()=>{ st.wal = ['запись: вставлен заказ #501', '✓ отметка COMMIT — сброшена на диск'];
+          msg(m(), 'ok', 'COMMIT записал в журнал отметку о фиксации и <b>дождался, пока диск подтвердит запись</b>. Именно в этот момент клиенту можно ответить «заказ принят». Файл таблицы всё ещё не тронут — и это нормально.'); }},
+        {t:'💥 Отключить питание', k:'act danger', f:()=>{
+          if(!st.wal.length){ msg(m(), '', 'Сначала сделайте INSERT.'); return; }
+          const committed = st.wal.length > 1; st.table = [];
+          msg(m(), committed ? 'ok' : 'err', committed
+            ? '<b>Свет выключен.</b> Память очищена, файл таблицы пуст — но в журнале есть запись и отметка COMMIT. Нажмите «Запустить базу».'
+            : '<b>Свет выключен до COMMIT.</b> Изменение было только в памяти, отметки о фиксации в журнале нет. При старте база его просто не применит — и правильно: клиенту ведь не отвечали «принято».'); }},
+        {t:'🔌 Запустить базу заново', k:'act', f:()=>{
+          const committed = st.wal.length > 1;
+          if(committed){ st.done = ['заказ #501 — восстановлен из журнала']; st.table = [];
+            msg(m(), 'ok', '<b>Восстановление после сбоя.</b> База прочитала журнал, нашла зафиксированные изменения, которых нет в файлах, и <b>доиграла</b> их. Заказ на месте. Всё произошло автоматически, за секунды, без участия человека.'); }
+          else { st.done = []; st.table = [];
+            msg(m(), '', 'В журнале нет отметки о фиксации — восстанавливать нечего. База стартовала в состоянии до транзакции.'); } }},
+        {t:'↻ Сброс', k:'ghost', f:()=>{ st = V.d.init(); msg(m(), '', 'Сброшено.'); }},
+      ]},
+  };
+  function render(){
+    const v = V[cur];
+    document.getElementById('ac-head').innerHTML = v.head;
+    stage.innerHTML = v.draw();
+    note.innerHTML = v.note;
+    btns.innerHTML = v.btns.map((b, i) => '<button class="' + b.k + '" data-i="' + i + '">' + b.t + '</button>').join('');
+  }
+  function show(k){
+    cur = k; st = V[k].init();
+    tabs.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.a === k));
+    render(); msg(m(), '', 'Нажимайте кнопки по порядку.');
+  }
+  tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(b.dataset.a); });
+  btns.addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; V[cur].btns[+b.dataset.i].f(); render(); });
+  show('a');
+})();
+
 </script>
 </body>
 </html>
