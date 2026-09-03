@@ -892,6 +892,78 @@
   .step-c.on .ty-code{display:block}
   .step-b{display:block; width:100%; text-align:left; padding:11px 14px; border:0; background:transparent; font:700 13px/1.4 var(--sans); color:var(--ink); cursor:pointer}
   .step-c.on .step-b{background:color-mix(in srgb, var(--rel) 9%, transparent); color:var(--rel)}
+
+  /* ===== БД В 2026 ===== */
+  /* ===== 2026: одна база или пять ===== */
+  .ys-wrap{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:12px; align-items:start}
+  .ys-yr{border:1px solid var(--line); border-radius:11px; padding:11px 13px; background:var(--surface-2); margin-bottom:10px}
+  .ys-h{font:700 11.5px/1.4 var(--sans); color:var(--muted); margin-bottom:9px}
+  .ys-sys{display:flex; flex-wrap:wrap; gap:6px}
+  .ys-s{padding:5px 10px; border-radius:7px; font:700 11.5px/1.3 var(--mono)}
+  .ys-s.old{background:color-mix(in srgb, var(--danger) 13%, transparent); color:var(--danger)}
+  .ys-s.new{background:color-mix(in srgb, var(--ok) 14%, transparent); color:var(--ok)}
+  .ys-n{margin-top:9px; font:600 12px/1.3 var(--sans); color:var(--muted)}
+  .ys-n b{font:800 15px var(--sans); color:var(--ink)}
+  @media(max-width:820px){.ys-wrap{grid-template-columns:1fr}}
+
+  /* ===== 2026: векторный поиск ===== */
+  .vs-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px}
+  .vs-box{border:1px solid var(--line); border-radius:11px; overflow:hidden; background:var(--surface-2)}
+  .vs-box > div:not(.cn-h){padding:9px 11px}
+  .vs-r{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 10px; margin-bottom:5px; border-radius:7px; background:var(--surface-3); font:600 12.5px/1.4 var(--sans); color:var(--ink)}
+  .vs-r b{flex:none; font:800 12px var(--mono); padding:3px 7px; border-radius:5px}
+  .vs-r b.hi{background:color-mix(in srgb, var(--ok) 18%, transparent); color:var(--ok)}
+  .vs-r b.mid{background:color-mix(in srgb, var(--doc) 18%, transparent); color:var(--doc)}
+  .vs-r b.lo{background:color-mix(in srgb, var(--danger) 15%, transparent); color:var(--danger)}
+  .vs-none{padding:14px 10px; text-align:center; font:700 13px/1.4 var(--sans); color:var(--danger)}
+  .vs-steps{margin-top:8px}
+  @media(max-width:820px){.vs-grid{grid-template-columns:1fr}}
+
+  /* ===== 2026: строки и колонки ===== */
+  .rc-wrap{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px}
+  .rc-box{border:1px solid var(--line); border-radius:11px; padding:11px; background:var(--surface-2)}
+  .rc-h{font:700 12.5px/1.4 var(--sans); color:var(--ink); margin-bottom:10px}
+  .rc-h small{display:block; margin-top:2px; font:500 11px/1.4 var(--sans); color:var(--muted)}
+  .rc-grid{display:grid; gap:2px}
+  .rc-t{font:700 9.5px/1.3 var(--mono); color:var(--muted); text-align:center; padding-bottom:3px; overflow:hidden; text-overflow:ellipsis}
+  .rc-c{height:20px; border-radius:3px; background:var(--surface-3); font:600 9px/20px var(--mono); color:var(--faint); text-align:center; transition:.25s}
+  .rc-c.read{background:color-mix(in srgb, var(--graph) 42%, transparent); color:var(--ink)}
+  .rc-grid.col .rc-c{border-radius:0}
+  .rc-grid.col .rc-c:nth-child(-n+5){border-radius:3px 3px 0 0}
+  .rc-note{margin-top:9px; font:500 11px/1.5 var(--sans); color:var(--muted)}
+  @media(max-width:820px){.rc-wrap{grid-template-columns:1fr}}
+
+  /* ===== 2026: ветки ===== */
+  .br-stage{display:grid; grid-template-columns:1fr 120px 1fr; gap:10px; align-items:center; margin-top:14px}
+  .br-box{border:1px solid var(--line); border-radius:11px; padding:12px; background:var(--surface-2)}
+  .br-box.main{border-color:var(--rel)}
+  .br-box.dev{border-color:var(--graph)}
+  .br-h{font:700 12.5px/1.4 var(--sans); color:var(--ink)}
+  .br-d{margin-top:3px; font:600 11.5px/1.4 var(--mono); color:var(--muted)}
+  .br-p{display:grid; grid-template-columns:repeat(6,1fr); gap:3px; margin:10px 0 7px}
+  .br-p i{height:16px; border-radius:3px; background:var(--surface-3); transition:.25s}
+  .br-p i.shared{background:color-mix(in srgb, var(--rel) 30%, transparent)}
+  .br-p i.own{background:var(--graph)}
+  .br-p i.ref{background:var(--surface-3); border:1px dashed var(--line)}
+  .br-s{font:500 10.5px/1.45 var(--sans); color:var(--muted)}
+  .br-link{text-align:center; font:700 10.5px/1.4 var(--sans); color:var(--graph)}
+  .br-link small{display:block; margin-top:3px; font:500 9.5px/1.35 var(--sans); color:var(--muted)}
+  .br-link::before{content:'◀──▶'; display:block; margin-bottom:4px; color:var(--faint); letter-spacing:-1px}
+  .br-empty{text-align:center; font:500 12px/1.4 var(--sans); color:var(--faint); grid-column:span 2}
+  @media(max-width:760px){.br-stage{grid-template-columns:1fr} .br-link::before{content:'▼'} .br-empty{grid-column:auto}}
+
+  /* ===== 2026: Postgres 18 ===== */
+  .p18{margin-bottom:8px; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--surface-2)}
+  .p18-b{display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%; text-align:left; padding:11px 14px; border:0; background:transparent; cursor:pointer}
+  .p18-n{font:700 13px/1.4 var(--sans); color:var(--ink)}
+  .p18-u{flex:none; padding:3px 9px; border-radius:20px; font:700 10px/1.4 var(--sans)}
+  .p18-u.now{background:color-mix(in srgb, var(--ok) 15%, transparent); color:var(--ok)}
+  .p18-u.adm{background:color-mix(in srgb, var(--muted) 16%, transparent); color:var(--muted)}
+  .p18-body{display:none; padding:0 14px 12px}
+  .p18.on{border-color:var(--graph)}
+  .p18.on .p18-body{display:block}
+  .p18.on .p18-n{color:var(--graph)}
+  .p18-body .ty-code{margin-top:0}
 </style>
 </head>
 <body>
@@ -919,6 +991,7 @@
       <button class="tab" role="tab" aria-selected="false" data-tab="when" style="--tabcol:var(--graph)"><span class="dot"></span>Когда что</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="scale" style="--tabcol:var(--doc)"><span class="dot"></span>Масштаб</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="sandbox" style="--tabcol:var(--graph)"><span class="dot"></span>Песочница 🎯</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="y26" style="--tabcol:var(--graph)"><span class="dot"></span>БД в 2026 🔮</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="practice" style="--tabcol:var(--graph)"><span class="dot"></span>Практика 🛠</button>
     </nav>
   </div>
@@ -2362,6 +2435,104 @@ ALTER TABLE users ADD CONSTRAINT uq_email UNIQUE (email);</pre>
   </section>
 
   <!-- ============ ПРАКТИКА ============ -->
+  <!-- ============ БД В 2026 ============ -->
+  <section class="panel" id="y26" data-accent="graph" role="tabpanel">
+    <p class="lead">Всё, что было раньше на этих вкладках — нормализация, индексы, транзакции — не устарело и не устареет. Но <b>вокруг</b> этого за последние годы поменялось многое. Здесь — что именно изменилось к 2026 году, зачем это знать и, главное, <b>что из этого вам действительно понадобится</b>, а что пока просто модно.</p>
+
+    <div class="card">
+      <h2><span class="tag">ГЛАВНОЕ 🐘</span> «а какую базу выбрать?» — в 2026 ответ почти всегда один</h2>
+      <p>Раньше под каждую задачу брали свою систему: реляционная для данных, отдельная для поиска, отдельная для временных рядов, отдельная для очередей. Каждая — со своим языком, своим бэкапом, своим мониторингом и своим человеком, который умеет её починить. Смотрите, что произошло.</p>
+      <div class="ys-wrap">
+        <div class="ys-col">
+          <div class="ex-h">Отметьте задачи вашего проекта</div>
+          <div id="ys-tasks"></div>
+        </div>
+        <div class="ys-col">
+          <div class="ex-h">Сколько систем понадобится</div>
+          <div class="ys-yr" id="ys-2019"></div>
+          <div class="ys-yr" id="ys-2026"></div>
+        </div>
+      </div>
+      <div class="console" id="ys-msg" aria-live="polite">Отметьте пару задач слева.</div>
+      <div class="note ok"><b>Что произошло.</b> PostgreSQL — расширяемая база: сторонний код можно доустановить внутрь движка как <b>расширение</b> (extension), и он получит те же транзакции, тот же бэкап, тот же SQL. За несколько лет расширения закрыли почти все специальные задачи, и «зоопарк» из пяти баз стал одной.<br><br>Насколько это серьёзно: в 2025 году Snowflake и Databricks потратили около <b>1,25 млрд долларов</b> на покупку компаний, строивших продукты вокруг PostgreSQL. Крупные игроки ставят на то, что это база по умолчанию на годы вперёд.<br><br><b>Что это значит для вас.</b> Учить PostgreSQL — не «одну из баз», а основной инструмент. И правило выбора теперь простое: <b>берите Postgres, пока не появится доказанная причина взять что-то ещё.</b> «Доказанная» — это когда вы уже упёрлись в предел на реальной нагрузке, а не когда прочитали статью.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ВЕКТОРЫ 🧠</span> поиск по смыслу, а не по словам — что это и как работает</h2>
+      <p>Появилось из-за нейросетей и стало главной новинкой в базах данных. Разберём с нуля: обычный поиск ищет <b>совпадение символов</b>, векторный — <b>близость смысла</b>. Введите запрос и сравните два способа на одной и той же базе статей.</p>
+      <div class="form-row" style="margin-top:6px">
+        <div class="field" style="flex:1"><label>что ищем</label><select id="vs-q" class="sel"></select></div>
+      </div>
+      <div class="vs-grid">
+        <div class="vs-box"><div class="cn-h bad">🔤 LIKE '%…%' — поиск по буквам</div><div id="vs-like"></div></div>
+        <div class="vs-box"><div class="cn-h ok">🧠 Векторный поиск — по смыслу</div><div id="vs-vec"></div></div>
+      </div>
+      <div class="console" id="vs-msg" aria-live="polite"></div>
+
+      <div class="ex-h" style="margin-top:18px">Как из текста получается вектор</div>
+      <div class="vs-steps" id="vs-steps"></div>
+      <div class="console" id="vs-smsg" aria-live="polite">Нажимайте шаги по порядку.</div>
+
+      <div class="note"><b>Что писать в резюме и что понимать на самом деле.</b> «Эмбеддинг» (embedding) — это просто список чисел, в который нейросеть превращает текст так, что <b>у похожих по смыслу текстов числа получаются похожими</b>. Дальше база ищет ближайшие списки чисел — и находит статьи по смыслу, даже если ни одного общего слова с запросом нет.<br><br>Расстояние считают чаще всего <b>косинусное</b> (оператор <code class="inl">&lt;=&gt;</code> в pgvector): он смотрит на «направление» вектора, а не на длину. Есть ещё евклидово (<code class="inl">&lt;-&gt;</code>) и скалярное произведение (<code class="inl">&lt;#&gt;</code>) — какое взять, обычно диктует та модель, которой вы делали эмбеддинги.</div>
+      <div class="hintbox"><b>Нужна ли отдельная векторная база?</b> В 2023–2024 их появилось много: Pinecone, Weaviate, Milvus, Qdrant. К 2026 картина устоялась: <b>для подавляющего большинства проектов достаточно pgvector внутри вашего же PostgreSQL</b>. Отдельная специализированная база оправдана на масштабе в сотни миллионов и миллиарды векторов — а это единицы процентов проектов.<br><br>Причина проста: держать данные и векторы в одной базе означает один SQL, одну транзакцию, один бэкап. Можно фильтровать по обычным колонкам и искать по смыслу <b>в одном запросе</b> — с двумя раздельными системами это превращается в отдельную головную боль.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ИНДЕКС ДЛЯ ВЕКТОРОВ</span> почему тут B-tree бесполезен</h2>
+      <p>Векторы нельзя отсортировать — «больше» и «меньше» для списка из 1536 чисел не определены. Поэтому для них придумали отдельные индексы, и они работают <b>принципиально иначе</b>: возвращают не точный ответ, а <b>почти точный</b>. Разберитесь, почему это нормально.</p>
+      <div class="graph-tools" id="vi-tabs"></div>
+      <div id="vi-body"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">СТРОКИ И КОЛОНКИ</span> почему для отчётов берут другую базу — на живом примере</h2>
+      <p>Второе большое изменение: аналитику окончательно перестали считать на той же базе, где работает приложение. Причина — в том, <b>как данные лежат на диске</b>. Запустите один и тот же запрос на двух хранилищах.</p>
+      <div class="rc-wrap" id="rc-wrap"></div>
+      <div class="form-row" style="margin-top:12px">
+        <button class="act" id="rc-go">▶ SELECT avg(total) FROM orders</button>
+        <button class="ghost" id="rc-go2">▶ SELECT * FROM orders WHERE id = 42</button>
+        <button class="ghost" id="rc-reset">↻ Сброс</button>
+      </div>
+      <div class="console" id="rc-msg" aria-live="polite">Нажмите любой из двух запросов.</div>
+      <div class="note"><b>Вывод.</b> Строковое хранение (PostgreSQL, MySQL) держит строку целиком рядом — идеально, когда нужна <b>вся строка по id</b>: одно чтение, и она у вас. Колоночное (ClickHouse, DuckDB, Parquet) хранит каждую колонку отдельным массивом — идеально, когда нужна <b>одна колонка по всем строкам</b>: читаете только её, остальные вообще не трогаете. Плюс однотипные значения рядом жмутся в разы лучше.<br><br>Отсюда правило: <b>OLTP</b> (работа приложения: заказы, платежи, профили — много мелких операций) — строковая база. <b>OLAP</b> (отчёты и аналитика: суммы, средние, группировки по миллионам строк) — колоночная. Смешивать в одной базе можно, но на объёме тяжёлый отчёт начнёт мешать работе приложения.</div>
+      <div class="hintbox"><b>Как это выглядит в 2026.</b> Сложился устойчивый набор: данные складывают в файлы <b>Parquet</b> (колоночный формат) на дешёвом объектном хранилище, сверху ставят <b>Iceberg</b> — он ведёт учёт, какие файлы к какой таблице относятся и какая версия актуальна. Читают это <b>ClickHouse</b> (если нужен постоянно работающий сервис) или <b>DuckDB</b> (если нужно посчитать здесь и сейчас, хоть на ноутбуке). Всё это называют <b>лейкхаусом</b> (lakehouse) — «озеро данных с повадками нормальной базы».<br><br>DuckDB стоит попробовать даже начинающему: это одна программа без сервера, которая читает CSV и Parquet прямо с диска и понимает обычный SQL. Идеальный инструмент разобрать выгрузку на несколько гигабайт, когда Excel уже сдался.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ВЕТКИ БАЗЫ 🌿</span> копия прода за две секунды — как это вообще возможно</h2>
+      <p>Третье изменение, и для работы оно самое приятное. Раньше «дай мне копию базы потестировать» означало ночь на восстановление дампа. Теперь — одна команда. Нажимайте.</p>
+      <div class="br-stage" id="br-stage"></div>
+      <div class="form-row" style="margin-top:12px">
+        <button class="act" id="br-new">🌿 Создать ветку от прода</button>
+        <button class="ghost" id="br-write">✍️ Изменить данные в ветке</button>
+        <button class="ghost" id="br-drop">🗑 Удалить ветку</button>
+        <button class="ghost" id="br-reset">↻ Сброс</button>
+      </div>
+      <div class="console" id="br-msg" aria-live="polite">Нажмите «Создать ветку».</div>
+      <div class="note"><b>Как это работает.</b> Фокус в <b>разделении хранилища и вычислений</b>. В классической схеме база — это процесс со своими файлами на своём диске: скопировать базу означает скопировать терабайт. В новой схеме файлы лежат в общем хранилище, а процесс базы к ним только подключается.<br><br>Ветка создаётся приёмом <b>copy-on-write</b> — «копирование при записи»: сначала не копируется вообще ничего, ветка просто читает те же страницы, что и прод. Копия страницы возникает только тогда, когда её <b>меняют</b>, и только этой одной страницы. Поменяли сто строк — на диске прибавилось сто строк, а не терабайт. Отсюда и скорость, и цена.<br><br>Оттуда же берётся <b>scale-to-zero</b>: если к ветке никто не обращается, процесс базы просто выключают, а данные остаются в хранилище. Не используется — не платите за вычисления.</div>
+      <div class="hintbox"><b>Зачем это лично вам.</b> Ветка на каждую задачу — можно спокойно проверить миграцию на реальных данных, не боясь сломать общий тестовый контур. Ветка на каждый pull request — автотесты гоняются на честной копии прода. Ветка перед опасным <code class="inl">UPDATE</code> — проверили на ветке, увидели, что задело лишние строки, поправили условие.<br><br>Так умеют Neon, Databricks Lakebase, Supabase и ряд других. Это уже не экзотика, а нормальный способ работы — и на собеседовании про него спрашивают.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">POSTGRES 18</span> что нового в самом движке — и что из этого вам пригодится</h2>
+      <p>Версии выходят раз в год. Вот то, что реально меняет повседневную работу, а не только строчку в пресс-релизе.</p>
+      <div id="p18-list"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">НЕ ИЗМЕНИЛОСЬ ✊</span> самое важное на этой вкладке</h2>
+      <p>Технологии меняются каждый год, а вот это — нет. Кликайте: почему каждый пункт всё ещё главный.</p>
+      <div class="steps" id="ns-steps"></div>
+      <div class="console" id="ns-msg" aria-live="polite">Нажимайте пункты.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">МОДНО ИЛИ НУЖНО 🎯</span> проверьте, отличаете ли вы одно от другого</h2>
+      <p>Реальные ситуации. Выберите решение — и посмотрите, что бы выбрал человек с опытом.</p>
+      <div id="y26q-list"></div>
+    </div>
+  </section>
+
   <section class="panel" id="practice" data-accent="graph" role="tabpanel">
     <p class="lead">Теперь — руками. Здесь не выбор из вариантов, а <b>сборка</b>: собери таблицу по требованиям, соедини таблицы ключами, почини кривую схему. Каждая задача проверяется.</p>
 
@@ -5669,6 +5840,316 @@ CREATE INDEX idx_orders_customer ON orders(customer_id);`;
      w:'Оба варианта хороши, выбор зависит от того, как часто меняется список. <b>CHECK … IN</b> — просто, меняется обычной миграцией. <b>Справочник + внешний ключ</b> — если значения добавляют бизнес-пользователи: тогда новое значение это просто INSERT, вообще без миграции. <b>ENUM</b> в 2026 применяют реже — менять его сложнее, чем CHECK, а выигрыш небольшой. <code class="inl">VARCHAR(10)</code> не ограничивает ничего, кроме длины: «Newww» пройдёт спокойно.'},
     {q:'«Email уникален, но удалённого пользователя можно зарегистрировать заново»', o:['CREATE UNIQUE INDEX ON users(email) WHERE deleted_at IS NULL','UNIQUE (email)','UNIQUE (email, deleted_at)','Удалять строки физически'], a:0,
      w:'<b>Частичный уникальный индекс</b> — правильный инструмент: уникальность действует только среди активных строк, а удалённых с тем же email может накопиться сколько угодно. Обычный UNIQUE заблокирует email навсегда. Пара <code class="inl">(email, deleted_at)</code> не поможет: у всех активных deleted_at равен NULL, а NULL в UNIQUE не сравнивается — дубли пройдут.'},
+  ];
+  list.innerHTML = Q.map((x, i) => '<div class="qcard"><div class="qq">' + (i + 1) + '. ' + esc(x.q) + '</div><div class="qopts">' +
+    x.o.map((o, k) => '<button class="qopt" data-q="' + i + '" data-o="' + k + '"><span class="mk">' + String.fromCharCode(65 + k) + '</span>' + esc(o) + '</button>').join('') +
+    '</div><div class="qwhy"></div></div>').join('');
+  list.addEventListener('click', e => {
+    const b = e.target.closest('.qopt'); if(!b) return;
+    const i = +b.dataset.q, card = b.closest('.qcard');
+    card.querySelectorAll('.qopt').forEach((o, k) => { o.classList.toggle('correct', k === Q[i].a); if(o === b && +b.dataset.o !== Q[i].a) o.classList.add('wrong'); });
+    card.querySelector('.qwhy').innerHTML = (+b.dataset.o === Q[i].a ? '✅ ' : '❌ ') + Q[i].w;
+  });
+})();
+
+
+/* ================= 2026: одна база или пять ================= */
+(function(){
+  const box = document.getElementById('ys-tasks'); if(!box) return;
+  const T = [
+    {k:'data', l:'Хранить заказы, клиентов, товары', old:'PostgreSQL', neu:'PostgreSQL', ext:null},
+    {k:'search', l:'Полнотекстовый поиск по описаниям', old:'Elasticsearch', neu:'PostgreSQL', ext:'встроенный tsvector / GIN'},
+    {k:'vec', l:'Поиск по смыслу для ИИ-функций', old:'Pinecone', neu:'PostgreSQL', ext:'расширение pgvector'},
+    {k:'ts', l:'Метрики и временные ряды', old:'InfluxDB', neu:'PostgreSQL', ext:'расширение timescaledb'},
+    {k:'geo', l:'Геоданные: «найди рядом со мной»', old:'MongoDB', neu:'PostgreSQL', ext:'расширение postgis'},
+    {k:'queue', l:'Очередь фоновых задач', old:'RabbitMQ', neu:'PostgreSQL', ext:'расширение pgmq'},
+    {k:'cache', l:'Кэш и счётчики', old:'Redis', neu:'Redis', ext:'тут Postgres не замена'},
+    {k:'olap', l:'Тяжёлые отчёты по миллиардам строк', old:'ClickHouse', neu:'ClickHouse', ext:'колоночная нужна честно'},
+  ];
+  const on = {};
+  function draw(){
+    box.innerHTML = T.map((t, i) => '<label class="cb-t' + (on[t.k] ? ' on' : '') + '"><input type="checkbox" data-i="' + i + '"' + (on[t.k] ? ' checked' : '') + '><code>' + esc(t.l) + '</code></label>').join('');
+    const sel = T.filter(t => on[t.k]);
+    const oldS = [...new Set(sel.map(t => t.old))], newS = [...new Set(sel.map(t => t.neu))];
+    const yr = (id, year, sys, cls) => document.getElementById(id).innerHTML =
+      '<div class="ys-h">' + year + '</div>' +
+      (sys.length ? '<div class="ys-sys">' + sys.map(s => '<span class="ys-s ' + cls + '">' + esc(s) + '</span>').join('') + '</div>'
+        : '<div class="cn-empty">ничего не выбрано</div>') +
+      (sys.length ? '<div class="ys-n"><b>' + sys.length + '</b> ' + (sys.length === 1 ? 'система' : sys.length < 5 ? 'системы' : 'систем') + '</div>' : '');
+    yr('ys-2019', '2019 — «под каждую задачу своя база»', oldS, 'old');
+    yr('ys-2026', '2026 — «одно ядро плюс исключения»', newS, 'new');
+    const M = document.getElementById('ys-msg');
+    if(!sel.length){ msg(M, '', 'Отметьте пару задач слева.'); return; }
+    const saved = oldS.length - newS.length;
+    const exts = sel.filter(t => t.ext && t.neu === 'PostgreSQL' && t.ext.startsWith('расширение')).map(t => t.ext.replace('расширение ', ''));
+    if(saved <= 0) msg(M, '', 'Здесь Postgres действительно не универсален: <b>' + sel.filter(t => t.neu !== 'PostgreSQL').map(t => t.neu).join(', ') + '</b> берут осознанно, а не по привычке. Кэш в базе держать бессмысленно — Redis живёт в памяти. Отчёты по миллиардам строк честно быстрее в колоночной базе.');
+    else msg(M, 'ok', 'Было бы <b>' + oldS.length + '</b> ' + (oldS.length === 1 ? 'система' : 'систем') + ', стало <b>' + newS.length + '</b>. Экономия — ' + saved + ' ' + (saved === 1 ? 'система' : 'системы') + ': минус ' + saved + ' языка запросов, ' + saved + ' схемы бэкапа, ' + saved + ' набора метрик и ' + saved + ' способа всё это уронить.' + (exts.length ? '<br><br>Всё закрывается расширениями: <code class="inl">' + exts.join('</code>, <code class="inl">') + '</code>. Это <code class="inl">CREATE EXTENSION имя;</code> — одна команда.' : ''));
+  }
+  box.addEventListener('change', e => { const c = e.target.closest('input'); if(!c) return; on[T[+c.dataset.i].k] = c.checked; draw(); });
+  on['data'] = true; draw();
+})();
+
+/* ================= 2026: векторный поиск ================= */
+(function(){
+  const sel = document.getElementById('vs-q'); if(!sel) return;
+  const DOCS = [
+    {t:'Как ускорить медленный SQL-запрос', w:['sql','запрос','индекс','медленн']},
+    {t:'Настройка индексов в PostgreSQL', w:['индекс','postgres','sql']},
+    {t:'Почему база тормозит и что с этим делать', w:['медленн','тормоз','производительн']},
+    {t:'Оптимизация производительности приложений', w:['производительн','оптимизац','быстр']},
+    {t:'Выбираем ноутбук для разработчика', w:['ноутбук','железо']},
+    {t:'Рецепт сырников с изюмом', w:['рецепт','еда']},
+  ];
+  const Q = [
+    {q:'индекс', like:[1], vec:[[1,0.94],[0,0.81],[2,0.66]],
+      w:'Слово «индекс» есть только в одном заголовке — <code class="inl">LIKE</code> находит ровно его. Векторный поиск дополнительно вытащил статью про ускорение запросов и статью про тормозящую базу: <b>по смыслу они про то же самое</b>, хотя слова «индекс» в заголовке нет.'},
+    {q:'база работает медленно', like:[], vec:[[2,0.91],[0,0.85],[3,0.72],[1,0.58]],
+      w:'<b>LIKE не нашёл ничего</b> — целой такой подстроки в заголовках нет. А векторный поиск выдал четыре релевантные статьи, начиная с самой подходящей. Вот в чём его смысл: он ищет <b>смысл фразы</b>, а не последовательность букв.'},
+    {q:'как сделать приложение быстрее', like:[], vec:[[3,0.88],[0,0.79],[2,0.74],[1,0.61]],
+      w:'Ни одного дословного совпадения — <code class="inl">LIKE</code> пуст. Вектор нашёл статью про оптимизацию производительности: слова совершенно другие, а смысл тот же. Именно так работает поиск в современных сервисах и ИИ-помощниках.'},
+    {q:'сырники', like:[5], vec:[[5,0.97],[4,0.31]],
+      w:'Точное слово есть — оба способа находят статью. Обратите внимание на второй результат вектора: <b>0.31</b>. Это низкая близость, статья про ноутбуки к сырникам отношения не имеет. Векторный поиск <b>всегда возвращает ближайших</b>, даже когда подходящих нет — поэтому в запросе всегда ставят порог, ниже которого результат отбрасывают.'},
+    {q:'SQL', like:[0], vec:[[0,0.9],[1,0.87],[2,0.55]],
+      w:'Тут заметен подвох <code class="inl">LIKE</code>: он нашёл только первый заголовок, где «SQL» написано ровно так. Заголовок про PostgreSQL он тоже поймал бы, но только потому, что подстрока «SQL» случайно входит в слово «PostgreSQL» — а не потому, что понял связь.'},
+  ];
+  sel.innerHTML = Q.map((x, i) => '<option value="' + i + '">' + esc(x.q) + '</option>').join('');
+  function draw(){
+    const x = Q[+sel.value];
+    document.getElementById('vs-like').innerHTML = x.like.length
+      ? x.like.map(i => '<div class="vs-r">' + esc(DOCS[i].t) + '</div>').join('')
+      : '<div class="vs-none">0 результатов</div>';
+    document.getElementById('vs-vec').innerHTML = x.vec.map(([i, s]) =>
+      '<div class="vs-r"><span>' + esc(DOCS[i].t) + '</span><b class="' + (s >= 0.7 ? 'hi' : s >= 0.5 ? 'mid' : 'lo') + '">' + s.toFixed(2) + '</b></div>').join('');
+    msg(document.getElementById('vs-msg'), x.like.length ? '' : 'ok', x.w);
+  }
+  sel.addEventListener('change', draw); draw();
+})();
+
+/* ================= 2026: как получается вектор ================= */
+(function(){
+  const st = document.getElementById('vs-steps'); if(!st) return;
+  const S = [
+    {t:'1 · Берём текст', code:'"Как ускорить медленный SQL-запрос"',
+     w:'Обычная строка. База сама превращать её в вектор не умеет — это делает <b>нейросеть-эмбеддер</b>: отдельная модель, которую вызывают из приложения (OpenAI, локальная модель через Ollama и т.п.). Есть и расширение <code class="inl">pgai</code>, чтобы вызывать модель прямо из SQL.'},
+    {t:'2 · Модель выдаёт список чисел', code:'[0.021, -0.318, 0.774, ..., 0.092]\n   ↑ всего 1536 чисел (у разных моделей своё)',
+     w:'Это и есть <b>эмбеддинг</b>. Каждое число само по себе ничего не значит — смысл только в наборе целиком. Ключевое свойство: у похожих по смыслу текстов наборы получаются похожими. Размерность у модели фиксированная: <b>векторы от разных моделей несравнимы вообще</b>. Сменили модель — пересчитывайте всю базу.'},
+    {t:'3 · Кладём в колонку типа vector', code:"CREATE EXTENSION vector;\n\nCREATE TABLE articles (\n  id    BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n  title TEXT NOT NULL,\n  body  TEXT NOT NULL,\n  emb   VECTOR(1536)      -- ← размерность фиксирована\n);\n\nINSERT INTO articles (title, body, emb)\nVALUES ('Как ускорить...', '...', '[0.021,-0.318,...]');",
+     w:'Расширение <code class="inl">pgvector</code> добавляет тип <code class="inl">VECTOR(n)</code> — обычная колонка в обычной таблице. Рядом с ней спокойно живут <code class="inl">title</code>, <code class="inl">author_id</code>, <code class="inl">created_at</code>. В этом весь выигрыш перед отдельной векторной базой.'},
+    {t:'4 · Ищем ближайших', code:"-- эмбеддинг запроса считаем той же моделью\nSELECT title, emb <=> $1 AS distance\nFROM articles\nORDER BY emb <=> $1        -- <=> косинусное расстояние\nLIMIT 5;\n\n-- и сразу фильтр по обычным колонкам — в одном запросе:\nSELECT title FROM articles\nWHERE author_id = 42\n  AND created_at > '2026-01-01'\nORDER BY emb <=> $1\nLIMIT 5;",
+     w:'Оператор <code class="inl">&lt;=&gt;</code> считает расстояние между векторами, <code class="inl">ORDER BY</code> ставит ближайших первыми. <b>Смотрите на второй запрос</b> — вот главный практический аргумент за pgvector: обычный фильтр и поиск по смыслу в <b>одном</b> SQL. С отдельной векторной базой пришлось бы искать там, тащить id в Postgres, фильтровать, и надеяться, что после фильтра результатов хватило.'},
+    {t:'5 · Добавляем индекс', code:"CREATE INDEX ON articles\n  USING hnsw (emb vector_cosine_ops);\n\n-- обязательно тем же классом операторов,\n-- каким будете искать:\n--   vector_cosine_ops  → для <=>\n--   vector_l2_ops      → для <->\n--   vector_ip_ops      → для <#>",
+     w:'Без индекса база честно сравнит запрос с <b>каждой</b> строкой — на сотнях тысяч векторов это секунды. С индексом HNSW — миллисекунды.<br><br><b>Частая ошибка:</b> создать индекс с <code class="inl">vector_l2_ops</code>, а искать через <code class="inl">&lt;=&gt;</code>. Индекс молча не подойдёт, и запрос останется медленным — ровно тот же случай, что с обычными индексами на вкладке «Индексы».'},
+  ];
+  st.innerHTML = S.map((s, i) => '<div class="step-c" data-i="' + i + '"><button class="step-b">' + esc(s.t) + '</button><pre class="ty-code">' + esc(s.code) + '</pre></div>').join('');
+  st.addEventListener('click', e => {
+    const b = e.target.closest('.step-b'); if(!b) return;
+    const i = +b.closest('.step-c').dataset.i;
+    st.querySelectorAll('.step-c').forEach((c, k) => c.classList.toggle('on', k === i));
+    msg(document.getElementById('vs-smsg'), 'ok', S[i].w);
+  });
+})();
+
+/* ================= 2026: векторные индексы ================= */
+(function(){
+  const tabs = document.getElementById('vi-tabs'); if(!tabs) return;
+  const body = document.getElementById('vi-body');
+  const V = [
+    {n:'Почему «почти точно» — это нормально',
+     code:"-- обычный индекс: ответ ТОЧНЫЙ\nSELECT * FROM users WHERE email = 'a@b.ru';\n-- либо нашли эту строку, либо её нет\n\n-- векторный индекс: ответ ПРИБЛИЖЁННЫЙ\nSELECT title FROM articles ORDER BY emb <=> $1 LIMIT 5;\n-- вернёт 5 близких, но, возможно, не ТОП-5 из всех",
+     w:'Такой поиск называют <b>ANN — approximate nearest neighbor</b>, «приближённый поиск ближайших соседей». Индекс не перебирает всё, а идёт короткой дорогой — и может пропустить одного-двух настоящих соседей.',
+     why:'И это осознанный выбор, а не недоделка. Точный перебор миллиона векторов по 1536 чисел — это миллиард с лишним сравнений на каждый запрос. Приближённый находит 95–99 % тех же результатов в сотни раз быстрее.<br><br>Задайте себе вопрос: если пользователь ищет «статьи про ускорение базы» и на пятом месте оказалась не идеально лучшая статья, а вторая по качеству — он это заметит? Нет. А вот задержку в три секунды вместо 20 миллисекунд заметит сразу. Для рекомендаций и поиска по смыслу «почти точно» — правильный компромисс.<br><br><b>Где так нельзя:</b> если по векторам вы ищете <b>дубликаты</b> или проверяете совпадение — там пропуск одного соседа как раз и есть ошибка. Тогда либо точный перебор на небольшой выборке, либо предварительный фильтр по обычным колонкам.'},
+    {n:'HNSW — выбор по умолчанию',
+     code:"CREATE INDEX ON articles\n  USING hnsw (emb vector_cosine_ops)\n  WITH (m = 16, ef_construction = 64);\n\n-- качество поиска регулируется при чтении:\nSET hnsw.ef_search = 100;   -- больше = точнее и медленнее\nSELECT title FROM articles ORDER BY emb <=> $1 LIMIT 5;",
+     w:'HNSW строит <b>многоуровневую сеть связей</b> между векторами. Поиск начинается на верхнем, разреженном уровне — большими прыжками через всё пространство — и спускается вниз, уточняя. Похоже на то, как ищут город: сначала страна, потом область, потом улица.',
+     why:'<b>Плюсы:</b> самый быстрый и самый точный поиск, работает сразу после создания, не требует, чтобы данные уже были в таблице, спокойно принимает новые строки.<br><br><b>Минусы:</b> строится долго и занимает много памяти — заметно больше, чем сами данные.<br><br><b>Параметры:</b> <code class="inl">m</code> — сколько связей у каждого вектора (больше → точнее и толще), <code class="inl">ef_construction</code> — насколько тщательно строим (больше → дольше и качественнее). Значения по умолчанию годятся почти всегда; крутить стоит, только измерив.<br><br><b>Главная ручка — <code class="inl">ef_search</code></b>: она меняет качество поиска <b>без перестройки индекса</b>. Мало результатов и они так себе — поднимите; нужно быстрее — опустите.'},
+    {n:'IVFFlat — когда памяти жалко',
+     code:"-- ВАЖНО: сначала загрузите данные, потом индекс\nINSERT INTO articles ... ;   -- сначала данные!\n\nCREATE INDEX ON articles\n  USING ivfflat (emb vector_cosine_ops)\n  WITH (lists = 1000);   -- ~ sqrt(число строк)\n\nSET ivfflat.probes = 10;   -- сколько «районов» смотреть",
+     w:'IVFFlat делит все векторы на <b>районы</b> (lists) вокруг опорных точек. При поиске смотрит не все районы, а только несколько ближайших к запросу — отсюда и скорость, и приближённость.',
+     why:'<b>Плюсы:</b> строится намного быстрее HNSW и занимает меньше места.<br><br><b>Минусы и главная ловушка:</b> опорные точки районов вычисляются <b>по тем данным, что есть в таблице на момент создания индекса</b>. Создали индекс на пустой таблице — районы получились случайные, и поиск потом работает плохо, хотя формально индекс есть. Поэтому порядок строгий: <b>сначала данные, потом индекс</b>. И если данные сильно поменялись, индекс надо перестроить.<br><br><b>Когда брать:</b> когда HNSW не влезает в память или его построение занимает недопустимо долго. В остальных случаях по умолчанию берут HNSW.'},
+    {n:'Гибридный поиск — как делают в проде',
+     code:"-- лучшие результаты даёт СОЧЕТАНИЕ двух поисков\nWITH vec AS (\n  SELECT id, row_number() OVER (ORDER BY emb <=> $1) AS r\n  FROM articles ORDER BY emb <=> $1 LIMIT 50\n),\nfts AS (\n  SELECT id, row_number() OVER (\n    ORDER BY ts_rank(tsv, plainto_tsquery('russian', $2)) DESC) AS r\n  FROM articles\n  WHERE tsv @@ plainto_tsquery('russian', $2) LIMIT 50\n)\nSELECT a.title\nFROM articles a\nLEFT JOIN vec ON vec.id = a.id\nLEFT JOIN fts ON fts.id = a.id\nWHERE vec.id IS NOT NULL OR fts.id IS NOT NULL\nORDER BY 1.0 / (60 + COALESCE(vec.r, 1000))\n       + 1.0 / (60 + COALESCE(fts.r, 1000)) DESC\nLIMIT 10;",
+     w:'Векторный поиск плохо ловит <b>точные</b> вещи: артикулы, названия моделей, фамилии, коды ошибок. Обычный полнотекстовый поиск, наоборот, отлично ловит точное слово, но не понимает смысла. В проде их <b>складывают</b>.',
+     why:'Приём называется <b>RRF, Reciprocal Rank Fusion</b> — «слияние по обратному рангу». Идея простая: берём место документа в каждом списке и складываем <code class="inl">1/(60 + место)</code>. Документ, попавший в оба списка, поднимается наверх; документ, оказавшийся первым в одном, тоже проходит. Число 60 — устоявшаяся константа, сглаживает разницу между первыми местами.<br><br>Почему складывают <b>места</b>, а не оценки: оценки двух поисков живут в разных шкалах и напрямую несравнимы, а места — сравнимы всегда.<br><br>В 2026 это стандарт для поиска в продукте и для RAG. Если увидите «hybrid search» — это оно.'},
+  ];
+  tabs.innerHTML = V.map((v, i) => '<button class="ghost' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' + esc(v.n) + '</button>').join('');
+  function show(i){
+    const v = V[i];
+    tabs.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
+    body.innerHTML = '<pre class="ty-code">' + esc(v.code || v.code2) + '</pre>' +
+      '<div class="note"><b>Как работает.</b> ' + v.w + '</div>' +
+      '<div class="hintbox">' + v.why + '</div>';
+  }
+  tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(+b.dataset.i); });
+  show(0);
+})();
+
+/* ================= 2026: строки и колонки ================= */
+(function(){
+  const wrap = document.getElementById('rc-wrap'); if(!wrap) return;
+  const COLS = ['id', 'customer_id', 'total', 'city', 'created_at'];
+  const ROWS = 6;
+  let hl = null;   // {mode:'agg'|'point', store:'row'|'col'}
+  function cell(r, c, read){
+    return '<div class="rc-c' + (read ? ' read' : '') + '">' + (c === 2 ? (1200 + r * 130) : c === 0 ? (r + 1) : '·') + '</div>';
+  }
+  function draw(){
+    const rowStore = '<div class="rc-box"><div class="rc-h">Строковое хранение<small>PostgreSQL, MySQL — строка лежит целиком</small></div>' +
+      '<div class="rc-grid" style="grid-template-columns:repeat(' + COLS.length + ',1fr)">' +
+      COLS.map(c => '<div class="rc-t">' + c + '</div>').join('') +
+      Array.from({length: ROWS}, (_, r) => COLS.map((_, c) => {
+        const read = hl && hl.store === 'row' && (hl.mode === 'agg' ? true : r === 3);
+        return cell(r, c, read);
+      }).join('')).join('') + '</div>' +
+      '<div class="rc-note">читается страницами: взяли страницу — получили строки <b>целиком</b></div></div>';
+    const colStore = '<div class="rc-box"><div class="rc-h">Колоночное хранение<small>ClickHouse, DuckDB, Parquet — колонка лежит массивом</small></div>' +
+      '<div class="rc-grid col" style="grid-template-columns:repeat(' + COLS.length + ',1fr)">' +
+      COLS.map(c => '<div class="rc-t">' + c + '</div>').join('') +
+      Array.from({length: ROWS}, (_, r) => COLS.map((_, c) => {
+        const read = hl && hl.store === 'col' && (hl.mode === 'agg' ? c === 2 : true);
+        return cell(r, c, read);
+      }).join('')).join('') + '</div>' +
+      '<div class="rc-note">каждая колонка — отдельный файл: можно взять <b>только нужную</b></div></div>';
+    wrap.innerHTML = rowStore + colStore;
+  }
+  draw();
+  const M = () => document.getElementById('rc-msg');
+  document.getElementById('rc-go').addEventListener('click', () => {
+    hl = null; draw();
+    wrap.querySelectorAll('.rc-box').forEach((b, i) => {
+      b.querySelectorAll('.rc-c').forEach((c, k) => {
+        const col = k % COLS.length;
+        c.classList.toggle('read', i === 0 ? true : col === 2);
+      });
+    });
+    msg(M(), 'ok', '<b>SELECT avg(total)</b> — нужна одна колонка из всех строк.<br><br>Строковое хранение прочитало <b>всю таблицу</b>: 5 колонок × 6 строк = 30 значений, из них полезных 6. На таблице в 50 колонок и 100 млн строк это чтение <b>терабайта, чтобы посчитать одну сумму</b>.<br><br>Колоночное прочитало <b>только колонку total</b>: 6 значений из 30. В 5 раз меньше — а на реальной таблице в 50 колонок было бы в 50 раз меньше. Плюс однотипные числа рядом сжимаются в разы лучше, чем перемешанные строки и даты.');
+  });
+  document.getElementById('rc-go2').addEventListener('click', () => {
+    hl = null; draw();
+    wrap.querySelectorAll('.rc-box').forEach((b, i) => {
+      b.querySelectorAll('.rc-c').forEach((c, k) => {
+        const row = Math.floor(k / COLS.length);
+        c.classList.toggle('read', i === 0 ? row === 3 : true);
+      });
+    });
+    msg(M(), 'err', '<b>SELECT * WHERE id = 42</b> — нужна одна строка целиком. Картина переворачивается.<br><br>Строковое хранение нашло строку по индексу и прочитало <b>её одну</b>: одно обращение к диску, все 5 значений рядом. Идеально.<br><br>Колоночному пришлось сходить в <b>каждую из 5 колонок</b> и в каждой найти 42-е значение — пять отдельных чтений вместо одного. Поэтому в ClickHouse не делают то, что делает приложение: точечные чтения и обновления по одной строке для колоночной базы — худший случай. Обновление одной строки там вообще отдельная боль.');
+  });
+  document.getElementById('rc-reset').addEventListener('click', () => { hl = null; draw(); msg(M(), '', 'Нажмите любой из двух запросов.'); });
+})();
+
+/* ================= 2026: ветки базы ================= */
+(function(){
+  const stage = document.getElementById('br-stage'); if(!stage) return;
+  let br = false, written = 0;
+  function draw(){
+    stage.innerHTML =
+      '<div class="br-box main"><div class="br-h">🏢 main — прод</div>' +
+      '<div class="br-d">420 ГБ данных</div>' +
+      '<div class="br-p">' + Array.from({length: 12}, (_, i) => '<i class="' + (br && i < written ? 'shared' : '') + '"></i>').join('') + '</div>' +
+      '<div class="br-s">страницы данных в общем хранилище</div></div>' +
+      (br ? '<div class="br-link">copy-on-write<br><small>читают одни и те же страницы</small></div>' +
+        '<div class="br-box dev"><div class="br-h">🌿 feature-42 — ветка</div>' +
+        '<div class="br-d">' + (written ? (written * 0.4).toFixed(1) + ' МБ своих данных' : '0 МБ своих данных') + '</div>' +
+        '<div class="br-p">' + Array.from({length: 12}, (_, i) => '<i class="' + (i < written ? 'own' : 'ref') + '"></i>').join('') + '</div>' +
+        '<div class="br-s">' + (written ? written + ' изменённых страниц — свои копии, остальные читаются из main' : 'ни одной своей страницы — всё читается из main') + '</div></div>'
+        : '<div class="br-empty">ветки нет</div>');
+  }
+  draw();
+  const M = () => document.getElementById('br-msg');
+  document.getElementById('br-new').addEventListener('click', () => {
+    if(br){ msg(M(), '', 'Ветка уже есть. Попробуйте изменить в ней данные.'); return; }
+    br = true; written = 0; draw();
+    msg(M(), 'ok', '<b>Ветка создана за 1,8 секунды.</b> На диске при этом не прибавилось <b>ничего</b> — ноль байт.<br><br>Как так: ветка не копировала 420 ГБ, она просто получила <b>право читать те же самые страницы</b>, что и main. Это отдельная база с полными данными прода, к которой можно подключиться, писать запросы и ломать что угодно.');
+  });
+  document.getElementById('br-write').addEventListener('click', () => {
+    if(!br){ msg(M(), 'err', 'Сначала создайте ветку.'); return; }
+    if(written >= 12){ msg(M(), '', 'Изменены все страницы — дальше ветка станет полной копией. На реальной базе так почти никогда не бывает: правят проценты данных.'); return; }
+    written += 3; draw();
+    msg(M(), 'ok', '<b>UPDATE в ветке.</b> Скопировались <b>только затронутые страницы</b> — ' + written + ' из 12. Остальные ветка по-прежнему читает из main.<br><br>Занято ' + (written * 0.4).toFixed(1) + ' МБ вместо 420 ГБ. <b>Прод при этом не изменился ни на байт</b> — на него ваши запросы не влияют вообще. Отсюда и название приёма: <b>copy-on-write</b>, копируем только при записи.');
+  });
+  document.getElementById('br-drop').addEventListener('click', () => {
+    if(!br){ msg(M(), 'err', 'Ветки нет.'); return; }
+    br = false; written = 0; draw();
+    msg(M(), 'ok', '<b>Ветка удалена мгновенно.</b> Удалились только её собственные изменённые страницы — общие остались у main. Задача закрыта, ветка не нужна, платить за неё больше не надо.<br><br>Именно поэтому ветку создают <b>на каждую задачу</b> и не жалеют: она бесплатна в создании, почти бесплатна в хранении и удаляется без следа.');
+  });
+  document.getElementById('br-reset').addEventListener('click', () => { br = false; written = 0; draw(); msg(M(), '', 'Нажмите «Создать ветку».'); });
+})();
+
+/* ================= 2026: Postgres 18 ================= */
+(function(){
+  const list = document.getElementById('p18-list'); if(!list) return;
+  const P = [
+    {n:'Виртуальные вычисляемые колонки', use:'пригодится сразу',
+     code:"-- было (PG 12–17): значение считается при записи\n--   и физически лежит на диске\namount NUMERIC GENERATED ALWAYS AS (price * qty) STORED\n\n-- стало (PG 18): считается при чтении, места не занимает\namount NUMERIC GENERATED ALWAYS AS (price * qty) VIRTUAL\n\n-- VIRTUAL — теперь поведение по умолчанию,\n-- если не написали STORED",
+     w:'До 18-й версии вычисляемая колонка всегда занимала место на диске. Теперь можно не хранить, а считать на лету.<br><br><b>Как выбирать:</b> <code class="inl">VIRTUAL</code> — если колонку читают редко, а места жалко. <code class="inl">STORED</code> — если по ней нужен <b>индекс</b> или её читают в каждом запросе. Индекс по виртуальной колонке построить нельзя: значения-то на диске нет.'},
+    {n:'UUID v7 встроенный', use:'пригодится сразу',
+     code:"-- было: v4 — полностью случайный\nid UUID DEFAULT gen_random_uuid()\n-- ❌ каждая вставка бьёт в СЛУЧАЙНОЕ место B-дерева\n\n-- стало (PG 18): v7 — начинается с метки времени\nid UUID DEFAULT uuidv7()\n-- ✅ соседние вставки идут рядом, дерево не раздувается\n\nSELECT uuid_extract_timestamp(uuidv7());  -- время создания",
+     w:'Разница практическая и большая. UUID v4 случаен целиком: тысяча вставок подряд разлетается по всему индексу, каждая тянет свою страницу с диска, индекс раздувается. UUID v7 начинается с <b>времени</b>, поэтому подряд созданные значения идут по порядку и попадают в одну страницу — как обычный автоинкремент.<br><br><b>Правило 2026:</b> нужен id, генерируемый на клиенте или в нескольких сервисах — берите <b>v7</b>. Просто нужен id внутри одной базы — берите <code class="inl">GENERATED ALWAYS AS IDENTITY</code>, он всё равно компактнее.'},
+    {n:'Асинхронный ввод-вывод', use:'просто станет быстрее',
+     code:"-- ничего писать не надо, работает само.\n-- Настройка, если захотите посмотреть:\nSHOW io_method;      -- worker | io_uring | sync\n\n-- на Linux с io_uring последовательное чтение\n-- ускоряется в разы",
+     w:'Раньше при чтении с диска процесс базы <b>ждал</b> ответа. Теперь он может запросить сразу много страниц и заниматься другим, пока диск отвечает. Больше всего выигрывают полные сканирования и <code class="inl">VACUUM</code>.<br><br>Вам как разработчику делать ничего не нужно — это выигрыш «бесплатно» при обновлении версии. Просто знайте, почему на PG 18 те же запросы отвечают быстрее.'},
+    {n:'Статистика выживает после major-обновления', use:'важно администратору',
+     code:"-- было: после pg_upgrade статистика ОБНУЛЯЛАСЬ.\n-- База поднималась «слепой»: планировщик не знал\n-- ничего о данных и строил ужасные планы,\n-- пока не пройдёт ANALYZE по всей базе.\n\n-- стало (PG 18): pg_upgrade переносит статистику.\n-- База сразу после обновления работает нормально.",
+     w:'Звучит скучно, но это была одна из самых болезненных вещей в обновлении PostgreSQL. Обновились ночью, всё запустилось — а утром сервис лежит, потому что планировщик без статистики выбирает катастрофические планы. Приходилось гнать <code class="inl">ANALYZE</code> по всей базе и ждать.<br><br>Связь с вкладкой «Индексы»: там был блок «устаревшая статистика» среди причин, по которым индекс не работает. Это ровно та же проблема, только в самый неудачный момент.'},
+    {n:'Вход через OAuth 2.0', use:'важно администратору',
+     code:"-- подключение к базе по корпоративному логину,\n-- без пароля в конфиге приложения\n\n-- pg_hba.conf:\nhost all all 0.0.0.0/0 oauth\n  issuer=\"https://login.company.com\"\n  scope=\"openid postgres\"",
+     w:'Можно пускать в базу по токену от корпоративной системы входа, а не по паролю, который лежит в переменной окружения и утекает в логи.<br><br>Для учебного проекта не нужно, но в компании это то, чего от базы давно ждали: одно место, где выдают и отзывают доступы.'},
+  ];
+  list.innerHTML = P.map((p, i) => '<div class="p18" data-i="' + i + '">' +
+    '<button class="p18-b"><span class="p18-n">' + esc(p.n) + '</span><span class="p18-u ' + (p.use === 'пригодится сразу' ? 'now' : 'adm') + '">' + esc(p.use) + '</span></button>' +
+    '<div class="p18-body"><pre class="ty-code">' + esc(p.code || p.code2) + '</pre><div class="note">' + p.w + '</div></div></div>').join('');
+  list.addEventListener('click', e => {
+    const b = e.target.closest('.p18-b'); if(!b) return;
+    b.closest('.p18').classList.toggle('on');
+  });
+  list.querySelector('.p18').classList.add('on');
+})();
+
+/* ================= 2026: что не изменилось ================= */
+(function(){
+  const st = document.getElementById('ns-steps'); if(!st) return;
+  const S = [
+    {t:'Нормализация', code:'Одна сущность — одна таблица.\nОдин факт хранится в одном месте.',
+     w:'Векторы, лейкхаусы и ветки не отменили того, что дублированные данные <b>расходятся</b>. Если адрес клиента лежит в трёх таблицах, однажды в них будет три разных адреса — и никто не скажет, какой настоящий.<br><br>Правило прежнее: <b>сначала нормализуйте, потом денормализуйте осознанно</b> — под конкретный медленный запрос, с ясным ответом на вопрос «кто и когда пересчитывает копию». Если ответа нет, копии быть не должно.'},
+    {t:'Индексы и планировщик', code:"EXPLAIN ANALYZE SELECT ...\n\n-- Seq Scan? rows != actual rows?\n-- Разбираемся, а не гадаем.",
+     w:'Умение прочитать план запроса — тот навык, который одинаково нужен в Postgres, ClickHouse, DuckDB и в векторном поиске. Меняются названия узлов, не меняется подход: <b>измерить, найти худшее, исправить, измерить снова</b>.<br><br>И правило левого префикса из вкладки «Индексы» никуда не делось. Оно про то, как устроено отсортированное дерево, а деревья за пять лет не изменились.'},
+    {t:'ACID и транзакции', code:'BEGIN;\n  UPDATE accounts SET balance = balance - 1000 WHERE id = 1;\n  UPDATE accounts SET balance = balance + 1000 WHERE id = 2;\nCOMMIT;',
+     w:'Главная причина, по которой все эти новые системы в итоге строят <b>вокруг PostgreSQL</b>, а не вместо него. В 2010-х была волна баз, отказавшихся от транзакций ради скорости, и волна прошла: выяснилось, что «примерно правильный баланс» никому не нужен, а разбираться с рассогласованием в коде приложения дороже, чем купить сервер побольше.<br><br>Если данные важны — нужны транзакции. Это не устарело и не устареет.'},
+    {t:'Ограничения в базе', code:'CHECK (total >= 0)\nFOREIGN KEY (customer_id) REFERENCES customers(id)\nUNIQUE (email)',
+     w:'Чем больше в системе сервисов, скриптов, ИИ-агентов и людей, которые пишут в базу, тем важнее, чтобы правило жило <b>в самой базе</b>. В 2019 году в вашу базу писало одно приложение. В 2026 — приложение, админка, три фоновых обработчика, скрипт аналитика и агент, которому дали доступ на запись.<br><br>Проверка в коде защищает один путь. Ограничение защищает все.'},
+    {t:'Понимание, а не мода', code:'«Нам нужна векторная база!»\n  → Сколько у вас векторов?\n  → 40 тысяч.\n  → Вам нужен pgvector. И индекс не нужен.',
+     w:'Самый ценный пункт. Каждая технология с этой вкладки решает <b>конкретную проблему на конкретном масштабе</b>. Взятая без этой проблемы, она добавляет только сложность: ещё одна система, ещё один бэкап, ещё один способ уронить прод в пятницу.<br><br>Хороший инженер отличается от начинающего не знанием модных названий, а умением спросить «а какая у нас проблема и на каких числах?» — и не строить лейкхаус для таблицы на сто тысяч строк.'},
+  ];
+  st.innerHTML = S.map((s, i) => '<div class="step-c" data-i="' + i + '"><button class="step-b">' + esc(s.t) + '</button><pre class="ty-code">' + esc(s.code) + '</pre></div>').join('');
+  st.addEventListener('click', e => {
+    const b = e.target.closest('.step-b'); if(!b) return;
+    const i = +b.closest('.step-c').dataset.i;
+    st.querySelectorAll('.step-c').forEach((c, k) => c.classList.toggle('on', k === i));
+    msg(document.getElementById('ns-msg'), 'ok', S[i].w);
+  });
+})();
+
+/* ================= 2026: модно или нужно ================= */
+(function(){
+  const list = document.getElementById('y26q-list'); if(!list) return;
+  const Q = [
+    {q:'Интернет-магазин, 200 тысяч товаров. Нужен поиск «похожие товары» по описанию. Что берём?',
+     o:['pgvector в существующем Postgres','Pinecone или Qdrant отдельным сервисом','Elasticsearch','Свой поиск на Python'], a:0,
+     w:'200 тысяч векторов — <b>очень мало</b>. Это тот масштаб, на котором pgvector не то что справится, а даже индекс может не понадобиться: полный перебор 200 тысяч векторов занимает десятки миллисекунд. Отдельный сервис здесь — это второй бэкап, второй мониторинг и рассинхрон между базой и векторами на пустом месте.<br><br>Порядок величин для ориентира: до ~1 млн векторов pgvector отлично; до ~10 млн pgvector с HNSW и подобранными параметрами; выше — уже стоит смотреть специализированные решения.'},
+    {q:'Аналитик просит выгрузку и жалуется, что его отчёт на 40 минут вешает базу приложения. Что делать?',
+     o:['Отдать аналитику реплику для чтения или колоночное хранилище','Добавить индексов под его запрос','Купить сервер мощнее','Запретить аналитику доступ в рабочее время'], a:0,
+     w:'Классика, и она не про индексы. Тяжёлый аналитический запрос по своей природе читает <b>много данных</b> — никакой индекс этого не отменит, там честно нужны все строки. Проблема в том, что он делает это <b>в той же базе</b>, где живёт приложение, и забирает диск, память и кэш.<br><br>Решение — развести нагрузки: реплика только для чтения (просто, дёшево, работает сразу) или отдельное колоночное хранилище, если отчётов много и они тяжёлые. Мощнее сервер отложит проблему на полгода. Запрет по времени — не решение, а признание, что данные бизнесу недоступны.'},
+    {q:'Стартап, MVP на выходные, 5 таблиц. Что за база?',
+     o:['PostgreSQL','MongoDB — схема ещё поменяется','ClickHouse — сразу с аналитикой','Микросервисы, у каждого своя база'], a:0,
+     w:'PostgreSQL — и без раздумий. Схема поменяется? У Postgres есть <code class="inl">ALTER TABLE</code>, а есть и <code class="inl">JSONB</code>, если часть данных правда бесформенная: можно хранить свободный JSON <b>внутри</b> реляционной таблицы и индексировать его. Понадобится аналитика, векторы, геоданные, очередь — всё это доустанавливается расширением, без переезда.<br><br>А вот чего не надо на MVP: микросервисов с базой на каждый. Пять таблиц в пяти базах означают, что вы вручную пишете то, что <code class="inl">JOIN</code> и транзакция делают за вас бесплатно.'},
+    {q:'CSV-файл на 8 ГБ, нужно посчитать пару сводных таблиц. Один раз.',
+     o:['DuckDB прямо по файлу','Загрузить в PostgreSQL','Развернуть ClickHouse','Pandas в Jupyter'], a:0,
+     w:'Ровно та задача, под которую DuckDB и сделан. Это <b>одна программа без сервера</b>: устанавливается за минуту, читает CSV и Parquet прямо с диска обычным SQL и не требует ничего разворачивать. <code class="inl">SELECT city, sum(total) FROM \'file.csv\' GROUP BY city;</code> — и всё.<br><br>Загружать в Postgres ради одного раза — лишний час на схему и импорт. ClickHouse — целый сервис ради разовой задачи. Pandas на 8 ГБ упрётся в оперативную память, DuckDB же спокойно обрабатывает данные больше памяти.'},
+    {q:'Надо проверить рискованную миграцию на реальных данных прода. 400 ГБ.',
+     o:['Ветка базы (branching), если провайдер умеет','Восстановить дамп на тестовый сервер','Прогнать на проде в три часа ночи','Проверить на тестовых данных, их достаточно'], a:0,
+     w:'Ветка создаётся за секунды, места почти не занимает и содержит <b>честные данные прода</b> — включая те кривые строки, о которых вы не знали и на которых миграция и упадёт. Прод при этом недосягаем для ваших запросов.<br><br>Дамп на 400 ГБ — это часы и целый лишний сервер. Прод в три часа ночи — так и получаются ночные инциденты. А «тестовых данных достаточно» — самое опасное: миграции падают именно на реальном мусоре, которого в чистых тестовых данных нет по определению.'},
+    {q:'Кто-то предлагает переехать с PostgreSQL на распределённую БД, потому что «не будет масштабироваться». Нагрузка — 300 запросов в секунду.',
+     o:['Остаться на Postgres: 300 rps для него мало','Переезжать, пока данных немного','Разделить базу на шарды сразу','Перейти на NoSQL'], a:0,
+     w:'300 запросов в секунду — <b>скромная</b> нагрузка. Один PostgreSQL на нормальном железе держит тысячи, а с репликами для чтения и пулером соединений — десятки тысяч. Есть публичные примеры сервисов с миллионами пользователей на одном экземпляре Postgres.<br><br>Распределённая база и шардирование добавляют настоящей боли: распределённые транзакции, запросы, которым нужны данные с нескольких узлов, сложные бэкапы, вопрос «а по какому ключу шардировать» с ответом, который потом не поменять. Это цена, которую платят, когда упёрлись <b>по-настоящему</b>. Правильный ответ на «а вдруг не хватит» — <b>измерить</b>, а не переезжать заранее.'},
   ];
   list.innerHTML = Q.map((x, i) => '<div class="qcard"><div class="qq">' + (i + 1) + '. ' + esc(x.q) + '</div><div class="qopts">' +
     x.o.map((o, k) => '<button class="qopt" data-q="' + i + '" data-o="' + k + '"><span class="mk">' + String.fromCharCode(65 + k) + '</span>' + esc(o) + '</button>').join('') +
