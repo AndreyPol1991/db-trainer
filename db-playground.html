@@ -1266,6 +1266,28 @@
   .ctq-i.only{border-color:var(--ok); background:color-mix(in srgb, var(--ok) 16%, transparent)} .ctq-i.only small{color:var(--ok)}
   .ctq-i.seq{border-color:var(--danger); background:color-mix(in srgb, var(--danger) 12%, transparent); grid-column:span 2} .ctq-i.seq small{color:var(--danger)}
   @media(max-width:640px){.ctq-ix{grid-template-columns:1fr} .ctq-i.seq{grid-column:auto}}
+
+  /* ===== демо признаков: шаги ===== */
+  .pfd-ctl{display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:10px 0 6px}
+  .pfd-l{font:800 10.5px/1.4 var(--sans); letter-spacing:.05em; text-transform:uppercase; color:var(--rel); margin-right:4px}
+  .pfd-pos{font:700 11px var(--mono); color:var(--muted)}
+  .pfd-reads{margin-left:auto; font:600 11px var(--sans); color:var(--muted); padding:3px 9px; border-radius:20px; background:var(--surface-3)}
+  .pfd-reads.ok{color:var(--ok); background:color-mix(in srgb, var(--ok) 14%, transparent)}
+  .pfd-reads.bad{color:var(--danger); background:color-mix(in srgb, var(--danger) 13%, transparent)}
+  .pfd-steps{display:flex; flex-direction:column; gap:4px; margin-bottom:10px}
+  .pfd-s{display:grid; grid-template-columns:22px 1fr auto; gap:9px; align-items:start; padding:7px 10px; border:1px solid var(--line); border-radius:8px; background:var(--surface-2); transition:.25s}
+  .pfd-s i{width:22px; height:22px; border-radius:50%; display:grid; place-items:center; background:var(--surface-3); color:var(--muted); font:800 10.5px var(--mono); font-style:normal}
+  .pfd-s span{font:500 12.5px/1.6 var(--sans); color:var(--ink)}
+  .pfd-s em{font:700 10.5px var(--mono); color:var(--muted); font-style:normal; padding-top:3px}
+  .pfd-s.wait{opacity:.3}
+  .pfd-s.now{border-color:var(--rel); background:color-mix(in srgb, var(--rel) 10%, var(--surface-2))} .pfd-s.now i{background:var(--rel); color:#fff}
+  .pfd-s.done i{background:var(--ok); color:#fff}
+  .pfd-stage > *{transition:opacity .25s}
+  .pfd-stage.focus-idx .pfd-two > div:nth-child(3), .pfd-stage.focus-idx .pfd-two > .pfd-arr{opacity:.25}
+  .pfd-stage.focus-tab .pfd-two > div:nth-child(1), .pfd-stage.focus-tab .pfd-two > .pfd-arr{opacity:.25}
+  .pfd-stage.focus-arr .pfd-two > div:nth-child(1), .pfd-stage.focus-arr .pfd-two > div:nth-child(3){opacity:.35}
+  .pfd-stage.focus-arr .pfd-arr{font-size:12px; transform:scale(1.15)}
+  .pfd-stage.focus-tab .pfd-list, .pfd-stage.focus-tab .pfd-h{opacity:.35}
 </style>
 </head>
 <body>
@@ -7873,18 +7895,126 @@ const CN_NOTES = {
     },
   };
   const st = {};
+
+  // шаги «что делает база» для каждого демо: f — куда смотрим (idx / arr / tab / all), r — чтений на шаге
+  const PF_STEPS = {
+    0: [ // составной
+      [ {f:'all', r:0, t:'Читаем запрос: условие только на <b>city</b>. Это первая колонка индекса — значит индекс подходит.'},
+        {f:'idx', r:2, t:'Спускаемся по дереву к значению «Москва»: корень → лист. Два чтения.'},
+        {f:'idx', r:1, t:'В листе записи с «Москва» лежат <b>подряд</b> — читаем их одну за другой, пока город не сменится. Три записи в одной странице.'},
+        {f:'all', r:0, t:'Готово. Прочитали 3 страницы вместо всей таблицы.'} ],
+      [ {f:'all', r:0, t:'Условие на <b>city</b> и на <b>created_at</b> — обе колонки индекса, слева направо без пропусков.'},
+        {f:'idx', r:2, t:'Спускаемся к «Москва» — и внутри блока «Москва» сразу к нужной дате: дерево отсортировано по обеим колонкам.'},
+        {f:'idx', r:1, t:'Читаем одну запись — ту, что подходит по обоим условиям. Остальные «Москва» даже не открываем.'},
+        {f:'all', r:0, t:'Готово. Самый узкий случай: спуск привёл точно к нужной записи.'} ],
+      [ {f:'all', r:0, t:'Условие только на <b>created_at</b> — вторая колонка. Первой (city) в условии нет.'},
+        {f:'idx', r:0, t:'Пытаемся спуститься по дереву — но дерево отсортировано <b>сначала по городу</b>. Не зная города, непонятно, куда идти: нужные даты есть и в «Казань», и в «Москва», и в «Пермь».'},
+        {f:'idx', r:7, t:'Единственный способ — прочитать <b>все</b> записи и отфильтровать. Это уже не поиск по индексу, а перебор.'},
+        {f:'all', r:0, t:'Планировщик это знает заранее и индекс не откроет вовсе — пойдёт читать таблицу. <b>Индекс есть, а не работает.</b>'} ],
+    ],
+    1: [ // покрывающий
+      [ {f:'all', r:0, t:'Читаем запрос: нужны колонки <b>city</b> и <b>total</b>, условие по city.'},
+        {f:'idx', r:2, t:'Открываем индекс (city), спускаемся к «Москва». Два чтения.'},
+        {f:'idx', r:1, t:'Читаем три записи «Москва». В каждой — только город и <b>адрес строки</b>: стр. 1, стр. 3, стр. 5. А запросу нужен ещё total.'},
+        {f:'arr', r:0, t:'total в индексе <b>нет</b>. Значит за каждой записью надо сходить в таблицу по адресу.'},
+        {f:'tab', r:3, t:'Прыжок на стр. 1 → взяли total. Прыжок на стр. 3 → взяли. Прыжок на стр. 5 → взяли. Три <b>случайных</b> чтения — каждое в другое место диска.'},
+        {f:'all', r:0, t:'Итого 6 чтений, из них 3 — прыжки по таблице. В плане: <code class="inl">Index Scan</code>, <code class="inl">Heap Fetches: 3</code>. На тысяче строк было бы тысяча прыжков.'} ],
+      [ {f:'all', r:0, t:'Тот же запрос: нужны <b>city</b> и <b>total</b>.'},
+        {f:'idx', r:2, t:'Открываем индекс (city) INCLUDE (total), спускаемся к «Москва». Два чтения.'},
+        {f:'idx', r:1, t:'Читаем три записи. В каждой — город, адрес <b>и total</b>: он лежит прямо здесь, потому что мы попросили INCLUDE.'},
+        {f:'arr', r:0, t:'Проверяем: всё, что просил запрос, уже есть? city — есть, total — есть. <b>В таблицу идти незачем.</b>'},
+        {f:'all', r:0, t:'Итого 3 чтения, все последовательные. В плане: <code class="inl">Index Only Scan</code>, <code class="inl">Heap Fetches: 0</code>. И на тысяче строк прыжков по-прежнему ноль.'} ],
+    ],
+    2: [ // частичный
+      [ {f:'all', r:0, t:'Обычный индекс по created_at. Проверим, что в него попало.'},
+        {f:'idx', r:0, t:'В индексе <b>все пять строк</b> — new, paid, done. База не выбирает: обычный индекс индексирует всё.'},
+        {f:'all', r:0, t:'На проде это миллионы завершённых заказов, по которым никто не ищет — а место они занимают и при каждом обновлении переписываются.'} ],
+      [ {f:'all', r:0, t:"Запрос: <code class=\"inl\">WHERE status = 'new' AND created_at > …</code>. Индекс: <code class=\"inl\">WHERE status = 'new'</code>."},
+        {f:'idx', r:0, t:'Планировщик сравнивает условие запроса с условием индекса. Запрос требует status = new — индекс содержит <b>ровно</b> такие строки. Совпало — индекс годится.'},
+        {f:'idx', r:2, t:'Спускаемся по дереву. Оно крошечное — две записи — спуск почти мгновенный.'},
+        {f:'tab', r:2, t:'Идём в таблицу за двумя строками. Всё.'},
+        {f:'all', r:0, t:'Индекс в 2,5 раза меньше обычного и почти не обновляется: заказ вышел из new — вышел из индекса.'} ],
+      [ {f:'all', r:0, t:"Запрос: <code class=\"inl\">WHERE status = 'done'</code>. Индекс: <code class=\"inl\">WHERE status = 'new'</code>."},
+        {f:'idx', r:0, t:'Планировщик сравнивает условия. Запрос хочет done — а индекс <b>по построению</b> содержит только new. Строк done в нём нет и быть не может.'},
+        {f:'tab', r:5, t:'Индекс бесполезен, база его даже не открывает. Читаем всю таблицу.'},
+        {f:'all', r:0, t:'Частичный индекс работает <b>только</b> для запросов с тем же условием (или более узким).'} ],
+    ],
+    3: [ // по выражению
+      [ {f:'all', r:0, t:"Запрос: <code class=\"inl\">WHERE lower(email) = 'anna@mail.ru'</code>. Индекс по колонке email."},
+        {f:'idx', r:0, t:'Планировщик смотрит: в индексе лежат <b>исходные</b> значения — «Anna@Mail.ru». А запрос спрашивает про результат функции lower(). Это разные вещи.'},
+        {f:'idx', r:0, t:'Чтобы сравнить, пришлось бы применить lower() к каждой записи индекса — а это уже перебор, а не поиск. Индекс не годится.'},
+        {f:'tab', r:5, t:'Читаем всю таблицу, к каждой строке применяем lower(), сравниваем.'} ],
+      [ {f:'all', r:0, t:"Тот же запрос. Индекс по выражению lower(email)."},
+        {f:'idx', r:0, t:'В индексе хранится не email, а <b>результат lower(email)</b>: «anna@mail.ru». Выражение в запросе совпадает с выражением индекса буквально.'},
+        {f:'idx', r:2, t:'Спускаемся по дереву к «anna@mail.ru» — обычный поиск, два чтения.'},
+        {f:'tab', r:1, t:'Нашли адрес, взяли строку из таблицы.'} ],
+      [ {f:'all', r:0, t:"Запрос: <code class=\"inl\">WHERE email = 'Anna@Mail.ru'</code> — про исходное значение. Индекс по lower(email)."},
+        {f:'idx', r:0, t:'В индексе — приведённые значения. Запрос про исходное. Снова не совпало: индекс по выражению помогает <b>только</b> запросам с тем же выражением.'},
+        {f:'tab', r:5, t:'Перебор таблицы.'} ],
+    ],
+    4: [ // уникальный
+      [ {f:'all', r:0, t:"INSERT email = 'new@mail.ru'."},
+        {f:'idx', r:2, t:'Перед вставкой база <b>заглядывает в уникальный индекс</b>: спускается к «new@mail.ru». Такого значения нет.'},
+        {f:'tab', r:1, t:'Пишем строку в таблицу.'},
+        {f:'idx', r:1, t:'Добавляем запись в индекс. Готово.'} ],
+      [ {f:'all', r:0, t:"INSERT email = 'vera@mail.ru' — такой уже есть."},
+        {f:'idx', r:2, t:'Заглядываем в индекс: спускаемся к «vera@mail.ru» — <b>нашли</b>.'},
+        {f:'idx', r:0, t:'Индекс уникальный, второе такое значение запрещено. База <b>отказывает</b>, в таблицу ничего не пишется. <code class="inl">ERROR: duplicate key value</code>.'},
+        {f:'all', r:0, t:'Проверка стоила два чтения — столько же, сколько обычный поиск. Уникальность почти бесплатна.'} ],
+      [ {f:'all', r:0, t:'INSERT email = NULL. Потом ещё раз NULL.'},
+        {f:'idx', r:2, t:'Заглядываем в индекс: есть ли уже NULL? Есть. Но NULL с NULL <b>не сравниваются</b> — результат «неизвестно», а не «равны».'},
+        {f:'idx', r:1, t:'Раз не доказано, что равны — дубля нет. Вставка проходит. И третья пройдёт, и сотая.'},
+        {f:'all', r:0, t:'Это ловушка: UNIQUE не защищает от множества NULL. Лечится <code class="inl">NULLS NOT DISTINCT</code> или <code class="inl">NOT NULL</code>.'} ],
+    ],
+    5: [ // класс операторов
+      [ {f:'all', r:0, t:'Запрос: <code class="inl">ORDER BY emb &lt;-&gt; $1</code>. Индекс создан с vector_l2_ops.'},
+        {f:'idx', r:0, t:'Планировщик проверяет: умеет ли индекс оператор &lt;-&gt;? Класс vector_l2_ops — это евклидово расстояние, его оператор как раз &lt;-&gt;. <b>Умеет.</b>'},
+        {f:'idx', r:3, t:'Идём по графу HNSW: верхний уровень → ниже → ниже. Находим ближайших.'},
+        {f:'tab', r:5, t:'Берём пять строк из таблицы.'} ],
+      [ {f:'all', r:0, t:'Запрос: <code class="inl">ORDER BY emb &lt;=&gt; $1</code>. Индекс создан с vector_l2_ops.'},
+        {f:'idx', r:0, t:'Планировщик проверяет: умеет ли индекс оператор &lt;=&gt;? Класс vector_l2_ops знает только &lt;-&gt;. <b>Не умеет.</b>'},
+        {f:'idx', r:0, t:'Индекс отклонён. <b>Никакой ошибки не будет</b> — база просто выберет другой план.'},
+        {f:'tab', r:5, t:'Другой план — это прочитать <b>все</b> векторы и посчитать расстояние до каждого. На миллионе строк — секунды вместо миллисекунд.'},
+        {f:'all', r:0, t:'Единственный способ заметить: <code class="inl">EXPLAIN</code> покажет Seq Scan там, где ждали индекс.'} ],
+      [ {f:'all', r:0, t:'Запрос: <code class="inl">ORDER BY emb &lt;=&gt; $1</code>. Индекс с vector_cosine_ops.'},
+        {f:'idx', r:0, t:'vector_cosine_ops — косинусное расстояние, оператор &lt;=&gt;. Совпало.'},
+        {f:'idx', r:3, t:'Идём по графу, находим ближайших.'},
+        {f:'tab', r:5, t:'Берём строки.'} ],
+    ],
+  };
+
   window.__pfDemo = function(i){
     const d = D[i]; if(!d) return '';
-    st[i] = st[i] || {q:0};
+    st[i] = st[i] || {q:0, s:0};
     const q = d.qs[st[i].q];
+    const steps = (PF_STEPS[i] || [])[st[i].q] || [];
+    const s = st[i].s, cur = steps[s - 1];
+    const reads = steps.slice(0, s).reduce((a, x) => a + x.r, 0);
     return '<div class="pfd"><div class="pfd-t">▶ Посмотрите, как это работает</div>' +
       '<div class="pfd-qs">' + d.qs.map((x, k) => '<button class="pfd-q' + (k === st[i].q ? ' on' : '') + '" data-pf="' + i + '" data-q="' + k + '"><code>' + esc(x.l) + '</code></button>').join('') + '</div>' +
-      '<div class="pfd-stage">' + d.render(st[i]) + '</div>' +
+      '<div class="pfd-stage focus-' + (cur ? cur.f : 'all') + '">' + d.render(st[i]) + '</div>' +
+      '<div class="pfd-ctl"><span class="pfd-l">Что делает база:</span>' +
+        '<button class="ghost pfd-step" data-pf="' + i + '">Шаг →</button>' +
+        '<button class="ghost pfd-play" data-pf="' + i + '">▶ Целиком</button>' +
+        '<button class="ghost pfd-re" data-pf="' + i + '">↻</button>' +
+        '<span class="pfd-pos">' + s + ' / ' + steps.length + '</span>' +
+        '<span class="pfd-reads' + (reads >= 5 ? ' bad' : reads > 0 ? ' ok' : '') + '">чтений: <b>' + reads + '</b></span></div>' +
+      '<div class="pfd-steps">' + steps.map((x, k) => '<div class="pfd-s' + (k < s - 1 ? ' done' : k === s - 1 ? ' now' : ' wait') + '"><i>' + (k + 1) + '</i><span>' + x.t + '</span>' + (x.r ? '<em>+' + x.r + '</em>' : '') + '</div>').join('') + '</div>' +
       '<div class="console ' + (q.ok ? 'ok' : 'err') + '"><span class="ic">' + (q.ok ? '✓' : '✕') + '</span><span>' + q.w + '</span></div></div>';
   };
+  let pfTimer = null;
   body.addEventListener('click', e => {
-    const b = e.target.closest('.pfd-q'); if(!b) return;
-    const i = +b.dataset.pf; st[i].q = +b.dataset.q;
+    const b = e.target.closest('.pfd-q, .pfd-step, .pfd-play, .pfd-re'); if(!b) return;
+    const i = +b.dataset.pf; clearTimeout(pfTimer);
+    const total = () => ((PF_STEPS[i] || [])[st[i].q] || []).length;
+    if(b.classList.contains('pfd-q')){ st[i].q = +b.dataset.q; st[i].s = 0; }
+    else if(b.classList.contains('pfd-step')){ if(st[i].s < total()) st[i].s++; }
+    else if(b.classList.contains('pfd-re')){ st[i].s = 0; }
+    else if(b.classList.contains('pfd-play')){
+      st[i].s = 0;
+      (function tick(){ if(st[i].s < total()){ st[i].s++; const el = body.querySelector('.pfd'); if(el) el.outerHTML = window.__pfDemo(i); pfTimer = setTimeout(tick, 1400); } })();
+      return;
+    }
     b.closest('.pfd').outerHTML = window.__pfDemo(i);
   });
 })();
