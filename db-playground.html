@@ -1230,6 +1230,18 @@
   .pfd-arr{text-align:center; padding-top:28px; font:700 10.5px/1.4 var(--sans); color:var(--muted)}
   .pfd-arr.go{color:var(--doc)} .pfd-arr.skip{color:var(--ok)}
   @media(max-width:700px){.pfd-two{grid-template-columns:1fr} .pfd-arr{padding-top:0}}
+
+  /* ===== на пальцах ===== */
+  .fg-story{margin-top:12px; padding:12px 14px; border-left:3px solid var(--doc); border-radius:8px; background:var(--surface-2); font:500 13px/1.7 var(--sans); color:var(--ink)}
+  .fg-wrap{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px}
+  .fg-r{display:flex; align-items:center; gap:8px; padding:6px 10px; margin-bottom:3px; border-radius:6px; background:var(--surface-3); font:600 11.5px/1.4 var(--mono); color:var(--muted); transition:.2s}
+  .fg-r i{flex:none; width:18px; height:18px; border-radius:4px; background:var(--line); display:grid; place-items:center; font:700 9px var(--mono); font-style:normal; color:var(--muted)}
+  .fg-r.seen{opacity:.4; text-decoration:line-through}
+  .fg-r.look{background:color-mix(in srgb, var(--doc) 22%, transparent); color:var(--ink)}
+  .fg-r.hit{background:color-mix(in srgb, var(--ok) 22%, transparent); color:var(--ok); font-weight:800}
+  .fg-r.dim{opacity:.3}
+  .fg-cnt{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px}
+  @media(max-width:760px){.fg-wrap{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -2152,16 +2164,21 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
 
 
     <div class="card">
-      <h2><span class="tag">КАК РАБОТАЮТ</span> разные индексы вживую</h2>
-      <p>B-tree разобрали выше. Вот как устроены остальные — переключай и трогай.</p>
-      <div class="graph-tools" id="ix-tabs">
-        <button class="ghost on" data-ix="hash">Hash</button>
-        <button class="ghost" data-ix="bitmap">Bitmap</button>
-        <button class="ghost" data-ix="gin">GIN · инвертированный</button>
-        <button class="ghost" data-ix="brin">BRIN</button>
-        <button class="ghost" data-ix="gist">GiST · гео</button>
+      <h2><span class="tag">НА ПАЛЬЦАХ 🖐</span> каждый вид индекса — на шести строчках</h2>
+      <p>Никаких деревьев и терминов. У каждого вида — <b>своя житейская задача</b>, крошечная таблица и два способа найти ответ. Нажмите «без индекса» — база проверит строки по одной и посчитает проверки. Потом «с индексом» — увидите, куда она прыгнула и сколько проверок сэкономила.</p>
+      <div class="graph-tools" id="fg-tabs"></div>
+      <div class="fg-story" id="fg-story"></div>
+      <div class="fg-wrap">
+        <div class="fg-col"><div class="ex-h" id="fg-th"></div><div id="fg-table"></div></div>
+        <div class="fg-col"><div class="ex-h" id="fg-ih"></div><div id="fg-index"></div></div>
       </div>
-      <div id="ix-body"></div>
+      <div class="form-row" style="margin-top:12px">
+        <button class="ghost" id="fg-scan">🚶 Без индекса — по одной</button>
+        <button class="act" id="fg-idx">⚡ С индексом</button>
+        <button class="ghost" id="fg-reset">↻ Сброс</button>
+      </div>
+      <div class="fg-cnt" id="fg-cnt"></div>
+      <div class="console" id="fg-msg" aria-live="polite">Выберите вид индекса и нажмите «без индекса».</div>
     </div>
 
 
@@ -4726,142 +4743,98 @@ CREATE INDEX idx_orders_customer ON orders(customer_id);`;
   });
 })();
 
-/* ================= КАК РАБОТАЮТ РАЗНЫЕ ИНДЕКСЫ ================= */
+/* ================= НА ПАЛЬЦАХ: каждый индекс на шести строчках ================= */
 (function(){
-  const body=document.getElementById('ix-body'); if(!body) return;
-  const tabs=document.getElementById('ix-tabs');
+  const tabs = document.getElementById('fg-tabs'); if(!tabs) return;
+  const F = [
+    {k:'btree', n:'B-tree', ico:'📖',
+     story:'<b>Задача:</b> в списке учеников найти всех, чья фамилия начинается на «К».<br><b>Идея:</b> индекс — это тот же список, но <b>по алфавиту</b>. В алфавитном списке все «К» стоят рядом — нашёл первую, читай подряд, пока не кончатся.',
+     th:'таблица students — как записывали', ih:'индекс по фамилии — по алфавиту',
+     rows:['Петров','Козлов','Абрамов','Кузнецов','Яшин','Карпов','Белов'],
+     match:r => r[0] === 'К',
+     idx(rows){ return [...rows].sort((a, b) => a.localeCompare(b, 'ru')).map(v => ({l:v, hit:v[0] === 'К'})); },
+     idxSteps:1, idxChecks:'1 спуск к букве «К» + 3 строки подряд',
+     fin:'Без индекса: <b>7 проверок</b> — открыть каждую строку и посмотреть первую букву. С индексом: спрыгнули к «К» и прочитали <b>3 строки подряд</b>, остальные даже не открывали. На миллионе учеников разница будет в сотни тысяч раз.'},
 
-  /* --- HASH --- */
-  const hashVals=[42,17,88,5,63,29];
-  function hashView(){
-    const buckets=Array.from({length:8},()=>[]);
-    hashVals.forEach(v=>buckets[v%8].push(v));
-    return `<p class="ercap" style="text-align:left;margin-top:12px">hash(значение) → номер «корзины». Клик по значению — покажу корзину. Точное «=» за 1 шаг; диапазоны (&lt;, &gt;) не работают — порядок теряется.</p>
-      <div class="ixrow" id="hash-vals">Значения:${hashVals.map(v=>` <button class="ixchip" data-v="${v}">${v}</button>`).join('')}</div>
-      <div class="bucket-row" id="hash-buckets">${buckets.map((b,i)=>`<div class="bucket" data-b="${i}"><span class="bn">корзина ${i}</span>${b.join('<br>')||'—'}</div>`).join('')}</div>
-      <div class="graph-info" id="hash-info">Кликни значение выше.</div>`;
-  }
-  function hashBind(){
-    body.querySelectorAll('#hash-vals .ixchip').forEach(ch=>ch.addEventListener('click',()=>{
-      const v=+ch.dataset.v, b=v%8;
-      body.querySelectorAll('#hash-vals .ixchip').forEach(x=>x.classList.toggle('on',x===ch));
-      body.querySelectorAll('#hash-buckets .bucket').forEach(x=>x.classList.toggle('hot',+x.dataset.b===b));
-      document.getElementById('hash-info').innerHTML=`hash(${v}) = ${v} % 8 = <b>${b}</b> → корзина ${b}. Нашли за <b>1 шаг</b>. А «${v} &gt; 20» так не найти — значения раскиданы без порядка.`;
-    }));
-  }
+    {k:'hash', n:'Hash', ico:'🎫',
+     story:'<b>Задача:</b> найти страницу сайта по её точному адресу.<br><b>Идея:</b> из адреса вычисляется число — номер ячейки. Не ищем — <b>считаем, где лежит</b>. Как гардероб: номерок 417 → крючок 417, никакого поиска.',
+     th:'таблица pages', ih:'hash-индекс: номер ячейки → строка',
+     rows:['/about','/blog/sql-tips','/contacts','/blog/indexes','/pricing','/blog/nosql'],
+     match:r => r === '/blog/indexes',
+     idx(rows){ const cells = ['ячейка 03','ячейка 11','ячейка 27','ячейка 40','ячейка 58','ячейка 72']; return rows.map((v, i) => ({l:cells[i] + ' → ' + v, hit:v === '/blog/indexes'})); },
+     idxSteps:1, idxChecks:'посчитали hash(«/blog/indexes») = 40 → 1 обращение',
+     fin:'Без индекса: <b>6 проверок</b>. С индексом: посчитали число из адреса — получили номер ячейки — открыли её. <b>Одно обращение</b>, и оно не зависит от размера таблицы вообще.<br><br>Но спросите «все адреса, начинающиеся на /blog» — и hash бесполезен: номера ячеек у них 11, 40, 72 — никакого порядка. Придётся перебирать.'},
 
-  /* --- BITMAP --- */
-  const rows=[{id:1,st:'оплачен',c:'Москва'},{id:2,st:'новый',c:'СПб'},{id:3,st:'оплачен',c:'Москва'},{id:4,st:'оплачен',c:'СПб'},{id:5,st:'новый',c:'Москва'},{id:6,st:'оплачен',c:'Москва'}];
-  let bmSt='оплачен', bmC='Москва';
-  function bmView(){
-    return `<p class="ercap" style="text-align:left;margin-top:12px">Для каждого значения — битовая маска строк (1 = подходит). Условия объединяются побитовым AND. Хорош, когда разных значений мало (пол, статус, город).</p>
-      <div class="ixrow">Статус: <button class="ixchip" data-st="оплачен">оплачен</button><button class="ixchip" data-st="новый">новый</button>
-        <span style="color:var(--faint)">&nbsp;AND&nbsp;</span> Город: <button class="ixchip" data-c="Москва">Москва</button><button class="ixchip" data-c="СПб">СПб</button></div>
-      <div id="bm-out"></div>`;
-  }
-  function bmRender(){
-    body.querySelectorAll('.ixchip[data-st]').forEach(x=>x.classList.toggle('on',x.dataset.st===bmSt));
-    body.querySelectorAll('.ixchip[data-c]').forEach(x=>x.classList.toggle('on',x.dataset.c===bmC));
-    const a=rows.map(r=>r.st===bmSt?1:0), b=rows.map(r=>r.c===bmC?1:0), res=rows.map((r,i)=>a[i]&&b[i]?1:0);
-    const bitrow=(label,arr,cls)=>`<div class="bits"><span class="bitlabel">${label}</span>${arr.map(x=>`<span class="bit ${cls} ${x?'one':''}">${x}</span>`).join('')}</div>`;
-    const matched=rows.filter((r,i)=>res[i]).map(r=>r.id);
-    document.getElementById('bm-out').innerHTML=
-      `<div class="table-wrap" style="margin-top:8px"><table class="db"><thead><tr><th>id</th><th>статус</th><th>город</th></tr></thead><tbody>`
-      + rows.map((r,i)=>`<tr${res[i]?' class="mrow"':''}><td class="val num">${r.id}</td><td class="val">${r.st}</td><td class="val">${r.c}</td></tr>`).join('')
-      + `</tbody></table></div>`
-      + bitrow(`статус = ${bmSt}`,a,'')
-      + bitrow(`город = ${bmC}`,b,'')
-      + bitrow('AND → результат',res,'res')
-      + `<div class="graph-info" style="margin-top:10px">Строки, где обе маски = 1: <b>${matched.join(', ')||'нет'}</b>. Так база молниеносно комбинирует много условий.</div>`;
-  }
-  function bmBind(){
-    body.querySelectorAll('.ixchip[data-st]').forEach(x=>x.addEventListener('click',()=>{bmSt=x.dataset.st;bmRender();}));
-    body.querySelectorAll('.ixchip[data-c]').forEach(x=>x.addEventListener('click',()=>{bmC=x.dataset.c;bmRender();}));
-    bmRender();
-  }
+    {k:'gin', n:'GIN', ico:'🔖',
+     story:'<b>Задача:</b> найти все посты с тегом «sql». У поста <b>несколько</b> тегов сразу — вот в чём подвох.<br><b>Идея:</b> перевернуть. Не «пост → его теги», а «тег → посты, где он есть». Как предметный указатель в конце учебника: против слова стоит список страниц.',
+     th:'таблица posts (у поста много тегов)', ih:'GIN: тег → список постов',
+     rows:['Пост 1: sql, индексы','Пост 2: nosql, mongo','Пост 3: sql, postgres, индексы','Пост 4: postgres, бэкап','Пост 5: python','Пост 6: sql, join'],
+     match:r => /\bsql\b/.test(r),
+     idx(){ return [['sql','1, 3, 6'],['индексы','1, 3'],['nosql','2'],['mongo','2'],['postgres','3, 4'],['бэкап','4'],['python','5'],['join','6']].map(([t, l]) => ({l:t + ' → ' + l, hit:t === 'sql'})); },
+     idxSteps:1, idxChecks:'нашли слово «sql» → готовый список: 1, 3, 6',
+     fin:'Без индекса: <b>6 проверок</b>, и в каждой ещё надо просмотреть все теги поста. С индексом: нашли строку «sql» — а там <b>уже готовый список</b> постов. Одно обращение.<br><br>Это единственный вид, который умеет «одно значение → много строк». Поэтому он для текста, тегов, массивов и JSON.'},
 
-  /* --- GIN (инвертированный) --- */
-  const posts=[{id:1,tags:['sql','индексы']},{id:2,tags:['nosql','mongo']},{id:3,tags:['sql','postgres','индексы']},{id:4,tags:['postgres','бэкап']}];
-  function ginInv(){ const m={}; posts.forEach(p=>p.tags.forEach(t=>{(m[t]=m[t]||[]).push(p.id);})); return m; }
-  function ginView(){
-    const inv=ginInv();
-    return `<p class="ercap" style="text-align:left;margin-top:12px">Когда в одной ячейке много значений (теги, массив, JSONB, текст). Индекс «переворачивает» данные: тег → список строк. Клик по тегу — покажу его строки одним прыжком.</p>
-      <div class="gin2">
-        <div><div class="bc-label">Документы (строка → теги)</div>${posts.map(p=>`<div class="ginpost" data-id="${p.id}">Пост ${p.id}: ${p.tags.map(t=>`<span class="gintag" data-t="${t}">${t}</span>`).join(' · ')}</div>`).join('')}</div>
-        <div><div class="bc-label">Инвертированный индекс (тег → строки)</div>${Object.keys(ginInv()).map(t=>`<div class="ginrow" data-t="${t}"><span class="gintag" data-t="${t}">${t}</span> → ${inv[t].join(', ')}</div>`).join('')}</div>
-      </div>
-      <div class="graph-info" id="gin-info" style="margin-top:10px">Кликни любой тег.</div>`;
-  }
-  function ginBind(){
-    const inv=ginInv();
-    body.querySelectorAll('.gintag').forEach(el=>el.addEventListener('click',()=>{
-      const t=el.dataset.t;
-      body.querySelectorAll('.ginpost').forEach(p=>p.classList.toggle('hot', inv[t].includes(+p.dataset.id)));
-      body.querySelectorAll('.ginrow').forEach(r=>r.classList.toggle('hot', r.dataset.t===t));
-      document.getElementById('gin-info').innerHTML=`Тег «<b>${t}</b>» → строки <b>${inv[t].join(', ')}</b>. Индекс сразу дал список, не читая все документы.`;
-    }));
-  }
+    {k:'gist', n:'GiST', ico:'🗺',
+     story:'<b>Задача:</b> найти кафе не дальше 1 км от меня. Я стою в точке (5, 5).<br><b>Идея:</b> координаты нельзя выстроить по алфавиту — «больше/меньше» у точки нет. Зато можно <b>разбить карту на квадраты</b> и смотреть только свой квадрат и соседние.',
+     th:'таблица cafes (x, y)', ih:'GiST: карта на квадраты',
+     rows:['Кафе A (1, 1)','Кафе B (5, 6)','Кафе C (9, 9)','Кафе D (4, 5)','Кафе E (1, 9)','Кафе F (9, 2)'],
+     match:r => { const m = r.match(/\((\d+), (\d+)\)/); return Math.hypot(+m[1] - 5, +m[2] - 5) <= 1.5; },
+     idx(){ return [['квадрат 0–3 × 0–3','A'],['квадрат 3–7 × 3–7','B, D'],['квадрат 7–10 × 7–10','C'],['квадрат 0–3 × 7–10','E'],['квадрат 7–10 × 0–3','F']].map(([q, l]) => ({l:q + ' → ' + l, hit:q.startsWith('квадрат 3–7')})); },
+     idxSteps:1, idxChecks:'точка (5,5) в квадрате 3–7 → там только B и D',
+     fin:'Без индекса: <b>6 проверок</b>, в каждой — посчитать расстояние. С индексом: определили свой квадрат — в нём всего два кафе, <b>проверили два</b>. Остальные четыре квадрата отброшены, не глядя внутрь.<br><br>Та же идея работает для отрезков времени: «занято с 10 до 12» — это тоже область, и GiST умеет проверить, налезает ли на неё новая бронь.'},
 
-  /* --- BRIN --- */
-  const blocks=[{n:1,min:1,max:100},{n:2,min:101,max:200},{n:3,min:201,max:300},{n:4,min:301,max:400},{n:5,min:401,max:500}];
-  const brinVals=[55,150,350,480];
-  function brinView(){
-    return `<p class="ercap" style="text-align:left;margin-top:12px">Данные физически упорядочены (например, по дате вставки). BRIN хранит только min/max на каждый блок. По запросу пропускаем блоки, куда значение точно не попадает. Очень компактно, отлично на огромных таблицах.</p>
-      <div class="ixrow">Найти id =${brinVals.map(v=>` <button class="ixchip" data-v="${v}">${v}</button>`).join('')}</div>
-      <div class="blocks" id="brin-blocks">${blocks.map(b=>`<div class="block" data-n="${b.n}"><span>Блок ${b.n}</span><span class="bmm">min ${b.min} · max ${b.max}</span><span class="bst"></span></div>`).join('')}</div>
-      <div class="graph-info" id="brin-info">Выбери значение — покажу, какие блоки сканируем.</div>`;
-  }
-  function brinBind(){
-    body.querySelectorAll('.ixrow .ixchip').forEach(ch=>ch.addEventListener('click',()=>{
-      const v=+ch.dataset.v;
-      body.querySelectorAll('.ixrow .ixchip').forEach(x=>x.classList.toggle('on',x===ch));
-      let scanned=0;
-      body.querySelectorAll('#brin-blocks .block').forEach(el=>{
-        const b=blocks[+el.dataset.n-1], hit=v>=b.min&&v<=b.max;
-        el.classList.toggle('scan',hit); el.classList.toggle('skip',!hit);
-        el.querySelector('.bst').textContent=hit?'сканируем':'пропуск';
-        if(hit)scanned++;
-      });
-      document.getElementById('brin-info').innerHTML=`id=${v} может лежать только в блоке с подходящим диапазоном. Сканируем <b>${scanned}</b> из ${blocks.length} блоков, остальные пропускаем не читая.`;
-    }));
-  }
+    {k:'brin', n:'BRIN', ico:'📑',
+     story:'<b>Задача:</b> в логе за год найти события за 4 января. Лог огромный, но записи в нём <b>идут по порядку дат</b> — новые дописываются в конец.<br><b>Идея:</b> не запоминать каждую строку. Разбить лог на куски и на каждый кусок записать только «от какой даты до какой». Как корешки томов энциклопедии: «А–Г», «Д–К»…',
+     th:'таблица events (по порядку дат)', ih:'BRIN: кусок → от … до',
+     rows:['01.01 старт','02.01 логин','03.01 ошибка','04.01 оплата','04.01 логин','06.01 выход','08.01 логин','09.01 ошибка'],
+     match:r => r.startsWith('04.01'),
+     idx(){ return [['кусок 1 (строки 1–3)','01.01 … 03.01'],['кусок 2 (строки 4–6)','04.01 … 06.01'],['кусок 3 (строки 7–8)','08.01 … 09.01']].map(([c, r]) => ({l:c + ' → ' + r, hit:c.startsWith('кусок 2')})); },
+     idxSteps:3, idxChecks:'подошёл только кусок 2 → прочитали его 3 строки',
+     fin:'Без индекса: <b>8 проверок</b>. С индексом: глянули на три «корешка», подошёл только второй — <b>прочитали его 3 строки</b>. Индекс при этом крошечный: три записи на весь лог.<br><br>Но если бы даты в логе шли вперемешку, на каждом корешке было бы «01.01 … 09.01», и отбросить не удалось бы ничего. BRIN работает <b>только</b> на данных, которые лежат по порядку.'},
 
-  function gistView(){
-    return `<p class="ercap" style="text-align:left;margin-top:12px">Для геоданных и диапазонов. Точки на плоскости группируются в прямоугольники-обёртки (bounding box). Запрос «что внутри области» проверяет только те боксы, что пересекают запрос, — остальные пропускает целиком.</p>
-      <svg class="gist-svg" viewBox="0 0 300 210" aria-label="GiST / R-tree">
-        <rect class="gbox" id="gb-a" x="35" y="38" width="44" height="46"/>
-        <rect class="gbox" id="gb-b" x="140" y="84" width="44" height="52"/>
-        <rect class="gbox" id="gb-c" x="224" y="148" width="44" height="42"/>
-        <rect class="gquery" x="130" y="80" width="66" height="62"/>
-        <text class="gl" x="57" y="34" text-anchor="middle">box A</text>
-        <text class="gl" x="162" y="80" text-anchor="middle">box B</text>
-        <text class="gl" x="246" y="144" text-anchor="middle">box C</text>
-        <text class="gl" x="163" y="156" text-anchor="middle" style="fill:var(--rel)">запрос</text>
-        <circle class="gpt" cx="45" cy="52" r="5"/><circle class="gpt" cx="68" cy="62" r="5"/><circle class="gpt" cx="55" cy="76" r="5"/>
-        <circle class="gpt in" cx="150" cy="104" r="5"/><circle class="gpt in" cx="172" cy="98" r="5"/><circle class="gpt in" cx="158" cy="124" r="5"/>
-        <circle class="gpt" cx="238" cy="160" r="5"/><circle class="gpt" cx="258" cy="172" r="5"/><circle class="gpt" cx="232" cy="180" r="5"/>
-      </svg>
-      <div class="form-row" style="margin-top:6px"><button class="ghost" id="gist-run">▶ Найти точки в области</button></div>
-      <div class="graph-info" id="gist-info">Нажми «Найти» — покажу, какие боксы проверяются, а какие пропускаются.</div>`;
+    {k:'bitmap', n:'Bitmap', ico:'☑️',
+     story:'<b>Задача:</b> найти заказы, которые <b>и</b> из Москвы, <b>и</b> со статусом «новый». На каждую колонку свой обычный индекс, но условие сразу по двум.<br><b>Идея:</b> на каждое условие сделать строку из галочек — единица, если заказ подходит. Потом <b>наложить</b> строки: где единица в обеих, тот и нужен.',
+     th:'таблица orders', ih:'маски (строятся в памяти на ходу)',
+     rows:['1: Москва, новый','2: Казань, новый','3: Москва, оплачен','4: Москва, новый','5: Пермь, готов','6: Москва, готов'],
+     match:r => r.includes('Москва') && r.includes('новый'),
+     idx(){ return [['Москва','1 0 1 1 0 1'],['новый','1 1 0 1 0 0'],['наложили (И)','1 0 0 1 0 0']].map(([n, m], i) => ({l:n + ' → ' + m, hit:i === 2})); },
+     idxSteps:1, idxChecks:'две маски наложили за 1 операцию → подошли строки 1 и 4',
+     fin:'Без индекса: <b>6 проверок</b>, в каждой — два условия. С масками: наложили две строки галочек <b>одной операцией</b> — и сразу видно, что подходят 1 и 4.<br><br>В PostgreSQL вы это не создаёте — база сама строит маски из обычных индексов, когда условий несколько. В плане это называется <code class="inl">BitmapAnd</code>.'},
+  ];
+  let cur = 0, mode = null, step = 0, timer = null;
+  const $ = id => document.getElementById(id);
+  tabs.innerHTML = F.map((f, i) => '<button class="ghost' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' + f.ico + ' ' + esc(f.n) + '</button>').join('');
+  function draw(){
+    const f = F[cur];
+    tabs.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === cur));
+    $('fg-story').innerHTML = f.story;
+    $('fg-th').textContent = '📋 ' + f.th; $('fg-ih').textContent = '🔑 ' + f.ih;
+    $('fg-table').innerHTML = f.rows.map((r, i) => {
+      let c = '';
+      if(mode === 'scan'){ if(i < step) c = f.match(r) ? 'hit' : 'seen'; else if(i === step) c = 'look'; }
+      if(mode === 'idx') c = f.match(r) ? 'hit' : 'dim';
+      return '<div class="fg-r ' + c + '"><i>' + (i + 1) + '</i>' + esc(r) + '</div>';
+    }).join('');
+    const ix = f.idx(f.rows);
+    $('fg-index').innerHTML = ix.map(e => '<div class="fg-r ' + (mode === 'idx' ? (e.hit ? 'hit' : 'dim') : '') + '">' + esc(e.l) + '</div>').join('');
+    const scanN = mode === 'scan' ? Math.min(step, f.rows.length) : 0;
+    $('fg-cnt').innerHTML = '<div class="to-m' + (mode === 'scan' && step >= f.rows.length ? ' bad' : '') + '"><b>' + (mode === 'scan' || mode === 'done' ? scanN || f.rows.length : '—') + '</b><small>проверок без индекса</small></div>' +
+      '<div class="to-m' + (mode === 'idx' ? ' ok' : '') + '"><b>' + (mode === 'idx' ? f.idxSteps + (f.k === 'btree' ? ' + 3' : f.k === 'gist' ? ' + 2' : '') : '—') + '</b><small>' + (mode === 'idx' ? esc(f.idxChecks) : 'с индексом') + '</small></div>';
   }
-  function gistBind(){
-    const btn=document.getElementById('gist-run'); if(!btn) return;
-    btn.addEventListener('click',()=>{
-      const b=body.querySelector('#gb-b'); if(b) b.classList.add('check');
-      ['gb-a','gb-c'].forEach(id=>{ const el=body.querySelector('#'+id); if(el) el.classList.add('skip'); });
-      body.querySelectorAll('.gpt.in').forEach(p=>p.classList.add('found'));
-      document.getElementById('gist-info').innerHTML='Запрос (синяя область) пересекается только с <b>box B</b> — проверяем лишь его 3 точки (зелёные). Box A и C пропущены целиком: их прямоугольники не касаются запроса. Так GiST / R-tree отсекает бо́льшую часть данных по bounding box, не проверяя каждую точку.';
-      btn.disabled=true;
-    });
-  }
-  const views={hash:[hashView,hashBind], bitmap:[bmView,bmBind], gin:[ginView,ginBind], brin:[brinView,brinBind], gist:[gistView,gistBind]};
-  function show(type){
-    body.innerHTML=views[type][0]();
-    views[type][1]();
-    tabs.querySelectorAll('[data-ix]').forEach(b=>b.classList.toggle('on',b.dataset.ix===type));
-  }
-  tabs.addEventListener('click',e=>{ const b=e.target.closest('[data-ix]'); if(b) show(b.dataset.ix); });
-  show('hash');
+  function stop(){ clearTimeout(timer); timer = null; }
+  $('fg-scan').addEventListener('click', () => {
+    stop(); mode = 'scan'; step = 0; const f = F[cur];
+    (function tick(){
+      draw();
+      if(step >= f.rows.length){ msg($('fg-msg'), 'err', '<b>Перебрали все ' + f.rows.length + ' строк</b> — каждую пришлось открыть и проверить. Нашли ' + f.rows.filter(f.match).length + '. Теперь нажмите «С индексом».'); mode = 'done'; draw(); return; }
+      msg($('fg-msg'), '', 'Строка ' + (step + 1) + ': «' + esc(f.rows[step]) + '» — ' + (f.match(f.rows[step]) ? '<b>подходит ✓</b>' : 'не подходит, дальше'));
+      step++; timer = setTimeout(tick, 380);
+    })();
+  });
+  $('fg-idx').addEventListener('click', () => { stop(); mode = 'idx'; draw(); msg($('fg-msg'), 'ok', F[cur].fin); });
+  $('fg-reset').addEventListener('click', () => { stop(); mode = null; step = 0; draw(); msg($('fg-msg'), '', 'Нажмите «без индекса».'); });
+  tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; stop(); cur = +b.dataset.i; mode = null; step = 0; draw(); msg($('fg-msg'), '', 'Нажмите «без индекса» — посмотрим, сколько проверок уйдёт.'); });
+  draw();
 })();
 
 /* ================= JOIN ================= */
