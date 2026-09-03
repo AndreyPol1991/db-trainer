@@ -1242,6 +1242,30 @@
   .fg-r.dim{opacity:.3}
   .fg-cnt{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px}
   @media(max-width:760px){.fg-wrap{grid-template-columns:1fr}}
+
+  /* ===== механика: шаги и выбор индекса ===== */
+  .mx-ctl{display:flex; align-items:center; gap:8px; margin:6px 0 8px; flex-wrap:wrap}
+  .mx-pos{margin-left:auto; font:700 11.5px var(--mono); color:var(--muted)}
+  .mx-h{transition:.25s}
+  .mx-h.wait{opacity:.35}
+  .mx-h.now{border-color:var(--rel); background:color-mix(in srgb, var(--rel) 10%, var(--surface-2)); opacity:1}
+  .mx-h.now i{transform:scale(1.15)}
+  .mx-h.done{opacity:.8} .mx-h.done i{background:var(--ok)}
+  .mx-v{transition:.25s; border:1px solid transparent}
+  .mx-v.on{border-color:var(--rel); background:color-mix(in srgb, var(--rel) 16%, transparent)}
+  .mx-v.on b{color:var(--rel)}
+  .ctq-qs{display:flex; flex-direction:column; gap:4px; margin-top:8px}
+  .ctq-q{text-align:left; padding:7px 11px; border:1px solid var(--line); border-radius:8px; background:var(--surface-2); cursor:pointer; transition:.15s}
+  .ctq-q code{font:600 11.5px/1.4 var(--mono); color:var(--ink)}
+  .ctq-q:hover{border-color:var(--rel)} .ctq-q.on{border-color:var(--rel); background:color-mix(in srgb, var(--rel) 12%, var(--surface-2))}
+  .ctq-ix{display:grid; grid-template-columns:repeat(2,1fr); gap:6px; margin-top:10px}
+  .ctq-i{padding:8px 11px; border-radius:8px; border:1px solid var(--line); background:var(--surface-2); font:600 11.5px/1.4 var(--mono); color:var(--ink); transition:.25s}
+  .ctq-i small{display:block; margin-top:2px; font:700 10px var(--sans)}
+  .ctq-i.no{opacity:.3}
+  .ctq-i.use{border-color:var(--rel); background:color-mix(in srgb, var(--rel) 14%, transparent)} .ctq-i.use small{color:var(--rel)}
+  .ctq-i.only{border-color:var(--ok); background:color-mix(in srgb, var(--ok) 16%, transparent)} .ctq-i.only small{color:var(--ok)}
+  .ctq-i.seq{border-color:var(--danger); background:color-mix(in srgb, var(--danger) 12%, transparent); grid-column:span 2} .ctq-i.seq small{color:var(--danger)}
+  @media(max-width:640px){.ctq-ix{grid-template-columns:1fr} .ctq-i.seq{grid-column:auto}}
 </style>
 </head>
 <body>
@@ -2204,6 +2228,9 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
         </div>
       </div>
       <div class="console" id="ct-msg" aria-live="polite">Нажмите на любую строку таблицы.</div>
+      <div class="ex-h" style="margin-top:14px">А теперь наоборот: запрос → какой индекс возьмёт база?</div>
+      <div class="ctq" id="ctq"></div>
+      <div class="console" id="ctq-msg" aria-live="polite">Выберите запрос.</div>
       <div class="note"><b>ctid — адрес строки.</b> Пара чисел вида <code class="inl">(4821, 17)</code> означает «страница 4821, слот 17 внутри неё». Это <b>физический</b> адрес: где на диске лежит строка. Всё содержимое индекса — это пары <code class="inl">значение → ctid</code>.<br><br>Посмотреть можно прямо в запросе, ctid есть у каждой таблицы как скрытая колонка:<br><code class="inl">SELECT ctid, id, city FROM orders LIMIT 5;</code></div>
       <div class="hintbox"><b>Три следствия, которые снимают половину вопросов.</b><br><br><b>1. Индекс — не копия таблицы.</b> В нём одна-две колонки из пятидесяти, поэтому он в разы меньше. Индекс на 42 МБ при таблице на 380 — это нормально, а не «что-то не догрузилось».<br><br><b>2. Индекс по <code class="inl">city</code> никак не поможет запросу по <code class="inl">email</code>.</b> Этой колонки в файле индекса просто нет. Не «плохо поможет» — <b>вообще</b> не поможет.<br><br><b>3. После индекса база обычно идёт в таблицу ещё раз.</b> В индексе нашёлся только адрес, а остальные колонки лежат в таблице. Этот второй прыжок называется <b>heap fetch</b>, и именно он делает чтение по индексу «случайным» — а значит дорогим на больших выборках.</div>
     </div>
@@ -7691,15 +7718,16 @@ const CN_NOTES = {
      code:"-- ВАЖНО: порядок именно такой\nINSERT INTO articles ... ;   -- 1) сначала данные\n\nCREATE INDEX ON articles     -- 2) потом индекс\n  USING ivfflat (emb vector_cosine_ops)\n  WITH (lists = 1000);       -- ~ sqrt(число строк)\n\nSET ivfflat.probes = 10;     -- сколько районов смотреть"},
   ];
   nav.innerHTML = T.map((t, i) => '<button class="cn-b' + (i === 0 ? ' on' : '') + '" data-i="' + i + '"><span class="cn-ico">' + t.ico + '</span><span class="cn-bt"><b>' + esc(t.n) + '</b><small>' + esc(t.ru) + '</small></span></button>').join('');
-  function show(i){
+  let show = function(i){
     const t = T[i];
     nav.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
     main.innerHTML =
       '<div class="mx-title">' + t.ico + ' <b>' + esc(t.n) + '</b> <span class="mx-tag">' + esc(t.tag) + '</span></div>' +
       '<div class="cn-lab">Как устроен</div><div class="mx-txt">' + t.dev + '</div>' +
-      '<div class="mx-viz">' + t.viz.map(v => '<div class="mx-v"><span>' + esc(v[0]) + '</span><b>' + esc(v[1]) + '</b></div>').join('') + '</div>' +
-      '<div class="cn-lab">Как физически идёт поиск</div>' +
-      '<div class="mx-how">' + t.how.map((s, k) => '<div class="mx-h"><i>' + (k + 1) + '</i><span>' + s + '</span></div>').join('') + '</div>' +
+      '<div class="mx-viz" id="mx-viz">' + t.viz.map((v, k) => '<div class="mx-v" data-v="' + k + '"><span>' + esc(v[0]) + '</span><b>' + esc(v[1]) + '</b></div>').join('') + '</div>' +
+      '<div class="cn-lab">Как физически идёт поиск — нажимайте «Шаг»</div>' +
+      '<div class="mx-ctl"><button class="act" id="mx-step">Шаг →</button><button class="ghost" id="mx-play">▶ Целиком</button><button class="ghost" id="mx-again">↻ Сначала</button><span class="mx-pos" id="mx-pos">0 / ' + t.how.length + '</span></div>' +
+      '<div class="mx-how" id="mx-how">' + t.how.map((s, k) => '<div class="mx-h wait" data-k="' + k + '"><i>' + (k + 1) + '</i><span>' + s + '</span></div>').join('') + '</div>' +
       '<div class="mx-two"><div class="mx-can"><div class="nw-l ok">✅ Что умеет</div><div>' + t.can + '</div></div>' +
         '<div class="mx-cant"><div class="nw-l bad">❌ Чего не умеет в принципе</div><div>' + t.cant + '</div></div></div>' +
       '<div class="note"><b>Почему именно так.</b> ' + t.why + '</div>' +
@@ -7707,7 +7735,34 @@ const CN_NOTES = {
       '<div class="note ok"><b>Когда брать.</b> ' + t.use + '</div>' +
       '<div class="cn-lab">Как пишется</div><pre class="ty-code">' + esc(t.code) + '</pre>' +
       '<div class="hintbox"><b>Полезно знать.</b> ' + t.extra + '</div>';
+  };
+  // --- проигрывание поиска по шагам ---
+  // какая строка схемы подсвечивается на каждом шаге (по типам)
+  const VMAP = {btree:[0,1,2,2], hash:[0,1,2], gin:[0,0,1,2], gist:[0,1,2,2], spgist:[0,1,2,2], brin:[0,1,1,2], bitmap:[0,1,2,2], hnsw:[0,1,2,2], ivf:[0,2,1,2]};
+  let pos = 0, ptimer = null;
+  function paint(){
+    const t = T[[...nav.querySelectorAll('button')].findIndex(b => b.classList.contains('on'))];
+    const hows = main.querySelectorAll('#mx-how .mx-h');
+    hows.forEach((el, k) => { el.classList.toggle('wait', k >= pos); el.classList.toggle('done', k < pos - 1); el.classList.toggle('now', k === pos - 1); });
+    const vm = VMAP[t.k] || [];
+    main.querySelectorAll('#mx-viz .mx-v').forEach((el, k) => el.classList.toggle('on', pos > 0 && vm[pos - 1] === k));
+    const p = main.querySelector('#mx-pos'); if(p) p.textContent = pos + ' / ' + hows.length;
+    const now = hows[pos - 1];
+    if(now && now.scrollIntoView) now.scrollIntoView({block:'nearest', behavior:'smooth'});
   }
+  function stepOnce(){
+    const n = main.querySelectorAll('#mx-how .mx-h').length;
+    if(pos >= n) return false;
+    pos++; paint(); return true;
+  }
+  main.addEventListener('click', e => {
+    const b = e.target.closest('button'); if(!b) return;
+    if(b.id === 'mx-step'){ clearTimeout(ptimer); stepOnce(); }
+    if(b.id === 'mx-play'){ clearTimeout(ptimer); pos = 0; paint(); (function tick(){ if(stepOnce()) ptimer = setTimeout(tick, 1100); })(); }
+    if(b.id === 'mx-again'){ clearTimeout(ptimer); pos = 0; paint(); }
+  });
+  const _show = show;
+  show = function(i){ clearTimeout(ptimer); pos = 0; _show(i); paint(); };
   nav.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(+b.dataset.i); });
   show(0);
 })();
@@ -7950,6 +8005,29 @@ const CN_NOTES = {
   const p = document.getElementById('lec-prog'); if(!p) return;
   const ORDER = ["models", "design", "rel", "links", "norm", "basics", "ddl", "queries", "join", "idx", "mech", "idxp", "idxc", "cons", "tx", "pg", "nosql", "when", "scale", "sandbox", "practice", "y26"], NAMES = {"models": "Какие бывают базы", "design": "Как думать о данных", "rel": "Таблица, строка, ключ", "links": "Виды связей", "norm": "Нормализация и зависимости", "basics": "Основы: типы, NULL, значения", "ddl": "DDL / DML / DQL / DCL / TCL", "queries": "Читаем данные", "join": "Соединяем таблицы", "idx": "Что такое индекс", "mech": "Механика изнутри", "idxp": "Индексы на практике", "idxc": "Цена индексов", "cons": "Ограничения", "tx": "Транзакции и ACID", "pg": "Как работает движок", "nosql": "Нереляционные базы", "when": "Когда что брать", "scale": "Масштаб", "sandbox": "Песочница", "practice": "Задания", "y26": "БД в 2026"};
   p.innerHTML = ORDER.map((t, i) => '<button data-goto="' + t + '" class="go" title="' + NAMES[t] + '">' + (i + 1) + ' · ' + NAMES[t] + '</button>').join('');
+})();
+
+
+/* ================= МЕХАНИКА: какой индекс возьмёт база ================= */
+(function(){
+  const box = document.getElementById('ctq'); if(!box) return;
+  const IX = ['orders_pkey (id)', 'idx_city (city)', 'idx_city_total (city) INCLUDE (total)', 'idx_email (email)'];
+  const Q = [
+    {s:"SELECT * FROM orders WHERE id = 3", use:0, only:false, w:'Условие по <code class=\'inl\'>id</code> — это первичный ключ, под ним есть индекс. Нашли адрес, сходили в таблицу за остальными колонками.'},
+    {s:"SELECT * FROM orders WHERE city = 'Москва'", use:1, only:false, w:'По <code class=\'inl\'>city</code> есть два индекса. Запрос просит <code class=\'inl\'>*</code> — все колонки, в индексах их нет, в таблицу идти всё равно. База возьмёт тот, что меньше: <code class=\'inl\'>idx_city</code>.'},
+    {s:"SELECT city, total FROM orders WHERE city = 'Москва'", use:2, only:true, w:'Запрос просит только <code class=\'inl\'>city</code> и <code class=\'inl\'>total</code> — <b>обе лежат в idx_city_total</b>. В таблицу не заходим: <code class=\'inl\'>Index Only Scan</code>. Вот зачем нужен <code class=\'inl\'>INCLUDE</code>.'},
+    {s:"SELECT * FROM orders WHERE email = 'vera@mail.ru'", use:3, only:false, w:'Есть индекс по <code class=\'inl\'>email</code> — прямое попадание.'},
+    {s:"SELECT * FROM orders WHERE status = 'new'", use:-1, only:false, w:'<b>Ни один не подходит.</b> Колонки <code class=\'inl\'>status</code> нет ни в одном индексе — проверьте по карточкам выше. База прочитает всю таблицу: <code class=\'inl\'>Seq Scan</code>.'},
+    {s:"SELECT * FROM orders WHERE total > 1000", use:-1, only:false, w:'<b>Тоже ни один.</b> <code class=\'inl\'>total</code> есть в idx_city_total — но только в <code class=\'inl\'>INCLUDE</code>, а по INCLUDE-колонкам <b>искать нельзя</b>: они не отсортированы, они просто лежат рядом. Искать можно только по ключевым колонкам индекса.'},
+  ];
+  let sel = -1;
+  function draw(){
+    box.innerHTML = '<div class="ctq-qs">' + Q.map((x, i) => '<button class="ctq-q' + (i === sel ? ' on' : '') + '" data-i="' + i + '"><code>' + esc(x.s) + '</code></button>').join('') + '</div>' +
+      '<div class="ctq-ix">' + IX.map((n, i) => '<div class="ctq-i' + (sel >= 0 ? (Q[sel].use === i ? (Q[sel].only ? ' only' : ' use') : ' no') : '') + '">🔑 ' + esc(n) + (sel >= 0 && Q[sel].use === i ? '<small>' + (Q[sel].only ? 'Index Only Scan' : 'Index Scan') + '</small>' : '') + '</div>').join('') +
+      (sel >= 0 && Q[sel].use < 0 ? '<div class="ctq-i seq">📋 вся таблица<small>Seq Scan</small></div>' : '') + '</div>';
+  }
+  draw();
+  box.addEventListener('click', e => { const b = e.target.closest('.ctq-q'); if(!b) return; sel = +b.dataset.i; draw(); msg(document.getElementById('ctq-msg'), Q[sel].use < 0 ? 'err' : 'ok', Q[sel].w); });
 })();
 
 </script>
