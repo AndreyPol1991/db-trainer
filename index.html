@@ -1179,6 +1179,33 @@
   .sm-table tbody tr:hover td{background:color-mix(in srgb, var(--rel) 6%, transparent)}
   .sm-table tbody tr.on td{background:color-mix(in srgb, var(--rel) 12%, transparent)}
   .sm-t{font:800 12px var(--mono); color:var(--rel); white-space:nowrap}
+
+  .an-head small{display:block; margin-top:3px; font:500 11.5px/1.4 var(--sans); color:var(--muted)}
+  .an-blk{margin-top:12px; border:1px solid var(--line); border-radius:10px; padding:11px 14px; background:var(--surface-2); border-left:3px solid var(--line)}
+  .an-blk > div:last-child{font:500 13px/1.7 var(--sans); color:var(--ink)}
+  .an-l{font:700 10.5px/1.3 var(--sans); letter-spacing:.05em; text-transform:uppercase; margin-bottom:6px}
+  .an-blk.what{border-left-color:var(--rel)} .an-blk.what .an-l{color:var(--rel)}
+  .an-blk.task{border-left-color:var(--graph)} .an-blk.task .an-l{color:var(--graph)}
+  .an-blk.an-anl{border-left-color:var(--doc)} .an-blk.an-anl .an-l{color:var(--doc)}
+  .an-pic{margin-top:8px}
+
+  /* ===== ход занятия ===== */
+  .lec-prog{display:flex; flex-wrap:wrap; gap:4px; margin:12px 0 4px}
+  .lec-prog button{padding:5px 9px; border:1px solid var(--line); border-radius:6px; background:var(--surface-2); font:700 10.5px var(--mono); color:var(--muted); cursor:pointer}
+  .lec-prog button:hover{border-color:var(--graph); color:var(--ink)}
+  .lec-m{border-left:4px solid var(--mc)}
+  .lec-min{margin-left:auto; font:600 11px var(--mono); color:var(--muted)}
+  .lec-intro{font:500 13px/1.7 var(--sans); color:var(--muted); border-left:3px solid var(--line); padding-left:12px; margin:8px 0 14px}
+  .lec-s{display:grid; grid-template-columns:34px 1fr; gap:12px; padding:12px 0; border-top:1px solid var(--line)}
+  .lec-n{width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:var(--mc); color:#fff; font:800 13px var(--mono)}
+  .lec-t{font:800 14px/1.4 var(--sans); color:var(--ink)}
+  .lec-t small{font:600 11px var(--mono); color:var(--muted); margin-left:8px}
+  .lec-th{margin-top:5px; font:500 13px/1.7 var(--sans); color:var(--ink)}
+  .lec-q{margin-top:8px; padding:8px 12px; border-radius:8px; background:color-mix(in srgb, var(--doc) 10%, transparent); font:500 12.5px/1.6 var(--sans); color:var(--ink)}
+  .lec-sh{margin-top:6px; font:500 12px/1.6 var(--sans); color:var(--muted)}
+  .lec-go{margin-top:10px}
+  .nx-card{border-left:4px solid var(--graph)}
+  .nx-card .nx-t{font:600 12.5px/1.6 var(--sans); color:var(--muted); margin-top:4px}
 </style>
 </head>
 <body>
@@ -1189,6 +1216,7 @@
       <p class="sub">Интерактивный тренажёр — потрогай таблицы, связи, документы и графы руками</p>
     </div>
     <nav class="tabs" role="tablist" aria-label="Разделы">
+      <button class="tab" role="tab" aria-selected="false" data-tab="lec" style="--tabcol:var(--graph)"><span class="dot"></span>🎓 Ход занятия</button>
       <button class="tab" role="tab" aria-selected="true" data-tab="models" style="--tabcol:var(--rel)"><span class="dot"></span>Модели</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="design" style="--tabcol:var(--rel)"><span class="dot"></span>Моделирование</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="rel" style="--tabcol:var(--rel)"><span class="dot"></span>Реляционные</button>
@@ -1209,8 +1237,8 @@
       <button class="tab" role="tab" aria-selected="false" data-tab="when" style="--tabcol:var(--graph)"><span class="dot"></span>Когда что</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="scale" style="--tabcol:var(--doc)"><span class="dot"></span>Масштаб</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="sandbox" style="--tabcol:var(--graph)"><span class="dot"></span>Песочница 🎯</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="y26" style="--tabcol:var(--graph)"><span class="dot"></span>БД в 2026 🔮</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="practice" style="--tabcol:var(--graph)"><span class="dot"></span>Практика 🛠</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="y26" style="--tabcol:var(--graph)"><span class="dot"></span>БД в 2026 🔮</button>
     </nav>
   </div>
 </header>
@@ -1218,6 +1246,268 @@
 <main class="wrap">
 
   <!-- ============ МОДЕЛИ ДАННЫХ ============ -->
+  <!-- ============ ХОД ЗАНЯТИЯ ============ -->
+  <section class="panel" id="lec" data-accent="graph" role="tabpanel">
+    <p class="lead">Это <b>сценарий для лектора</b>: в каком порядке идти по тренажёру, что говорить, какой вопрос задать ученикам перед каждой темой и какие карточки показать. Девять модулей, 22 шагов, ориентировочно <b>10 часов</b> чистого времени — на несколько занятий. Кнопка у каждого шага открывает нужную вкладку; внизу каждой вкладки есть «Дальше →», ведущая по этому же маршруту.</p>
+    <div class="lec-prog" id="lec-prog"></div>
+    <div class="card lec-m" style="--mc:var(--graph)">
+      <h2><span class="tag">МОДУЛЬ 1</span> Зачем вообще базы данных <span class="lec-min">30 мин</span></h2>
+      <p class="lec-intro">Начинаем не с SQL, а с вопроса «почему не Excel». Ученик должен уйти с этого модуля с ощущением: база — это про то, чтобы данные не врали и не терялись, когда с ними работают тысячи людей.</p>
+      <div class="lec-s" data-tab="models">
+        <div class="lec-n">1</div>
+        <div class="lec-b">
+          <div class="lec-t">Какие бывают базы <small>15 мин</small></div>
+          <div class="lec-th">Есть не одна «база данных», а несколько семейств, и у каждого своя форма хранения: таблицы, документы, пары ключ-значение, графы. Показываем на одном и том же примере, как одни и те же данные лягут в каждую.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Где вы храните список контактов и что сломается, если контактов станет миллион?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> первую карточку с четырьмя моделями на одном примере; переключайте модели по кнопкам</div>
+          <button class="act go lec-go" data-goto="models">Открыть вкладку →</button>
+        </div>
+      </div>
+      <div class="lec-s" data-tab="design">
+        <div class="lec-n">2</div>
+        <div class="lec-b">
+          <div class="lec-t">Как думать о данных <small>15 мин</small></div>
+          <div class="lec-th">Прежде чем писать хоть одну таблицу — сущности, атрибуты, связи. Это язык, на котором аналитик говорит с разработчиком.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Назовите три сущности в интернет-магазине и одну связь между ними.</div>
+          <div class="lec-sh">👉 <b>Показать:</b> конструктор сущностей; попросите ученика добавить свою</div>
+          <button class="act go lec-go" data-goto="design">Открыть вкладку →</button>
+        </div>
+      </div>
+    </div>
+    <div class="card lec-m" style="--mc:var(--rel)">
+      <h2><span class="tag">МОДУЛЬ 2</span> Реляционная модель <span class="lec-min">70 мин</span></h2>
+      <p class="lec-intro">Ядро курса. Таблицы, ключи, связи и — главное — нормализация. Здесь больше всего непонимания, поэтому идём медленно и через живые примеры с «расползающимися» данными.</p>
+      <div class="lec-s" data-tab="rel">
+        <div class="lec-n">3</div>
+        <div class="lec-b">
+          <div class="lec-t">Таблица, строка, ключ <small>15 мин</small></div>
+          <div class="lec-th">Что такое первичный ключ и почему без него таблица — не таблица, а свалка. Внешний ключ как ссылка между таблицами.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Чем плох email в роли первичного ключа?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> карточку с первичным и внешним ключом; кликните по ссылке, чтобы подсветилась связь</div>
+          <button class="act go lec-go" data-goto="rel">Открыть вкладку →</button>
+        </div>
+      </div>
+      <div class="lec-s" data-tab="links">
+        <div class="lec-n">4</div>
+        <div class="lec-b">
+          <div class="lec-t">Виды связей <small>10 мин</small></div>
+          <div class="lec-th">Один-ко-многим, многие-ко-многим, один-к-одному. Ключевой момент: многие-ко-многим требует третьей таблицы, и это не костыль, а норма.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Студент и курс — какая связь и сколько таблиц понадобится?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> переключатель связей; на «многие-ко-многим» покажите, как появляется таблица-связка</div>
+          <button class="act go lec-go" data-goto="links">Открыть вкладку →</button>
+        </div>
+      </div>
+      <div class="lec-s" data-tab="norm">
+        <div class="lec-n">5</div>
+        <div class="lec-b">
+          <div class="lec-t">Нормализация и зависимости <small>45 мин</small></div>
+          <div class="lec-th">Самый важный и самый трудный модуль. Идём так: сначала показываем таблицу, в которой данные расползлись (аномалии), потом вводим зависимости, потом по одной нормальной форме. «Частичная» — от слова ЧАСТЬ ключа. «Транзитивная» — через посредника.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> В таблице заказов хранится и телефон клиента. Что произойдёт, когда клиент сменит телефон?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> детектор зависимостей (введите пару колонок, покажите контрпример), затем карточку про частичную — кликайте по столбцам, затем транзит-визуализацию с разрывом цепочки, затем формы по одной</div>
+          <button class="act go lec-go" data-goto="norm">Открыть вкладку →</button>
+        </div>
+      </div>
+    </div>
+    <div class="card lec-m" style="--mc:var(--rel)">
+      <h2><span class="tag">МОДУЛЬ 3</span> Язык SQL <span class="lec-min">90 мин</span></h2>
+      <p class="lec-intro">Теперь у нас есть правильная схема — научимся с ней разговаривать. Пять семей команд, потом чтение данных, потом соединение таблиц.</p>
+      <div class="lec-s" data-tab="basics">
+        <div class="lec-n">6</div>
+        <div class="lec-b">
+          <div class="lec-t">Основы: типы, NULL, значения <small>25 мин</small></div>
+          <div class="lec-th">Какие бывают типы данных и почему NUMERIC для денег, а TIMESTAMPTZ для времени. NULL — это «неизвестно», и он ломает сравнения.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Чему равно NULL = NULL?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> карточку с типами по одному (15 типов) и пары «что с чем путают»; блок про NULL с кликабельными выражениями</div>
+          <button class="act go lec-go" data-goto="basics">Открыть вкладку →</button>
+        </div>
+      </div>
+      <div class="lec-s" data-tab="ddl">
+        <div class="lec-n">7</div>
+        <div class="lec-b">
+          <div class="lec-t">DDL / DML / DQL / DCL / TCL <small>25 мин</small></div>
+          <div class="lec-th">Пять семей команд. Не заучивать аббревиатуры, а понять: одни меняют структуру, другие данные, третьи читают, четвёртые про права, пятые про транзакции.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> DELETE и DROP — оба удаляют. В чём разница?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> семьи SQL по вкладкам: у каждой команды видно таблицу до и после</div>
+          <button class="act go lec-go" data-goto="ddl">Открыть вкладку →</button>
+        </div>
+      </div>
+      <div class="lec-s" data-tab="queries">
+        <div class="lec-n">8</div>
+        <div class="lec-b">
+          <div class="lec-t">Читаем данные <small>20 мин</small></div>
+          <div class="lec-th">SELECT, WHERE, ORDER BY, GROUP BY. Порядок выполнения не совпадает с порядком написания — это важно проговорить.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Почему нельзя написать WHERE count(*) &gt; 5?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> конструктор запроса; собирайте по одному слову и смотрите результат</div>
+          <button class="act go lec-go" data-goto="queries">Открыть вкладку →</button>
+        </div>
+      </div>
+      <div class="lec-s" data-tab="join">
+        <div class="lec-n">9</div>
+        <div class="lec-b">
+          <div class="lec-t">Соединяем таблицы <small>20 мин</small></div>
+          <div class="lec-th">INNER, LEFT, RIGHT, FULL. Показываем на двух маленьких таблицах, чтобы было видно каждую строку результата.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Клиент без заказов — в каком JOIN он останется?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> переключатель видов JOIN с подсветкой строк результата</div>
+          <button class="act go lec-go" data-goto="join">Открыть вкладку →</button>
+        </div>
+      </div>
+    </div>
+    <div class="card lec-m" style="--mc:var(--rel)">
+      <h2><span class="tag">МОДУЛЬ 4</span> Скорость: индексы <span class="lec-min">145 мин</span></h2>
+      <p class="lec-intro">Четыре вкладки, читаются подряд. Первая — почувствовать и понять через аналогии. Вторая — как устроено изнутри. Третья — рабочие инструменты. Четвёртая — цена. На первом занятии можно ограничиться первой и четвёртой.</p>
+      <div class="lec-s" data-tab="idx">
+        <div class="lec-n">10</div>
+        <div class="lec-b">
+          <div class="lec-t">Что такое индекс <small>40 мин</small></div>
+          <div class="lec-th">Сначала дать почувствовать: ищем перебором и по индексу, считаем шаги. Потом аналогия с библиотекой: полки — это таблица, каталожный ящик — индекс. Потом спуск по дереву своими глазами и виды индексов через бытовые предметы.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Как вы ищете слово в бумажном словаре — с первой страницы?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> SEARCH (перебор против индекса), библиотеку (оба способа поиска), спуск по B-дереву по шагам, виды индексов — B-tree и GiST как минимум</div>
+          <button class="act go lec-go" data-goto="idx">Открыть вкладку →</button>
+        </div>
+      </div>
+      <div class="lec-s" data-tab="mech">
+        <div class="lec-n">11</div>
+        <div class="lec-b">
+          <div class="lec-t">Механика изнутри <small>40 мин</small></div>
+          <div class="lec-th">Для сильной группы или второго занятия. Что физически лежит в индексе (ctid), откуда скорость (ветвление), каждый тип по шагам.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Индекс по city — поможет ли запросу по email?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> «Что внутри» — кликните строку таблицы; ползунок ветвления; два-три типа из девяти</div>
+          <button class="act go lec-go" data-goto="mech">Открыть вкладку →</button>
+        </div>
+      </div>
+      <div class="lec-s" data-tab="idxp">
+        <div class="lec-n">12</div>
+        <div class="lec-b">
+          <div class="lec-t">Индексы на практике <small>35 мин</small></div>
+          <div class="lec-th">EXPLAIN — главный инструмент. Показываем, как план меняется от включения индекса. Потом почему индекс иногда молча не работает.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Индекс есть, а запрос медленный. С чего начнёте?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> живой EXPLAIN (включайте индексы, смотрите план), ползунок селективности, левый префикс, «шесть причин не сработал»</div>
+          <button class="act go lec-go" data-goto="idxp">Открыть вкладку →</button>
+        </div>
+      </div>
+      <div class="lec-s" data-tab="idxc">
+        <div class="lec-n">13</div>
+        <div class="lec-b">
+          <div class="lec-t">Цена индексов <small>30 мин</small></div>
+          <div class="lec-th">Почему не навесить на всё подряд — с цифрами. Одна вставка по шагам, UPDATE дороже INSERT, разбор инцидента.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Что произойдёт с вставкой, если на таблице 12 индексов?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> физику вставки (переключите 0 → 8 индексов), HOT-update, анализатор лишних, разбор кейса по шагам</div>
+          <button class="act go lec-go" data-goto="idxc">Открыть вкладку →</button>
+        </div>
+      </div>
+    </div>
+    <div class="card lec-m" style="--mc:var(--rel)">
+      <h2><span class="tag">МОДУЛЬ 5</span> Целостность: ограничения <span class="lec-min">40 мин</span></h2>
+      <p class="lec-intro">Как заставить базу саму защищать данные. Связка с нормализацией: там мы убрали дубли, здесь запрещаем мусор.</p>
+      <div class="lec-s" data-tab="cons">
+        <div class="lec-n">14</div>
+        <div class="lec-b">
+          <div class="lec-t">Ограничения <small>40 мин</small></div>
+          <div class="lec-th">Начинаем с «код против базы»: проверка в приложении обходится четырьмя путями, ограничение в базе — ни одним. Потом восемь видов по одному с разбором кода по строкам. Потом конструктор — включай ограничения и пробуй сломать.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Где должна жить проверка «цена не отрицательная» — в коде или в базе?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> «код против базы» (все четыре пути), восемь видов (кликайте строки кода), конструктор, ON DELETE с удалением клиента</div>
+          <button class="act go lec-go" data-goto="cons">Открыть вкладку →</button>
+        </div>
+      </div>
+    </div>
+    <div class="card lec-m" style="--mc:var(--rel)">
+      <h2><span class="tag">МОДУЛЬ 6</span> Надёжность: транзакции и движок <span class="lec-min">70 мин</span></h2>
+      <p class="lec-intro">Что бережёт данные, когда выключили свет или тысяча человек пишет одновременно. ACID по буквам, потом как это устроено внутри PostgreSQL.</p>
+      <div class="lec-s" data-tab="tx">
+        <div class="lec-n">15</div>
+        <div class="lec-b">
+          <div class="lec-t">Транзакции и ACID <small>30 мин</small></div>
+          <div class="lec-th">Каждая буква — отдельный опыт: сломать перевод посередине, увидеть грязное чтение, потерять данные без журнала.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Перевод денег: списали с одного счёта, и тут упал сервер. Что должно произойти?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> ACID по буквам — у каждой кнопки-опыты; обязательно A (сбой посередине) и I (два клиента одновременно)</div>
+          <button class="act go lec-go" data-goto="tx">Открыть вкладку →</button>
+        </div>
+      </div>
+      <div class="lec-s" data-tab="pg">
+        <div class="lec-n">16</div>
+        <div class="lec-b">
+          <div class="lec-t">Как работает движок <small>40 мин</small></div>
+          <div class="lec-th">Путь запроса: парсер → планировщик → исполнитель. Страница 8 КБ. MVCC — версии строк вместо блокировок. WAL — журнал, который переживает выключение света.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Один читает отчёт 10 минут, другой в это время меняет данные. Что увидит первый?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> главы движка по порядку; схему страницы; MVCC-интерактив — T1 читает, T2 обновляет и фиксирует, T1 читает снова</div>
+          <button class="act go lec-go" data-goto="pg">Открыть вкладку →</button>
+        </div>
+      </div>
+    </div>
+    <div class="card lec-m" style="--mc:var(--doc)">
+      <h2><span class="tag">МОДУЛЬ 7</span> Альтернативы и масштаб <span class="lec-min">55 мин</span></h2>
+      <p class="lec-intro">Реляционная модель — не единственная. Когда брать документную, графовую, ключ-значение — и когда одного сервера мало.</p>
+      <div class="lec-s" data-tab="nosql">
+        <div class="lec-n">17</div>
+        <div class="lec-b">
+          <div class="lec-t">Нереляционные базы <small>20 мин</small></div>
+          <div class="lec-th">Документы, ключ-значение, графы. Не «лучше или хуже», а «под какую задачу».</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Профиль пользователя с произвольным набором полей — таблица или документ?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> три модели на одном примере</div>
+          <button class="act go lec-go" data-goto="nosql">Открыть вкладку →</button>
+        </div>
+      </div>
+      <div class="lec-s" data-tab="when">
+        <div class="lec-n">18</div>
+        <div class="lec-b">
+          <div class="lec-t">Когда что брать <small>15 мин</small></div>
+          <div class="lec-th">Правило 2026: берите PostgreSQL, пока не появится доказанная причина взять что-то ещё.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Стартап, MVP за выходные. Какую базу?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> матрицу выбора</div>
+          <button class="act go lec-go" data-goto="when">Открыть вкладку →</button>
+        </div>
+      </div>
+      <div class="lec-s" data-tab="scale">
+        <div class="lec-n">19</div>
+        <div class="lec-b">
+          <div class="lec-t">Масштаб <small>20 мин</small></div>
+          <div class="lec-th">Репликация, шардирование, кэш. Когда это нужно, а когда «300 запросов в секунду» — это мало.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Отчёт аналитика вешает базу приложения. Индексов добавить?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> схему репликации и шардирования</div>
+          <button class="act go lec-go" data-goto="scale">Открыть вкладку →</button>
+        </div>
+      </div>
+    </div>
+    <div class="card lec-m" style="--mc:var(--graph)">
+      <h2><span class="tag">МОДУЛЬ 8</span> Практика <span class="lec-min">60 мин</span></h2>
+      <p class="lec-intro">Всё, что было выше, — руками. Песочница для свободных экспериментов, практика — задания с проверкой.</p>
+      <div class="lec-s" data-tab="sandbox">
+        <div class="lec-n">20</div>
+        <div class="lec-b">
+          <div class="lec-t">Песочница <small>20 мин</small></div>
+          <div class="lec-th">Свободный SQL на встроенной базе. Дайте ученикам 15 минут просто поиграть.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Попробуйте удалить клиента, у которого есть заказы. Что скажет база?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> редактор запросов</div>
+          <button class="act go lec-go" data-goto="sandbox">Открыть вкладку →</button>
+        </div>
+      </div>
+      <div class="lec-s" data-tab="practice">
+        <div class="lec-n">21</div>
+        <div class="lec-b">
+          <div class="lec-t">Задания <small>40 мин</small></div>
+          <div class="lec-th">Задачи с проверкой: спроектировать, нормализовать, написать запрос.</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> —</div>
+          <div class="lec-sh">👉 <b>Показать:</b> задания по порядку</div>
+          <button class="act go lec-go" data-goto="practice">Открыть вкладку →</button>
+        </div>
+      </div>
+    </div>
+    <div class="card lec-m" style="--mc:var(--graph)">
+      <h2><span class="tag">МОДУЛЬ 9</span> Что изменилось к 2026 <span class="lec-min">30 мин</span></h2>
+      <p class="lec-intro">Эпилог. Что появилось нового и — важнее — что не изменилось. Чтобы ученик не решил, что нормализация и ACID устарели.</p>
+      <div class="lec-s" data-tab="y26">
+        <div class="lec-n">22</div>
+        <div class="lec-b">
+          <div class="lec-t">БД в 2026 <small>30 мин</small></div>
+          <div class="lec-th">Одна база вместо пяти, поиск по смыслу, ветки базы, строки против колонок. И блок «что не изменилось».</div>
+          <div class="lec-q">❓ <b>Вопрос ученикам:</b> Нужна ли вам отдельная векторная база на 200 тысяч товаров?</div>
+          <div class="lec-sh">👉 <b>Показать:</b> конструктор стека, LIKE против векторного поиска, ветки базы, «что не изменилось», квиз «модно или нужно»</div>
+          <button class="act go lec-go" data-goto="y26">Открыть вкладку →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="panel active" id="models" data-accent="rel" role="tabpanel">
     <p class="lead"><b>Модель данных</b> — одно из главных понятий теории БД. Она задаёт, <b>как данные организованы</b> и <b>как к ним обращаться</b>. Моделей несколько — вот основные. (<b>NoSQL</b> = <i>Not Only SQL</i> — «не только SQL», а не «без SQL».)</p>
 
@@ -1324,6 +1614,8 @@
         </tbody>
       </table></div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 2 · Как думать о данных</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="design">Перейти →</button></div></div>
   </section>
 
   <!-- ============ МОДЕЛИРОВАНИЕ ============ -->
@@ -1348,6 +1640,8 @@
         <div class="rung" style="--rc:var(--rel)"><b>Физическая</b> — типы данных, индексы, DDL под конкретную СУБД. Отвечает: <b>ЧЕМ</b> реализуем.</div>
       </div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 3 · Таблица, строка, ключ</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="rel">Перейти →</button></div></div>
   </section>
 
   <!-- ============ РЕЛЯЦИОННЫЕ ============ -->
@@ -1417,6 +1711,8 @@
 FROM orders o JOIN users u ON o.user_id = u.id;</pre>
       <div class="table-wrap" id="join-result" hidden style="margin-top:12px"></div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 4 · Виды связей</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="links">Перейти →</button></div></div>
   </section>
 
   <!-- ============ ВИДЫ СВЯЗЕЙ ============ -->
@@ -1456,6 +1752,8 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
       </div>
       <div class="note">Запомни этот порядок — он объясняет большинство «странностей» SQL. Алиасы из SELECT видны только в ORDER BY; агрегаты появляются лишь начиная с HAVING.</div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 9 · Соединяем таблицы</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="join">Перейти →</button></div></div>
   </section>
 
   <!-- ============ JOIN ============ -->
@@ -1485,6 +1783,8 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
       <div class="table-wrap" id="join-res" style="margin-top:12px"></div>
       <div class="graph-info" id="join-info" style="margin-top:10px"></div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 10 · Что такое индекс</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="idx">Перейти →</button></div></div>
   </section>
 
   <!-- ============ ВИДЫ СВЯЗЕЙ ============ -->
@@ -1555,6 +1855,8 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
       <div id="erb"></div>
       <div class="console" id="erb-msg" style="margin-top:14px" aria-live="polite">Определи тип связи для первой пары.</div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 5 · Нормализация и зависимости</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="norm">Перейти →</button></div></div>
   </section>
 
   <!-- ============ НОРМАЛИЗАЦИЯ ============ -->
@@ -1714,6 +2016,8 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
       <div class="console" id="nanom-msg" aria-live="polite">Выбери аномалию и нажми действие — покажу на плоской таблице, что ломается.</div>
       <div class="note">В 3НФ (см. «Нормализуй сам» выше) каждый факт хранится в одном месте — поэтому все три аномалии исчезают.</div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 6 · Основы: типы, NULL, значения</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="basics">Перейти →</button></div></div>
   </section>
 
   <!-- ============ ИНДЕКСЫ ============ -->
@@ -1798,8 +2102,9 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
 
 
     <div class="card">
-      <h2><span class="tag">БЫТОВЫЕ АНАЛОГИИ 🏠</span> шесть видов индексов — на понятных вещах</h2>
-      <p>Выше в этой вкладке типы перечислены формально. Здесь то же самое, но через предметы, которые вы видели. Кликайте.</p>
+      <h2><span class="tag">ВИДЫ 🏠</span> почему индексов несколько видов и чем они отличаются</h2>
+      <p><b>Сначала главное: зачем видов вообще много?</b> Потому что «найти» бывает разным. Найти человека по фамилии, найти кофейню в двух километрах, найти статью со словом «транзакция», найти события за прошлые сутки — это <b>четыре разные задачи</b>, и одна структура данных не может решать их все хорошо. Поэтому в PostgreSQL несколько видов индексов, и каждый заточен под свой род вопросов.</p>
+      <p>Ниже шесть основных. Для каждого: <b>что это, какую житейскую задачу решает, аналогия из жизни</b> и когда его брать. Начните с B-tree — он покрывает почти всё.</p>
       <div class="graph-tools" id="an-tabs"></div>
       <div id="an-body"></div>
     </div>
@@ -1837,7 +2142,7 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
 
 
 
-    <div class="card"><h2><span class="tag">ДАЛЬШЕ →</span> Механика ⚙️ — как устроен каждый тип индекса изнутри</h2><div class="form-row" style="margin-top:10px"><button class="ghost go" data-goto="mech">Перейти →</button></div></div>
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 11 · Механика изнутри</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="mech">Перейти →</button></div></div>
   </section>
 
   <!-- ============ МЕХАНИКА ИНДЕКСОВ ============ -->
@@ -1902,7 +2207,7 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
       <div id="mq-list"></div>
     </div>
 
-    <div class="card"><h2><span class="tag">ДАЛЬШЕ →</span> Индексы · практика — EXPLAIN, почему не сработал, порядок колонок</h2><div class="form-row" style="margin-top:10px"><button class="ghost go" data-goto="idxp">Перейти →</button></div></div>
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 12 · Индексы на практике</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="idxp">Перейти →</button></div></div>
   </section>
 
   <section class="panel" id="idxp" data-accent="rel" role="tabpanel">
@@ -2079,7 +2384,7 @@ CREATE INDEX idx_lower_email ON users (LOWER(email));</pre>
 
 
 
-    <div class="card"><h2><span class="tag">ДАЛЬШЕ →</span> Цена индексов — сколько стоит один лишний, с цифрами</h2><div class="form-row" style="margin-top:10px"><button class="ghost go" data-goto="idxc">Перейти →</button></div></div>
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 13 · Цена индексов</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="idxc">Перейти →</button></div></div>
   </section>
 
   <section class="panel" id="idxc" data-accent="rel" role="tabpanel">
@@ -2182,6 +2487,8 @@ CREATE INDEX idx_lower_email ON users (LOWER(email));</pre>
     </div>
 
 
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 14 · Ограничения</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="cons">Перейти →</button></div></div>
   </section>
 
   <!-- ============ ОГРАНИЧЕНИЯ ============ -->
@@ -2267,6 +2574,8 @@ CREATE INDEX idx_lower_email ON users (LOWER(email));</pre>
       <p>Требование от бизнеса — выберите, чем его закрыть в базе.</p>
       <div id="cq-list"></div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 15 · Транзакции и ACID</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="tx">Перейти →</button></div></div>
   </section>
 
 
@@ -2379,6 +2688,8 @@ CREATE INDEX idx_lower_email ON users (LOWER(email));</pre>
         <div class="anom"><div class="t">Транзакции — «всё или ничего»</div><p>Группа изменений применяется целиком (COMMIT) или откатывается полностью (ROLLBACK). На этом держатся денежные переводы.</p></div>
       </div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 17 · Нереляционные базы</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="nosql">Перейти →</button></div></div>
   </section>
 
   <!-- ============ ТРАНЗАКЦИИ ============ -->
@@ -2467,6 +2778,8 @@ CREATE INDEX idx_lower_email ON users (LOWER(email));</pre>
       </table></div>
       <div class="note">В PostgreSQL по умолчанию <b>Read Committed</b>. Serializable — самый строгий: как будто транзакции идут строго по очереди (но дороже по производительности).</div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 16 · Как работает движок</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="pg">Перейти →</button></div></div>
   </section>
 
   <!-- ============ DDL / SQL ============ -->
@@ -2544,6 +2857,8 @@ ALTER TABLE users ADD CONSTRAINT uq_email UNIQUE (email);</pre>
       <p>Требование из жизни — а ты решаешь, <b>что применить</b>: ключ, ограничение или индекс. После ответа покажу готовый SQL и объясню, почему именно это.</p>
       <div class="quiz" id="cn-list"></div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 8 · Читаем данные</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="queries">Перейти →</button></div></div>
   </section>
 
   <!-- ============ ОСНОВЫ ============ -->
@@ -2639,6 +2954,8 @@ ALTER TABLE users ADD CONSTRAINT uq_email UNIQUE (email);</pre>
       </div>
       <div class="note"><b>Правило:</b> по умолчанию нормализуй; денормализуй только когда упёрся в скорость чтения и <b>измерил</b>, что JOIN — узкое место. Читать быстрее ↔ писать сложнее.</div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 7 · DDL / DML / DQL / DCL / TCL</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="ddl">Перейти →</button></div></div>
   </section>
 
   <!-- ============ НЕРЕЛЯЦИОННЫЕ ============ -->
@@ -2707,6 +3024,8 @@ ALTER TABLE users ADD CONSTRAINT uq_email UNIQUE (email);</pre>
       <div class="graph-wrap"><svg id="graph" viewBox="0 0 600 380" aria-label="граф социальной сети"></svg></div>
       <div class="graph-info" id="g-info">Кликни человека — подсветятся его друзья. Узлы можно перетаскивать.</div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 18 · Когда что брать</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="when">Перейти →</button></div></div>
   </section>
 
   <!-- ============ КОГДА ЧТО ============ -->
@@ -2829,6 +3148,8 @@ ALTER TABLE users ADD CONSTRAINT uq_email UNIQUE (email);</pre>
       <div class="case" data-c="rel"><div class="q">Отчёт «выручка по месяцам и категориям»</div><div class="a">→ Реляционная</div><p>Группировки и агрегаты по таблицам — сильная сторона SQL.</p></div>
     </div>
 
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 19 · Масштаб</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="scale">Перейти →</button></div></div>
   </section>
 
   <!-- ============ МАСШТАБ ============ -->
@@ -2868,6 +3189,8 @@ ALTER TABLE users ADD CONSTRAINT uq_email UNIQUE (email);</pre>
       </div>
       <div class="note">Вертикальное масштабирование — «сервер побольше». Горизонтальное (репликация / шардирование / партиции) — «серверов побольше». В крупных системах используют всё сразу.</div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 20 · Песочница</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="sandbox">Перейти →</button></div></div>
   </section>
 
   <!-- ============ ПЕСОЧНИЦА ============ -->
@@ -2875,6 +3198,8 @@ ALTER TABLE users ADD CONSTRAINT uq_email UNIQUE (email);</pre>
     <p class="lead">Теперь наоборот: даю ситуацию — ты <b>предполагаешь, что добавить или выбрать</b>. Четыре кейса, ~30 вопросов с вариантами ответов. Не уверен — жми «Подсказка». После ответа объясню, почему так. Это тренирует главное: увидеть проблему и подобрать под неё инструмент.</p>
     <div class="score" id="q-score"></div>
     <div id="quiz-root"></div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 21 · Задания</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="practice">Перейти →</button></div></div>
   </section>
 
   <!-- ============ ПРАКТИКА ============ -->
@@ -2974,6 +3299,8 @@ ALTER TABLE users ADD CONSTRAINT uq_email UNIQUE (email);</pre>
       <p>Реальные ситуации. Выберите решение — и посмотрите, что бы выбрал человек с опытом.</p>
       <div id="y26q-list"></div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> вернуться к сценарию занятия</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="lec">Перейти →</button></div></div>
   </section>
 
   <section class="panel" id="practice" data-accent="graph" role="tabpanel">
@@ -3033,6 +3360,8 @@ ALTER TABLE users ADD CONSTRAINT uq_email UNIQUE (email);</pre>
       <div class="form-row" style="margin-top:12px"><button class="act" id="fix-check">Проверить</button></div>
       <div class="console" id="fix-msg">Отметь нужные исправления и жми «Проверить».</div>
     </div>
+
+    <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 22 · БД в 2026</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="y26">Перейти →</button></div></div>
   </section>
 
   <p class="footer">Тренажёр работает целиком в браузере, данные нигде не сохраняются — обнови страницу, чтобы начать заново.</p>
@@ -7029,47 +7358,80 @@ const CN_NOTES = {
   const tabs = document.getElementById('an-tabs'); if(!tabs) return;
   const body = document.getElementById('an-body');
   const A = [
-    {n:'B-tree', ico:'📖', an:'Телефонный справочник',
+    {n:'B-tree', ico:'📖', an:'телефонный справочник', full:'Balanced Tree — «сбалансированное дерево»',
+     what:'Индекс, в котором значения хранятся <b>в отсортированном порядке</b>. Это тип по умолчанию: если вы написали <code class="inl">CREATE INDEX</code> и ничего больше не указали, получится именно B-tree. <b>Так сделаны 95 % всех индексов в реальных базах.</b>',
+     task:'Обычные повседневные задачи: найти пользователя по email, заказы клиента, заказы за март, отсортировать по дате, взять самый дорогой заказ.',
+     picw:'Что показывает схема: слева — <b>значение колонки</b>, справа — <b>где лежит строка</b>. Записи отсортированы по значению, как фамилии в справочнике.',
      pic:[['Абрамов А.','стр. 1'],['Борисов Б.','стр. 12'],['Иванов И.','стр. 88'],['Петров П.','стр. 140'],['Яковлев Я.','стр. 302']],
      w:'Всё отсортировано по фамилии. Можно найти конкретного человека, а можно и <b>всех от «И» до «П»</b> — просто читая подряд с нужного места. Именно поэтому B-tree умеет и <code class="inl">=</code>, и <code class="inl">&gt;</code>, и <code class="inl">BETWEEN</code>, и <code class="inl">ORDER BY</code>, и <code class="inl">LIKE \'Иван%\'</code>.',
-     no:'А вот найти всех, у кого <b>в середине</b> фамилии «нов», справочник не поможет: такие фамилии разбросаны по всей книге. Это <code class="inl">LIKE \'%нов%\'</code>, и B-tree тут бессилен.',
-     use:'Значение по умолчанию. 95 % индексов в реальных базах — это B-tree, и обычно ничего другого не нужно.'},
-    {n:'Hash', ico:'🎫', an:'Гардероб с номерками',
+     no:'Найти всех, у кого «нов» <b>в середине</b> фамилии, справочник не поможет: такие фамилии разбросаны по всей книге. Это <code class="inl">LIKE \'%нов%\'</code> — и вот здесь понадобится GIN.',
+     use:'<b>По умолчанию. Если не знаете, какой брать — берите этот.</b> Он же создаётся автоматически под <code class="inl">PRIMARY KEY</code> и <code class="inl">UNIQUE</code>, отдельно их индексировать не надо.',
+     code:'CREATE INDEX ON users (email);   -- это и есть B-tree'},
+
+    {n:'Hash', ico:'🎫', an:'гардероб с номерками', full:'Hash — «хеш», от функции, которая превращает значение в число',
+     what:'Индекс, который <b>не ищет, а вычисляет</b>. Специальная функция превращает значение в число, и это число <b>сразу указывает</b>, где лежит строка. Никакого перебора и никакого спуска по дереву.',
+     task:'Ровно одна задача: найти строку по <b>точному</b> значению. Например, страницу по её полному адресу (URL).',
+     picw:'Что показывает схема: номерок — это <b>значение</b>, крючок — <b>место</b>. Номер не надо искать: он <b>сам</b> и есть адрес.',
      pic:[['номерок 417','крючок 417'],['номерок 418','крючок 418'],['номерок 419','крючок 419']],
-     w:'Отдали номерок — гардеробщик <b>сразу</b> идёт к нужному крючку. Не ищет, не сравнивает, не перебирает: номер <b>сам указывает</b> место. Хеш-функция работает точно так же — превращает значение в адрес.',
-     no:'Спросите гардеробщика: «дайте все куртки с номерками от 400 до 500» — и он пойдёт перебирать всё. Номерки не отсортированы, между ними нет порядка. Поэтому Hash умеет <b>только <code class="inl">=</code></b>: ни диапазонов, ни сортировки, ни префикса.',
-     use:'Только когда по колонке ищут исключительно на точное равенство и она длинная (например, хеш от URL). На практике берут редко: B-tree делает то же самое и умеет больше, а выигрыш небольшой.'},
-    {n:'GIN', ico:'🔖', an:'Предметный указатель в конце учебника',
+     w:'Отдали номерок — гардеробщик <b>сразу</b> идёт к нужному крючку. Не ищет, не сравнивает, не перебирает.',
+     no:'Спросите гардеробщика: «дайте все куртки с номерками от 400 до 500» — и он пойдёт перебирать всё подряд. Номерки <b>не отсортированы</b>, между ними нет порядка. Поэтому Hash умеет <b>только <code class="inl">=</code></b>: ни диапазонов, ни сортировки, ни поиска по началу слова.',
+     use:'<b>Почти никогда.</b> B-tree делает то же самое и умеет больше, а выигрыш небольшой. Реальный случай один: очень длинные значения (например URL), по которым ищут строго на равенство — от них хеш короткий, и индекс выходит существенно меньше.',
+     code:"CREATE INDEX ON pages USING hash (url);"},
+
+    {n:'GIN', ico:'🔖', an:'предметный указатель в конце учебника', full:'Generalized Inverted Index — «обобщённый инвертированный индекс»',
+     what:'Индекс для случая, когда <b>в одной ячейке лежит много значений</b>. В тексте статьи — много слов. В массиве тегов — много тегов. В JSON-документе — много полей. Обычный индекс так не умеет: он рассчитан на «одна ячейка = одно значение».',
+     task:'Поиск по тексту («найди статьи, где встречается слово „транзакция“»), поиск по тегам, поиск внутри JSON — и <b>поиск по части слова</b>: ввели «беспровод», нашли «беспроводные наушники».',
+     picw:'Что показывает схема: слева — <b>слово</b>, справа — <b>список всех страниц</b>, где оно встречается. Обратите внимание: не одна страница, а список — в этом весь смысл.',
      pic:[['«транзакция»','стр. 12, 45, 88, 210'],['«индекс»','стр. 30, 31, 156'],['«NULL»','стр. 8, 99']],
-     w:'Ключевое отличие: <b>против одного слова стоит СПИСОК страниц</b>. Обычный индекс отвечает «значение → одна строка», а GIN — «одно значение → много строк». Поэтому его называют <b>инвертированным</b>.',
-     no:'Пишется медленно: добавили одну статью — надо дописать её номер к десяткам слов в указателе. Поэтому GIN тяжелее B-tree при вставке, зато у него есть отложенная запись (список ожидания), которая это сглаживает.',
-     use:'Ровно там, где в <b>одной ячейке лежит много значений</b>: полнотекстовый поиск (в тексте много слов), массивы, JSONB, теги. И поиск по подстроке через <code class="inl">pg_trgm</code> — тот самый случай <code class="inl">LIKE \'%нов%\'</code>, с которым B-tree не справился.'},
-    {n:'GiST', ico:'🗺', an:'Карта с квадратами',
+     w:'Ключевое отличие от всех остальных: <b>против одного слова стоит СПИСОК страниц</b>. Обычный индекс отвечает «значение → одна строка», а GIN — «одно значение → много строк». Поэтому его называют <b>инвертированным</b>: он перевёрнут, идёт от слова к документам, а не от документа к словам.',
+     no:'Не умеет диапазоны и сортировку — он не про порядок, а про принадлежность. Для <code class="inl">ORDER BY</code> бесполезен. И пишется медленнее B-tree: добавили статью — надо дописать её номер к десяткам слов в указателе.',
+     use:'Всегда, когда в <b>одной ячейке много значений</b>: текст, массив, JSON, теги. И для поиска по части слова — через расширение <code class="inl">pg_trgm</code>, которое режет текст на трёхбуквенные кусочки и делает каждый кусочек «словом» в указателе. Это единственный способ ускорить <code class="inl">LIKE \'%нов%\'</code>.',
+     code:"-- поиск по словам в тексте\nCREATE INDEX ON articles USING gin (to_tsvector('russian', body));\n\n-- поиск по части слова\nCREATE EXTENSION pg_trgm;\nCREATE INDEX ON users USING gin (name gin_trgm_ops);"},
+
+    {n:'GiST', ico:'🗺', an:'карта, разбитая на квадраты', full:'Generalized Search Tree — «обобщённое поисковое дерево»',
+     what:'Индекс для данных, у которых <b>нет однозначного порядка</b>. Точку на карте нельзя назвать «больше» или «меньше» другой точки — а значит отсортировать их, как фамилии в справочнике, невозможно. То же с отрезками времени: «с 10 до 12» не больше и не меньше, чем «с 11 до 13», они <b>пересекаются</b>.<br><br>GiST придуман, чтобы отвечать на вопросы <b>другого рода</b>: не «равно ли», а «пересекается ли», «содержит ли», «что рядом».',
+     task:'Две главные, и обе очень житейские:<br><br><b>1. «Найди кофейни в двух километрах от меня»</b> — поиск по географии. На этом построен PostGIS, которым пользуются все карты и доставки.<br><br><b>2. «Не дай забронировать переговорку на пересекающееся время»</b> — работа с отрезками времени. Именно GiST лежит под ограничением <code class="inl">EXCLUDE</code>, разобранным на вкладке «Ограничения».',
+     picw:'Что показывает схема: карту города поделили на квадраты, и для каждого квадрата запомнили, <b>что в нём находится</b>. Слева — квадрат, справа — что внутри.',
      pic:[['квадрат A1','кафе, парк, метро'],['квадрат A2','школа, аптека'],['квадрат B1','вокзал, почта']],
-     w:'Карту делят на квадраты, квадраты — на квадраты помельче. Ищете кафе рядом с собой — смотрите свой квадрат и соседние, а не всю карту. Отсюда умение отвечать на вопросы, которых у B-tree нет: <b>«пересекается», «содержит», «ближайшие»</b>.',
-     no:'Точное «дай мне ровно эту точку» GiST делает медленнее, чем B-tree: он для приблизительной геометрии, а не для равенства чисел.',
-     use:'Геоданные (это основа PostGIS: «найди в радиусе 2 км»), <b>диапазоны</b> — и вместе с ними ограничение <code class="inl">EXCLUDE</code> для запрета пересечения интервалов, которое разобрано на вкладке «Ограничения».'},
-    {n:'BRIN', ico:'📑', an:'Корешки томов энциклопедии',
-     pic:[['том 1','А — Га'],['том 2','Гб — Ко'],['том 3','Кп — Ся'],['том 4','Т — Я']],
-     w:'На корешке написано <b>только «от» и «до»</b> — что внутри, не перечислено. Ищете «Пушкин» — берёте том 3 и листаете его целиком. Указатель получается крошечный: четыре надписи на всю энциклопедию.',
-     no:'<b>Работает только если данные физически лежат по порядку.</b> Перемешайте статьи по томам случайно — и надписи на корешках станут бессмысленными: в каждом томе окажется «А — Я». Именно это происходит с BRIN на колонке, значения которой вставляются вразнобой.',
-     use:'Огромные таблицы, где новые строки всегда <b>дописываются в конец по возрастанию</b>: логи, метрики, события по дате. Там BRIN даёт индекс в тысячи раз меньше B-tree при почти той же пользе.'},
-    {n:'Bitmap', ico:'☑️', an:'Чек-лист «кто пришёл»',
-     pic:[['Москва','1 0 0 1 1 0 1 0'],['Казань','0 1 0 0 0 1 0 0'],['Пермь','0 0 1 0 0 0 0 1']],
-     w:'На каждое значение — <b>строка из галочек</b>: единица, если строка подходит, ноль, если нет. Гениально то, что такие строки можно <b>складывать логически</b>: «Москва И статус=новый» — это побитовое И двух строк, одна операция процессора на много строк сразу.',
-     no:'Годится, только когда <b>разных значений мало</b>. На колонке с миллионом уникальных значений вам понадобится миллион таких строк — это уже больше самих данных.',
-     use:'В PostgreSQL отдельного bitmap-индекса нет — но есть <b>Bitmap Heap Scan</b>: база строит такие маски <b>на лету</b> из обычных B-tree индексов, когда надо объединить условия по разным колонкам. Увидите <code class="inl">BitmapAnd</code> в плане — это оно. Как постоянный тип индекса bitmap живёт в аналитических базах вроде Oracle.'},
+     w:'Карту делят на квадраты, каждый квадрат — на квадраты помельче. Ищете кофейню рядом с собой — смотрите <b>свой квадрат и соседние</b>, а не всю карту. Дальние квадраты можно отбросить целиком, не глядя, что внутри: если квадрат весь в другом районе города, ничего близкого там быть не может.<br><br>Точно так же с временем: «занято с 10 до 12» — это отрезок, и GiST умеет проверить, налезает ли на него новый отрезок.',
+     no:'Точное «дай мне ровно эту точку» GiST делает <b>медленнее</b>, чем B-tree. И ответ у него <b>приблизительный</b>: он говорит «в этом квадрате может быть подходящее», после чего базе приходится перепроверять найденное точно. В плане запроса это видно как <code class="inl">Recheck Cond</code>.<br><br>Причина: в квадрате запоминается только то, что он <b>накрывает</b> — а не точная форма того, что внутри. Прямоугольник вокруг извилистой реки — это не сама река.',
+     use:'<b>Геоданные</b> — «найди рядом», «попадает ли точка в район». <b>Отрезки времени</b> — брони, смены, тарифы с периодами действия. И <b>ограничение <code class="inl">EXCLUDE</code></b>, которое запрещает пересечения: без GiST оно бы не работало.',
+     code:"-- 1. география: десять ближайших кофеен\nCREATE INDEX ON places USING gist (location);\nSELECT * FROM places ORDER BY location <-> $1 LIMIT 10;\n\n-- 2. время: одну комнату нельзя занять дважды\nCREATE EXTENSION btree_gist;\nALTER TABLE bookings ADD EXCLUDE USING gist (\n  room_id WITH =,     -- та же комната\n  period  WITH &&     -- и пересекающееся время\n);"},
+
+    {n:'BRIN', ico:'📑', an:'корешки томов энциклопедии', full:'Block Range Index — «индекс по диапазонам блоков»',
+     what:'Самый экономный индекс. Он <b>не запоминает, где какая строка</b>. Вместо этого таблица делится на куски по мегабайту, и на каждый кусок запоминается только <b>самое маленькое и самое большое значение</b> внутри.<br><br>Получается указатель размером в мегабайты для таблицы в сотни гигабайт.',
+     task:'Одна задача, зато очень частая: <b>огромные таблицы, куда данные дописываются по времени</b> — логи, метрики, история событий. И запросы к ним всегда вида «что было за последние сутки».',
+     picw:'Что показывает схема: слева — <b>кусок таблицы</b> (группа страниц на диске), справа — <b>только границы</b>: от какой даты до какой. Что именно внутри — не запомнено.',
+     pic:[['страницы 0–127','01.01 … 03.01'],['страницы 128–255','03.01 … 06.01'],['страницы 256–383','06.01 … 09.01']],
+     w:'На корешке тома написано только «Гб — Ко» — что внутри, не перечислено. Ищете «Пушкин» → сразу понимаете, что нужен третий том, и <b>листаете его целиком</b>. Двадцать томов сузились до одного одним взглядом на полку.<br><br>То же с логами: ищете события за 4 января → подходит только второй кусок, остальные отбрасываются, не читая.',
+     no:'<b>Работает только если данные физически лежат по порядку.</b> Перемешайте статьи по томам случайно — и на каждом корешке окажется «А — Я», все надписи станут одинаковыми, и отбросить не получится ничего. Индекс будет, а пользы ноль.<br><br>Это главное условие BRIN, и оно выполняется само собой у логов (новые записи дописываются в конец с новым временем), но не выполняется, скажем, у имён клиентов.<br><br>И точечный поиск («дай строку с id 734291») он делает плохо: всё равно придётся прочитать целый мегабайт.',
+     use:'<b>Логи, метрики, события по времени на десятках и сотнях миллионов строк.</b> Там BRIN отрабатывает почти как B-tree, а весит в тысячи раз меньше и целиком лежит в памяти.<br><br>Проверить, подойдёт ли: <code class="inl">SELECT attname, correlation FROM pg_stats WHERE tablename = \'events\';</code> Близко к 1 — сработает, близко к 0 — нет.',
+     code:"CREATE INDEX ON events USING brin (created_at);"},
+
+    {n:'Bitmap', ico:'☑️', an:'чек-лист «кто пришёл»', full:'Bitmap — «битовая карта», строка из нулей и единиц',
+     what:'<b>Важно: как отдельный индекс в PostgreSQL его не существует</b> — создать нельзя. Но сама идея в PostgreSQL используется, просто <b>на ходу</b>, а не хранится на диске. Разобраться стоит, потому что вы будете постоянно видеть это слово в планах запросов.<br><br>Идея: на каждое значение — строка из галочек длиной в число строк таблицы. Галочка = строка подходит.',
+     task:'Запросы с условиями по <b>нескольким колонкам сразу</b>: «заказы из Москвы И со статусом новый», когда на каждую колонку свой отдельный индекс.',
+     picw:'Что показывает схема: на каждое условие — строка из нулей и единиц по восьми строкам таблицы. Внизу — результат их наложения.',
+     pic:[['Москва','1 0 0 1 1 0 1 0'],['статус = new','1 1 0 1 0 0 0 1'],['наложили (И)','1 0 0 1 0 0 0 0']],
+     w:'На каждое значение — <b>строка из галочек</b>: единица, если строка подходит, ноль, если нет. Гениально то, что такие строки можно <b>наложить друг на друга</b>: где в обеих единица, там строка подходит по обоим условиям. Компьютер делает это одной операцией на десятки строк сразу.<br><br>В примере подошли строки 1 и 4 — только у них единицы в обеих масках.',
+     no:'Годится, только когда <b>разных значений мало</b> (города, статусы, регионы). На колонке с миллионом уникальных значений понадобится миллион таких строк — это больше самих данных.<br><br>И как постоянный индекс в PostgreSQL недоступен: он живёт в аналитических базах вроде Oracle.',
+     use:'<b>Вам не нужно ничего делать.</b> Достаточно иметь обычные B-tree индексы на колонках из условия — базa сама построит маски в памяти, наложит их и прочитает таблицу.<br><br>В плане запроса это выглядит как <code class="inl">Bitmap Index Scan</code>, <code class="inl">BitmapAnd</code>, <code class="inl">Bitmap Heap Scan</code>. Увидели — <b>это нормально, а не ошибка</b>: так база поступает, когда строк подходит много, потому что читать страницы подряд дешевле, чем прыгать за каждой строкой отдельно.',
+     code:"-- создавать нечего, хватает обычных индексов:\nCREATE INDEX ON orders (city);\nCREATE INDEX ON orders (status);\n\n-- база сама наложит маски:\nEXPLAIN SELECT * FROM orders\nWHERE city = 'Москва' AND status = 'new';"},
   ];
   tabs.innerHTML = A.map((a, i) => '<button class="ghost' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' + a.ico + ' ' + esc(a.n) + '</button>').join('');
   function show(i){
     const a = A[i];
     tabs.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
     body.innerHTML =
-      '<div class="an-head"><span class="an-ico">' + a.ico + '</span><div><b>' + esc(a.n) + '</b> — это как <b class="an-an">' + esc(a.an) + '</b></div></div>' +
+      '<div class="an-head"><span class="an-ico">' + a.ico + '</span><div><b>' + esc(a.n) + '</b><small>' + esc(a.full) + '</small></div></div>' +
+      '<div class="an-blk what"><div class="an-l">Что это такое</div><div>' + a.what + '</div></div>' +
+      '<div class="an-blk task"><div class="an-l">Какую задачу решает</div><div>' + a.task + '</div></div>' +
+      '<div class="an-blk an-anl"><div class="an-l">А теперь аналогия</div><div>Работает <b>как ' + esc(a.an) + '</b>. ' + a.picw + '</div></div>' +
       '<div class="an-pic">' + a.pic.map(p => '<div class="an-p"><span>' + esc(p[0]) + '</span><b>' + esc(p[1]) + '</b></div>').join('') + '</div>' +
       '<div class="note ok"><b>Почему это работает.</b> ' + a.w + '</div>' +
       '<div class="note"><b>Чего он не умеет.</b> ' + a.no + '</div>' +
-      '<div class="hintbox"><b>Когда брать.</b> ' + a.use + '</div>';
+      '<div class="hintbox"><b>Когда брать.</b> ' + a.use + '</div>' +
+      '<div class="cn-lab">Как пишется</div><pre class="ty-code">' + esc(a.code) + '</pre>';
   }
   tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(+b.dataset.i); });
   show(0);
@@ -7461,6 +7823,14 @@ const CN_NOTES = {
     card.querySelectorAll('.qopt').forEach((o, k) => { o.classList.toggle('correct', k === Q[i].a); if(o === b && +b.dataset.o !== Q[i].a) o.classList.add('wrong'); });
     card.querySelector('.qwhy').innerHTML = (+b.dataset.o === Q[i].a ? '✅ ' : '❌ ') + Q[i].w;
   });
+})();
+
+
+/* ================= ход занятия: полоска шагов ================= */
+(function(){
+  const p = document.getElementById('lec-prog'); if(!p) return;
+  const ORDER = ["models", "design", "rel", "links", "norm", "basics", "ddl", "queries", "join", "idx", "mech", "idxp", "idxc", "cons", "tx", "pg", "nosql", "when", "scale", "sandbox", "practice", "y26"], NAMES = {"models": "Какие бывают базы", "design": "Как думать о данных", "rel": "Таблица, строка, ключ", "links": "Виды связей", "norm": "Нормализация и зависимости", "basics": "Основы: типы, NULL, значения", "ddl": "DDL / DML / DQL / DCL / TCL", "queries": "Читаем данные", "join": "Соединяем таблицы", "idx": "Что такое индекс", "mech": "Механика изнутри", "idxp": "Индексы на практике", "idxc": "Цена индексов", "cons": "Ограничения", "tx": "Транзакции и ACID", "pg": "Как работает движок", "nosql": "Нереляционные базы", "when": "Когда что брать", "scale": "Масштаб", "sandbox": "Песочница", "practice": "Задания", "y26": "БД в 2026"};
+  p.innerHTML = ORDER.map((t, i) => '<button data-goto="' + t + '" class="go" title="' + NAMES[t] + '">' + (i + 1) + ' · ' + NAMES[t] + '</button>').join('');
 })();
 
 </script>
