@@ -964,6 +964,161 @@
   .p18.on .p18-body{display:block}
   .p18.on .p18-n{color:var(--graph)}
   .p18-body .ty-code{margin-top:0}
+
+  /* ===== TRADE-OFF ПОДРОБНО ===== */
+  /* ===== TRADE-OFF: физика вставки ===== */
+  .to-steps{margin-top:14px; display:flex; flex-direction:column; gap:5px}
+  .to-s{display:grid; grid-template-columns:30px 1fr 130px; gap:11px; align-items:start; padding:10px 12px; border:1px solid var(--line); border-radius:9px; background:var(--surface-2); opacity:.35; transition:.25s}
+  .to-s.on{opacity:1}
+  .to-s.idx.on{border-color:var(--doc); background:color-mix(in srgb, var(--doc) 7%, var(--surface-2))}
+  .to-s.split.on{border-color:var(--danger); background:color-mix(in srgb, var(--danger) 7%, var(--surface-2))}
+  .to-s.base.on{border-color:var(--rel)}
+  .to-i{width:30px; height:30px; border-radius:50%; display:grid; place-items:center; background:var(--surface-3); font:800 12px var(--mono); color:var(--muted)}
+  .to-s.on .to-i{background:var(--rel); color:#fff}
+  .to-s.idx.on .to-i{background:var(--doc)}
+  .to-s.split.on .to-i{background:var(--danger)}
+  .to-t{font:700 12.5px/1.4 var(--sans); color:var(--ink)}
+  .to-d{margin-top:4px; font:500 12px/1.6 var(--sans); color:var(--muted)}
+  .to-c{font:700 11px/1.4 var(--mono); color:var(--muted); text-align:right; padding-top:8px}
+  .to-tot{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:12px}
+  .to-m{border:1px solid var(--line); border-radius:10px; padding:10px 8px; background:var(--surface-2); text-align:center}
+  .to-m b{display:block; font:800 16px/1.2 var(--sans); color:var(--ink)}
+  .to-m small{display:block; margin-top:3px; font:500 10px/1.35 var(--sans); color:var(--muted)}
+  .to-m.bad b{color:var(--danger)} .to-m.ok b{color:var(--ok)}
+  @media(max-width:820px){.to-s{grid-template-columns:26px 1fr; gap:9px} .to-c{grid-column:2; text-align:left; padding-top:4px} .to-tot{grid-template-columns:repeat(2,1fr)}}
+
+  /* ===== TRADE-OFF: HOT-update ===== */
+  .hu-wrap{display:grid; grid-template-columns:1fr 1.25fr; gap:16px; margin-top:12px; align-items:start}
+  .hu-c{display:block; width:100%; text-align:left; padding:10px 12px; margin-bottom:6px; border:1px solid var(--line); border-radius:9px; background:var(--surface-2); cursor:pointer; transition:.15s}
+  .hu-c code{font:600 11.5px/1.5 var(--mono); color:var(--ink)}
+  .hu-c:hover{border-color:var(--rel)}
+  .hu-c.on{border-color:var(--rel); background:color-mix(in srgb, var(--rel) 9%, var(--surface-2))}
+  .hu-stage{border:1px solid var(--line); border-radius:11px; padding:12px; background:var(--surface-2)}
+  .hu-page{border:1px solid var(--line); border-radius:9px; padding:9px; background:var(--surface-3)}
+  .hu-page.full{border-color:var(--danger); border-style:dashed}
+  .hu-ph{font:700 10.5px/1.3 var(--sans); letter-spacing:.04em; text-transform:uppercase; color:var(--muted); margin-bottom:7px}
+  .hu-row{padding:7px 10px; margin-bottom:4px; border-radius:6px; font:600 11.5px/1.4 var(--mono); color:var(--ink)}
+  .hu-row small{display:block; margin-top:2px; font:500 10px var(--sans); color:var(--muted)}
+  .hu-row.old{background:color-mix(in srgb, var(--muted) 15%, transparent); text-decoration:line-through; opacity:.7}
+  .hu-row.new.here{background:color-mix(in srgb, var(--ok) 16%, transparent)}
+  .hu-row.new.away{background:color-mix(in srgb, var(--danger) 14%, transparent)}
+  .hu-arr{margin:9px 0; text-align:center; font:700 11px/1.4 var(--sans); padding:6px; border-radius:7px}
+  .hu-arr.skip{background:color-mix(in srgb, var(--ok) 13%, transparent); color:var(--ok)}
+  .hu-arr.touch{background:color-mix(in srgb, var(--danger) 12%, transparent); color:var(--danger)}
+  .hu-arr::before{content:'▼'; display:block; margin-bottom:2px; color:var(--faint)}
+  .hu-ix{display:grid; grid-template-columns:repeat(2,1fr); gap:6px}
+  .hu-i{padding:7px 9px; border-radius:7px; background:var(--surface-3); font:600 11px/1.3 var(--mono); color:var(--muted)}
+  .hu-i small{display:block; margin-top:2px; font:500 9.5px var(--sans)}
+  .hu-i.upd{background:color-mix(in srgb, var(--danger) 13%, transparent); color:var(--danger)}
+  .hu-i.gone{opacity:.45; text-decoration:line-through}
+  .hu-verdict{margin-top:10px; padding:8px 11px; border-radius:8px; font:700 12px/1.5 var(--sans)}
+  .hu-verdict.ok{background:color-mix(in srgb, var(--ok) 14%, transparent); color:var(--ok)}
+  .hu-verdict.bad{background:color-mix(in srgb, var(--danger) 13%, transparent); color:var(--danger)}
+  @media(max-width:820px){.hu-wrap{grid-template-columns:1fr}}
+
+  /* ===== TRADE-OFF: лишние индексы ===== */
+  .du-r{display:grid; grid-template-columns:1.1fr 1fr 110px 90px; gap:10px; align-items:center; width:100%; text-align:left; padding:10px 12px; margin-bottom:5px; border:1px solid var(--line); border-radius:9px; background:var(--surface-2); cursor:pointer; transition:.15s}
+  .du-r:hover{border-color:var(--rel)}
+  .du-r.hit{border-color:var(--ok); background:color-mix(in srgb, var(--ok) 9%, var(--surface-2))}
+  .du-r.miss{border-color:var(--danger); background:color-mix(in srgb, var(--danger) 8%, var(--surface-2))}
+  .du-n{font:700 12px/1.3 var(--mono); color:var(--ink)}
+  .du-d{font:600 11.5px/1.3 var(--mono); color:var(--muted)}
+  .du-s{font:600 11px/1.3 var(--mono); color:var(--muted); text-align:right}
+  .du-s.zero{color:var(--danger); font-weight:800}
+  .du-v{font:700 11px/1.3 var(--sans); text-align:right}
+  .du-r.hit .du-v{color:var(--ok)} .du-r.miss .du-v{color:var(--danger)}
+  .du-score{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px}
+  @media(max-width:820px){.du-r{grid-template-columns:1fr 1fr; gap:6px} .du-s,.du-v{text-align:left} .du-score{grid-template-columns:1fr}}
+
+  /* ===== построчные пояснения к коду ===== */
+  .ann{margin-top:6px; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--surface-2)}
+  .ann-hint{padding:7px 12px; background:var(--surface-3); border-bottom:1px solid var(--line); font:600 10.5px/1.4 var(--sans); color:var(--muted)}
+  .ann-code{margin:0; padding:8px 0; overflow-x:auto}
+  .ann-line{display:grid; grid-template-columns:30px 1fr; gap:0; align-items:start; font:500 12px/1.75 var(--mono); white-space:pre; cursor:default; border-left:3px solid transparent; transition:.12s}
+  .ann-line.has{cursor:pointer}
+  .ann-line.has:hover{background:color-mix(in srgb, var(--rel) 8%, transparent); border-left-color:color-mix(in srgb, var(--rel) 45%, transparent)}
+  .ann-line.on{background:color-mix(in srgb, var(--rel) 13%, transparent); border-left-color:var(--rel)}
+  .ann-num{color:var(--faint); font:500 10px/1.85 var(--mono); text-align:right; padding-right:10px; user-select:none}
+  .ann-line.has .ann-num{color:var(--rel); font-weight:800}
+  .ann-src{color:var(--ink); padding-right:14px}
+  .ann-line:not(.has) .ann-src{color:var(--muted)}
+  .ann-out{padding:0 14px; max-height:0; overflow:hidden; transition:max-height .2s, padding .2s; background:var(--surface-3); border-top:1px solid transparent}
+  .ann-out.show{max-height:600px; padding:11px 14px; border-top-color:var(--line)}
+  .ann-out b.ann-t{display:block; margin-bottom:5px; font:800 12px/1.4 var(--mono); color:var(--rel)}
+  .ann-out p{margin:0; font:500 12.5px/1.7 var(--sans); color:var(--ink)}
+  @media(max-width:640px){.ann-line{grid-template-columns:24px 1fr; font-size:11px}}
+  .cn-tip{font:600 10px var(--sans); color:var(--rel); text-transform:none; letter-spacing:0}
+
+  /* ===== ВИЗУАЛ ИНДЕКСОВ ===== */
+  /* ===== ВИЗУАЛ: библиотека ===== */
+  .lib{display:grid; grid-template-columns:1fr 110px 1fr; gap:10px; margin-top:14px; align-items:start}
+  .lib-side{border:1px solid var(--line); border-radius:11px; padding:11px; background:var(--surface-2)}
+  .lib-h{font:700 12px/1.4 var(--sans); color:var(--ink); margin-bottom:10px}
+  .lib-h small{display:block; margin-top:2px; font:500 10.5px/1.4 var(--sans); color:var(--muted)}
+  .lib-cards,.lib-shelf{display:flex; flex-direction:column; gap:3px}
+  .lib-card{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:5px 9px; border-radius:6px; background:var(--surface-3); font:600 11px/1.4 var(--sans); color:var(--muted); transition:.2s}
+  .lib-card b{flex:none; font:700 10px var(--mono); color:var(--faint)}
+  .lib-card.look{background:color-mix(in srgb, var(--doc) 20%, transparent); color:var(--ink)}
+  .lib-card.found{background:color-mix(in srgb, var(--ok) 22%, transparent); color:var(--ok)}
+  .lib-card.found b{color:var(--ok)}
+  .lib-b{display:flex; align-items:center; gap:8px; padding:5px 9px; border-radius:6px; background:var(--surface-3); font:600 11px/1.4 var(--sans); color:var(--muted); transition:.2s}
+  .lib-b i{flex:none; width:18px; height:18px; border-radius:4px; background:var(--line); display:grid; place-items:center; font:700 9px var(--mono); font-style:normal; color:var(--muted)}
+  .lib-b.seen{opacity:.4; text-decoration:line-through}
+  .lib-b.look{background:color-mix(in srgb, var(--danger) 18%, transparent); color:var(--danger)}
+  .lib-b.found{background:color-mix(in srgb, var(--ok) 22%, transparent); color:var(--ok); font-weight:800}
+  .lib-arrow{text-align:center; padding-top:44px; font:700 10px/1.4 var(--sans); color:var(--faint); opacity:.35; transition:.3s}
+  .lib-arrow.on{opacity:1; color:var(--ok)}
+  .lib-arrow b{display:block; font:800 11px var(--mono)}
+  .lib-arrow small{display:block; margin-top:2px; font:500 9px var(--sans)}
+  .lib-arrow::before{content:'──▶'; display:block; margin-bottom:4px; letter-spacing:-1px}
+  @media(max-width:860px){.lib{grid-template-columns:1fr} .lib-arrow{padding-top:0} .lib-arrow::before{content:'▼'}}
+
+  /* ===== ВИЗУАЛ: B-дерево ===== */
+  .bt{margin-top:14px; border:1px solid var(--line); border-radius:12px; padding:14px; background:var(--surface-2)}
+  .bt-t{font:700 12.5px/1.4 var(--sans); color:var(--ink); text-align:center; margin-bottom:12px}
+  .bt-t code{font:700 12px var(--mono); color:var(--rel)}
+  .bt-lv{opacity:.32; transition:.3s}
+  .bt-lv.on{opacity:1}
+  .bt-lb{font:700 9.5px/1.3 var(--sans); letter-spacing:.06em; text-transform:uppercase; color:var(--muted); text-align:center; margin-bottom:5px}
+  .bt-nodes{display:grid; grid-template-columns:repeat(4,1fr); gap:5px}
+  .bt-n{padding:9px 4px; border-radius:7px; background:var(--surface-3); border:1px solid var(--line); font:600 10px/1.35 var(--mono); color:var(--muted); text-align:center; transition:.3s}
+  .bt-n.pick{background:color-mix(in srgb, var(--rel) 20%, transparent); border-color:var(--rel); color:var(--ink); font-weight:800; transform:scale(1.04)}
+  .bt-n.drop{opacity:.3}
+  .bt-down{text-align:center; font:700 10px/1.6 var(--sans); color:var(--faint); padding:5px 0; opacity:.3; transition:.3s}
+  .bt-down.on{opacity:1; color:var(--rel)}
+  .bt-heap{opacity:.32; transition:.3s; margin-top:2px}
+  .bt-heap.on{opacity:1}
+  .bt-pages{display:grid; grid-template-columns:repeat(8,1fr); gap:4px}
+  .bt-pg{padding:9px 2px; border-radius:6px; background:var(--surface-3); border:1px solid var(--line); font:600 9px/1.3 var(--mono); color:var(--faint); text-align:center; transition:.3s}
+  .bt-pg.pick{background:color-mix(in srgb, var(--ok) 22%, transparent); border-color:var(--ok); color:var(--ok); font-weight:800}
+  .bt-cmp{display:grid; grid-template-columns:150px 1fr; gap:8px; margin-top:12px}
+  .bt-c{border:1px solid var(--line); border-radius:9px; padding:9px 12px; background:var(--surface-2); font:600 11.5px/1.4 var(--sans); color:var(--muted)}
+  .bt-c b{font:800 15px var(--sans); color:var(--ink)}
+  .bt-c.wide{font:700 12px/1.4 var(--mono); color:var(--rel)}
+  @media(max-width:760px){.bt-nodes{grid-template-columns:repeat(2,1fr)} .bt-pages{grid-template-columns:repeat(4,1fr)} .bt-cmp{grid-template-columns:1fr}}
+
+  /* ===== ВИЗУАЛ: аналогии ===== */
+  .an-head{display:flex; align-items:center; gap:12px; margin:14px 0 12px}
+  .an-ico{font-size:30px; flex:none}
+  .an-head b{font:800 15px/1.4 var(--sans); color:var(--ink)}
+  .an-head b.an-an{color:var(--rel)}
+  .an-pic{border:1px solid var(--line); border-radius:11px; padding:11px; background:var(--surface-2); display:flex; flex-direction:column; gap:4px}
+  .an-p{display:flex; justify-content:space-between; align-items:center; gap:12px; padding:8px 11px; border-radius:7px; background:var(--surface-3); font:600 12px/1.4 var(--sans); color:var(--ink)}
+  .an-p b{flex:none; font:700 11.5px var(--mono); color:var(--rel)}
+
+  /* ===== ВИЗУАЛ: что на диске ===== */
+  .disk{display:grid; grid-template-columns:1.35fr 1fr; gap:14px; margin-top:14px; align-items:start}
+  .dk-box{border:1px solid var(--line); border-radius:11px; padding:11px; background:var(--surface-2)}
+  .dk-h{font:700 12px/1.4 var(--sans); color:var(--ink); margin-bottom:10px}
+  .dk-h small{display:block; margin-top:2px; font:500 10.5px/1.4 var(--sans); color:var(--muted)}
+  .dk-rows{display:flex; flex-direction:column; gap:3px}
+  .dk-r{display:grid; grid-template-columns:24px 1fr 1.6fr 1fr .7fr; gap:6px; padding:6px 9px; border-radius:6px; background:var(--surface-3); font:600 10.5px/1.4 var(--mono); color:var(--muted); transition:.25s}
+  .dk-rows.idx .dk-r{grid-template-columns:1fr .7fr 1.1fr}
+  .dk-r.read{background:color-mix(in srgb, var(--graph) 26%, transparent); color:var(--ink)}
+  .dk-ptr{color:var(--faint); font-size:9.5px}
+  .dk-r.read .dk-ptr{color:var(--ink)}
+  .dk-s{margin-top:9px; font:700 11px/1.3 var(--mono); color:var(--muted); text-align:right}
+  @media(max-width:860px){.disk{grid-template-columns:1fr} .dk-r{font-size:9.5px}}
 </style>
 </head>
 <body>
@@ -1544,6 +1699,55 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
     </div>
 
     <div class="card">
+      <h2><span class="tag">АНАЛОГИЯ 📚</span> индекс — это каталожный ящик в библиотеке</h2>
+      <p>Прежде чем разбирать деревья и страницы, поймите картинку целиком. Библиотека — <b>это и есть база данных</b>, и работает она точно так же.</p>
+      <div class="lib" id="lib"></div>
+      <div class="form-row" style="margin-top:12px">
+        <button class="ghost" id="lib-shelf">🚶 Искать по полкам (без каталога)</button>
+        <button class="act" id="lib-cat">🗂 Искать по каталогу (индекс)</button>
+        <button class="ghost" id="lib-reset">↻ Сброс</button>
+      </div>
+      <div class="console" id="lib-msg" aria-live="polite">Нужна книга «Мастер и Маргарита». Попробуйте оба способа.</div>
+      <div class="note" id="lib-note"><b>Что чему соответствует.</b><br><br>📚 <b>Полки</b> — это таблица. Книги стоят в том порядке, в каком поступали в библиотеку, а не по алфавиту: так быстрее ставить новые. В базе это называется <b>heap</b>, «куча».<br><br>🗂 <b>Каталожный ящик</b> — это индекс. Карточки в нём отсортированы по алфавиту, и на каждой написано <b>только название и номер полки</b> — самой книги в ящике нет. В базе на «карточке» лежит значение колонки и адрес строки.<br><br>🚶 <b>Обход полок</b> — это <code class="inl">Seq Scan</code>: идём подряд, пока не найдём.<br><br>🗂→📚 <b>Каталог, потом полка</b> — это <code class="inl">Index Scan</code>: нашли карточку, узнали номер полки, пошли за книгой.<br><br>А если вам нужно <b>только название</b> и книгу брать не надо — достаточно одной карточки. Это <code class="inl">Index Only Scan</code>, самый быстрый случай.</div>
+      <div class="hintbox">Аналогия объясняет и <b>минусы</b>. Каждая новая книга — это ещё и карточку написать и вставить в ящик на нужное место (замедление записи). Ящик занимает место в зале (место на диске). Пять ящиков по разным признакам — пять карточек на каждую книгу (много индексов = медленная вставка). А если ящик заведён по автору, искать в нём по названию бесполезно (индекс не по той колонке).</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ПО ШАГАМ 🌳</span> как база спускается по B-дереву — своими глазами</h2>
+      <p>Таблица на <b>один миллион</b> строк. Ищем <code class="inl">id = 734291</code>. Дерево из трёх уровней. Нажимайте «Дальше» — увидите каждое обращение к диску.</p>
+      <div class="bt" id="btd"></div>
+      <div class="form-row" style="margin-top:12px">
+        <button class="act" id="btd-next">Дальше →</button>
+        <button class="ghost" id="btd-auto">▶▶ Целиком</button>
+        <button class="ghost" id="btd-reset">↻ Сброс</button>
+      </div>
+      <div class="console" id="btd-msg" aria-live="polite">Нажмите «Дальше», чтобы начать спуск от корня.</div>
+      <div class="bt-cmp" id="btd-cmp"></div>
+      <div class="note"><b>Почему это так быстро.</b> На каждом уровне база <b>отбрасывает почти все</b> оставшиеся варианты. В узле B-дерева PostgreSQL умещается порядка сотен ключей (страница 8 КБ), поэтому одного спуска на уровень достаточно, чтобы сузить поиск в сотни раз.<br><br>Отсюда и волшебные числа: <b>3 уровня хватает на миллионы строк, 4 — на миллиарды</b>. Удвоение данных добавляет к поиску не в два раза больше работы, а <b>дробную часть одного уровня</b>. Формально это log(n) вместо n — и вот что за этим стоит на самом деле.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">БЫТОВЫЕ АНАЛОГИИ 🏠</span> шесть видов индексов — на понятных вещах</h2>
+      <p>Выше в этой вкладке типы перечислены формально. Здесь то же самое, но через предметы, которые вы видели. Кликайте.</p>
+      <div class="graph-tools" id="an-tabs"></div>
+      <div id="an-body"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ГДЕ ЛЕЖИТ 🗺</span> таблица и индекс на диске — одна картинка</h2>
+      <p>Самое частое непонимание: «индекс — это что, копия таблицы?» Нет. Смотрите, где что физически.</p>
+      <div class="disk" id="disk"></div>
+      <div class="form-row" style="margin-top:12px">
+        <button class="ghost" id="dk-seq">Seq Scan</button>
+        <button class="ghost" id="dk-idx">Index Scan</button>
+        <button class="act" id="dk-only">Index Only Scan</button>
+        <button class="ghost" id="dk-reset">↻ Сброс</button>
+      </div>
+      <div class="console" id="dk-msg" aria-live="polite">Нажмите способ доступа — увидите, что именно читается с диска.</div>
+      <div class="note" id="dk-note"></div>
+    </div>
+
+    <div class="card">
       <h2><span class="tag">КАК РАБОТАЮТ</span> разные индексы вживую</h2>
       <p>B-tree разобрали выше. Вот как устроены остальные — переключай и трогай.</p>
       <div class="graph-tools" id="ix-tabs">
@@ -1557,14 +1761,71 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
     </div>
 
     <div class="card">
-      <h2><span class="tag">TRADE-OFF</span> почему не навесить индекс на всё подряд</h2>
+      <h2><span class="tag">КОРОТКО</span> три стороны сделки</h2>
       <div class="anoms">
         <div class="anom"><div class="t">Ускоряет чтение</div><p>Поиск и сортировка по индексированной колонке — в разы быстрее: примерно log(n) шагов вместо n.</p></div>
         <div class="anom"><div class="t">Замедляет запись</div><p>При каждом INSERT/UPDATE база обязана обновлять ещё и индекс. Много индексов → медленные вставки.</p></div>
         <div class="anom"><div class="t">Занимает место</div><p>Индекс — отдельная структура на диске. И он бесполезен, если искать по колонке, которой в нём нет.</p></div>
       </div>
-      <div class="note"><b>Правило:</b> индексируй колонки, по которым часто <b>ищешь</b>, <b>соединяешь (JOIN)</b> или <b>сортируешь</b> — обычно это внешние ключи и поля из условий WHERE. А PRIMARY KEY и UNIQUE создают индекс автоматически.</div>
+      <div class="note"><b>Правило:</b> индексируй колонки, по которым часто <b>ищешь</b>, <b>соединяешь (JOIN)</b> или <b>сортируешь</b> — обычно это внешние ключи и поля из условий WHERE. А PRIMARY KEY и UNIQUE создают индекс автоматически.<br><br>А ниже — то же самое, но <b>с цифрами и по шагам</b>: сколько именно стоит один лишний индекс и почему.</div>
     </div>
+
+    <div class="card">
+      <h2><span class="tag">TRADE-OFF</span> почему не навесить индекс на всё подряд</h2>
+      <p>Ответ «потому что замедляет запись» — правильный, но бесполезный: непонятно, насколько и почему. Разберём <b>физически</b>, что происходит при одной вставке. Поставьте число индексов и пройдите шаги.</p>
+      <div class="form-row" style="margin-top:6px">
+        <div class="field"><label>индексов на таблице</label><select id="to-n" class="sel"><option>0</option><option>1</option><option selected>3</option><option>8</option></select></div>
+        <button class="act" id="to-run">▶ INSERT INTO orders …</button>
+        <button class="ghost" id="to-reset">↻ Сброс</button>
+      </div>
+      <div class="to-steps" id="to-steps"></div>
+      <div class="console" id="to-msg" aria-live="polite">Выберите число индексов и запустите вставку.</div>
+      <div class="to-tot" id="to-tot"></div>
+      <div class="note" id="to-note"><b>Главное, что видно из этой раскладки.</b> Сама строка пишется <b>один раз</b>. А вот работа по индексам умножается: каждый индекс — это отдельное дерево, в которое надо спуститься, найти место, вставить запись и записать это в журнал. Восемь индексов означают <b>восемь дополнительных спусков по дереву и восемь записей в WAL</b> на каждую вставленную строку.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">САМОЕ ДОРОГОЕ</span> UPDATE хуже, чем INSERT — и это неочевидно</h2>
+      <p>Тут прячется главный сюрприз. Из-за MVCC (вкладка «PostgreSQL») <code class="inl">UPDATE</code> не меняет строку на месте, а <b>создаёт её новую версию</b>. А новая версия — это новый адрес, на который должны указывать все индексы. Даже те, чьи колонки вы не трогали.</p>
+      <div class="hu-wrap">
+        <div class="hu-col">
+          <div class="ex-h">Что обновляем</div>
+          <div id="hu-cases"></div>
+        </div>
+        <div class="hu-col">
+          <div class="ex-h">Что делает база</div>
+          <div class="hu-stage" id="hu-stage"></div>
+        </div>
+      </div>
+      <div class="console" id="hu-msg" aria-live="polite">Выберите, какую колонку обновляем.</div>
+      <div class="note ok"><b>HOT-update — приём, который вас спасает.</b> Если изменённых колонок <b>нет ни в одном индексе</b> и в текущей странице есть свободное место, PostgreSQL применяет <b>HOT</b> (Heap-Only Tuple): новая версия строки кладётся в ту же страницу, а индексы <b>вообще не трогаются</b> — они продолжают указывать на прежнее место, а внутри страницы стоит указатель на актуальную версию.<br><br>Отсюда практический вывод, которого почти никто не знает: <b>каждый лишний индекс уменьшает шанс на HOT-update</b>. Навесили индекс на колонку, которую часто обновляют, — и все обновления этой таблицы стали дороже, потому что теперь их приходится разносить по всем индексам. Особенно обидно, когда индекс при этом ещё и не используется в запросах.</div>
+      <div class="hintbox"><b>Как это выглядит на практике.</b> Таблица <code class="inl">orders</code> со статусом, который меняется 5 раз за жизнь заказа. Если на <code class="inl">status</code> нет индекса — обновления идут по HOT и почти бесплатны. Поставили индекс «чтобы фильтровать по статусу» — и получили пятикратное обновление всех индексов таблицы на каждый заказ.<br><br>Правильный ход в такой ситуации — <b>частичный индекс</b> только по активным статусам: <code class="inl">CREATE INDEX ON orders(created_at) WHERE status = 'new';</code> Он и меньше, и в него попадает лишь малая часть строк.<br><br>Проверить, много ли у вас HOT-обновлений: <code class="inl">SELECT n_tup_upd, n_tup_hot_upd FROM pg_stat_user_tables WHERE relname = 'orders';</code> Чем ближе второе число к первому — тем лучше.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">СКРЫТЫЕ РАСХОДЫ</span> пять счетов, которые приходят потом</h2>
+      <p>Замедление вставки видно сразу. А вот это — накапливается неделями, и связь с индексами замечают не сразу.</p>
+      <div class="graph-tools" id="hc-tabs"></div>
+      <div id="hc-body"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">ЛИШНИЕ 🔍</span> найдите индексы, которые можно снести прямо сейчас</h2>
+      <p>Реальный список индексов таблицы <code class="inl">orders</code>. Четыре из них лишние. Кликайте по тем, что считаете ненужными — проверим.</p>
+      <div id="du-list"></div>
+      <div class="console" id="du-msg" aria-live="polite">Нажмите на индекс, который считаете лишним.</div>
+      <div class="du-score" id="du-score"></div>
+      <div class="note"><b>Три правила, покрывающие почти все случаи.</b><br><br><b>1. Индекс по левому префиксу составного — лишний.</b> Если есть <code class="inl">(a, b)</code>, то отдельный <code class="inl">(a)</code> не нужен: составной обслуживает запросы по <code class="inl">a</code> так же. Обратное неверно — <code class="inl">(b)</code> составным не покрывается.<br><br><b>2. Дубликат в другом порядке — не дубликат, но чаще всего лишний.</b> <code class="inl">(a, b)</code> и <code class="inl">(b, a)</code> — разные индексы. Иногда нужны оба, но обычно это значит, что кто-то не разобрался с правилом левого префикса.<br><br><b>3. Индекс под первичный ключ и UNIQUE создавать не надо.</b> Он уже есть — база создала его сама вместе с ограничением.</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="tag">РАЗБОР КЕЙСА 📉</span> как 12 индексов положили сервис</h2>
+      <p>Собирательная, но абсолютно типичная история. Нажимайте по шагам — увидите, как «безобидные» решения складываются в инцидент.</p>
+      <div class="steps" id="csx-steps"></div>
+      <div class="console" id="csx-msg" aria-live="polite">Нажимайте шаги по порядку.</div>
+      <div class="note ok" id="csx-note"><b>Как надо было.</b> Каждый индекс должен появляться по одной и той же процедуре: <b>нашли медленный запрос → посмотрели EXPLAIN → создали индекс → замерили, что стало быстрее → записали, под какой запрос он нужен</b>. Индекс без ответа на вопрос «какой именно запрос он ускоряет» — это долг, за который платят вставками, местом и VACUUM.<br><br>И раз в квартал — <code class="inl">pg_stat_user_indexes</code>: смотрим, что не использовалось ни разу, и сносим.</div>
+    </div>
+
 
     <div class="card">
       <h2><span class="tag">ВИДОВ МНОГО</span> каких бывают индексы</h2>
@@ -2598,6 +2859,38 @@ ALTER TABLE users ADD CONSTRAINT uq_email UNIQUE (email);</pre>
 <button class="themebtn" id="theme" aria-label="Сменить тему">◐</button>
 
 <script>
+/* ================= построчные пояснения к коду ================= */
+/* annCode(code, notes) — код с кликабельными строками.
+   notes: {номер строки (с 1) : 'пояснение'} либо {'подстрока': 'пояснение'} */
+function annCode(code, notes, hint){
+  const lines = code.split('\n');
+  const map = {};
+  Object.keys(notes || {}).forEach(k => {
+    if(/^\d+$/.test(k)){ map[+k - 1] = notes[k]; return; }
+    const i = lines.findIndex((l, n) => l.indexOf(k) >= 0 && map[n] === undefined);
+    if(i >= 0) map[i] = notes[k];
+  });
+  const id = 'ann' + (annCode._n = (annCode._n || 0) + 1);
+  (window.__annStore = window.__annStore || {})[id] = map;
+  return '<div class="ann" data-ann="' + id + '">' +
+    '<div class="ann-hint">👆 ' + (hint || 'нажмите на любую подсвеченную строку — объясню, что она делает') + '</div>' +
+    '<pre class="ann-code">' + lines.map((l, i) =>
+      '<div class="ann-line' + (map[i] !== undefined ? ' has' : '') + '" data-l="' + i + '">' +
+      '<span class="ann-num">' + (i + 1) + '</span><span class="ann-src">' + esc(l || ' ') + '</span></div>').join('') +
+    '</pre><div class="ann-out" data-out></div></div>';
+}
+document.addEventListener('click', e => {
+  const line = e.target.closest('.ann-line.has'); if(!line) return;
+  const box = line.closest('.ann'), out = box.querySelector('[data-out]');
+  const was = line.classList.contains('on');
+  box.querySelectorAll('.ann-line').forEach(l => l.classList.remove('on'));
+  if(was){ out.classList.remove('show'); out.innerHTML = ''; return; }
+  line.classList.add('on');
+  const txt = (window.__annStore && window.__annStore[box.dataset.ann] || {})[line.dataset.l];
+  out.innerHTML = '<b class="ann-t">строка ' + (+line.dataset.l + 1) + '</b><p>' + (txt || '') + '</p>';
+  out.classList.add('show');
+});
+
 "use strict";
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
@@ -5557,6 +5850,74 @@ CREATE INDEX idx_orders_customer ON orders(customer_id);`;
 (function(){
   const nav = document.getElementById('cn-nav'); if(!nav) return;
   const main = document.getElementById('cn-main');
+
+const CN_NOTES = {
+  pk: {
+    'id    BIGINT GENERATED': 'Колонка id: целое число, которое база <b>сама выдаёт по возрастанию</b> при каждой вставке — 1, 2, 3… <code class="inl">GENERATED ALWAYS</code> означает «только база, руками не подставить». Это современная замена старому <code class="inl">SERIAL</code>, она входит в стандарт SQL. <code class="inl">PRIMARY KEY</code> тут же объявляет её первичным ключом: значения уникальны, NULL запрещён, индекс создаётся автоматически.',
+    'email TEXT NOT NULL': 'Обычная текстовая колонка, обязательная к заполнению. Первичным ключом её делать не стали — email со временем меняется, а менять первичный ключ означает переписывать все ссылки на эту строку из других таблиц.',
+    'order_id   BIGINT': 'Первая половина составного ключа — ссылка на заказ. Сама по себе она <b>повторяется</b>: в одном заказе много позиций, у всех один order_id.',
+    'product_id BIGINT': 'Вторая половина. Тоже повторяется сама по себе: один товар встречается в разных заказах.',
+    'PRIMARY KEY (order_id, product_id)': '<b>Вот главная строка.</b> Уникальна не каждая колонка, а их <b>пара</b>: один и тот же товар не может встретиться в одном заказе дважды. Именно так задают ключ для таблицы-связки между двумя другими таблицами. Порядок колонок в скобках важен — он же задаёт порядок в индексе (см. правило левого префикса выше).',
+    'ALTER TABLE customers ADD PRIMARY KEY': 'Как навесить первичный ключ на <b>уже существующую</b> таблицу. База проверит, что в колонке нет дублей и нет NULL — если найдёт, команда откажет. На большой таблице возьмёт тяжёлую блокировку, поэтому на проде так не делают (как правильно — в блоке про NOT VALID ниже).'
+  },
+  fk: {
+    'id          BIGINT GENERATED': 'Свой первичный ключ заказа — к внешнему ключу отношения не имеет, просто нужен каждой таблице.',
+    'customer_id BIGINT NOT NULL': 'Колонка, которая <b>хранит ссылку</b> на клиента. Тип обязан совпадать с типом колонки, на которую ссылаемся. <code class="inl">NOT NULL</code> здесь принципиален: без него в колонку пройдёт NULL, а NULL внешний ключ пропускает — это трактуется как «ссылки нет».',
+    'REFERENCES customers(id)': '<b>Сама ссылка.</b> Читается так: «значение этой колонки обязано существовать в колонке id таблицы customers». При каждой вставке и обновлении база сходит и проверит. Ссылаться можно только на колонку с PRIMARY KEY или UNIQUE — иначе проверка была бы медленной.',
+    'ON DELETE RESTRICT': 'Что делать, если кто-то попробует удалить <b>клиента</b>, у которого есть заказы. <code class="inl">RESTRICT</code> — запретить удаление. Самый безопасный вариант: превращает возможную потерю данных в понятную ошибку. Все четыре варианта разобраны в карточке ON DELETE ниже.',
+    'ON UPDATE CASCADE': 'Что делать, если у клиента <b>поменяется сам id</b>. <code class="inl">CASCADE</code> — переписать ссылку во всех заказах автоматически. На практике id первичного ключа не меняют почти никогда, так что эта строка чаще для порядка.',
+    'total NUMERIC(12,2) NOT NULL': 'Сумма заказа. <code class="inl">NUMERIC</code>, а не <code class="inl">FLOAT</code> — деньги хранят только в точном типе, иначе копейки начнут теряться при сложении. (12,2) — до 12 знаков всего, из них 2 после запятой.',
+    'ADD CONSTRAINT orders_customer_fk': 'Даём ограничению <b>своё имя</b>. Не обязательно, но очень полезно: именно это имя приложение увидит в тексте ошибки. Без него база сгенерирует что-то вроде <code class="inl">orders_customer_id_fkey</code>, и по логам будет труднее понять, что произошло.',
+    'FOREIGN KEY (customer_id) REFERENCES': 'Полная форма записи внешнего ключа — используется, когда ограничение добавляют отдельной командой к готовой таблице, а не внутри CREATE TABLE.',
+    'CREATE INDEX ON orders (customer_id)': '<b>Не забывайте эту строку.</b> PostgreSQL создаёт индекс на стороне <b>родителя</b> (там первичный ключ), а на дочерней — нет. Без этого индекса каждое удаление клиента заставляет базу перебрать всю таблицу заказов, проверяя ссылки. На миллионах строк это секунды блокировки.'
+  },
+  uq: {
+    'email TEXT NOT NULL UNIQUE': 'Два ограничения на одной колонке. <code class="inl">NOT NULL</code> — заполнять обязательно, <code class="inl">UNIQUE</code> — не повторяться. Вместе они дают то, что обычно и имеют в виду под «email уникален»: ровно одно непустое значение у каждого пользователя.',
+    'phone TEXT UNIQUE': '<b>А вот здесь ловушка.</b> Без <code class="inl">NOT NULL</code> в эту колонку пройдёт <b>сколько угодно</b> строк с NULL: по стандарту SQL два NULL считаются «неизвестными и, возможно, разными», поэтому UNIQUE их не сравнивает. Ждали «один телефон на пользователя», получили тысячи пользователей без телефона, и все «уникальны».',
+    'ADD CONSTRAINT one_per_team UNIQUE (user_id, team_id)': 'Уникальность <b>пары</b> колонок: один пользователь не может состоять в одной команде дважды. При этом сам user_id повторяется свободно (человек в нескольких командах) и team_id тоже (в команде много людей). Уникально именно сочетание.',
+    'CREATE UNIQUE INDEX ON users (lower(email))': 'Регистронезависимая уникальность. Обычный UNIQUE считает <code class="inl">Anna@mail.ru</code> и <code class="inl">anna@mail.ru</code> разными значениями — и пропустит оба. Здесь индекс строится <b>по результату функции</b> <code class="inl">lower()</code>, то есть по приведённому к нижнему регистру значению, и второй такой email уже не пройдёт.'
+  },
+  ck: {
+    'total  NUMERIC(12,2) NOT NULL CHECK (total >= 0)': 'Проверка на уровне <b>колонки</b> — условие видит только её саму. Отрицательная сумма не запишется никогда и ниоткуда: ни из приложения, ни из импорта, ни руками из psql.',
+    'qty    INT NOT NULL CHECK (qty BETWEEN 1 AND 1000)': 'Диапазон с двух сторон. <code class="inl">BETWEEN 1 AND 1000</code> включает и границы, то есть 1 и 1000 допустимы. Нижняя граница 1, а не 0 — это отдельное решение: позиция заказа с нулевым количеством бессмысленна.',
+    "CHECK (status IN ('new','paid','shipped','done'))": 'Ограниченный список допустимых значений — вместо типа <code class="inl">ENUM</code>. В 2026 предпочитают именно так: добавить значение в CHECK — обычная миграция, а менять ENUM сложнее. Опечатка вроде «pending» или «New» теперь не пройдёт, и фильтры по статусу не начнут врать через полгода.',
+    'starts_at DATE': 'Первая из двух колонок, которые нужно будет сравнить друг с другом. Обратите внимание: проверку на них <b>здесь написать нельзя</b> — на уровне колонки видна только она сама.',
+    'ends_at   DATE': 'Вторая колонка пары. К моменту её объявления база ещё не знает про... точнее, знает — но синтаксис проверки на уровне колонки просто не позволяет сослаться на соседнюю.',
+    'CONSTRAINT valid_period CHECK (ends_at > starts_at)': '<b>Проверка на уровне таблицы</b> — пишется после всех колонок, поэтому видит их все и может сравнивать между собой. Плюс мы дали ей имя <code class="inl">valid_period</code>: именно оно попадёт в текст ошибки, и по нему сразу понятно, что нарушено.<br><br>Осторожно с NULL: если <code class="inl">ends_at</code> пустой, условие даст «неизвестно», а такую строку CHECK <b>пропускает</b>. Нужна строгость — добавляйте NOT NULL.'
+  },
+  nn: {
+    'email      TEXT NOT NULL': 'Обязательное поле. Попытка вставить строку без email закончится ошибкой на уровне базы, а не «пустой строкой в интерфейсе через полгода».',
+    'name       TEXT NOT NULL': 'Тоже обязательное. Но помните: <code class="inl">NOT NULL</code> запрещает <b>отсутствие</b> значения, а не пустую строку — <code class="inl">\'\'</code> пройдёт спокойно. Если и она недопустима, нужен ещё <code class="inl">CHECK (name &lt;&gt; \'\')</code>.',
+    'phone      TEXT,': 'А эта колонка <b>необязательная</b> — NULL разрешён. Так и надо помечать всё, что может отсутствовать по-настоящему: телефон человек может не оставить, и NULL здесь честно означает «не знаем».',
+    'created_at TIMESTAMPTZ NOT NULL DEFAULT now()': 'Классическая связка. <code class="inl">TIMESTAMPTZ</code> — время <b>с часовым поясом</b>, единственно правильный тип для моментов времени. <code class="inl">DEFAULT now()</code> подставит текущее время, если колонку не указали, а <code class="inl">NOT NULL</code> гарантирует, что она не окажется пустой. Вместе — «время создания есть всегда и заполняется само».',
+    "UPDATE customers SET name = 'не указано' WHERE name IS NULL": '<b>Обязательный шаг перед NOT NULL на существующей таблице.</b> Если в колонке уже есть NULL, следующая команда откажет. Сначала решаем, что подставить вместо пропусков, — и это решение принимает бизнес, а не разработчик наугад.',
+    'ALTER TABLE customers ALTER COLUMN name SET NOT NULL': 'Собственно, включение ограничения. База просканирует таблицу и убедится, что NULL больше нет. На большой таблице возьмёт тяжёлую блокировку — на проде это делают через промежуточный CHECK NOT VALID (см. карточку про живую базу).'
+  },
+  df: {
+    "status     TEXT NOT NULL DEFAULT 'new'": 'Новый заказ автоматически получает статус «new» — приложению не нужно его передавать и не нужно помнить про него. <code class="inl">NOT NULL</code> рядом обязателен: без него кто-нибудь всё равно пришлёт явный NULL, и статус окажется пустым.',
+    'created_at TIMESTAMPTZ NOT NULL DEFAULT now()': '<code class="inl">now()</code> — <b>функция</b>, и она вызывается заново на каждую вставку. Частое заблуждение: «значение вычислится один раз при создании таблицы». Нет — каждая строка получит своё время.',
+    'uuid       UUID NOT NULL DEFAULT gen_random_uuid()': 'Публичный идентификатор, который можно показывать наружу — в отличие от последовательного <code class="inl">id</code>, по которому видно, сколько у вас всего заказов и можно перебрать чужие. Здесь v4 (полностью случайный); если по этой колонке нужен индекс, лучше <code class="inl">uuidv7()</code> из PostgreSQL 18 — он не бьёт по дереву случайными вставками.',
+    "meta       JSONB NOT NULL DEFAULT '{}'::jsonb": 'Поле для свободных данных. <code class="inl">::jsonb</code> — это <b>приведение типа</b>: строку <code class="inl">\'{}\'</code> явно объявляем пустым JSON-объектом. Связка с <code class="inl">NOT NULL</code> избавляет от <code class="inl">COALESCE(meta, \'{}\')</code> в каждом запросе — поле никогда не пустое, максимум пустой объект.',
+    "tags       TEXT[] NOT NULL DEFAULT '{}'": 'Массив строк — в PostgreSQL это полноценный тип. <code class="inl">\'{}\'</code> здесь пустой массив (синтаксис массивов, не JSON). Та же логика: лучше пустой массив, чем NULL, — код становится проще.',
+    'INSERT INTO orders DEFAULT VALUES': 'Вставка «вообще без значений» — все колонки заполнятся своими DEFAULT. Удобно проверить, что таблица настроена правильно: если такая вставка проходит, значит все обязательные поля имеют значения по умолчанию.'
+  },
+  gen: {
+    'price NUMERIC(12,2) NOT NULL': 'Цена за единицу — обычная колонка, её передаёт приложение.',
+    'qty   INT NOT NULL': 'Количество — тоже обычная колонка.',
+    'GENERATED ALWAYS AS (price * qty) STORED': '<b>Вот суть.</b> Сумма не хранится как отдельные данные, а <b>считается формулой</b> из двух колонок этой же строки. <code class="inl">STORED</code> означает «посчитать при записи и положить на диск». Записать в эту колонку своё значение <b>невозможно</b> — база откажет.<br><br>Зачем: избавляет от классической беды, когда приложение поменяло количество и забыло пересчитать сумму. Здесь забыть нельзя.',
+    'email_lc TEXT GENERATED ALWAYS AS (lower(email)) STORED': 'Тот же приём для текста: рядом с email автоматически поддерживается его версия в нижнем регистре. Зачем — в следующей строке.',
+    'CREATE INDEX ON order_items (email_lc)': 'А вот и причина. По вычисляемой <code class="inl">STORED</code>-колонке можно построить <b>обычный индекс</b> — и поиск без учёта регистра станет быстрым. Альтернатива (индекс по выражению <code class="inl">lower(email)</code>) работает так же, но здесь приведённое значение ещё и доступно в запросах как обычное поле.'
+  },
+  ex: {
+    'CREATE EXTENSION IF NOT EXISTS btree_gist': 'Доустанавливаем расширение. Оно нужно, чтобы в одном GiST-индексе могли участвовать <b>обычные</b> типы (здесь <code class="inl">room_id</code> — просто число) вместе со специальными. Без него следующая команда откажет с ошибкой про класс операторов. <code class="inl">IF NOT EXISTS</code> — чтобы команду можно было выполнять повторно.',
+    'room_id BIGINT NOT NULL': 'Какую именно переговорку бронируем. Обычное число, обычная колонка.',
+    'period  TSTZRANGE NOT NULL': '<b>Диапазон времени как единое значение.</b> Не две колонки «от» и «до», а один тип <code class="inl">TSTZRANGE</code> — интервал между двумя моментами с часовым поясом. Именно такой тип база умеет проверять на пересечение.',
+    '-- один и тот же номер (=) не может иметь': 'Комментарий. Дальше идёт само ограничение — читать его надо построчно, как условие «при каких значениях две строки конфликтуют».',
+    'EXCLUDE USING GIST (': 'Начало ограничения. <code class="inl">EXCLUDE</code> читается так: «запретить существование двух строк, для которых <b>одновременно</b> выполнены все перечисленные ниже условия». <code class="inl">USING GIST</code> — на каком типе индекса это построить: GiST умеет сравнивать не только на равенство, но и на «пересекается», «содержит», «рядом».',
+    'room_id WITH =,': 'Первое условие: <code class="inl">room_id</code> у двух строк <b>совпадает</b> (оператор <code class="inl">=</code>). То есть речь про одну и ту же переговорку — брони разных комнат друг другу не мешают.',
+    'period  WITH &&': 'Второе условие: периоды <b>пересекаются</b> (оператор <code class="inl">&amp;&amp;</code> как раз означает «есть общее время»). Вместе с первым получается правило: «одна комната + пересекающееся время = конфликт, вставку отклонить».<br><br>Заметьте, чего <b>не</b> потребовалось: перед вставкой не надо ничего выбирать и проверять в коде. Проверка происходит атомарно внутри базы, поэтому два одновременных запроса не смогут забронировать комнату дважды — а вот код с «SELECT, проверил, INSERT» именно так и ломается.'
+  }
+};
   const C = [
     {k:'pk', n:'PRIMARY KEY', ru:'первичный ключ', ico:'🔑',
      what:'Колонка (или набор колонок), которая <b>однозначно определяет строку</b>. Двух строк с одинаковым значением быть не может, и пустым оно быть не может.',
@@ -5620,7 +5981,7 @@ CREATE INDEX idx_orders_customer ON orders(customer_id);`;
     nav.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
     main.innerHTML = '<div class="cn-title">' + c.ico + ' <b>' + esc(c.n) + '</b> <span class="cn-ru">' + esc(c.ru) + '</span></div>' +
       '<div class="cn-what">' + c.what + '</div>' +
-      '<div class="cn-lab">Как пишется</div><pre class="ty-code">' + esc(c.how) + '</pre>' +
+      '<div class="cn-lab">Как пишется — <span class="cn-tip">разбор по строкам</span></div>' + annCode(c.how, CN_NOTES[c.k], 'нажмите на подсвеченную строку — разберу, что она делает и зачем') +
       '<div class="cn-lab err">Что будет при нарушении</div><pre class="ty-code cn-err">' + esc(c.err) + '</pre>' +
       '<div class="note"><b>Как устроено внутри.</b> ' + c.inside + '</div>' +
       '<div class="hintbox"><b>Где спотыкаются.</b> ' + c.trap + '</div>';
@@ -6160,6 +6521,416 @@ CREATE INDEX idx_orders_customer ON orders(customer_id);`;
     card.querySelectorAll('.qopt').forEach((o, k) => { o.classList.toggle('correct', k === Q[i].a); if(o === b && +b.dataset.o !== Q[i].a) o.classList.add('wrong'); });
     card.querySelector('.qwhy').innerHTML = (+b.dataset.o === Q[i].a ? '✅ ' : '❌ ') + Q[i].w;
   });
+})();
+
+
+/* ================= TRADE-OFF: физика одной вставки ================= */
+(function(){
+  const stepsEl = document.getElementById('to-steps'); if(!stepsEl) return;
+  const selN = document.getElementById('to-n');
+  const IX = ['idx_customer_id', 'idx_created_at', 'idx_status', 'idx_email', 'idx_city', 'idx_total', 'idx_order_no', 'idx_updated_at'];
+  let shown = 0, running = false;
+
+  function build(){
+    const n = +selN.value;
+    const S = [
+      {t:'Найти место в таблице', d:'Движок ищет страницу с достаточным свободным местом (по карте свободного пространства FSM). Нашёл — берёт её из буферного кэша или читает с диска.', c:'~1 обращение', k:'base'},
+      {t:'Записать намерение в WAL', d:'Прежде чем менять данные, база пишет в журнал: «в страницу 4821 добавляется такая-то строка». Это гарантия, что при потере питания вставка не пропадёт.', c:'1 запись в WAL', k:'base'},
+      {t:'Положить строку в страницу', d:'Строка (кортеж) кладётся в страницу в памяти. На диск в файл таблицы она попадёт позже, на checkpoint. Это дешёвая операция — работа с оперативной памятью.', c:'1 изменение страницы', k:'base'},
+    ];
+    for(let i = 0; i < n; i++){
+      S.push({t:'Индекс ' + (i + 1) + ' из ' + n + ': ' + IX[i], d:'Спуститься по B-дереву от корня до нужного листа (3–4 уровня на большой таблице — значит 3–4 обращения к страницам), найти позицию, вставить запись «значение → адрес строки». <b>И записать это в WAL отдельно.</b>' + (i === n - 1 && n >= 8 ? '<br><br>И так — для каждого из восьми. Ровно поэтому таблица с восемью индексами вставляет строки в разы медленнее.' : ''), c:'~4 обращения + 1 WAL', k:'idx'});
+    }
+    if(n >= 3) S.splice(3 + Math.min(n, 2), 0, {t:'Возможно — расщепление страницы индекса', d:'Если лист B-дерева заполнен, его приходится <b>расщепить</b>: выделить новую страницу, перенести половину записей, поправить ссылки у родителя. Иногда расщепление доходит до самого корня. Это самая дорогая операция при вставке в индекс, и чем больше индексов, тем чаще она случается.', c:'~6 обращений + WAL', k:'split'});
+    S.push({t:'COMMIT', d:'Журнал сбрасывается на диск (fsync) — вот теперь данные не потеряются. Обратите внимание: <b>ждём мы только WAL</b>, а сами страницы таблицы и индексов уходят на диск позже. Поэтому COMMIT быстрый.', c:'1 fsync', k:'base'});
+    return S;
+  }
+
+  function draw(S){
+    stepsEl.innerHTML = S.map((s, i) => '<div class="to-s ' + s.k + (i < shown ? ' on' : '') + '"><div class="to-i">' + (i + 1) + '</div>' +
+      '<div class="to-b"><div class="to-t">' + esc(s.t) + '</div><div class="to-d">' + s.d + '</div></div>' +
+      '<div class="to-c">' + esc(s.c) + '</div></div>').join('');
+    const n = +selN.value;
+    const io = 1 + n * 4 + (n >= 3 ? 6 : 0), wal = 2 + n;
+    document.getElementById('to-tot').innerHTML =
+      '<div class="to-m"><b>' + n + '</b><small>индексов</small></div>' +
+      '<div class="to-m"><b>' + S.length + '</b><small>шагов на одну вставку</small></div>' +
+      '<div class="to-m' + (n >= 8 ? ' bad' : '') + '"><b>~' + io + '</b><small>обращений к страницам</small></div>' +
+      '<div class="to-m' + (n >= 8 ? ' bad' : '') + '"><b>' + wal + '</b><small>записей в журнал WAL</small></div>' +
+      '<div class="to-m' + (n >= 8 ? ' bad' : '') + '"><b>×' + (1 + n * 0.55).toFixed(1) + '</b><small>ко времени вставки</small></div>';
+  }
+  draw(build());
+
+  function run(){
+    if(running) return; running = true;
+    const S = build(); shown = 0;
+    const M = document.getElementById('to-msg');
+    (function tick(){
+      if(shown >= S.length){
+        running = false;
+        const n = +selN.value;
+        msg(M, n >= 8 ? 'err' : n === 0 ? 'ok' : '', n === 0
+          ? '<b>Вставка без индексов — 4 шага.</b> Это минимум, ниже которого база опуститься не может: журнал, страница, фиксация. Быстро.'
+          : n === 1 ? '<b>Один индекс — 5 шагов.</b> Прибавилось немного: один спуск по дереву и одна лишняя запись в журнал. Такую цену платят охотно.'
+          : n === 3 ? '<b>Три индекса — ' + S.length + ' шагов.</b> Работы стало вдвое больше, чем без индексов, и появилось расщепление страниц. Это нормальный рабочий режим: три-четыре индекса на таблицу — обычное дело.'
+          : '<b>Восемь индексов — ' + S.length + ' шагов на одну вставку.</b> Полезной работы по-прежнему ровно один шаг: положить строку. Всё остальное — обслуживание индексов.<br><br>На таблице, куда пишут постоянно, это прямая потеря пропускной способности: вместо 5000 вставок в секунду получите около 1000. И вопрос уже не «а вдруг понадобится», а <b>«какой конкретный запрос ускоряет каждый из этих восьми»</b>.');
+        return;
+      }
+      shown++; draw(S);
+      setTimeout(tick, 260);
+    })();
+  }
+  document.getElementById('to-run').addEventListener('click', run);
+  selN.addEventListener('change', () => { shown = 0; draw(build()); msg(document.getElementById('to-msg'), '', 'Индексов: <b>' + selN.value + '</b>. Запустите вставку.'); });
+  document.getElementById('to-reset').addEventListener('click', () => { shown = 0; running = false; draw(build()); msg(document.getElementById('to-msg'), '', 'Выберите число индексов и запустите вставку.'); });
+})();
+
+/* ================= TRADE-OFF: HOT-update ================= */
+(function(){
+  const box = document.getElementById('hu-cases'); if(!box) return;
+  const IX = [
+    {n:'idx_customer_id', col:'customer_id'},
+    {n:'idx_created_at', col:'created_at'},
+    {n:'idx_status', col:'status'},
+    {n:'idx_email', col:'email'},
+  ];
+  const C = [
+    {k:'note', l:"UPDATE orders SET note = 'перезвонить'", col:'note', indexed:false, room:true,
+     w:'<b>HOT-update — самый дешёвый случай.</b> Колонка <code class="inl">note</code> не входит ни в один индекс, и в странице есть свободное место. Новая версия строки легла в <b>ту же страницу</b>, индексы <b>не тронуты вообще</b>.<br><br>Работы: 1 изменение страницы + 1 запись в журнал. Всё.'},
+    {k:'status', l:"UPDATE orders SET status = 'paid'", col:'status', indexed:true, room:true,
+     w:'<b>HOT не сработал.</b> Колонка <code class="inl">status</code> входит в индекс <code class="inl">idx_status</code> — значит, значение в индексе поменялось, и обойтись без его правки нельзя. А раз индекс всё равно переписываем, база <b>обновляет записи во ВСЕХ четырёх индексах</b>: новая версия строки лежит по новому адресу, и указывать на неё должны все.<br><br><b>Вот главный сюрприз:</b> вы поменяли одну колонку, а переписаны все четыре индекса. Работы в 4–5 раз больше, чем в первом случае.'},
+    {k:'nofit', l:"UPDATE orders SET note = 'длинный текст…'", col:'note', indexed:false, room:false,
+     w:'<b>HOT не сработал по другой причине.</b> Колонка не индексирована — казалось бы, всё хорошо. Но новая версия строки <b>не влезла в текущую страницу</b>: места не осталось. Пришлось положить её в другую страницу, а значит адрес строки изменился — и все индексы надо править.<br><br>Отсюда параметр <code class="inl">fillfactor</code>: можно попросить базу оставлять в страницах свободное место под будущие обновления — <code class="inl">ALTER TABLE orders SET (fillfactor = 85);</code> Таблица станет чуть больше, зато HOT будет срабатывать гораздо чаще. Приём для таблиц, которые часто обновляют.'},
+    {k:'noidx', l:"UPDATE orders SET status = 'paid' (индекса на status нет)", col:'status', indexed:false, room:true, drop:'idx_status',
+     w:'<b>Тот же запрос, но индекс на status снесён — и HOT снова работает.</b> Обновление статуса стало в 4–5 раз дешевле.<br><br>Именно так выглядит цена «безобидного» индекса на часто обновляемой колонке. Если <code class="inl">idx_status</code> ускоряет важный запрос — держите его, это осознанный обмен. Если он создан «чтобы фильтровать по статусу», а таких запросов в проде нет — вы платите за него каждым обновлением каждого заказа.<br><br>Компромисс: частичный индекс <code class="inl">WHERE status = \'new\'</code>. В него попадает малая часть строк, и переписывать его нужно гораздо реже.'},
+  ];
+  let sel = -1;
+  function draw(){
+    box.innerHTML = C.map((c, i) => '<button class="hu-c' + (i === sel ? ' on' : '') + '" data-i="' + i + '"><code>' + esc(c.l) + '</code></button>').join('');
+    const st = document.getElementById('hu-stage');
+    if(sel < 0){ st.innerHTML = '<div class="cn-empty">выберите запрос слева</div>'; return; }
+    const c = C[sel];
+    const hot = !c.indexed && c.room;
+    const ixList = IX.filter(x => x.n !== c.drop);
+    st.innerHTML =
+      '<div class="hu-page ' + (c.room ? '' : 'full') + '"><div class="hu-ph">страница таблицы' + (c.room ? '' : ' — места нет') + '</div>' +
+        '<div class="hu-row old">v1 · старая версия <small>xmax поставлен</small></div>' +
+        '<div class="hu-row new ' + (c.room ? 'here' : 'away') + '">v2 · новая версия <small>' + (c.room ? 'легла в эту же страницу' : 'ушла в ДРУГУЮ страницу') + '</small></div>' +
+      '</div>' +
+      '<div class="hu-arr ' + (hot ? 'skip' : 'touch') + '">' + (hot ? 'индексы не трогаем' : 'правим все индексы') + '</div>' +
+      '<div class="hu-ix">' + ixList.map(x => '<div class="hu-i' + (hot ? '' : ' upd') + '">' + esc(x.n) + '<small>' + (hot ? 'не изменён' : 'переписан') + '</small></div>').join('') +
+        (c.drop ? '<div class="hu-i gone">' + esc(c.drop) + '<small>удалён</small></div>' : '') + '</div>' +
+      '<div class="hu-verdict ' + (hot ? 'ok' : 'bad') + '">' + (hot ? '✅ HOT-update: ' + (1) + ' изменение страницы, индексы целы' : '⚠️ обычный UPDATE: 1 страница + ' + ixList.length + ' индекса переписаны') + '</div>';
+    msg(document.getElementById('hu-msg'), hot ? 'ok' : 'err', c.w);
+  }
+  box.addEventListener('click', e => { const b = e.target.closest('button'); if(b){ sel = +b.dataset.i; draw(); } });
+  draw();
+})();
+
+/* ================= TRADE-OFF: скрытые расходы ================= */
+(function(){
+  const tabs = document.getElementById('hc-tabs'); if(!tabs) return;
+  const body = document.getElementById('hc-body');
+  const H = [
+    {n:'Планировщик думает дольше',
+     code:"-- 3 индекса на таблице:\nPlanning Time: 0.14 ms\nExecution Time: 1.20 ms\n\n-- 14 индексов на той же таблице:\nPlanning Time: 2.80 ms      ← в 20 раз дольше\nExecution Time: 1.20 ms     ← а выполнение то же\n\n-- запрос с JOIN трёх таких таблиц:\nPlanning Time: 41.00 ms",
+     w:'Перед выполнением база <b>перебирает варианты плана</b> и считает стоимость каждого. Больше индексов — больше комбинаций: какой взять, стоит ли объединять два через bitmap, в каком порядке соединять таблицы. Число вариантов растёт быстрее, чем число индексов.',
+     r:'На тяжёлом отчёте 3 мс планирования незаметны. А на запросе, который выполняется 148 тысяч раз в день и сам занимает 1 мс, планирование становится <b>основной статьёй расхода</b>. Особенно если приложение не использует подготовленные запросы (prepared statements) и план строится каждый раз заново.<br><br>Смотрите в <code class="inl">EXPLAIN ANALYZE</code> на строку <code class="inl">Planning Time</code>. Если она сравнима с <code class="inl">Execution Time</code> или больше — вы нашли проблему.'},
+    {n:'Раздувание (bloat)',
+     code:"-- индекс, который «должен» весить 42 МБ:\nSELECT pg_size_pretty(pg_relation_size('idx_orders_city'));\n 210 MB\n\n-- почему: после каждого UPDATE в индексе\n-- остаётся запись на мёртвую версию строки.\n-- VACUUM их вычищает, но страницы не сжимает.\n\nREINDEX INDEX CONCURRENTLY idx_orders_city;   -- лечение",
+     w:'Каждое обновление строки оставляет в индексах записи, ведущие на <b>мёртвые версии</b>. <code class="inl">VACUUM</code> помечает их как свободные, но страницы индекса от этого не уплотняются — внутри остаются дыры.',
+     r:'Раздутый в пять раз индекс читается в пять раз дольше нужного и в пять раз хуже влезает в кэш. И это <b>самоусиливающаяся</b> проблема: чем больше индексов, тем больше работы у VACUUM, тем хуже он успевает, тем сильнее раздувание.<br><br>Лечится <code class="inl">REINDEX CONCURRENTLY</code>, но это регулярная работа. Индекс, которого нет, раздуваться не может — самый надёжный способ не иметь этой проблемы.'},
+    {n:'VACUUM не успевает',
+     code:"-- VACUUM обязан пройти по КАЖДОМУ индексу таблицы\n-- и вычистить ссылки на мёртвые строки.\n\n-- 3 индекса:  автовакуум таблицы ~2 минуты\n-- 14 индексов: ~15 минут\n\nSELECT relname, n_dead_tup, last_autovacuum\nFROM pg_stat_user_tables ORDER BY n_dead_tup DESC;",
+     w:'<code class="inl">VACUUM</code> — уборщик, который освобождает место от мёртвых версий строк. Работы у него ровно столько, сколько индексов: по каждому надо пройти и вычистить ссылки.',
+     r:'Опасность в том, что это <b>обрыв, а не плавная деградация</b>. Пока автовакуум успевает между наплывами записи — всё хорошо. Как только перестаёт успевать, мёртвые строки начинают накапливаться: таблица пухнет, запросы читают всё больше мусора, нагрузка растёт, вакуум успевает ещё хуже. Дальше по спирали, и обычно это замечают, когда диск кончается.<br><br>Смотреть на <code class="inl">n_dead_tup</code> и на <code class="inl">last_autovacuum</code>. Растёт первое, а второе застряло в прошлом — вакуум проигрывает.'},
+    {n:'Индексы вытесняют данные из кэша',
+     code:"-- у базы есть shared_buffers, например 8 ГБ.\n-- В нём лежат страницы И таблиц, И индексов.\n\n-- таблица orders  380 МБ\n-- 3 индекса       126 МБ  → всё влезает, всё горячее\n-- 14 индексов     588 МБ  → уже почти 1 ГБ на одну таблицу\n\n-- проверить, что читается с диска, а что из кэша:\nSELECT heap_blks_hit, heap_blks_read,\n       idx_blks_hit, idx_blks_read\nFROM pg_statio_user_tables WHERE relname = 'orders';",
+     w:'Оперативная память конечна, и индексы делят её с данными. Каждый лишний индекс отнимает место в кэше у тех страниц, которые действительно нужны.',
+     r:'Обидная механика: неиспользуемый индекс всё равно <b>обновляется</b> при каждой вставке, а значит его страницы попадают в кэш и выталкивают оттуда полезные. Он вредит, даже когда его никто не читает.<br><br>Признак — растущее <code class="inl">heap_blks_read</code> относительно <code class="inl">heap_blks_hit</code>: данные всё чаще берутся с диска вместо памяти.'},
+    {n:'Каждый индекс — риск при выкладке',
+     code:"-- CREATE INDEX блокирует запись в таблицу\nCREATE INDEX idx_orders_city ON orders(city);      -- ⛔ на проде\n\n-- CONCURRENTLY не блокирует, но:\n--   • дольше (два прохода)\n--   • нельзя в транзакции → нельзя в обычной миграции\n--   • при сбое остаётся невалидный индекс\n\nSELECT indexrelid::regclass FROM pg_index WHERE NOT indisvalid;",
+     w:'Индекс — объект схемы, а любое изменение схемы на живой базе требует блокировки. Чем больше индексов, тем больше таких операций при развёртывании и тем больше шансов, что одна из них встанет неудачно.',
+     r:'И это не разовая история: индексы нужно перестраивать при обслуживании, переносить при обновлении версии, восстанавливать при развёртывании из бэкапа. Восстановление базы с 14 индексами на таблицу занимает существенно дольше, чем с тремя — а восстанавливают обычно в самый неподходящий момент.'},
+  ];
+  tabs.innerHTML = H.map((h, i) => '<button class="ghost' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' + esc(h.n) + '</button>').join('');
+  function show(i){
+    const h = H[i];
+    tabs.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
+    body.innerHTML = '<pre class="ty-code">' + esc(h.code) + '</pre><div class="note"><b>Что происходит.</b> ' + h.w + '</div><div class="hintbox">' + h.r + '</div>';
+  }
+  tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(+b.dataset.i); });
+  show(0);
+})();
+
+/* ================= TRADE-OFF: лишние индексы ================= */
+(function(){
+  const list = document.getElementById('du-list'); if(!list) return;
+  const D = [
+    {n:'orders_pkey', d:'UNIQUE (id)', scans:'8 421 003', bad:false,
+     w:'Первичный ключ. Нужен всегда и удалению не подлежит: он не только ускоряет, но и обеспечивает уникальность.'},
+    {n:'idx_customer_id', d:'(customer_id)', scans:'2 104 887', bad:false,
+     w:'Индекс под внешний ключ, и он активно используется. Такой нужен обязательно: PostgreSQL не создаёт его сам, а без него каждое удаление клиента сканирует всю таблицу заказов.'},
+    {n:'idx_city_created', d:'(city, created_at)', scans:'941 220', bad:false,
+     w:'Составной индекс, который активно работает. Порядок правильный: сначала точное сравнение по городу, потом диапазон по дате.'},
+    {n:'idx_city', d:'(city)', scans:'0', bad:true,
+     w:'<b>Лишний — левый префикс.</b> Есть <code class="inl">(city, created_at)</code>, и он обслуживает запросы по одному <code class="inl">city</code> ровно так же. Обратите внимание: <code class="inl">idx_scan = 0</code> — планировщик сам выбрал составной и про этот забыл. Удаляем.'},
+    {n:'idx_order_no', d:'(order_no)', scans:'0', bad:true,
+     w:'<b>Лишний — дублирует UNIQUE.</b> На <code class="inl">order_no</code> уже стоит ограничение <code class="inl">UNIQUE</code>, а под ним база создала уникальный индекс автоматически. Этот — вторая копия того же самого. Классическая ошибка: «на это поле часто ищут, надо проиндексировать» — а он уже проиндексирован.'},
+    {n:'idx_created_city', d:'(created_at, city)', scans:'12', bad:true,
+     w:'<b>Почти наверняка лишний — те же колонки в обратном порядке.</b> Формально это другой индекс, и в редких случаях нужны оба. Но 12 использований против 941 тысячи у <code class="inl">(city, created_at)</code> говорят прямо: его создали, не разобравшись с порядком колонок, а потом сделали правильный и забыли снести первый.<br><br>Перед удалением стоит найти те 12 запросов — но с такой статистикой почти всегда сносят.'},
+    {n:'idx_status', d:'(status)', scans:'340', bad:true,
+     w:'<b>Лишний, и дорогой.</b> Колонка <code class="inl">status</code> меняется <b>пять раз за жизнь каждого заказа</b> — а этот индекс лишает все эти обновления HOT-оптимизации: каждое из них переписывает записи во всех индексах таблицы.<br><br>340 использований — это порядка одного запроса в час. Цена — пятикратное обновление всех индексов на каждом заказе. Обмен явно невыгодный.<br><br>Если фильтр по статусу нужен, правильный вариант — частичный индекс: <code class="inl">CREATE INDEX ON orders(created_at) WHERE status = \'new\';</code> В нём лежат только активные заказы, он маленький, и его почти не приходится переписывать.'},
+    {n:'idx_total', d:'(total)', scans:'1 998 002', bad:false,
+     w:'Используется активно — почти два миллиона раз. Оставляем, даже если на первый взгляд «индекс по сумме» кажется странным: статистика говорит, что запросы по нему идут.'},
+  ];
+  let found = new Set(), wrong = new Set();
+  function draw(){
+    list.innerHTML = D.map((x, i) => '<button class="du-r' + (found.has(i) ? ' hit' : wrong.has(i) ? ' miss' : '') + '" data-i="' + i + '">' +
+      '<span class="du-n">🔑 ' + esc(x.n) + '</span><span class="du-d">' + esc(x.d) + '</span>' +
+      '<span class="du-s' + (x.scans === '0' ? ' zero' : '') + '">' + esc(x.scans) + ' исп.</span>' +
+      '<span class="du-v">' + (found.has(i) ? '🗑 лишний' : wrong.has(i) ? '✋ нужен' : '') + '</span></button>').join('');
+    const total = D.filter(x => x.bad).length;
+    document.getElementById('du-score').innerHTML =
+      '<div class="to-m' + (found.size === total ? ' ok' : '') + '"><b>' + found.size + ' / ' + total + '</b><small>лишних найдено</small></div>' +
+      '<div class="to-m' + (wrong.size ? ' bad' : '') + '"><b>' + wrong.size + '</b><small>ошибочно помечено</small></div>' +
+      (found.size === total && !wrong.size ? '<div class="to-m ok"><b>−4</b><small>индекса можно снести: вставки быстрее, места меньше, VACUUM легче</small></div>' : '');
+  }
+  draw();
+  list.addEventListener('click', e => {
+    const b = e.target.closest('button'); if(!b) return;
+    const i = +b.dataset.i, x = D[i];
+    if(x.bad) found.add(i); else wrong.add(i);
+    draw();
+    msg(document.getElementById('du-msg'), x.bad ? 'ok' : 'err', (x.bad ? '✅ <b>Верно, лишний.</b><br><br>' : '❌ <b>Нет, этот нужен.</b><br><br>') + x.w);
+  });
+})();
+
+/* ================= TRADE-OFF: разбор кейса ================= */
+(function(){
+  const st = document.getElementById('csx-steps'); if(!st) return;
+  const S = [
+    {t:'Месяц 1 · Всё хорошо', code:"orders: 2 индекса (pkey, customer_id)\nвставок: 4 800 / сек\nразмер: 380 МБ + 84 МБ индексы\nавтовакуум: успевает за 2 мин", m:'ok',
+     w:'Нормальная таблица нормального сервиса. Индексы стоят там, где нужны: первичный ключ и внешний. Запас по производительности большой.'},
+    {t:'Месяц 2 · «Отчёт тормозит, добавь индекс»', code:"+ idx_status\n+ idx_created_at\n+ idx_city\n\nвставок: 3 100 / сек   (было 4 800)", m:'',
+     w:'Три индекса добавили по трём разным просьбам, в разное время, разные люди. Каждый по отдельности выглядел совершенно разумно — отчёт правда ускорился.<br><br>Вставки просели на треть, но <b>никто не заметил</b>: запас-то был. Вот здесь и появляется главная опасность — деградация постепенная и незаметная.<br><br>И ещё одна мина: <code class="inl">idx_status</code> встал на колонку, которая меняется пять раз за жизнь заказа. С этого момента <b>все</b> обновления заказов потеряли HOT-оптимизацию.'},
+    {t:'Месяц 4 · «На всякий случай»', code:"+ idx_email\n+ idx_total\n+ idx_order_no       ← а на нём уже UNIQUE\n+ idx_created_city   ← а есть (city, created_at)\n+ idx_updated_at\n\nвсего 12 индексов\nвставок: 1 400 / сек\nиндексы: 512 МБ  ← больше самих данных", m:'err',
+     w:'Здесь начинаются индексы «на всякий случай» и дубликаты по невнимательности. Два из пяти новых бесполезны просто по построению: один дублирует уже существующий UNIQUE, второй — те же колонки в обратном порядке.<br><br>Вставки упали втрое от исходных. Индексы занимают больше места, чем данные. Планирование запросов подорожало с 0,14 до 2,8 мс. Автовакуум с 2 минут дошёл до 15.<br><br><b>Формально всё ещё работает.</b> Именно поэтому никто ничего не делает.'},
+    {t:'Месяц 5, пятница, распродажа', code:"нагрузка ×3\nвставок нужно: 4 200 / сек\nвставок база даёт: 1 400 / сек\n\n→ очередь запросов растёт\n→ соединения кончились\n→ автовакуум не успевает, n_dead_tup растёт\n→ таблица пухнет, запросы читают мусор\n→ ⛔ сервис недоступен", m:'err',
+     w:'Тройная нагрузка — не аномалия, распродажу планировали. Запас, который был в первый месяц, к этому моменту съеден индексами.<br><br>Дальше идёт спираль: вставки не успевают → соединения не освобождаются → пул кончается → приложение начинает повторять запросы → нагрузка растёт ещё → автовакуум окончательно отстаёт → мёртвые строки копятся → чтения замедляются.<br><br><b>И причину найдут не сразу.</b> Метрики покажут «база не справляется», решением предложат сервер помощнее. То, что дело в семи ненужных индексах, добавленных за три месяца по одному, — это не то, что видно на графиках.'},
+    {t:'Понедельник · Разбор и лечение', code:"-- 1. кто вообще не использовался\nSELECT indexrelname, idx_scan\nFROM pg_stat_user_indexes WHERE relname = 'orders'\nORDER BY idx_scan;\n\n-- 2. снести бесспорно лишние\nDROP INDEX idx_order_no;      -- дубль UNIQUE\nDROP INDEX idx_city;          -- левый префикс\nDROP INDEX idx_created_city;  -- обратный порядок\nDROP INDEX idx_updated_at;    -- idx_scan = 0\n\n-- 3. заменить дорогой на частичный\nDROP INDEX idx_status;\nCREATE INDEX CONCURRENTLY idx_orders_new\n  ON orders(created_at) WHERE status = 'new';\n\n-- 4. подстелить соломки под обновления\nALTER TABLE orders SET (fillfactor = 85);", m:'ok',
+     w:'Осталось 7 индексов вместо 12, вставки вернулись к 3 900 в секунду, индексы весят 180 МБ вместо 512. Обновления статуса снова идут по HOT — самое большое улучшение, и его дал <b>снос</b> индекса, а не добавление.<br><br><b>Что изменили в процессе, чтобы не повторилось:</b><br>• индекс создаётся только с указанием, какой запрос он ускоряет, — это пишут в описание миграции;<br>• перед созданием смотрят, нет ли уже подходящего (левый префикс, UNIQUE, первичный ключ);<br>• раз в квартал проверяют <code class="inl">pg_stat_user_indexes</code> и сносят то, что не использовалось;<br>• в мониторинг добавили вставок в секунду и <code class="inl">n_dead_tup</code> — чтобы деградация была видна, а не всплывала на распродаже.'},
+  ];
+  st.innerHTML = S.map((s, i) => '<div class="step-c" data-i="' + i + '"><button class="step-b">' + esc(s.t) + '</button><pre class="ty-code">' + esc(s.code) + '</pre></div>').join('');
+  st.addEventListener('click', e => {
+    const b = e.target.closest('.step-b'); if(!b) return;
+    const i = +b.closest('.step-c').dataset.i;
+    st.querySelectorAll('.step-c').forEach((c, k) => c.classList.toggle('on', k === i));
+    msg(document.getElementById('csx-msg'), S[i].m, S[i].w);
+  });
+})();
+
+
+/* ================= ВИЗУАЛ: библиотека ================= */
+(function(){
+  const el = document.getElementById('lib'); if(!el) return;
+  const BOOKS = ['Три товарища','Дюна','Мастер и Маргарита','Идиот','Солярис','Обломов','1984','Му-му','Пикник на обочине','Онегин','Отцы и дети','Гроза'];
+  const TARGET = 2;
+  const CARDS = BOOKS.map((b, i) => ({b, i})).sort((a, b) => a.b.localeCompare(b.b, 'ru'));
+  let mode = null, step = -1, timer = null;
+  function draw(){
+    const shelfHL = i => mode === 'shelf' ? (i < step ? 'seen' : i === step ? 'look' : '') : (mode === 'cat' && step >= 2 && i === TARGET ? 'found' : '');
+    const catHL = i => {
+      if(mode !== 'cat') return '';
+      const ci = CARDS.findIndex(c => c.i === TARGET);
+      if(step === 0) return i === Math.floor(CARDS.length / 2) ? 'look' : '';
+      if(step >= 1) return i === ci ? 'found' : '';
+      return '';
+    };
+    el.innerHTML =
+      '<div class="lib-side">' +
+        '<div class="lib-h">🗂 Каталожный ящик <small>карточки по алфавиту — это ИНДЕКС</small></div>' +
+        '<div class="lib-cards">' + CARDS.map((c, i) => '<div class="lib-card ' + catHL(i) + '"><span>' + esc(c.b) + '</span><b>полка ' + (c.i + 1) + '</b></div>').join('') + '</div>' +
+      '</div>' +
+      '<div class="lib-arrow' + (mode === 'cat' && step >= 2 ? ' on' : '') + '"><b>полка 3</b><small>адрес из карточки</small></div>' +
+      '<div class="lib-side">' +
+        '<div class="lib-h">📚 Полки <small>книги в порядке поступления — это ТАБЛИЦА</small></div>' +
+        '<div class="lib-shelf">' + BOOKS.map((b, i) => '<div class="lib-b ' + shelfHL(i) + '"><i>' + (i + 1) + '</i>' + esc(b) + '</div>').join('') + '</div>' +
+      '</div>';
+  }
+  draw();
+  const M = () => document.getElementById('lib-msg');
+  function stop(){ clearTimeout(timer); timer = null; }
+  document.getElementById('lib-shelf').addEventListener('click', () => {
+    stop(); mode = 'shelf'; step = 0; draw();
+    (function tick(){
+      if(step > TARGET){
+        msg(M(), 'err', '<b>Нашли на ' + (TARGET + 1) + '-й попытке.</b> Пришлось снять и проверить каждую книгу подряд, пока не попалась нужная. Здесь книг двенадцать, и это быстро. А если бы их был <b>миллион</b>? В среднем полмиллиона книг в руках.<br><br>Именно это база делает при <code class="inl">Seq Scan</code>: читает строки одну за другой и проверяет условие.');
+        return;
+      }
+      draw();
+      msg(M(), '', 'Проверяем полку <b>' + (step + 1) + '</b>: «' + esc(BOOKS[step]) + '» — ' + (step === TARGET ? '<b>это она!</b>' : 'не та, идём дальше') + '');
+      step++;
+      timer = setTimeout(tick, 420);
+    })();
+  });
+  document.getElementById('lib-cat').addEventListener('click', () => {
+    stop(); mode = 'cat'; step = 0; draw();
+    const S = [
+      'Шаг 1. Открываем ящик <b>примерно на середине</b> — карточки же по алфавиту, можно прыгать, а не перебирать. Ищем букву «М».',
+      'Шаг 2. Нашли карточку <b>«Мастер и Маргарита»</b>. На ней написано: <b>полка 3</b>. Обратите внимание — самой книги в ящике нет, только название и адрес.',
+      '<b>Шаг 3. Идём сразу на полку 3 и берём книгу.</b> Итого: пара движений в ящике плюс один поход к полке — вместо обхода всех двенадцати.<br><br>Это <code class="inl">Index Scan</code>. И на миллионе книг он занял бы почти столько же: в отсортированном ящике поиск идёт прыжками, а не перебором.<br><br>А если бы вам нужно было только <b>узнать номер полки</b> (или проверить, есть ли такая книга) — вы бы остановились на шаге 2 и к полкам вообще не пошли. Вот это <code class="inl">Index Only Scan</code>, самое быстрое из всего.'
+    ];
+    (function tick(){
+      if(step >= S.length) return;
+      draw(); msg(M(), step === S.length - 1 ? 'ok' : '', S[step]);
+      step++;
+      timer = setTimeout(tick, 1100);
+    })();
+  });
+  document.getElementById('lib-reset').addEventListener('click', () => { stop(); mode = null; step = -1; draw(); msg(M(), '', 'Нужна книга «Мастер и Маргарита». Попробуйте оба способа.'); });
+})();
+
+/* ================= ВИЗУАЛ: спуск по B-дереву ================= */
+(function(){
+  const el = document.getElementById('btd'); if(!el) return;
+  const TARGET = 734291;
+  const L = [
+    {t:'корень', nodes:[['1 … 250 000','250 001 … 500 000','500 001 … 750 000','750 001 … 1 000 000']], pick:2},
+    {t:'внутренний узел', nodes:[['500 001 … 562 500','562 501 … 625 000','625 001 … 687 500','687 501 … 750 000']], pick:3},
+    {t:'лист', nodes:[['687 501 … 703 000','703 001 … 718 000','718 001 … 734 000','734 001 … 750 000']], pick:3},
+  ];
+  const STEPS = [
+    {k:'root', w:'<b>Обращение 1 — читаем корень дерева.</b> Это одна страница 8 КБ, и она почти всегда уже в памяти: корень читают все запросы, он никогда не вытесняется из кэша.<br><br>В корне лежат <b>границы диапазонов</b>. Ищем, в какой попадает 734 291 — это третий: «500 001 … 750 000». <b>Три четверти таблицы отброшено одним чтением.</b>',
+     cmp:'осталось 250 000 из 1 000 000'},
+    {k:'inner', w:'<b>Обращение 2 — читаем внутренний узел</b>, на который указал корень. Снова четыре диапазона, снова выбираем свой: 734 291 попадает в «687 501 … 750 000».<br><br><b>Осталось 62 500 строк.</b> За два чтения отбросили 93,75 % таблицы.',
+     cmp:'осталось 62 500 из 1 000 000'},
+    {k:'leaf', w:'<b>Обращение 3 — читаем лист.</b> Листья — нижний уровень дерева, здесь лежат уже сами значения и <b>адреса строк в таблице</b> (в PostgreSQL адрес называется ctid — номер страницы и номер строки внутри неё).<br><br>Нашли запись: <code class="inl">734291 → страница 4821, строка 17</code>. Поиск по индексу закончен.',
+     cmp:'найдена запись: id 734291 → ctid (4821, 17)'},
+    {k:'heap', w:'<b>Обращение 4 — идём в таблицу за самой строкой.</b> В индексе лежало только значение и адрес, а нужные вам колонки (имя, email, сумма) находятся в таблице. Читаем страницу 4821, берём строку 17.<br><br><b>Итого 4 обращения к диску на миллион строк.</b> Полный перебор потребовал бы прочитать все страницы таблицы — это порядка <b>12 500</b> обращений.<br><br>И заметьте: <b>если бы все нужные колонки лежали в индексе</b>, этот четвёртый шаг не потребовался бы вовсе. Это <code class="inl">Index Only Scan</code> — ради него и делают покрывающие индексы через <code class="inl">INCLUDE</code>.',
+     cmp:'4 обращения вместо ~12 500 — быстрее в 3 000 раз'},
+  ];
+  let step = -1, timer = null;
+  function draw(){
+    let html = '<div class="bt-t">🌳 B-дерево индекса по колонке <code>id</code></div>';
+    L.forEach((lv, li) => {
+      const active = step >= li, done = step > li;
+      html += '<div class="bt-lv' + (active ? ' on' : '') + '"><div class="bt-lb">' + lv.t + '</div><div class="bt-nodes">' +
+        lv.nodes[0].map((n, ni) => '<div class="bt-n' + (active && ni === lv.pick ? ' pick' : active ? ' drop' : '') + '">' + esc(n) + '</div>').join('') +
+        '</div></div>';
+      if(li < L.length - 1) html += '<div class="bt-down' + (done ? ' on' : '') + '">↓</div>';
+    });
+    html += '<div class="bt-down' + (step >= 3 ? ' on' : '') + '">↓ по адресу из листа</div>' +
+      '<div class="bt-heap' + (step >= 3 ? ' on' : '') + '"><div class="bt-lb">таблица (heap)</div>' +
+      '<div class="bt-pages">' + Array.from({length: 8}, (_, i) => '<div class="bt-pg' + (step >= 3 && i === 4 ? ' pick' : '') + '">' + (i === 4 ? 'стр. 4821' : 'стр. …') + '</div>').join('') + '</div></div>';
+    el.innerHTML = html;
+    document.getElementById('btd-cmp').innerHTML = step >= 0 && STEPS[step]
+      ? '<div class="bt-c"><b>' + (step + 1) + ' / 4</b> обращения к диску</div><div class="bt-c wide">' + STEPS[step].cmp + '</div>' : '';
+  }
+  draw();
+  function go(){
+    if(step >= STEPS.length - 1){ msg(document.getElementById('btd-msg'), 'ok', 'Спуск завершён. Нажмите «Сброс», чтобы пройти заново.'); return false; }
+    step++; draw();
+    msg(document.getElementById('btd-msg'), step === STEPS.length - 1 ? 'ok' : '', STEPS[step].w);
+    return true;
+  }
+  document.getElementById('btd-next').addEventListener('click', () => { clearTimeout(timer); go(); });
+  document.getElementById('btd-auto').addEventListener('click', () => {
+    clearTimeout(timer); step = -1; draw();
+    (function tick(){ if(go()) timer = setTimeout(tick, 1500); })();
+  });
+  document.getElementById('btd-reset').addEventListener('click', () => { clearTimeout(timer); step = -1; draw(); msg(document.getElementById('btd-msg'), '', 'Нажмите «Дальше», чтобы начать спуск от корня.'); });
+})();
+
+/* ================= ВИЗУАЛ: бытовые аналогии типов ================= */
+(function(){
+  const tabs = document.getElementById('an-tabs'); if(!tabs) return;
+  const body = document.getElementById('an-body');
+  const A = [
+    {n:'B-tree', ico:'📖', an:'Телефонный справочник',
+     pic:[['Абрамов А.','стр. 1'],['Борисов Б.','стр. 12'],['Иванов И.','стр. 88'],['Петров П.','стр. 140'],['Яковлев Я.','стр. 302']],
+     w:'Всё отсортировано по фамилии. Можно найти конкретного человека, а можно и <b>всех от «И» до «П»</b> — просто читая подряд с нужного места. Именно поэтому B-tree умеет и <code class="inl">=</code>, и <code class="inl">&gt;</code>, и <code class="inl">BETWEEN</code>, и <code class="inl">ORDER BY</code>, и <code class="inl">LIKE \'Иван%\'</code>.',
+     no:'А вот найти всех, у кого <b>в середине</b> фамилии «нов», справочник не поможет: такие фамилии разбросаны по всей книге. Это <code class="inl">LIKE \'%нов%\'</code>, и B-tree тут бессилен.',
+     use:'Значение по умолчанию. 95 % индексов в реальных базах — это B-tree, и обычно ничего другого не нужно.'},
+    {n:'Hash', ico:'🎫', an:'Гардероб с номерками',
+     pic:[['номерок 417','крючок 417'],['номерок 418','крючок 418'],['номерок 419','крючок 419']],
+     w:'Отдали номерок — гардеробщик <b>сразу</b> идёт к нужному крючку. Не ищет, не сравнивает, не перебирает: номер <b>сам указывает</b> место. Хеш-функция работает точно так же — превращает значение в адрес.',
+     no:'Спросите гардеробщика: «дайте все куртки с номерками от 400 до 500» — и он пойдёт перебирать всё. Номерки не отсортированы, между ними нет порядка. Поэтому Hash умеет <b>только <code class="inl">=</code></b>: ни диапазонов, ни сортировки, ни префикса.',
+     use:'Только когда по колонке ищут исключительно на точное равенство и она длинная (например, хеш от URL). На практике берут редко: B-tree делает то же самое и умеет больше, а выигрыш небольшой.'},
+    {n:'GIN', ico:'🔖', an:'Предметный указатель в конце учебника',
+     pic:[['«транзакция»','стр. 12, 45, 88, 210'],['«индекс»','стр. 30, 31, 156'],['«NULL»','стр. 8, 99']],
+     w:'Ключевое отличие: <b>против одного слова стоит СПИСОК страниц</b>. Обычный индекс отвечает «значение → одна строка», а GIN — «одно значение → много строк». Поэтому его называют <b>инвертированным</b>.',
+     no:'Пишется медленно: добавили одну статью — надо дописать её номер к десяткам слов в указателе. Поэтому GIN тяжелее B-tree при вставке, зато у него есть отложенная запись (список ожидания), которая это сглаживает.',
+     use:'Ровно там, где в <b>одной ячейке лежит много значений</b>: полнотекстовый поиск (в тексте много слов), массивы, JSONB, теги. И поиск по подстроке через <code class="inl">pg_trgm</code> — тот самый случай <code class="inl">LIKE \'%нов%\'</code>, с которым B-tree не справился.'},
+    {n:'GiST', ico:'🗺', an:'Карта с квадратами',
+     pic:[['квадрат A1','кафе, парк, метро'],['квадрат A2','школа, аптека'],['квадрат B1','вокзал, почта']],
+     w:'Карту делят на квадраты, квадраты — на квадраты помельче. Ищете кафе рядом с собой — смотрите свой квадрат и соседние, а не всю карту. Отсюда умение отвечать на вопросы, которых у B-tree нет: <b>«пересекается», «содержит», «ближайшие»</b>.',
+     no:'Точное «дай мне ровно эту точку» GiST делает медленнее, чем B-tree: он для приблизительной геометрии, а не для равенства чисел.',
+     use:'Геоданные (это основа PostGIS: «найди в радиусе 2 км»), <b>диапазоны</b> — и вместе с ними ограничение <code class="inl">EXCLUDE</code> для запрета пересечения интервалов, которое разобрано на вкладке «Ограничения».'},
+    {n:'BRIN', ico:'📑', an:'Корешки томов энциклопедии',
+     pic:[['том 1','А — Га'],['том 2','Гб — Ко'],['том 3','Кп — Ся'],['том 4','Т — Я']],
+     w:'На корешке написано <b>только «от» и «до»</b> — что внутри, не перечислено. Ищете «Пушкин» — берёте том 3 и листаете его целиком. Указатель получается крошечный: четыре надписи на всю энциклопедию.',
+     no:'<b>Работает только если данные физически лежат по порядку.</b> Перемешайте статьи по томам случайно — и надписи на корешках станут бессмысленными: в каждом томе окажется «А — Я». Именно это происходит с BRIN на колонке, значения которой вставляются вразнобой.',
+     use:'Огромные таблицы, где новые строки всегда <b>дописываются в конец по возрастанию</b>: логи, метрики, события по дате. Там BRIN даёт индекс в тысячи раз меньше B-tree при почти той же пользе.'},
+    {n:'Bitmap', ico:'☑️', an:'Чек-лист «кто пришёл»',
+     pic:[['Москва','1 0 0 1 1 0 1 0'],['Казань','0 1 0 0 0 1 0 0'],['Пермь','0 0 1 0 0 0 0 1']],
+     w:'На каждое значение — <b>строка из галочек</b>: единица, если строка подходит, ноль, если нет. Гениально то, что такие строки можно <b>складывать логически</b>: «Москва И статус=новый» — это побитовое И двух строк, одна операция процессора на много строк сразу.',
+     no:'Годится, только когда <b>разных значений мало</b>. На колонке с миллионом уникальных значений вам понадобится миллион таких строк — это уже больше самих данных.',
+     use:'В PostgreSQL отдельного bitmap-индекса нет — но есть <b>Bitmap Heap Scan</b>: база строит такие маски <b>на лету</b> из обычных B-tree индексов, когда надо объединить условия по разным колонкам. Увидите <code class="inl">BitmapAnd</code> в плане — это оно. Как постоянный тип индекса bitmap живёт в аналитических базах вроде Oracle.'},
+  ];
+  tabs.innerHTML = A.map((a, i) => '<button class="ghost' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' + a.ico + ' ' + esc(a.n) + '</button>').join('');
+  function show(i){
+    const a = A[i];
+    tabs.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i));
+    body.innerHTML =
+      '<div class="an-head"><span class="an-ico">' + a.ico + '</span><div><b>' + esc(a.n) + '</b> — это как <b class="an-an">' + esc(a.an) + '</b></div></div>' +
+      '<div class="an-pic">' + a.pic.map(p => '<div class="an-p"><span>' + esc(p[0]) + '</span><b>' + esc(p[1]) + '</b></div>').join('') + '</div>' +
+      '<div class="note ok"><b>Почему это работает.</b> ' + a.w + '</div>' +
+      '<div class="note"><b>Чего он не умеет.</b> ' + a.no + '</div>' +
+      '<div class="hintbox"><b>Когда брать.</b> ' + a.use + '</div>';
+  }
+  tabs.addEventListener('click', e => { const b = e.target.closest('button'); if(b) show(+b.dataset.i); });
+  show(0);
+})();
+
+/* ================= ВИЗУАЛ: что лежит на диске ================= */
+(function(){
+  const el = document.getElementById('disk'); if(!el) return;
+  const ROWS = [
+    {id:1, name:'Анна', email:'anna@mail.ru', city:'Москва', total:1200},
+    {id:2, name:'Борис', email:'boris@mail.ru', city:'Казань', total:450},
+    {id:3, name:'Вера', email:'vera@mail.ru', city:'Москва', total:3100},
+    {id:4, name:'Глеб', email:'gleb@mail.ru', city:'Пермь', total:780},
+  ];
+  let mode = null;
+  function draw(){
+    const tRead = i => mode === 'seq' ? true : mode === 'idx' ? i === 2 : false;
+    const iRead = i => mode === 'idx' || mode === 'only' ? i === 1 : false;
+    el.innerHTML =
+      '<div class="dk-box"><div class="dk-h">📋 Файл таблицы <small>все колонки всех строк — это ВСЕ данные</small></div>' +
+        '<div class="dk-rows">' + ROWS.map((r, i) => '<div class="dk-r' + (tRead(i) ? ' read' : '') + '">' +
+          '<span>' + r.id + '</span><span>' + esc(r.name) + '</span><span>' + esc(r.email) + '</span><span>' + esc(r.city) + '</span><span>' + r.total + '</span></div>').join('') + '</div>' +
+        '<div class="dk-s">380 МБ</div></div>' +
+      '<div class="dk-box"><div class="dk-h">🔑 Файл индекса <small>ON orders(city) INCLUDE (total) — только эти колонки + адрес</small></div>' +
+        '<div class="dk-rows idx">' +
+          [['Казань','450','→ строка 2'],['Москва','1200','→ строка 1'],['Москва','3100','→ строка 3'],['Пермь','780','→ строка 4']]
+            .map((r, i) => '<div class="dk-r' + (iRead(i) ? ' read' : '') + '"><span>' + esc(r[0]) + '</span><span>' + esc(r[1]) + '</span><span class="dk-ptr">' + esc(r[2]) + '</span></div>').join('') + '</div>' +
+        '<div class="dk-s">42 МБ · отсортирован по city</div></div>';
+  }
+  draw();
+  const M = () => document.getElementById('dk-msg'), N = () => document.getElementById('dk-note');
+  function set(m, kind, t, note){ mode = m; draw(); msg(M(), kind, t); N().innerHTML = note; }
+  document.getElementById('dk-seq').addEventListener('click', () => set('seq', 'err',
+    '<b>Seq Scan.</b> Индекс не используется вообще — база читает <b>весь файл таблицы</b> подряд и проверяет условие на каждой строке.',
+    '<b>Прочитано: 380 МБ.</b> Индекс при этом лежит на диске без дела — но обновляться при каждой вставке всё равно продолжает. Худший случай, когда подходящего индекса нет или планировщик решил, что подходит слишком много строк.'));
+  document.getElementById('dk-idx').addEventListener('click', () => set('idx', '',
+    '<b>Index Scan.</b> Два чтения: сначала <b>в индексе</b> нашли запись с адресом, потом <b>в таблице</b> по этому адресу взяли строку целиком.',
+    '<b>Прочитано: одна запись индекса + одна строка таблицы.</b> Так работает обычный <code class="inl">SELECT * FROM orders WHERE city = \'Москва\'</code>: в индексе нет колонок name и email, за ними приходится идти в таблицу.<br><br>Этот второй прыжок и называют <b>heap fetch</b>. Он и делает чтение по индексу «случайным» — а значит на массовой выборке дорогим (об этом карточка про селективность выше).'));
+  document.getElementById('dk-only').addEventListener('click', () => set('only', 'ok',
+    '<b>Index Only Scan.</b> Файл таблицы <b>не открывался вообще.</b> Всё, что попросил запрос, нашлось прямо в индексе.',
+    '<b>Прочитано: одна запись индекса. В таблицу база не заходила.</b><br><br>Это работает, когда запрос просит только те колонки, которые есть в индексе: <code class="inl">SELECT city, total FROM orders WHERE city = \'Москва\'</code>. Колонка <code class="inl">total</code> попала в индекс через <code class="inl">INCLUDE</code> — она не участвует в поиске и сортировке, а лежит там <b>именно чтобы не ходить в таблицу</b>.<br><br>В плане это видно по строке <code class="inl">Heap Fetches: 0</code>. Такой индекс называют <b>покрывающим</b>: он покрывает запрос целиком.<br><br>И вот теперь понятно, что означает «индекс — не копия таблицы»: в нём <b>только те колонки, которые вы перечислили</b>, плюс адрес строки. Индекс на 42 МБ против таблицы на 380 — потому что в нём две колонки из пяти.'));
+  document.getElementById('dk-reset').addEventListener('click', () => set(null, '', 'Нажмите способ доступа — увидите, что именно читается с диска.', ''));
+  set(null, '', 'Нажмите способ доступа — увидите, что именно читается с диска.', '<b>Главное, что видно на этой картинке.</b> Индекс — это <b>отдельный файл</b> со своим содержимым: перечисленные вами колонки в отсортированном порядке плюс адрес строки в таблице. Не копия таблицы и не её часть.<br><br>Поэтому индекс по <code class="inl">city</code> ничем не поможет запросу по <code class="inl">email</code>: этой колонки в файле индекса просто нет.');
 })();
 
 </script>
