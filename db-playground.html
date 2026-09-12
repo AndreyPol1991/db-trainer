@@ -568,6 +568,45 @@
   #bip .bnode.hot{fill:color-mix(in srgb, var(--rel) 22%, var(--surface)); stroke:var(--rel); stroke-width:2.2}
   #bip .bedge.hot{stroke:var(--rel); stroke-width:2.6}
 
+  /* N:M — конструктор связки */
+  #nmg{width:100%; height:250px; touch-action:manipulation; -webkit-user-select:none; user-select:none}
+  #nmg .nnode{fill:var(--surface-2); stroke:var(--line); stroke-width:1.5; cursor:pointer; transition:fill .12s, stroke .12s}
+  #nmg .nnode:hover{stroke:var(--rel)}
+  #nmg .nnode.lit{fill:color-mix(in srgb, var(--rel) 13%, var(--surface)); stroke:var(--rel)}
+  #nmg .nnode.sel{fill:color-mix(in srgb, var(--rel) 28%, var(--surface)); stroke:var(--rel); stroke-width:2.6}
+  #nmg .nlabel{font:600 12px var(--mono); fill:var(--ink); pointer-events:none}
+  #nmg .ncount{font:600 10.5px var(--mono); fill:var(--faint); pointer-events:none}
+  #nmg .nedge{stroke:var(--rel); stroke-width:2; opacity:.5; pointer-events:none; transition:opacity .12s, stroke-width .12s}
+  #nmg .nedge.lit{opacity:1; stroke-width:3}
+  #nmg .nhit{stroke:transparent; stroke-width:16; fill:none; cursor:pointer}
+  #nmg .nhit:hover + .nedge, #nmg .nedge.kill{stroke:var(--danger); opacity:1; stroke-width:3}
+  #nmg .nhint{font:600 11px var(--mono); fill:var(--faint)}
+  .nm-goals{margin-top:14px; display:flex; flex-direction:column; gap:7px}
+  .nm-goal{display:flex; gap:9px; align-items:flex-start; font-size:13px; color:var(--muted)}
+  .nm-goal .gm{flex:none; font:700 12px/1.45 var(--mono); color:var(--faint)}
+  .nm-goal.done{color:var(--ink)}
+  .nm-goal.done .gm{color:var(--ok)}
+  .nm-sub{display:block; font:500 11px/1.3 var(--mono); color:var(--faint); font-weight:500; margin-top:3px}
+  .nm-read{font-size:12.5px; color:var(--muted); white-space:normal}
+  button.nm-qty{appearance:none; border:1px solid var(--line); background:var(--surface-2); color:var(--ink); font:700 12px var(--mono); width:22px; height:22px; line-height:1; border-radius:6px; cursor:pointer; padding:0}
+  button.nm-qty:hover{border-color:var(--accent); color:var(--accent)}
+  button.nm-del{appearance:none; border:0; background:transparent; color:var(--faint); font:700 14px var(--mono); cursor:pointer; padding:0 4px}
+  button.nm-del:hover{color:var(--danger)}
+  /* чем рисовать ERD */
+  .tool-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(252px,1fr)); gap:12px; margin-top:14px}
+  .tool{border:1px solid var(--line); border-radius:10px; padding:12px 14px; background:var(--surface-2); transition:opacity .15s, border-color .15s}
+  .tool.dim{opacity:.3}
+  .tool.pick{border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent)}
+  .tool .th{display:flex; align-items:baseline; gap:7px; flex-wrap:wrap}
+  .tool .tn{font:700 14px var(--sans); color:var(--ink)}
+  .tool a.tl{color:var(--accent); font:600 11.5px var(--mono); text-decoration:none; word-break:break-all}
+  .tool a.tl:hover{text-decoration:underline}
+  .tool .td{margin:7px 0 0; font-size:12.5px; line-height:1.55; color:var(--muted)}
+  .tool .tb{display:inline-block; font:600 10.5px var(--mono); color:var(--faint); border:1px solid var(--line); border-radius:20px; padding:2px 7px; margin:8px 5px 0 0}
+  .tool .tb.free{color:var(--ok); border-color:color-mix(in srgb,var(--ok) 45%,var(--line))}
+  .tool .tb.os{color:var(--kv); border-color:color-mix(in srgb,var(--kv) 45%,var(--line))}
+  .tool .tb.pay{color:var(--doc); border-color:color-mix(in srgb,var(--doc) 45%,var(--line))}
+
   /* KV */
   .kv-list{display:flex; flex-direction:column; gap:6px; margin-top:6px}
   .kv-row{display:flex; align-items:center; gap:10px; font:400 13.5px var(--mono); background:var(--surface-2); border:1px solid var(--line); border-radius:8px; padding:8px 12px}
@@ -1723,6 +1762,24 @@
       </div>
     </div>
 
+    <div class="card" id="erd-tools">
+      <h2><span class="tag">ЧЕМ РИСОВАТЬ 🖱</span> инструменты, где ERD собирается интерактивно</h2>
+      <p>Схему на бумаге рисуют один раз, дальше её всё равно ведут в инструменте. Ниже — те, что реально удобны в 2026-м: в каждом схема собирается <b>мышкой или текстом прямо в браузере</b> и тут же превращается в SQL. Выбери задачу — подсвечу подходящие.</p>
+      <div class="form-row" id="erd-filters" style="margin-top:12px">
+        <button class="ghost on" data-t="all">Показать все</button>
+        <button class="ghost" data-t="draft">Быстрый набросок на паре</button>
+        <button class="ghost" data-t="mouse">Рисовать мышкой</button>
+        <button class="ghost" data-t="reverse">Достать схему из готовой базы</button>
+        <button class="ghost" data-t="edu">Учебная ER-нотация</button>
+        <button class="ghost" data-t="team">Команда и красивый экспорт</button>
+        <button class="ghost" data-t="big">Огромная легаси-база</button>
+      </div>
+      <div class="console" id="erd-msg" aria-live="polite"><span class="ic">→</span><span>Все инструменты ниже. Нажми задачу — оставлю только те, что под неё заточены.</span></div>
+      <div class="tool-grid" id="erd-grid"></div>
+      <div class="hintbox"><b>Если совсем коротко.</b> Набросать схему за пять минут и дать ссылку — <b>dbdiagram.io</b>. Рисовать мышкой и ничего не регистрировать — <b>drawDB</b>. Посмотреть, что уже лежит в рабочей базе — <b>DBeaver</b> или <b>ChartDB</b>. Учебная нотация Чена со слабыми сущностями — <b>ERDPlus</b>. Все они бесплатны в том объёме, который нужен на курсе.</div>
+      <div class="note"><b>Важно про любой из них.</b> Инструмент рисует связи, но не решает за вас, какая это связь. Тип связи и ключи определяются <b>правилами предметной области</b> — тем, что мы разбирали в «Видах связей». Инструмент лишь избавляет от ручного черчения и ошибок в DDL.</div>
+    </div>
+
     <div class="card nx-card"><h2><span class="tag">ДАЛЬШЕ →</span> шаг 3 · Таблица, строка, ключ</h2><div class="nx-t">Следующая тема по ходу занятия. Полный маршрут — на вкладке «🎓 Ход занятия».</div><div class="form-row" style="margin-top:10px"><button class="act go" data-goto="rel">Перейти →</button></div></div>
   </section>
 
@@ -1929,6 +1986,30 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
       <h2><span class="tag">N : M</span> как это работает вживую</h2>
       <p>Слева — заказы, справа — товары. Наведи (или коснись) на заказ или товар, чтобы подсветить его связи. Видно, что связей много в обе стороны — поэтому и нужна отдельная таблица-связка <code>order_items</code>, где каждая строка = «в заказе X лежит товар Y».</p>
       <svg id="bip" viewBox="0 0 600 230" aria-label="двудольный граф заказы-товары"></svg>
+    </div>
+
+    <div class="card" id="nm-card">
+      <h2><span class="tag">N : M 🛠</span> собери связку руками</h2>
+      <p>Теперь не смотри, а <b>соединяй сам</b>. Нажми заказ слева, потом товар справа — между ними появится линия, а в таблице <code>order_items</code> появится <b>строка</b>. Нажатие на линию удаляет связь. В этом вся суть многие-ко-многим: <b>связь — это не стрелочка на картинке, а строка в третьей таблице</b>.</p>
+      <svg id="nmg" viewBox="0 0 620 250" aria-label="конструктор связи многие ко многим"></svg>
+      <div class="console" id="nm-msg" aria-live="polite"><span class="ic">→</span><span>Нажми любой заказ слева — потом товар справа.</span></div>
+
+      <h3 style="margin-top:20px">Таблица-связка <code>order_items</code> <span id="nm-cnt" style="font:600 12px var(--mono); color:var(--faint)"></span></h3>
+      <div class="table-wrap" style="margin-top:10px"><table class="db" id="nm-tbl"></table></div>
+
+      <div class="form-row">
+        <button class="ghost" id="nm-demo">Собрать пример</button>
+        <button class="ghost" id="nm-sqlb">SQL этих строк</button>
+        <button class="ghost" id="nm-fkb">А если без связки?</button>
+        <button class="ghost" id="nm-clr">Очистить</button>
+      </div>
+      <pre class="json" id="nm-sql" hidden style="margin-top:12px"></pre>
+      <div class="note bad" id="nm-fk" hidden></div>
+
+      <h3 style="margin-top:20px">Задание: докажи связкой, что связь действительно N:M</h3>
+      <div class="nm-goals" id="nm-goals"></div>
+
+      <div class="hintbox"><b>На что смотреть.</b> Слева у заказа счётчик товаров, справа у товара — счётчик заказов. Как только оба счётчика где-то стали больше единицы, связь перестала быть 1:N в обе стороны — а значит, положить <code class="inl">product_id</code> в <code class="inl">orders</code> или <code class="inl">order_id</code> в <code class="inl">products</code> уже нельзя. Проверь это кнопкой «А если без связки?».</div>
     </div>
 
     <div class="card">
@@ -3698,6 +3779,244 @@ renderUsers(); renderOrders();
   }
   function clr(){ svg.querySelectorAll('.hot').forEach(e=>e.classList.remove('hot')); }
   draw();
+})();
+
+/* ============ N:M · КОНСТРУКТОР СВЯЗКИ ============ */
+(function(){
+  const g = $('#nmg'); if(!g) return;
+  const ORD = [{id:1001,who:'Анна'},{id:1002,who:'Борис'},{id:1003,who:'Вера'}];
+  const PRD = [{id:10,n:'Наушники'},{id:11,n:'Чехол'},{id:12,n:'Мышь'},{id:13,n:'Кабель'}];
+  const DEMO = [[0,0,1],[0,3,2],[1,1,1],[2,0,1],[2,2,1],[2,3,1]];
+  const lx=145, rx=470, nw=124, nh=34, ex1=lx+nw/2, ex2=rx-nw/2;
+  const oy = i => 62+i*62, py = i => 40+i*56;
+  let rows=[], selO=null, selP=null, wasAll=false;
+
+  const cntO = i => rows.filter(r=>r.o===i).length;
+  const cntP = i => rows.filter(r=>r.p===i).length;
+
+  function msg(kind,text,ic){
+    const m=$('#nm-msg'); m.className = 'console'+(kind?' '+kind:'');
+    m.innerHTML = `<span class="ic">${ic||(kind==='ok'?'✓':kind==='err'?'✕':'→')}</span><span>${text}</span>`;
+  }
+
+  function draw(){
+    const p=[];
+    rows.forEach((r,i)=>{
+      const y1=oy(r.o), y2=py(r.p), lit=(selO===r.o||selP===r.p);
+      p.push(`<line class="nhit" data-row="${i}" x1="${ex1}" y1="${y1}" x2="${ex2}" y2="${y2}"><title>убрать эту строку связки</title></line>`);
+      p.push(`<line class="nedge${lit?' lit':''}" x1="${ex1}" y1="${y1}" x2="${ex2}" y2="${y2}"/>`);
+    });
+    ORD.forEach((o,i)=>{
+      const c=cntO(i), cls='nnode'+(selO===i?' sel':(c?' lit':''));
+      p.push(`<rect class="${cls}" data-s="o" data-i="${i}" x="${lx-nw/2}" y="${oy(i)-nh/2}" width="${nw}" height="${nh}" rx="9"/>`);
+      p.push(`<text class="nlabel" x="${lx}" y="${oy(i)+4}" text-anchor="middle">Заказ #${o.id}</text>`);
+      p.push(`<text class="ncount" x="${lx-nw/2-9}" y="${oy(i)+4}" text-anchor="end">${c?'× '+c:'—'}</text>`);
+    });
+    PRD.forEach((pr,i)=>{
+      const c=cntP(i), cls='nnode'+(selP===i?' sel':(c?' lit':''));
+      p.push(`<rect class="${cls}" data-s="p" data-i="${i}" x="${rx-nw/2}" y="${py(i)-nh/2}" width="${nw}" height="${nh}" rx="9"/>`);
+      p.push(`<text class="nlabel" x="${rx}" y="${py(i)+4}" text-anchor="middle">${esc(pr.n)}</text>`);
+      p.push(`<text class="ncount" x="${rx+nw/2+9}" y="${py(i)+4}">${c?'× '+c:'—'}</text>`);
+    });
+    p.push(`<text class="nhint" x="${lx}" y="16" text-anchor="middle">orders</text>`);
+    p.push(`<text class="nhint" x="${rx}" y="16" text-anchor="middle">products</text>`);
+    p.push(`<text class="nhint" x="310" y="16" text-anchor="middle">order_items — каждая линия есть строка</text>`);
+    g.innerHTML = p.join('');
+  }
+
+  function table(){
+    const t=$('#nm-tbl');
+    const head = '<thead><tr>'
+      + '<th><span class="col-name">order_id</span><span class="nm-sub">PK · FK → orders.id</span></th>'
+      + '<th><span class="col-name">product_id</span><span class="nm-sub">PK · FK → products.id</span></th>'
+      + '<th><span class="col-name">qty</span><span class="nm-sub">атрибут самой связи</span></th>'
+      + '<th><span class="col-name">читается как</span></th><th></th></tr></thead>';
+    if(!rows.length){
+      t.innerHTML = head + '<tbody><tr><td class="val" colspan="5" style="color:var(--faint)">пусто — ни одной связи пока нет</td></tr></tbody>';
+    } else {
+      t.innerHTML = head + '<tbody>' + rows.map((r,i)=>
+        `<tr><td class="val num">${ORD[r.o].id}</td><td class="val num">${PRD[r.p].id}</td>`
+        + `<td class="val"><button class="nm-qty" data-q="-1" data-i="${i}" title="меньше">−</button> ${r.qty} <button class="nm-qty" data-q="1" data-i="${i}" title="больше">+</button></td>`
+        + `<td class="nm-read">в заказе #${ORD[r.o].id} (${esc(ORD[r.o].who)}) лежит ${esc(PRD[r.p].n)}${r.qty>1?', '+r.qty+' шт.':''}</td>`
+        + `<td><button class="nm-del" data-d="${i}" title="удалить строку">✕</button></td></tr>`
+      ).join('') + '</tbody>';
+    }
+    $('#nm-cnt').textContent = rows.length ? '— строк: '+rows.length : '';
+  }
+
+  function goals(){
+    const oMax = Math.max(0,...ORD.map((_,i)=>cntO(i))), pMax = Math.max(0,...PRD.map((_,i)=>cntP(i)));
+    const list = [
+      {ok:oMax>=2, t:'В одном заказе — <b>два и больше разных товара</b>. Это «много» со стороны заказа.'},
+      {ok:pMax>=2, t:'Один товар — <b>сразу в двух и больше заказах</b>. Это «много» со стороны товара.'},
+      {ok:rows.some(r=>r.qty>1), t:'Где-то <b>qty больше 1</b>. Количество нельзя положить ни в заказ, ни в товар — оно принадлежит <b>паре</b>. Поэтому у связки бывают свои поля.'}
+    ];
+    $('#nm-goals').innerHTML = list.map(x=>`<div class="nm-goal${x.ok?' done':''}"><span class="gm">${x.ok?'✓':'○'}</span><span>${x.t}</span></div>`).join('');
+    const all = list.every(x=>x.ok);
+    if(all && !wasAll) msg('ok','Готово. Оба «много» видны одновременно — и ни в orders, ни в products эту связь не спрятать. Отдельная таблица-связка нужна не «по правилам», а потому что иначе данные просто некуда положить.');
+    wasAll = all;
+  }
+
+  function sql(){
+    const box=$('#nm-sql'); if(box.hidden) return;
+    const ddl = 'CREATE TABLE order_items (\n'
+      + '  order_id   BIGINT REFERENCES orders(id),\n'
+      + '  product_id BIGINT REFERENCES products(id),\n'
+      + '  qty        INT NOT NULL DEFAULT 1,\n'
+      + '  PRIMARY KEY (order_id, product_id)   -- пара уникальна: дубля не будет\n);';
+    const ins = rows.length
+      ? '\n\nINSERT INTO order_items (order_id, product_id, qty) VALUES\n'
+        + rows.map(r=>`  (${ORD[r.o].id}, ${PRD[r.p].id}, ${r.qty})`).join(',\n') + ';'
+      : '\n\n-- строк пока нет: собери связи на схеме выше';
+    box.textContent = ddl + ins;
+  }
+
+  function fk(){
+    const box=$('#nm-fk'); if(box.hidden) return;
+    if(!rows.length){ box.innerHTML='<b>Собери хотя бы пару связей</b> — и я покажу, что из них не влезет, если убрать таблицу-связку.'; return; }
+    const seen=new Set(), keep=[], lost=[];
+    rows.forEach(r=>{ if(seen.has(r.o)) lost.push(r); else { seen.add(r.o); keep.push(r); } });
+    box.innerHTML = '<b>Уберём order_items и положим product_id прямо в orders</b> — как в обычной связи 1:N. '
+      + 'Поле <code class="inl">product_id</code> в строке заказа одно, значит один заказ — ровно один товар. '
+      + `Из твоих ${rows.length} строк влезет ${keep.length} (по одной на заказ), а ${lost.length} ${lost.length===1?'потеряется':'потеряются'}`
+      + (lost.length ? ': ' + lost.map(r=>`«#${ORD[r.o].id} — ${esc(PRD[r.p].n)}»`).join(', ') : '')
+      + '. Чтобы их сохранить, пришлось бы <b>дублировать сам заказ</b> — повторять дату и покупателя столько раз, сколько в нём товаров. Это та самая аномалия, ради которой и заводят таблицу-связку.';
+  }
+
+  function render(){ draw(); table(); goals(); sql(); fk(); }
+
+  function commit(){
+    const o=selO, p=selP, ex=rows.find(r=>r.o===o&&r.p===p);
+    if(ex){
+      ex.qty++;
+      msg('err',`Такая пара уже есть. <b>PRIMARY KEY (order_id, product_id)</b> не даст вставить вторую такую же строку — база ответит ошибкой уникальности. Значит, «тот же товар в том же заказе» пишут не новой строкой, а количеством: ${esc(PRD[p].n)} в заказе #${ORD[o].id} — теперь ${ex.qty} шт.`);
+    } else {
+      rows.push({o,p,qty:1});
+      msg('ok',`Строка добавлена: <b>(${ORD[o].id}, ${PRD[p].id}, 1)</b> — «в заказе #${ORD[o].id} лежит ${esc(PRD[p].n)}». Сами таблицы orders и products не изменились ни на байт: связь целиком живёт в третьей таблице.`);
+    }
+    selO=null; selP=null; render();
+  }
+
+  g.addEventListener('click', e=>{
+    const t=e.target;
+    if(t.classList.contains('nhit')){
+      const idx=+t.dataset.row, r=rows[idx]; if(!r) return;
+      rows.splice(idx,1);
+      msg('',`Строка удалена: «#${ORD[r.o].id} — ${esc(PRD[r.p].n)}» больше нет. Заказ и товар при этом целы — исчезла только связь между ними.`);
+      render(); return;
+    }
+    if(t.classList.contains('nnode')){
+      const s=t.dataset.s, i=+t.dataset.i;
+      if(s==='o') selO = (selO===i? null : i); else selP = (selP===i? null : i);
+      if(selO!==null && selP!==null){ commit(); return; }
+      if(selO!==null) msg('',`Выбран <b>заказ #${ORD[selO].id}</b>. Теперь нажми товар справа — появится строка связки.`);
+      else if(selP!==null) msg('',`Выбран товар <b>${esc(PRD[selP].n)}</b>. Теперь нажми заказ слева — порядок не важен, строка получится та же.`);
+      else msg('','Выбор снят. Нажми заказ слева или товар справа.');
+      render();
+    }
+  });
+
+  $('#nm-tbl').addEventListener('click', e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    if(b.dataset.d!==undefined){
+      const r=rows.splice(+b.dataset.d,1)[0];
+      msg('',`Строка удалена: «#${ORD[r.o].id} — ${esc(PRD[r.p].n)}».`);
+      render(); return;
+    }
+    if(b.dataset.q!==undefined){
+      const idx=+b.dataset.i, r=rows[idx], d=+b.dataset.q;
+      if(d<0 && r.qty===1){
+        rows.splice(idx,1);
+        msg('','Количество дошло до нуля — строки связки больше нет. «Ноль штук» в базе не хранят: нет строки — нет и товара в заказе.');
+      } else {
+        r.qty+=d;
+        msg('',`Количество — это поле <b>самой связи</b>. Теперь ${esc(PRD[r.p].n)} в заказе #${ORD[r.o].id}: ${r.qty} шт.`);
+      }
+      render();
+    }
+  });
+
+  $('#nm-demo').addEventListener('click', ()=>{
+    rows = DEMO.map(([o,p,q])=>({o,p,qty:q})); selO=selP=null; wasAll=false;
+    msg('ok','Собран готовый пример. Посмотри на счётчики: у заказа #1003 три товара, а «Наушники» сразу в двух заказах — оба «много» налицо.');
+    render();
+  });
+  $('#nm-clr').addEventListener('click', ()=>{
+    rows=[]; selO=selP=null; wasAll=false;
+    msg('','Пусто. Нажми заказ слева — потом товар справа.'); render();
+  });
+  $('#nm-sqlb').addEventListener('click', e=>{
+    const box=$('#nm-sql'); box.hidden=!box.hidden; e.currentTarget.classList.toggle('on',!box.hidden); sql();
+  });
+  $('#nm-fkb').addEventListener('click', e=>{
+    const box=$('#nm-fk'); box.hidden=!box.hidden; e.currentTarget.classList.toggle('on',!box.hidden); fk();
+  });
+
+  render();
+})();
+
+/* ============ ЧЕМ РИСОВАТЬ ERD ============ */
+(function(){
+  const grid = $('#erd-grid'); if(!grid) return;
+  const TOOLS = [
+    { n:'dbdiagram.io', u:'https://dbdiagram.io', t:['draft','team'], b:['free'],
+      d:'Пишешь схему текстом на DBML слева — диаграмма рисуется справа сама. Самый быстрый способ показать схему на лекции: правишь строку — картинка меняется на глазах. Экспорт в SQL (PostgreSQL, MySQL, SQL Server), PNG и PDF, схема отдаётся ссылкой.' },
+    { n:'drawDB', u:'https://drawdb.app', t:['mouse','draft'], b:['free','os'],
+      d:'Чистый drag-and-drop без регистрации и вообще без сервера: таблицы, колонки, индексы и внешние ключи мышкой, на выходе — готовый DDL для Postgres, MySQL, MariaDB, SQLite, Oracle, SQL Server. Открытый код (AGPL), работает офлайн, схемы хранятся прямо в браузере.' },
+    { n:'ChartDB', u:'https://chartdb.io', t:['reverse','mouse'], b:['free','os'],
+      d:'Заточен именно под базы данных: выполняешь один готовый запрос в своей СУБД, вставляешь результат — и получаешь ERD существующей схемы, дальше правишь её мышкой. Открытый код, можно поднять у себя, есть генерация DDL и совместная работа.' },
+    { n:'QuickDBD', u:'https://www.quickdatabasediagrams.com', t:['draft'], b:['free'],
+      d:'Максимально грубый и быстрый черновик: печатаешь список полей построчно — схема появляется рядом. Когда надо «на салфетке» показать идею структуры за минуту, ничего быстрее нет. Бесплатной версии хватает для учебных схем.' },
+    { n:'drawSQL', u:'https://drawsql.app', t:['team','mouse'], b:['free'],
+      d:'Самые аккуратные схемы из всех — их не стыдно положить в документацию или презентацию. Командная работа, шаблоны популярных приложений, импорт из существующей базы. Бесплатный тариф есть, но командные возможности платные.' },
+    { n:'ERDPlus', u:'https://erdplus.com', t:['edu','mouse'], b:['free'],
+      d:'Учебный инструмент: рисует настоящую ER-нотацию (сущности, атрибуты, слабые сущности, связи с мощностями), а потом одной кнопкой превращает ER-диаграмму в реляционную схему с ключами. Именно то, чем показывают разницу между концептуальной и логической моделью.' },
+    { n:'Azimutt', u:'https://azimutt.app', t:['big','reverse'], b:['free','os'],
+      d:'Для баз, которые никто целиком уже не помнит: подключается к схеме на сотни и тысячи таблиц и показывает не всё сразу, а только выбранную таблицу с её окружением. Умеет искать связи, которых нет во внешних ключах. Открытый код.' },
+    { n:'Vertabelo', u:'https://vertabelo.com', t:['team','big'], b:['pay'],
+      d:'Взрослый промышленный инструмент: отдельно логическая модель, отдельно физическая, генерация одной из другой, версии схемы и миграции. Берут, когда модель живёт годами и её ведёт команда. Платный, есть пробный период.' },
+    { n:'draw.io (diagrams.net)', u:'https://app.diagrams.net', t:['mouse'], b:['free','os'],
+      d:'Не про базы данных специально, но полностью бесплатен, работает офлайн и имеет готовую библиотеку ERD-фигур. Берут, когда нужна просто картинка в документ и никакого SQL не требуется.' },
+    { n:'DBeaver', u:'https://dbeaver.io', t:['reverse'], b:['free','os'],
+      d:'Обычный клиент к базе, которым и так пользуются. У любой схемы есть вкладка ER Diagram: подключился к рабочей базе — и мгновенно видишь её реальную структуру со всеми внешними ключами. Лучший способ понять чужую базу.' },
+    { n:'pgAdmin 4 · ERD Tool', u:'https://www.pgadmin.org', t:['reverse','mouse'], b:['free','os'],
+      d:'Встроен в стандартный PostgreSQL-клиент. Работает в обе стороны: рисуешь таблицы и связи мышкой и жмёшь «Generate SQL», либо наоборот — строишь диаграмму по существующей базе. Ставить отдельно ничего не нужно.' },
+    { n:'MySQL Workbench', u:'https://www.mysql.com/products/workbench/', t:['reverse','mouse'], b:['free'],
+      d:'Классика для MySQL и MariaDB: EER-диаграммы мышкой, forward engineering (схема → база) и reverse engineering (база → схема), синхронизация модели с реальной БД. Бесплатен.' }
+  ];
+  const HINT = {
+    all:'Все инструменты ниже. Нажми задачу — оставлю только те, что под неё заточены.',
+    draft:'Для лекции и черновика лучше текстовые: пишешь строку — схема перерисовывается сама, не тратишь время на перетаскивание прямоугольников.',
+    mouse:'Когда схему собирают руками, важны две вещи: связь тянется мышкой между колонками, и инструмент сам пишет DDL. Всё перечисленное это умеет.',
+    reverse:'Обратная задача: база уже есть, а схемы никто не рисовал. Эти инструменты строят ERD по живой базе — по системным таблицам и внешним ключам.',
+    edu:'Учебная ER-нотация (Чена) отличается от «таблиц со стрелками»: там есть атрибуты-овалы, слабые сущности и мощности связей. Полноценно её рисует ERDPlus.',
+    team:'Если схему увидят другие — нужны аккуратный экспорт, ссылка и комментарии. Здесь текстовый dbdiagram уживается с визуальными drawSQL и Vertabelo.',
+    big:'На схеме в тысячу таблиц обычный редактор бесполезен — нужен инструмент, который показывает не всё сразу, а выбранный кусок с окружением.'
+  };
+  const BADGE = {free:'бесплатно', os:'открытый код', pay:'платный'};
+
+  function render(tag){
+    grid.innerHTML = TOOLS.map(t=>{
+      const off = tag!=='all' && !t.t.includes(tag);
+      const on  = tag!=='all' && t.t.includes(tag);
+      return `<div class="tool${off?' dim':''}${on?' pick':''}">`
+        + `<div class="th"><span class="tn">${esc(t.n)}</span><a class="tl" href="${t.u}" target="_blank" rel="noopener">${esc(t.u.replace(/^https:\/\//,''))}</a></div>`
+        + `<p class="td">${esc(t.d)}</p>`
+        + t.b.map(b=>`<span class="tb ${b}">${BADGE[b]}</span>`).join('')
+        + '</div>';
+    }).join('');
+    const m=$('#erd-msg');
+    m.className='console'+(tag!=='all'?' ok':'');
+    m.innerHTML=`<span class="ic">${tag!=='all'?'✓':'→'}</span><span>${HINT[tag]}</span>`;
+  }
+
+  $('#erd-filters').addEventListener('click', e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    $('#erd-filters').querySelectorAll('button').forEach(x=>x.classList.toggle('on', x===b));
+    render(b.dataset.t);
+  });
+
+  render('all');
 })();
 
 /* ================= ДОКУМЕНТНАЯ ================= */
