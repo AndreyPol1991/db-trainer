@@ -592,6 +592,33 @@
   button.nm-qty:hover{border-color:var(--accent); color:var(--accent)}
   button.nm-del{appearance:none; border:0; background:transparent; color:var(--faint); font:700 14px var(--mono); cursor:pointer; padding:0 4px}
   button.nm-del:hover{color:var(--danger)}
+  /* N:M — пошаговый разбор */
+  .nmw-two{display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start; margin-top:14px}
+  .nmw-h{font:700 11.5px var(--mono); color:var(--faint); letter-spacing:.05em; text-transform:uppercase; margin-bottom:8px}
+  .nmw-cap{font-size:12.5px; line-height:1.5; color:var(--muted); margin:10px 0 0; min-height:36px}
+  .nmw-p{font-size:13.5px; line-height:1.6; color:var(--muted); margin:0 0 12px}
+  .nmw-p b{color:var(--ink)}
+  .receipt{font:500 13px/1.75 var(--mono); background:var(--surface-2); border:1px dashed var(--line); border-radius:10px; padding:13px 16px; color:var(--ink)}
+  .receipt .rh{font-weight:700; padding-bottom:7px; border-bottom:1px dashed var(--line); margin-bottom:7px}
+  .receipt .rl{display:flex; justify-content:space-between; gap:14px; padding:2px 5px; margin:0 -5px; border-radius:6px}
+  .receipt .rl.hi{background:color-mix(in srgb, var(--rel) 20%, transparent)}
+  .receipt .rl .rq{color:var(--muted); flex:none}
+  .receipt .rempty{color:var(--faint)}
+  .receipt .rtot{border-top:1px dashed var(--line); margin-top:7px; padding-top:7px; display:flex; justify-content:space-between; color:var(--muted); font-size:12px}
+  .cell-old{color:var(--faint); text-decoration:line-through; margin-left:8px; font-size:12px}
+  .mini-t{margin-top:14px}
+  .mini-t .nmw-h{margin-bottom:6px}
+  .qa{border:1px solid var(--line); border-radius:10px; padding:13px 15px; margin-top:11px; background:var(--surface-2)}
+  .qa .qq{font-weight:600; font-size:13.5px; line-height:1.5; margin-bottom:10px; color:var(--ink)}
+  .qa .qo{display:flex; gap:8px; flex-wrap:wrap}
+  button.qopt{appearance:none; background:var(--surface); color:var(--ink); border:1px solid var(--line); font:inherit; font-size:13px; padding:8px 12px; border-radius:8px; cursor:pointer; text-align:left}
+  button.qopt:hover{border-color:var(--accent)}
+  button.qopt.good{border-color:var(--ok); color:var(--ok); background:var(--ok-bg)}
+  button.qopt.bad{border-color:var(--danger); color:var(--danger); background:var(--danger-bg)}
+  .qa .qwhy{margin-top:10px; font-size:12.5px; line-height:1.55; color:var(--muted)}
+  .qa .qwhy b{color:var(--ink)}
+  @media (max-width:860px){ .nmw-two{grid-template-columns:1fr} }
+  table.db tbody tr.dimrow td{opacity:.45}
   /* чем рисовать ERD */
   .tool-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(252px,1fr)); gap:12px; margin-top:14px}
   .tool{border:1px solid var(--line); border-radius:10px; padding:12px 14px; background:var(--surface-2); transition:opacity .15s, border-color .15s}
@@ -1989,27 +2016,38 @@ FROM orders o JOIN users u ON o.user_id = u.id;</pre>
     </div>
 
     <div class="card" id="nm-card">
-      <h2><span class="tag">N : M 🛠</span> собери связку руками</h2>
-      <p>Теперь не смотри, а <b>соединяй сам</b>. Нажми заказ слева, потом товар справа — между ними появится линия, а в таблице <code>order_items</code> появится <b>строка</b>. Нажатие на линию удаляет связь. В этом вся суть многие-ко-многим: <b>связь — это не стрелочка на картинке, а строка в третьей таблице</b>.</p>
-      <svg id="nmg" viewBox="0 0 620 250" aria-label="конструктор связи многие ко многим"></svg>
-      <div class="console" id="nm-msg" aria-live="polite"><span class="ic">→</span><span>Нажми любой заказ слева — потом товар справа.</span></div>
-
-      <h3 style="margin-top:20px">Таблица-связка <code>order_items</code> <span id="nm-cnt" style="font:600 12px var(--mono); color:var(--faint)"></span></h3>
-      <div class="table-wrap" style="margin-top:10px"><table class="db" id="nm-tbl"></table></div>
-
-      <div class="form-row">
-        <button class="ghost" id="nm-demo">Собрать пример</button>
-        <button class="ghost" id="nm-sqlb">SQL этих строк</button>
-        <button class="ghost" id="nm-fkb">А если без связки?</button>
-        <button class="ghost" id="nm-clr">Очистить</button>
+      <h2><span class="tag">N : M 🛠</span> зачем тут третья таблица — по шагам, на одном заказе</h2>
+      <p>Не спеша и по одному шагу. Сначала честно попробуем обойтись <b>без</b> третьей таблицы — и увидим, обо что спотыкаемся. Потом она появится сама, и станет понятно, зачем она нужна. В каждом шаге есть кнопки: нажимай и смотри, что меняется — объяснение появляется внизу.</p>
+      <div class="stepper" style="margin-top:14px">
+        <button class="ghost" id="nmw-prev">← Назад</button>
+        <div class="steps" id="nmw-steps"></div>
+        <button class="ghost" id="nmw-next">Дальше →</button>
       </div>
-      <pre class="json" id="nm-sql" hidden style="margin-top:12px"></pre>
-      <div class="note bad" id="nm-fk" hidden></div>
+      <div class="note" id="nmw-note"></div>
+      <div id="nmw-body" style="margin-top:16px"></div>
+      <div class="console" id="nmw-msg" aria-live="polite"><span class="ic">→</span><span>Нажми кнопку внутри шага — объясню, что произошло.</span></div>
 
-      <h3 style="margin-top:20px">Задание: докажи связкой, что связь действительно N:M</h3>
-      <div class="nm-goals" id="nm-goals"></div>
+      <div id="nm-free" hidden>
+        <svg id="nmg" viewBox="0 0 620 250" aria-label="конструктор связи многие ко многим"></svg>
+        <div class="console" id="nm-msg" aria-live="polite"><span class="ic">→</span><span>Нажми любой заказ слева — потом товар справа.</span></div>
 
-      <div class="hintbox"><b>На что смотреть.</b> Слева у заказа счётчик товаров, справа у товара — счётчик заказов. Как только оба счётчика где-то стали больше единицы, связь перестала быть 1:N в обе стороны — а значит, положить <code class="inl">product_id</code> в <code class="inl">orders</code> или <code class="inl">order_id</code> в <code class="inl">products</code> уже нельзя. Проверь это кнопкой «А если без связки?».</div>
+        <h3 style="margin-top:20px">Таблица-связка <code>order_items</code> <span id="nm-cnt" style="font:600 12px var(--mono); color:var(--faint)"></span></h3>
+        <div class="table-wrap" style="margin-top:10px"><table class="db" id="nm-tbl"></table></div>
+
+        <div class="form-row">
+          <button class="ghost" id="nm-demo">Собрать пример</button>
+          <button class="ghost" id="nm-sqlb">SQL этих строк</button>
+          <button class="ghost" id="nm-fkb">А если без связки?</button>
+          <button class="ghost" id="nm-clr">Очистить</button>
+        </div>
+        <pre class="json" id="nm-sql" hidden style="margin-top:12px"></pre>
+        <div class="note bad" id="nm-fk" hidden></div>
+
+        <h3 style="margin-top:20px">Задание: докажи связкой, что связь действительно N:M</h3>
+        <div class="nm-goals" id="nm-goals"></div>
+
+        <div class="hintbox"><b>На что смотреть.</b> Слева у заказа счётчик товаров, справа у товара — счётчик заказов. Как только оба счётчика где-то стали больше единицы, связь перестала быть 1:N в обе стороны — а значит, положить <code class="inl">product_id</code> в <code class="inl">orders</code> или <code class="inl">order_id</code> в <code class="inl">products</code> уже нельзя. Проверь это кнопкой «А если без связки?».</div>
+      </div>
     </div>
 
     <div class="card">
@@ -3955,6 +3993,284 @@ renderUsers(); renderOrders();
   render();
 })();
 
+
+/* ============ N:M · ПОШАГОВЫЙ РАЗБОР ============ */
+(function(){
+  const body = $('#nmw-body'); if(!body) return;
+  const ORD = [{id:1001,who:'Анна'},{id:1002,who:'Борис'},{id:1003,who:'Вера'}];
+  const PRD = [{id:10,n:'Наушники'},{id:11,n:'Чехол'},{id:12,n:'Мышь'},{id:13,n:'Кабель'}];
+
+  const TITLES = ['Одно поле','Список в ячейке','А наоборот?','Чек','Проверь себя','Свободно'];
+  const NOTES = [
+    '<b>Задача.</b> Анна делает заказ и кладёт в него несколько товаров. Попробуем записать это в таблицу заказов — так, как первым приходит в голову.',
+    '<b>Хитрость, которую пробуют все.</b> Раз одно значение не помещается — запишем все товары в ту же ячейку через запятую. Посмотрим, что из этого выйдет.',
+    '<b>Зеркальная попытка.</b> А если хранить связь не в заказе, а в товаре? Проверим и её — по-честному.',
+    '<b>Решение.</b> Вспомни бумажный чек: в нём на каждый товар — <b>своя строчка</b>. Вот эта пачка строчек и есть третья таблица.',
+    '<b>Проверка.</b> Три вопроса. Отвечай кнопкой — сразу объясню, почему так.',
+    '<b>Свободный режим.</b> То же самое, но без подсказок: собирай связи как хочешь и смотри, что происходит с таблицей.'
+  ];
+  const PROMPT = [
+    'Нажми «Добавить», чтобы положить в заказ второй товар.',
+    'Задай базе любой из трёх вопросов — увидишь, во что он превращается.',
+    'Попробуй продать наушники второму покупателю.',
+    'Добавь товар в чек — и смотри, что появится в таблице справа.',
+    'Выбери ответ на первый вопрос.',
+    'Свободный режим ниже.'
+  ];
+
+  let step = 0;
+  const st = {
+    one:  {cur:'Наушники', lost:[]},
+    list: {shown:null},
+    back: {cur:1001, lost:[]},
+    rcp:  {ord:0, rows:[]},
+    quiz: {}
+  };
+
+  function msg(kind,text){
+    const m=$('#nmw-msg'); m.className='console'+(kind?' '+kind:'');
+    m.innerHTML=`<span class="ic">${kind==='ok'?'✓':kind==='err'?'✕':'→'}</span><span>${text}</span>`;
+  }
+
+  /* ---------- шаг 1: одно поле ---------- */
+  function bOne(){
+    const s=st.one;
+    const lost = s.lost.map(v=>`<span class="cell-old">${esc(v)}</span>`).join('');
+    return `<p class="nmw-p">Вот таблица заказов, как её рисуют в первый раз: у заказа есть поле <b>товар</b>.</p>
+      <div class="table-wrap"><table class="db"><thead><tr>
+        <th><span class="col-name">id</span></th><th><span class="col-name">покупатель</span></th><th><span class="col-name">товар</span></th>
+      </tr></thead><tbody><tr>
+        <td class="val num">1001</td><td class="val">Анна</td>
+        <td class="val${s.lost.length?' warn':''}">${esc(s.cur)}${lost}</td>
+      </tr></tbody></table></div>
+      <p class="nmw-p" style="margin:13px 0 0">Анна хочет положить в этот же заказ ещё один товар. Нажми и смотри на ячейку «товар».</p>
+      <div class="form-row">
+        <button class="ghost" data-a="one" data-v="Чехол">Добавить «Чехол»</button>
+        <button class="ghost" data-a="one" data-v="Мышь">Добавить «Мышь»</button>
+        <button class="ghost" data-a="one-r">Начать заново</button>
+      </div>
+      ${s.lost.length>=2?'<div class="hintbox"><b>Вывод.</b> Поле у заказа одно, значит и товар в заказе может быть только один. А в жизни в заказе их бывает десять.</div>':''}`;
+  }
+
+  /* ---------- шаг 2: список в ячейке ---------- */
+  const EXPL = {
+    qty:'<div class="note bad" style="margin-top:14px"><b>Сколько наушников в заказе?</b> Записать некуда. Количество — это свойство <b>пары</b> «этот заказ + этот товар», а не заказа целиком. Можно написать «Наушники×2, Чехол» — но для базы это просто буквы: она не сложит их в сумму, не отсортирует и не проверит, что там не «две штуки» прописью.</div>',
+    find:'<pre class="json" style="margin-top:14px">SELECT * FROM orders\nWHERE товар LIKE \'%Кабель%\';</pre>'
+      + '<div class="table-wrap" style="margin-top:10px"><table class="db"><thead><tr>'
+      + '<th><span class="col-name">id</span></th><th><span class="col-name">товар</span></th><th><span class="col-name">это то, что искали?</span></th>'
+      + '</tr></thead><tbody>'
+      + '<tr><td class="val num">1001</td><td class="val">Наушники, Чехол, Кабель</td><td class="val goodc">да</td></tr>'
+      + '<tr><td class="val num">1007</td><td class="val">Кабельный органайзер</td><td class="val warn">нет — просто похожее слово</td></tr>'
+      + '<tr><td class="val num">1012</td><td class="val">Кабель HDMI, Мышь</td><td class="val goodc">да</td></tr>'
+      + '</tbody></table></div>'
+      + '<div class="note bad">Поиск товара превратился в <b>поиск букв внутри текста</b>. Заодно нашёлся «Кабельный органайзер» — совсем другой товар. И ускорить такой поиск обычным индексом нельзя: базе придётся прочитать все заказы целиком.</div>',
+    del:'<div class="note bad" style="margin-top:14px"><b>Убрать «Чехол» из заказа.</b> База не может просто удалить строку — ей нужно прочитать текст «Наушники, Чехол, Мышь», найти в нём нужный кусок, вырезать его и не забыть лишнюю запятую. Ошибся — и в заказе остаётся «Наушники, , Мышь». Каждая мелочь превращается в возню с текстом руками.</div>'
+  };
+  function bList(){
+    const s=st.list;
+    return `<p class="nmw-p">Схитрим: запишем все товары в ту же ячейку через запятую. Выглядит вполне рабочим.</p>
+      <div class="table-wrap"><table class="db"><thead><tr>
+        <th><span class="col-name">id</span></th><th><span class="col-name">покупатель</span></th><th><span class="col-name">товар</span></th>
+      </tr></thead><tbody><tr>
+        <td class="val num">1001</td><td class="val">Анна</td><td class="val dup">Наушники, Чехол, Мышь</td>
+      </tr></tbody></table></div>
+      <p class="nmw-p" style="margin:13px 0 0">А теперь задай базе три обычных рабочих вопроса.</p>
+      <div class="form-row">
+        <button class="ghost${s.shown==='qty'?' on':''}" data-a="list" data-q="qty">Сколько наушников?</button>
+        <button class="ghost${s.shown==='find'?' on':''}" data-a="list" data-q="find">Найти все заказы с кабелем</button>
+        <button class="ghost${s.shown==='del'?' on':''}" data-a="list" data-q="del">Убрать чехол из заказа</button>
+      </div>
+      ${s.shown?EXPL[s.shown]:''}
+      ${s.shown?'<div class="hintbox"><b>Правило, которое отсюда следует:</b> в одной ячейке — одно значение. Список в ячейке кажется удобным ровно до первого вопроса к данным.</div>':''}`;
+  }
+
+  /* ---------- шаг 3: наоборот ---------- */
+  function bBack(){
+    const s=st.back;
+    const lost = s.lost.map(v=>`<span class="cell-old">${v}</span>`).join('');
+    return `<p class="nmw-p">Зайдём с другой стороны: пусть связь хранится в товаре. У товара будет поле <b>заказ</b>.</p>
+      <div class="table-wrap"><table class="db"><thead><tr>
+        <th><span class="col-name">id</span></th><th><span class="col-name">товар</span></th><th><span class="col-name">в каком заказе</span></th>
+      </tr></thead><tbody><tr>
+        <td class="val num">10</td><td class="val">Наушники</td>
+        <td class="val${s.lost.length?' warn':''}">${s.cur}${lost}</td>
+      </tr></tbody></table></div>
+      <p class="nmw-p" style="margin:13px 0 0">Наушники — обычный товар, его покупают многие. Продадим их ещё раз.</p>
+      <div class="form-row">
+        <button class="ghost" data-a="back" data-v="1002">Продать ещё и Борису (#1002)</button>
+        <button class="ghost" data-a="back" data-v="1003">…и Вере (#1003)</button>
+        <button class="ghost" data-a="back-r">Начать заново</button>
+      </div>
+      ${s.lost.length?'<div class="hintbox"><b>Итог трёх шагов.</b> «Много» с обеих сторон: в заказе много товаров, и один товар — во многих заказах. Ни в <code class="inl">orders</code>, ни в <code class="inl">products</code> такая связь не помещается. Значит, ей нужно собственное место.</div>':''}`;
+  }
+
+  /* ---------- шаг 4: чек ---------- */
+  function rcpLines(){ const s=st.rcp; return s.rows.map((r,i)=>({r,i})).filter(x=>x.r.o===s.ord); }
+  function bRcp(){
+    const s=st.rcp, o=ORD[s.ord], mine=rcpLines();
+    const rcp = `<div class="receipt" id="s4-rcp">
+        <div class="rh">ЧЕК · заказ #${o.id} · ${esc(o.who)}</div>
+        ${mine.length ? mine.map(x=>`<div class="rl" data-i="${x.i}"><span>${esc(PRD[x.r.p].n)}</span><span class="rq">× ${x.r.qty}</span></div>`).join('')
+                      : '<div class="rempty">пока пусто — добавь товар кнопкой ниже</div>'}
+        <div class="rtot"><span>строчек в чеке</span><span>${mine.length}</span></div>
+      </div>`;
+    const jrows = s.rows.length
+      ? s.rows.map((r,i)=>`<tr data-i="${i}" data-o="${r.o}" data-p="${r.p}"${r.o===s.ord?'':' class="dimrow"'}>`
+          + `<td class="val num">${ORD[r.o].id}</td><td class="val num">${PRD[r.p].id}</td><td class="val num">${r.qty}</td></tr>`).join('')
+      : '<tr><td class="val" colspan="3" style="color:var(--faint)">пусто</td></tr>';
+    return `<div class="nmw-two">
+        <div>
+          <div class="nmw-h">что видит человек — чек</div>
+          ${rcp}
+          <div class="form-row">
+            ${PRD.map((p,i)=>`<button class="ghost" data-a="rcp-add" data-p="${i}">+ ${esc(p.n)}</button>`).join('')}
+          </div>
+          <div class="form-row" style="margin-top:10px">
+            <span style="font-size:12px; color:var(--faint); align-self:center">чей чек:</span>
+            ${ORD.map((x,i)=>`<button class="step${i===s.ord?' on':''}" data-a="rcp-ord" data-o="${i}">#${x.id} ${esc(x.who)}</button>`).join('')}
+            <button class="ghost" data-a="rcp-r">Очистить</button>
+          </div>
+        </div>
+        <div>
+          <div class="nmw-h">что лежит в базе — order_items</div>
+          <div class="table-wrap"><table class="db" id="s4-tbl"><thead><tr>
+            <th><span class="col-name">order_id</span></th><th><span class="col-name">product_id</span></th><th><span class="col-name">qty</span></th>
+          </tr></thead><tbody>${jrows}</tbody></table></div>
+          <p class="nmw-cap" id="s4-cap">Наведи на строку таблицы (или нажми на неё) — покажу, на какой заказ и на какой товар она показывает.</p>
+          <div class="mini-t"><div class="nmw-h">orders — заказы хранятся один раз</div>
+            <div class="table-wrap"><table class="db" id="s4-o"><thead><tr>
+              <th><span class="col-name">id</span></th><th><span class="col-name">покупатель</span></th></tr></thead><tbody>
+              ${ORD.map((x,i)=>`<tr data-o="${i}"><td class="val num">${x.id}</td><td class="val">${esc(x.who)}</td></tr>`).join('')}
+            </tbody></table></div></div>
+          <div class="mini-t"><div class="nmw-h">products — товары тоже один раз</div>
+            <div class="table-wrap"><table class="db" id="s4-p"><thead><tr>
+              <th><span class="col-name">id</span></th><th><span class="col-name">название</span></th></tr></thead><tbody>
+              ${PRD.map((x,i)=>`<tr data-p="${i}"><td class="val num">${x.id}</td><td class="val">${esc(x.n)}</td></tr>`).join('')}
+            </tbody></table></div></div>
+        </div>
+      </div>
+      <div class="hintbox"><b>Главное предложение темы.</b> Строка в <code class="inl">order_items</code> — это строчка чека: «в этом заказе лежит этот товар, столько-то штук». Заказ записан один раз в <code class="inl">orders</code>, товар — один раз в <code class="inl">products</code>, а их встреча — строкой в третьей таблице. Поэтому её и зовут таблицей-связкой.</div>`;
+  }
+
+  /* ---------- шаг 5: проверь себя ---------- */
+  const QZ = [
+    {q:'В заказе #1001 три разных товара. Сколько строк будет в order_items для этого заказа?',
+     o:['Одна','Три','Ноль — товары же в orders'], a:1,
+     w:'По строке на каждый товар в заказе — ровно как строчек в чеке. Три товара — три строки, и все три ссылаются на один и тот же заказ #1001. Сам заказ при этом по-прежнему записан один раз.'},
+    {q:'Где хранить, сколько штук товара взяли в заказ?',
+     o:['В orders','В products','В order_items'], a:2,
+     w:'Количество зависит не от заказа и не от товара по отдельности, а от их <b>пары</b>: у Анны 2 наушников, у Бориса — 1. Одно и то же поле, разные значения при одном товаре — значит, место ему только в связке.'},
+    {q:'В заказ #1001 дважды положили «Наушники». Что окажется в базе?',
+     o:['Две одинаковые строки','Одна строка, qty = 2','Ничего, база откажет'], a:1,
+     w:'Пара (order_id, product_id) — первичный ключ связки, второй такой же строки база не допустит. Поэтому повтор превращается в рост количества, а не в новую строку.'}
+  ];
+  function bQuiz(){
+    return QZ.map((q,i)=>{
+      const ch = st.quiz[i];
+      const opts = q.o.map((t,j)=>{
+        let cls='qopt';
+        if(ch!==undefined){ if(j===q.a) cls+=' good'; else if(j===ch) cls+=' bad'; }
+        return `<button class="${cls}" data-a="qz" data-i="${i}" data-j="${j}">${esc(t)}</button>`;
+      }).join('');
+      return `<div class="qa"><div class="qq">${i+1}. ${esc(q.q)}</div><div class="qo">${opts}</div>`
+        + (ch!==undefined?`<div class="qwhy"><b>${ch===q.a?'Верно.':'Не так.'}</b> ${q.w}</div>`:'')
+        + '</div>';
+    }).join('');
+  }
+
+  /* ---------- шаг 6 ---------- */
+  function bFree(){
+    return '<p class="nmw-p">Дальше — то же самое без подсказок. Нажимай заказ слева и товар справа: между ними появится линия, а в таблице <code class="inl">order_items</code> — строка. Клик по линии её удаляет.</p>';
+  }
+
+  const BODY = [bOne,bList,bBack,bRcp,bQuiz,bFree];
+
+  function render(){
+    $('#nmw-steps').innerHTML = TITLES.map((t,i)=>`<button class="step${i===step?' on':''}" data-a="go" data-s="${i}">${i+1}. ${t}</button>`).join('');
+    $('#nmw-note').innerHTML = NOTES[step];
+    body.innerHTML = BODY[step]();
+    $('#nmw-prev').disabled = step===0;
+    $('#nmw-next').disabled = step===TITLES.length-1;
+    $('#nm-free').hidden = step!==TITLES.length-1;
+  }
+
+  function goto(n){
+    step=n; render();
+    msg('', PROMPT[step]);
+  }
+
+  /* ---------- обработчики ---------- */
+  document.getElementById('nm-card').addEventListener('click', e=>{
+    const b=e.target.closest('button'); if(!b || !b.dataset.a) return;
+    const a=b.dataset.a, s=st;
+    if(a==='go'){ goto(+b.dataset.s); return; }
+
+    if(a==='one'){
+      const old=s.one.cur; s.one.lost.push(old); s.one.cur=b.dataset.v; render();
+      msg('err',`«${esc(old)}» не добавились к заказу — они <b>исчезли</b>: новое значение записалось поверх старого. В одной ячейке помещается ровно одно значение, поэтому в заказе всё время один товар.`);
+    }
+    else if(a==='one-r'){ s.one={cur:'Наушники',lost:[]}; render(); msg('','Вернули как было. Попробуй ещё раз.'); }
+
+    else if(a==='list'){
+      s.list.shown=b.dataset.q; render();
+      if(b.dataset.q==='qty') msg('err','Количество записать некуда: оно относится к паре «заказ + товар», а в ячейке лежит один сплошной текст.');
+      if(b.dataset.q==='find') msg('err','Поиск стал поиском по буквам: находится лишнее, а индекс не помогает.');
+      if(b.dataset.q==='del') msg('err','Удаление товара превратилось в редактирование текста — с запятыми и шансом всё испортить.');
+    }
+
+    else if(a==='back'){
+      const old=s.back.cur; s.back.lost.push(old); s.back.cur=b.dataset.v; render();
+      msg('err',`Та же стена, только с другой стороны: заказ #${old} из товара <b>пропал</b>. Один товар покупают многие, а поле снова одно.`);
+    }
+    else if(a==='back-r'){ s.back={cur:1001,lost:[]}; render(); msg('','Вернули как было.'); }
+
+    else if(a==='rcp-add'){
+      const p=+b.dataset.p, o=s.rcp.ord, ex=s.rcp.rows.find(r=>r.o===o&&r.p===p);
+      if(ex){ ex.qty++; render();
+        msg('err',`Вторая строчка «${esc(PRD[p].n)}» в чеке не появилась — выросло количество. В базе то же самое: пара «заказ + товар» уникальна, это её первичный ключ. Одна пара — одна строка.`);
+      } else { s.rcp.rows.push({o,p,qty:1}); render();
+        msg('ok',`В чеке появилась строчка, а в базе — ровно одна новая строка: <b>(${ORD[o].id}, ${PRD[p].id}, 1)</b>. Читается так: «в заказе #${ORD[o].id} лежит ${esc(PRD[p].n)}, 1 шт.».`);
+      }
+    }
+    else if(a==='rcp-ord'){
+      s.rcp.ord=+b.dataset.o; render();
+      msg('',`Перешли к чеку заказа #${ORD[s.rcp.ord].id}. Заметь: таблица <b>order_items одна на все заказы</b> — просто строки в ней разные. Сами заказы не копируются.`);
+    }
+    else if(a==='rcp-r'){ s.rcp={ord:s.rcp.ord,rows:[]}; render(); msg('','Чеки очищены.'); }
+
+    else if(a==='qz'){
+      const i=+b.dataset.i, j=+b.dataset.j; st.quiz[i]=j; render();
+      const okAll = QZ.every((q,k)=>st.quiz[k]===q.a);
+      if(j===QZ[i].a) msg(okAll?'ok':'ok', okAll?'Все три верны. Теперь связка — не правило из учебника, а понятная вещь: строка на каждую встречу заказа с товаром.':'Верно. Читай объяснение под вопросом и иди дальше.');
+      else msg('err','Не так — правильный ответ подсвечен зелёным, под вопросом написано почему.');
+    }
+  });
+
+  /* подсветка соответствия в шаге «Чек» */
+  function lightOff(){
+    document.querySelectorAll('#nm-card .mrow').forEach(x=>x.classList.remove('mrow'));
+    document.querySelectorAll('#s4-rcp .rl.hi').forEach(x=>x.classList.remove('hi'));
+    const cap=$('#s4-cap'); if(cap) cap.textContent='Наведи на строку таблицы (или нажми на неё) — покажу, на какой заказ и на какой товар она показывает.';
+  }
+  function lightOn(tr){
+    lightOff();
+    const o=+tr.dataset.o, p=+tr.dataset.p, i=+tr.dataset.i;
+    tr.classList.add('mrow');
+    const or=document.querySelector(`#s4-o tr[data-o="${o}"]`); if(or) or.classList.add('mrow');
+    const pr=document.querySelector(`#s4-p tr[data-p="${p}"]`); if(pr) pr.classList.add('mrow');
+    const rl=document.querySelector(`#s4-rcp .rl[data-i="${i}"]`); if(rl) rl.classList.add('hi');
+    const row=st.rcp.rows[i], cap=$('#s4-cap');
+    if(cap) cap.innerHTML=`Эта строка значит: <b>в заказе #${ORD[o].id} (${esc(ORD[o].who)}) лежит ${esc(PRD[p].n)}, ${row.qty} шт.</b> Числа <code class="inl">${ORD[o].id}</code> и <code class="inl">${PRD[p].id}</code> — это ссылки на строки в orders и products, их и называют внешними ключами.`;
+  }
+  body.addEventListener('mouseover', e=>{ const tr=e.target.closest('#s4-tbl tbody tr'); if(tr && tr.dataset.o!==undefined) lightOn(tr); });
+  body.addEventListener('mouseout', e=>{ if(e.target.closest('#s4-tbl tbody tr')) lightOff(); });
+  body.addEventListener('click', e=>{ const tr=e.target.closest('#s4-tbl tbody tr'); if(tr && tr.dataset.o!==undefined) lightOn(tr); });
+
+  $('#nmw-prev').addEventListener('click', ()=>{ if(step>0) goto(step-1); });
+  $('#nmw-next').addEventListener('click', ()=>{ if(step<TITLES.length-1) goto(step+1); });
+
+  render();
+})();
 /* ============ ЧЕМ РИСОВАТЬ ERD ============ */
 (function(){
   const grid = $('#erd-grid'); if(!grid) return;
